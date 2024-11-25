@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class PlayerGridMovement : MonoBehaviour
 {
-    public float gridSize = 1.0f; //Size of each grid step
+    public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
+    public bool isRotating = false;
     
     private Vector3 targetPosition;
+    private Quaternion targetRotation;
 
     void Start() {
         targetPosition = transform.position;
@@ -18,12 +20,15 @@ public class PlayerGridMovement : MonoBehaviour
         }
         
         MoveToTarget();
+        RotateToTarget();
     }
 
     void HandleInput() {
         if (Input.GetKeyDown(KeyCode.W)) {
-            targetPosition = transform.position + transform.forward * gridSize;
-            isMoving = true;
+            if (CanMoveForward()) {
+                targetPosition = transform.position + transform.forward * gridSize;
+                isMoving = true;
+            }
         }
 
         else if (Input.GetKeyDown(KeyCode.S)) {
@@ -31,11 +36,13 @@ public class PlayerGridMovement : MonoBehaviour
         }
 
         else if (Input.GetKeyDown(KeyCode.A)) {
-            transform.Rotate(0, -90, 0);
+            targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
+            isRotating = true;
         }
 
         else if (Input.GetKeyDown(KeyCode.D)) {
-            transform.Rotate(0, 90, 0);
+            targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
+            isRotating = true;
         }
     }
 
@@ -48,6 +55,28 @@ public class PlayerGridMovement : MonoBehaviour
             transform.position = targetPosition;
             isMoving = false;
         }
+    }
+
+    void RotateToTarget() {
+        if (isRotating) {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180 * Time.deltaTime);
+
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1d) {
+                transform.rotation = targetRotation; // Snap to target rotation
+                isRotating = false;
+            }
+        }
+    }
+
+    bool CanMoveForward() {
+        RaycastHit hit;
+        float rayDistance = gridSize;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
+            Debug.Log("Obstacle detected: " + hit.collider.name);
+            return false; // Obstacle found, cannot move forward
+        }
+        return true;
     }
 
 }
