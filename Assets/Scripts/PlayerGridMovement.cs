@@ -16,10 +16,9 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     void Update() {
-        if (!isMoving) {
+        if (!isMoving && !isRotating) {
             HandleInput();
         }
-        
         MoveToTarget();
         RotateToTarget();
     }
