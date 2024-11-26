@@ -17460,6 +17460,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Maze1 (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 4278812702050213716, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
+      propertyPath: liftHeight
+      value: 8
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -17940,6 +17944,10 @@ PrefabInstance:
     - target: {fileID: 2602313477387208747, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_Name
       value: Maze1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4235091659893003130, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
+      propertyPath: m_TagString
+      value: Door
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

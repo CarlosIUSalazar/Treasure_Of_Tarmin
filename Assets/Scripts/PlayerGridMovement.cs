@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -30,7 +31,6 @@ public class PlayerGridMovement : MonoBehaviour
                 isMoving = true;
             }
         }
-
         else if (Input.GetKeyDown(KeyCode.S)) {
             targetPosition = transform.position - transform.forward * gridSize;
         }
@@ -43,6 +43,21 @@ public class PlayerGridMovement : MonoBehaviour
         else if (Input.GetKeyDown(KeyCode.D)) {
             targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
             isRotating = true;
+        }
+
+        else if (Input.GetKeyDown(KeyCode.Space)) {
+            RaycastHit hit;
+            float rayDistance = gridSize;
+
+            if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
+                if (hit.collider.CompareTag("Door")) {
+                    DoorController door = hit.collider.GetComponent<DoorController>();
+                    if (door != null) {
+                        door.OpenDoor();
+                    }
+                }
+            }
+
         }
     }
 
