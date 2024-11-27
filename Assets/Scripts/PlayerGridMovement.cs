@@ -24,39 +24,73 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     void HandleInput() {
-        if (Input.GetKeyDown(KeyCode.W)) {
-            if (CanMoveForward()) {
-                targetPosition = transform.position + transform.forward * gridSize;
-                isMoving = true;
-            }
+        if (Input.GetKeyDown(KeyCode.W))
+        {
+            MoveForward();
         }
-        else if (Input.GetKeyDown(KeyCode.S)) {
-            targetPosition = transform.position - transform.forward * gridSize;
-        }
-
-        else if (Input.GetKeyDown(KeyCode.A)) {
-            targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
-            isRotating = true;
+        else if (Input.GetKeyDown(KeyCode.S))
+        {
+            MoveBackwards();
         }
 
-        else if (Input.GetKeyDown(KeyCode.D)) {
-            targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
-            isRotating = true;
+        else if (Input.GetKeyDown(KeyCode.A))
+        {
+            TurnLeft();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space)) {
-            RaycastHit hit;
-            float rayDistance = gridSize;
+        else if (Input.GetKeyDown(KeyCode.D))
+        {
+            TurnRight();
+        }
 
-            if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
-                if (hit.collider.CompareTag("Door")) {
-                    DoorController door = hit.collider.GetComponent<DoorController>();
-                    if (door != null) {
-                        door.OpenDoor();
-                    }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OpenDoorButton();
+
+        }
+    }
+
+    public void MoveForward()
+    {
+        if (CanMoveForward())
+        {
+            targetPosition = transform.position + transform.forward * gridSize;
+            isMoving = true;
+        }
+    }
+
+    public void MoveBackwards()
+    {
+        targetPosition = transform.position - transform.forward * gridSize;
+    }
+
+    public void TurnLeft()
+    {
+        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
+        isRotating = true;
+    }
+
+    public void TurnRight()
+    {
+        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
+        isRotating = true;
+    }
+
+    public void OpenDoorButton()
+    {
+        RaycastHit hit;
+        float rayDistance = gridSize;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+        {
+            if (hit.collider.CompareTag("Door"))
+            {
+                DoorController door = hit.collider.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.OpenDoor();
                 }
             }
-
         }
     }
 
