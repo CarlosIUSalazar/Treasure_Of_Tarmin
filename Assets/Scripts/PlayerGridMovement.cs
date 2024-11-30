@@ -1,8 +1,13 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.UI;
+using TMPro;
+using Unity.VisualScripting;
 
 public class PlayerGridMovement : MonoBehaviour
 {
+    [SerializeField] private Button actionButton;
+    [SerializeField] private TextMeshProUGUI actionButtonText;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -18,9 +23,13 @@ public class PlayerGridMovement : MonoBehaviour
     void Update() {
         if (!isMoving && !isRotating) {
             HandleInput();
+            CheckForInteractables();
+
         }
         MoveToTarget();
         RotateToTarget();
+        //Debug.DrawRay(transform.position, transform.forward * 10.0f, Color.red);
+
     }
 
     void HandleInput() {
@@ -43,11 +52,11 @@ public class PlayerGridMovement : MonoBehaviour
             TurnRight();
         }
 
-        else if (Input.GetKeyDown(KeyCode.Space))
-        {
-            OpenDoorButton();
+        // else if (Input.GetKeyDown(KeyCode.Space))
+        // {
+        //     OpenDoorButton();
 
-        }
+        // }
     }
 
     public void MoveForward()
@@ -76,23 +85,23 @@ public class PlayerGridMovement : MonoBehaviour
         isRotating = true;
     }
 
-    public void OpenDoorButton()
-    {
-        RaycastHit hit;
-        float rayDistance = gridSize;
+    // public void OpenDoorButton()
+    // {
+    //     RaycastHit hit;
+    //     float rayDistance = gridSize;
 
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
-        {
-            if (hit.collider.CompareTag("Door"))
-            {
-                DoorController door = hit.collider.GetComponent<DoorController>();
-                if (door != null)
-                {
-                    door.OpenDoor();
-                }
-            }
-        }
-    }
+    //     if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+    //     {
+    //         if (hit.collider.CompareTag("Door"))
+    //         {
+    //             DoorController door = hit.collider.GetComponent<DoorController>();
+    //             if (door != null)
+    //             {
+    //                 door.OpenDoor();
+    //             }
+    //         }
+    //     }
+    // }
 
     void MoveToTarget() {
         if (isMoving) {
@@ -122,9 +131,77 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
             Debug.Log("Obstacle detected: " + hit.collider.name);
+            if (hit.collider.CompareTag("Item")) {
+                return true; //Allow to pass through Items
+            } else {
             return false; // Obstacle found, cannot move forward
+            }
         }
         return true;
+    }
+
+private void CheckForInteractables()
+{
+    RaycastHit hit;
+    float rayDistance = gridSize;
+
+    // Slightly offset the ray downwards to hit items on the floor
+    Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Adjust -0.5f based on player's height
+    Vector3 rayDirection = transform.forward;
+
+    Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red); // Debug the ray in the scene view
+
+    if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayDistance))
+    {
+        if (hit.collider.CompareTag("Door"))
+        {
+            actionButtonText.text = "Open";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => OpenDoor(hit));
+        }
+        else if (hit.collider.CompareTag("Item"))
+        {
+            actionButtonText.text = "Pick Up";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => PickUpItem(hit));
+        }
+        else if (hit.collider.CompareTag("Enemy")){
+            actionButtonText.text = "Attack";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => InitiateFight(hit));
+        }
+        else
+        {
+            ResetActionButton();
+        }
+    }
+    else
+    {
+        ResetActionButton();
+    }
+}
+
+
+    private void OpenDoor(RaycastHit hit) {
+        DoorController door = hit.collider.GetComponent<DoorController>();
+        if (door != null) {
+            door.OpenDoor();
+        }
+    }
+
+    private void ResetActionButton() {
+        actionButtonText.text = "";
+        actionButton.onClick.RemoveAllListeners();
+    }
+
+    private void PickUpItem(RaycastHit hit) {
+        GameObject item = hit.collider.gameObject;
+        item.SetActive(false);
+        //Add pickup logic
+    }
+
+    private void InitiateFight(RaycastHit hit) {
+        //Initiate Fight Mode
     }
 
 }
