@@ -8,6 +8,7 @@ public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField] private Button actionButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
+    PlayerShootingSpawner playerShootingSpawner;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -18,6 +19,7 @@ public class PlayerGridMovement : MonoBehaviour
 
     void Start() {
         targetPosition = transform.position;
+        playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
     }
 
     void Update() {
@@ -202,6 +204,7 @@ private void CheckForInteractables()
 
     private void InitiateFight(RaycastHit hit) {
         //Initiate Fight Mode
+        playerShootingSpawner.ShootArrow();
     }
 
 }
