@@ -8,7 +8,6 @@ public class PlayerShootingSpawner : MonoBehaviour
     [SerializeField] private float arrowOffset = 1.5f; // Offset in front of the player
 
     GameManager gameManager;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
