@@ -2,21 +2,13 @@ using UnityEngine;
 
 public class Projectile : MonoBehaviour
 {
-    private Vector3 direction; // Direction in which the arrow moves
-    private float projectileSpeed = 12f;
-
-    // Start is called once before the first execution of Update
-    void Start()
-    {
-        // Get the direction the arrow is facing when instantiated
-        direction = transform.forward;
-    }
+    private float projectileSpeed = 12f; // Speed of the arrow
 
     // Update is called once per frame
     void Update()
     {
-        // Move the arrow in the direction it's facing
-        transform.position += direction * projectileSpeed * Time.deltaTime;
+        // Move the arrow forward based on its local forward direction
+        transform.position += transform.forward * projectileSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)

@@ -19,10 +19,21 @@ public class PlayerShootingSpawner : MonoBehaviour
         
     }
 
-    public void ShootArrow() {
-        //Instantiate(arrow, transform.position + new Vector3(2,0,0.5f), Quaternion.Euler(0,180,0));
-        GameObject arrow = Instantiate(arrowPrefab, arrowSpawnPoint.position + transform.forward * arrowOffset, transform.rotation);
+    // public void ShootArrow() {
+    //     Instantiate(arrowPrefab, transform.position + new Vector3(2,0,0.5f), Quaternion.Euler(0,180,0));
 
-    }
+    // }
+
+    public void ShootArrow()
+        {
+            // Instantiate the arrow at the spawn point, matching the player's rotation
+            GameObject arrow = Instantiate(
+                arrowPrefab, 
+                arrowSpawnPoint.position + arrowSpawnPoint.forward * arrowOffset, 
+                arrowSpawnPoint.rotation
+            );
+
+            Debug.Log("Arrow spawned!");
+        }
 
 }
