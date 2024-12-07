@@ -21,7 +21,6 @@ public class PlayerShootingSpawner : MonoBehaviour
 
     // public void ShootArrow() {
     //     Instantiate(arrowPrefab, transform.position + new Vector3(2,0,0.5f), Quaternion.Euler(0,180,0));
-
     // }
 
     public void ShootArrow()
