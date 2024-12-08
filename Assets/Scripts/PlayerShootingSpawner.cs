@@ -31,7 +31,6 @@ public class PlayerShootingSpawner : MonoBehaviour
                 arrowSpawnPoint.position + arrowSpawnPoint.forward * arrowOffset, 
                 arrowSpawnPoint.rotation
             );
-
             Debug.Log("Arrow spawned!");
         }
 
