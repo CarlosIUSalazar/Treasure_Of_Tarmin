@@ -6,8 +6,8 @@ public class PlayerShootingSpawner : MonoBehaviour
     [SerializeField] private GameObject arrowPrefab;
     [SerializeField] private Transform arrowSpawnPoint; // Assign this to the position where the arrow should appear
     [SerializeField] private float arrowOffset = 1.5f; // Offset in front of the player
-
     GameManager gameManager;
+    
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
