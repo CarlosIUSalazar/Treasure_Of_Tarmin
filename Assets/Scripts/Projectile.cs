@@ -18,11 +18,9 @@ public class Projectile : MonoBehaviour
             Debug.Log("HIT");
 
             Enemy enemy = other.GetComponent<Enemy>();
-
             if (enemy != null) {
                 enemy.TakeDamage(damage);
             }
-
             Destroy(gameObject);
         }
     }
