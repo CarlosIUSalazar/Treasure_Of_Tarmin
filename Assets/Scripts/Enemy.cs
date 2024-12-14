@@ -5,11 +5,13 @@ public class Enemy : MonoBehaviour
 
     [SerializeField] private string enemyName = "WhiteSkeleton";
     [SerializeField] private int enemyBaseHP = 50;
+    GameManager gameManager;
     private int currentHP;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         currentHP = Random.Range(0,15) + enemyBaseHP;
     }
 
@@ -30,5 +32,7 @@ public class Enemy : MonoBehaviour
     public void Die() {
         Debug.Log("Enemy Defeated");
         Destroy(gameObject);
+        gameManager.isFighting = false;
+
     }
 }

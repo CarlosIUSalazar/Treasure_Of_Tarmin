@@ -7,8 +7,12 @@ using Unity.VisualScripting;
 public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField] private Button actionButton;
+    [SerializeField] private Button forwardButton;
+    [SerializeField] private Button rotateLeftButton;
+    [SerializeField] private Button rotateRightButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
     PlayerShootingSpawner playerShootingSpawner;
+    GameManager gameManager;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -18,6 +22,7 @@ public class PlayerGridMovement : MonoBehaviour
     private Quaternion targetRotation;
 
     void Start() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         targetPosition = transform.position;
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
     }
@@ -32,6 +37,27 @@ public class PlayerGridMovement : MonoBehaviour
         RotateToTarget();
         //Debug.DrawRay(transform.position, transform.forward * 10.0f, Color.red);
 
+        if (gameManager.isFighting)
+        {
+            HideDirectionalButtons();
+        } else {
+            ShowDirectionalButtons();
+        }
+
+    }
+
+    private void HideDirectionalButtons()
+    {
+        forwardButton.gameObject.SetActive(false);
+        rotateLeftButton.gameObject.SetActive(false);
+        rotateRightButton.gameObject.SetActive(false);
+    }
+
+        private void ShowDirectionalButtons()
+    {
+        forwardButton.gameObject.SetActive(true);
+        rotateLeftButton.gameObject.SetActive(true);
+        rotateRightButton.gameObject.SetActive(true);
     }
 
     void HandleInput() {
@@ -168,6 +194,7 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => PickUpItem(hit));
         }
         else if (hit.collider.CompareTag("Enemy")){
+            gameManager.isFighting = true;
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => InitiateFight(hit));
