@@ -13,6 +13,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private TextMeshProUGUI actionButtonText;
     PlayerShootingSpawner playerShootingSpawner;
     GameManager gameManager;
+    Enemy enemy;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -53,11 +54,19 @@ public class PlayerGridMovement : MonoBehaviour
         rotateRightButton.gameObject.SetActive(false);
     }
 
-        private void ShowDirectionalButtons()
+    private void ShowDirectionalButtons()
     {
         forwardButton.gameObject.SetActive(true);
         rotateLeftButton.gameObject.SetActive(true);
         rotateRightButton.gameObject.SetActive(true);
+    }
+
+    public void HideActionButton() {
+        actionButton.gameObject.SetActive(false);
+    }
+
+    public void ShowActionButton() {
+        actionButton.gameObject.SetActive(true);
     }
 
     void HandleInput() {
@@ -194,6 +203,7 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => PickUpItem(hit));
         }
         else if (hit.collider.CompareTag("Enemy")){
+            enemy = hit.collider.GetComponent<Enemy>();
             gameManager.isFighting = true;
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
@@ -231,7 +241,7 @@ private void CheckForInteractables()
 
     private void InitiateFight(RaycastHit hit) {
         //Initiate Fight Mode
-        playerShootingSpawner.ShootArrow();
+        playerShootingSpawner.ShootAtEnemy(enemy.transform);
     }
 
 }

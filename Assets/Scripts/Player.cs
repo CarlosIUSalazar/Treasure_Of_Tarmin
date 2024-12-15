@@ -1,17 +1,9 @@
 using UnityEngine;
 
-public class GameManager : MonoBehaviour
+public class Player : MonoBehaviour
 {
-
-    public bool isGameActive = false;
-    public bool isExploring = false;
-    public bool isFighting = false;
-    public bool isPlayersTurn = true;
-    public bool isEnemysTurn = false;
-
+    int currentHP = 100;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    
-    
     void Start()
     {
         
@@ -21,5 +13,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void TakeDamage(int damageMultiplier) {
+        currentHP -= damageMultiplier;
     }
 }
