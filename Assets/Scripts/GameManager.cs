@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     public bool isFighting = false;
     public bool isPlayersTurn = true;
     public bool isEnemysTurn = false;
-
+    public Enemy activeEnemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
     
@@ -21,5 +21,9 @@ public class GameManager : MonoBehaviour
     void Update()
     {
         
+    }
+
+    public void SetActiveEnemy(Enemy enemy) {
+        activeEnemy = enemy;
     }
 }

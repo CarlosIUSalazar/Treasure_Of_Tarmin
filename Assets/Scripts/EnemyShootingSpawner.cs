@@ -6,9 +6,10 @@ public class EnemyShootingSpawner : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint;
     [SerializeField] private float projectileOffset = -1.5f;
-    GameManager gameManager;
-    Player player;
-    PlayerGridMovement playerGridMovement;
+    private GameManager gameManager;
+    private Player player;
+    private PlayerGridMovement playerGridMovement;
+    private Enemy enemy;
     private bool isEnemyAttacking = false; // Flag to prevent multiple calls
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,13 +18,13 @@ public class EnemyShootingSpawner : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         player = GameObject.Find("Player").GetComponent<Player>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
-
+        enemy = GetComponent<Enemy>(); //Fetch the enemy component attachedto the same game object
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (gameManager.isEnemysTurn && !isEnemyAttacking)
+        if (gameManager.isEnemysTurn && gameManager.activeEnemy == this.GetComponent<Enemy>() &&!isEnemyAttacking)
         {
             StartCoroutine(EnemyAttack());
         }
@@ -48,13 +49,8 @@ public class EnemyShootingSpawner : MonoBehaviour
         if (proj != null) {
             proj.Initialize(spawnPoint.position, player.position); //Pass the target (player) position
         }
-
         gameManager.isEnemysTurn = false;
         playerGridMovement.ShowActionButton();
         gameManager.isPlayersTurn = true;
-
     }
-
-
-
 }

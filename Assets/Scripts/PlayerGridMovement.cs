@@ -92,7 +92,6 @@ public class PlayerGridMovement : MonoBehaviour
         // else if (Input.GetKeyDown(KeyCode.Space))
         // {
         //     OpenDoorButton();
-
         // }
     }
 
@@ -203,11 +202,12 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => PickUpItem(hit));
         }
         else if (hit.collider.CompareTag("Enemy")){
-            enemy = hit.collider.GetComponent<Enemy>();
-            gameManager.isFighting = true;
-            actionButtonText.text = "Attack";
-            actionButton.onClick.RemoveAllListeners();
-            actionButton.onClick.AddListener(() => InitiateFight(hit));
+            InitiateFight(hit);
+            //enemy = hit.collider.GetComponent<Enemy>();
+            //gameManager.isFighting = true;
+            //actionButtonText.text = "Attack";
+            //actionButton.onClick.RemoveAllListeners();
+           // actionButton.onClick.AddListener(() => InitiateFight(hit));
         }
         else
         {
@@ -240,8 +240,14 @@ private void CheckForInteractables()
     }
 
     private void InitiateFight(RaycastHit hit) {
-        //Initiate Fight Mode
-        playerShootingSpawner.ShootAtEnemy(enemy.transform);
+        enemy = hit.collider.GetComponent<Enemy>();
+        if (enemy != null) {
+            gameManager.isFighting = true; //initiate fight more
+            gameManager.SetActiveEnemy(enemy); //Register current enemy as active
+            actionButtonText.text = "Attack";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
+        }
     }
 
 }
