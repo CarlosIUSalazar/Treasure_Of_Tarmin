@@ -5,7 +5,7 @@ public class EnemyShootingSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint;
-    [SerializeField] private float projectileOffset = -1.5f;
+    private float projectileOffset = 0;
     private GameManager gameManager;
     private Player player;
     private PlayerGridMovement playerGridMovement;
@@ -45,6 +45,14 @@ public class EnemyShootingSpawner : MonoBehaviour
             Quaternion.identity
         );
 
+        // Ignore collision between the projectile and the enemy
+        Collider projectileCollider = projectile.GetComponent<Collider>();
+        Collider enemyCollider = GetComponent<Collider>();
+        if (projectileCollider != null && enemyCollider != null) {
+            Physics.IgnoreCollision(projectileCollider, enemyCollider);
+        }
+
+        //Initialize projectile
         Projectile proj = projectile.GetComponent<Projectile>();
         if (proj != null) {
             proj.Initialize(spawnPoint.position, player.position); //Pass the target (player) position

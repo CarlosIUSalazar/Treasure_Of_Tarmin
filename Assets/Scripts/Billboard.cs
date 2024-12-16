@@ -15,6 +15,6 @@ public class Billboard : MonoBehaviour
         transform.LookAt(Camera.main.transform);
 
         // Lock the object's rotation to the Y-axis only (prevent tilting)
-        transform.rotation = Quaternion.Euler(90, transform.eulerAngles.y, 0);
+        transform.rotation = Quaternion.Euler(0, transform.eulerAngles.y, 0);
     }
 }

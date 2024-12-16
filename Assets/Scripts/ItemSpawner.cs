@@ -11,7 +11,7 @@ public class ItemSpawner : MonoBehaviour
     private int enemyCount = 10;
     private float gridSize = 10.0f; // Size of each grid square
     private float itemHeightOffset = 0.5f; // Height adjustment for items above the ground
-    private float enemyHeightOffset = 2.5f;
+    private float enemyHeightOffset = 0f;
     private Vector2 mazeSize = new Vector2(12, 12); // The full size of the maze (outer grid)
 
     void Start()
