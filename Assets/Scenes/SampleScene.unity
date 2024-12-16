@@ -3969,6 +3969,7 @@ MonoBehaviour:
   - {fileID: 718043605731271004, guid: b34ad54be16b447d4842dc93cf35a6ac, type: 3}
   enemyPrefabs:
   - {fileID: 3429366500931478216, guid: 02949ce028a5046b1960893c38369d54, type: 3}
+  - {fileID: 5926036353530953856, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
   player: {fileID: 27357055}
 --- !u!4 &381729334
 Transform:
@@ -5513,6 +5514,38 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 482468097}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!1 &494587482
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 494587483}
+  m_Layer: 0
+  m_Name: EnemyRedScorpion
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!4 &494587483
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 494587482}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -5.16, y: 0, z: 14.57}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1459670955}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &501565230 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3588486699552315495, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
@@ -10113,7 +10146,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &1050989926
 Transform:
   m_ObjectHideFlags: 0
@@ -10947,37 +10980,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1104679920}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &1105371842
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1105371843}
-  m_Layer: 0
-  m_Name: EnemyRedScorption
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!4 &1105371843
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1105371842}
-  serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -5.16, y: 0, z: 3.92}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1112204089
 GameObject:
   m_ObjectHideFlags: 0
@@ -12055,63 +12057,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1211992387}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1001 &1235230257
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -4.637335
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -8.271806e-25
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.5487509
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6707077596034656555, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_Name
-      value: RedScorpion.vox (1)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
 --- !u!1 &1236586817
 GameObject:
   m_ObjectHideFlags: 0
@@ -14775,6 +14720,11 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1444441242}
   m_Mesh: {fileID: 10209, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!4 &1459670955 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+  m_PrefabInstance: {fileID: 5307884076382527041}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1464495934
 GameObject:
   m_ObjectHideFlags: 0
@@ -22327,7 +22277,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2656101256448538738, guid: 02949ce028a5046b1960893c38369d54, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: -10.71
       objectReference: {fileID: 0}
     - target: {fileID: 2656101256448538738, guid: 02949ce028a5046b1960893c38369d54, type: 3}
       propertyPath: m_LocalRotation.w
@@ -22363,7 +22313,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3429366500931478216, guid: 02949ce028a5046b1960893c38369d54, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -22558,63 +22508,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 59d127d82702c451594fb06fd98ea207, type: 3}
---- !u!1001 &3453472184650052503
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -5.01
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 4.8
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6223837405557830545, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 6707077596034656555, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
-      propertyPath: m_Name
-      value: RedScorpion.vox
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 559a1971331b6489eab684f8fe9869d9, type: 3}
 --- !u!4 &3588486700283368185 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8320067345508355094, guid: c25526316abad42e8990e9e59926780e, type: 3}
@@ -22739,6 +22632,67 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
   m_PrefabInstance: {fileID: 3907461046016802341}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &5307884076382527041
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 494587483}
+    m_Modifications:
+    - target: {fileID: 1020167801633232922, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5926036353530953856, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_Name
+      value: RedScorpion.vox
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6446430102769359418, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
 --- !u!1001 &5462742703062678841
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23056,7 +23010,7 @@ SceneRoots:
   - {fileID: 832575519}
   - {fileID: 1885695663}
   - {fileID: 1050989926}
-  - {fileID: 1105371843}
+  - {fileID: 494587483}
   - {fileID: 1611284244}
   - {fileID: 27357055}
   - {fileID: 1780672880}
@@ -23068,5 +23022,3 @@ SceneRoots:
   - {fileID: 50929774}
   - {fileID: 1647360852}
   - {fileID: 381729334}
-  - {fileID: 3453472184650052503}
-  - {fileID: 1235230257}
