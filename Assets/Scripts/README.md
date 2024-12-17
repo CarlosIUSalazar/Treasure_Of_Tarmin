@@ -11,3 +11,5 @@ Now use this gameobject to edit it as needed as a prefab, (sizes, colliders, scr
 
 Once this is completed, drag this gameobject to the Prefabs folder in its corresponding folder.    This will be the prefab to use in game.  
 
+TODO: 
+Limit the forward movement until the prevous movement is done to avoid position desync issues.

@@ -18,14 +18,18 @@ public class PlayerGridMovement : MonoBehaviour
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
     public bool isRotating = false;
-    
+    public Vector3 gridStart = new Vector3(-5, 1, -5); // Define your custom grid start position
+
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
     void Start() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        targetPosition = transform.position;
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
+
+        // Snap player to grid center at the start
+        transform.position = GetSnappedPosition(transform.position);
+        targetPosition = transform.position; // Align targetPosition to snapped position
     }
 
     void Update() {
@@ -97,9 +101,9 @@ public class PlayerGridMovement : MonoBehaviour
 
     public void MoveForward()
     {
-        if (CanMoveForward())
+        if (!isMoving && CanMoveForward())
         {
-            targetPosition = transform.position + transform.forward * gridSize;
+            targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
             isMoving = true;
         }
     }
@@ -139,15 +143,28 @@ public class PlayerGridMovement : MonoBehaviour
     //     }
     // }
 
-    void MoveToTarget() {
-        if (isMoving) {
+    void MoveToTarget()
+    {
+        if (isMoving)
+        {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
+
+            // Stop movement and snap precisely when close to target
+            if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
+            {
+                transform.position = GetSnappedPosition(targetPosition); // Ensure exact grid alignment
+                isMoving = false;
+            }
         }
-        // Stop movement when close to target position
-        if (Vector3.Distance(transform.position, targetPosition) < 0.01f) {
-            transform.position = targetPosition;
-            isMoving = false;
-        }
+    }
+
+    private Vector3 GetSnappedPosition(Vector3 position)
+    {
+        return new Vector3(
+            Mathf.Round((position.x - gridStart.x) / gridSize) * gridSize + gridStart.x,
+            gridStart.y, // Keep the fixed Y position (1 in this case)
+            Mathf.Round((position.z - gridStart.z) / gridSize) * gridSize + gridStart.z
+        );
     }
 
     void RotateToTarget() {
