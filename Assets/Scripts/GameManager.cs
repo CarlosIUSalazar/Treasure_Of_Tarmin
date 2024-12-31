@@ -1,17 +1,24 @@
 using UnityEngine;
+using TMPro;
 
 public class GameManager : MonoBehaviour
 {
 
-    public bool isGameActive = false;
-    public bool isExploring = false;
-    public bool isFighting = false;
-    public bool isPlayersTurn = true;
-    public bool isEnemysTurn = false;
+    [SerializeField] private bool isGameActive = false;
+    [SerializeField] private bool isExploring = false;
+    [SerializeField] private bool isFighting = false;
+    [SerializeField] private bool isPlayersTurn = true;
+    [SerializeField] private bool isEnemysTurn = false;
+    [SerializeField] private TextMeshProUGUI physicalStrengthText;
+    [SerializeField] private TextMeshProUGUI physicalArmorText;
+    [SerializeField] private TextMeshProUGUI physicalWeaponText;
+    [SerializeField] private TextMeshProUGUI spiritualStrengthText;
+    [SerializeField] private TextMeshProUGUI spiritualArmorText;
+    [SerializeField] private TextMeshProUGUI spiritualWeaponText;
     public Enemy activeEnemy;
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     
-    
+
     void Start()
     {
         
@@ -20,6 +27,10 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
+    }
+
+    public void SetPhysicalStrength(int modifier) {
         
     }
 

@@ -2,13 +2,17 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int maxHP = 100;
-    private int currentHP;
+    private int maxPhysicalStrength = 100;
+    private int currentPhysicalStrength;
+
+    GameManager gameManager;
     
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentHP = maxHP;
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        gameManager.SetPhysicalStrength(100);
+        currentPhysicalStrength = maxPhysicalStrength;
     }
 
     // Update is called once per frame
@@ -19,10 +23,10 @@ public class Player : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        currentHP -= damage;
-        Debug.Log($"Player HP: {currentHP}");
+        currentPhysicalStrength -= damage;
+        Debug.Log($"Player PhysicalStrength: {currentPhysicalStrength}");
 
-        if (currentHP <= 0)
+        if (currentPhysicalStrength <= 0)
         {
             Die();
         }
