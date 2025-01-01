@@ -3,7 +3,7 @@ using UnityEngine;
 public class ItemPositioning : MonoBehaviour
 {
     public Transform player; // The player's transform
-    public float offsetDistance = 0.5f; // Distance from the center of the grid square to the edge
+    public float offsetDistance = 4.5f; // Distance from the center of the grid square to the edge
     public float gridSize = 10.0f; // Size of a grid square
 
     private Vector3 gridCenter; // The center of the item's grid square

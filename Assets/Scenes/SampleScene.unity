@@ -444,6 +444,7 @@ MonoBehaviour:
   movementSpeed: 20
   isMoving: 0
   isRotating: 0
+  gridStart: {x: -5, y: 1, z: -5}
 --- !u!114 &27357057
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -456,6 +457,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2f4783d6cc6514ff5826d5f96cb40d39, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  physicalStrength: 0
+  physicalArmor: 0
+  physicalWeapon: 0
+  spiritualStrength: 0
+  spiritualArmor: 0
+  spiritualWeapon: 0
+  score: 0
+  arrows: 0
+  food: 0
+  floor: 0
 --- !u!1 &28220279
 GameObject:
   m_ObjectHideFlags: 0
@@ -3966,7 +3977,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefabs:
-  - {fileID: 718043605731271004, guid: b34ad54be16b447d4842dc93cf35a6ac, type: 3}
+  - {fileID: 7257257059875804517, guid: f0e79cc1cb1ab424aa83ec99f33e2789, type: 3}
+  - {fileID: 4581801312023354261, guid: 090670b2b47f94f82934145d3e71add8, type: 3}
+  - {fileID: 6539461072555655898, guid: ea4c5b8b05cd041f6b7b143ad38cb162, type: 3}
   enemyPrefabs:
   - {fileID: 3429366500931478216, guid: 02949ce028a5046b1960893c38369d54, type: 3}
   - {fileID: 5926036353530953856, guid: 335d5223a91d34c688c6d9c525052b65, type: 3}
@@ -16220,6 +16233,16 @@ MonoBehaviour:
   isFighting: 0
   isPlayersTurn: 1
   isEnemysTurn: 0
+  physicalStrengthText: {fileID: 1740708922}
+  physicalArmorText: {fileID: 671205395}
+  physicalWeaponText: {fileID: 1741926350}
+  spiritualStrengthText: {fileID: 647312681}
+  spiritualArmorText: {fileID: 1094971918}
+  spiritualWeaponText: {fileID: 625330115}
+  scoreText: {fileID: 704226729}
+  arrowsText: {fileID: 1540257687}
+  foodText: {fileID: 1304352537}
+  floorText: {fileID: 1393316974}
   activeEnemy: {fileID: 0}
 --- !u!1 &1651344996
 GameObject:
