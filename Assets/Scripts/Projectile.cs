@@ -4,6 +4,7 @@ public class Projectile : MonoBehaviour
 {
     private float projectileSpeed = 12f; // Speed of the arrow
     private int damage = 10;
+    private int amount = -10;
     private Vector3 direction;
 
     // Called after instantiation to initialize the projectile
@@ -34,7 +35,7 @@ public class Projectile : MonoBehaviour
             else if (other.CompareTag("Player")) {
                 Player player = other.GetComponent<Player>(); //TODO: Add Player script
                 if (player != null) {
-                    player.TakeDamage(damage);
+                    player.ModifyPhysicalStrength(amount);
                 }
             }
 

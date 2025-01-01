@@ -7,9 +7,11 @@ public class PlayerShootingSpawner : MonoBehaviour
     [SerializeField] private float projectileOffset = 1.5f; // Offset in front of the player
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
+    Player player;
     
     void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
     }
@@ -32,6 +34,8 @@ public class PlayerShootingSpawner : MonoBehaviour
                 spawnPoint.position + spawnPoint.forward * projectileOffset, 
                 Quaternion.identity
             );
+
+            player.ModifyArrows(-1);
 
             Projectile proj = projectile.GetComponent<Projectile>();
             if (proj != null) {
