@@ -36,7 +36,6 @@ public class PlayerGridMovement : MonoBehaviour
         if (!isMoving && !isRotating) {
             HandleInput();
             CheckForInteractables();
-
         }
         MoveToTarget();
         RotateToTarget();
@@ -48,7 +47,6 @@ public class PlayerGridMovement : MonoBehaviour
         } else {
             ShowDirectionalButtons();
         }
-
     }
 
     private void HideDirectionalButtons()
@@ -129,7 +127,6 @@ public class PlayerGridMovement : MonoBehaviour
     // {
     //     RaycastHit hit;
     //     float rayDistance = gridSize;
-
     //     if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
     //     {
     //         if (hit.collider.CompareTag("Door"))
@@ -237,7 +234,6 @@ private void CheckForInteractables()
     }
 }
 
-
     private void OpenDoor(RaycastHit hit) {
         DoorController door = hit.collider.GetComponent<DoorController>();
         if (door != null) {
@@ -252,6 +248,7 @@ private void CheckForInteractables()
 
     private void PickUpItem(RaycastHit hit) {
         GameObject item = hit.collider.gameObject;
+        Debug.Log("item is " + item.gameObject.name);
         item.SetActive(false);
         //Add pickup logic
     }
@@ -266,7 +263,6 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
         }
     }
-
 }
 
 

@@ -50,7 +50,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 3aa5a8c2181e149338716d66664b409d, type: 3}
       propertyPath: m_Name
-      value: WhiteBow.vox
+      value: WhiteBow
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: 3aa5a8c2181e149338716d66664b409d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -133,5 +133,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 0
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.53390396, y: 0.78517765, z: 0.10746761}
+  m_Center: {x: -0.042215466, y: 0.40880957, z: -0.06710374}
