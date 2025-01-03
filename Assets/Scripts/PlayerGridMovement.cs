@@ -14,6 +14,7 @@ public class PlayerGridMovement : MonoBehaviour
     PlayerShootingSpawner playerShootingSpawner;
     GameManager gameManager;
     Enemy enemy;
+    Player player;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -24,6 +25,7 @@ public class PlayerGridMovement : MonoBehaviour
     private Quaternion targetRotation;
 
     void Start() {
+        player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
 
@@ -249,8 +251,21 @@ private void CheckForInteractables()
     private void PickUpItem(RaycastHit hit) {
         GameObject item = hit.collider.gameObject;
         Debug.Log("item is " + item.gameObject.name);
+        
+        string itemName = hit.collider.gameObject.name;
+
+        switch (itemName) {
+            case "Flour(Clone)":
+                player.ModifyFood(10);
+                Debug.Log("Picked up flour");
+                break;
+            case "Quiver(Clone)":
+                player.ModifyArrows(10);
+                Debug.Log("Picked up 10 Arrows");
+                break;
+        }
+        
         item.SetActive(false);
-        //Add pickup logic
     }
 
     private void InitiateFight(RaycastHit hit) {
@@ -264,5 +279,3 @@ private void CheckForInteractables()
         }
     }
 }
-
-

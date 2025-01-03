@@ -61,16 +61,21 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+    private void Die()
+    {
+        Debug.Log("Player Defeated!");
+        // Add logic for player death, like restarting the level or showing a game-over screen
+        gameObject.SetActive(false);
+    }
+    
     public void ModifyArrows(int amount) {
         arrows += amount;
         Debug.Log($"Arrows Left = {arrows}");
         OnPlayerStatsUpdated?.Invoke();
     }
 
-    private void Die()
-    {
-        Debug.Log("Player Defeated!");
-        // Add logic for player death, like restarting the level or showing a game-over screen
-        gameObject.SetActive(false);
+    public void ModifyFood(int amount) {
+        food += amount;
+        OnPlayerStatsUpdated?.Invoke();
     }
 }
