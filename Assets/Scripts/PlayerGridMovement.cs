@@ -195,15 +195,30 @@ public class PlayerGridMovement : MonoBehaviour
 private void CheckForInteractables()
 {
     RaycastHit hit;
-    float rayDistance = gridSize;
+    float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
+    float interactionDistance = gridSize;           // Detect doors/enemies one grid away
 
-    // Slightly offset the ray downwards to hit items on the floor
-    Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Adjust -0.5f based on player's height
+    Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Slight downward offset
     Vector3 rayDirection = transform.forward;
 
-    Debug.DrawRay(rayOrigin, rayDirection * rayDistance, Color.red); // Debug the ray in the scene view
+    // Short raycast for items
+    Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
 
-    if (Physics.Raycast(rayOrigin, rayDirection, out hit, rayDistance))
+    if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))
+    {
+        if (hit.collider.CompareTag("Item"))
+        {
+            actionButtonText.text = "Pick Up";
+            actionButton.onClick.RemoveAllListeners();
+            actionButton.onClick.AddListener(() => PickUpItem(hit));
+            return; // Return to avoid triggering further checks
+        }
+    }
+
+    // Long raycast for doors and enemies
+    Debug.DrawRay(rayOrigin, rayDirection * interactionDistance, Color.red);
+
+    if (Physics.Raycast(rayOrigin, rayDirection, out hit, interactionDistance))
     {
         if (hit.collider.CompareTag("Door"))
         {
@@ -211,23 +226,9 @@ private void CheckForInteractables()
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => OpenDoor(hit));
         }
-        else if (hit.collider.CompareTag("Item"))
+        else if (hit.collider.CompareTag("Enemy"))
         {
-            actionButtonText.text = "Pick Up";
-            actionButton.onClick.RemoveAllListeners();
-            actionButton.onClick.AddListener(() => PickUpItem(hit));
-        }
-        else if (hit.collider.CompareTag("Enemy")){
             InitiateFight(hit);
-            //enemy = hit.collider.GetComponent<Enemy>();
-            //gameManager.isFighting = true;
-            //actionButtonText.text = "Attack";
-            //actionButton.onClick.RemoveAllListeners();
-           // actionButton.onClick.AddListener(() => InitiateFight(hit));
-        }
-        else
-        {
-            ResetActionButton();
         }
     }
     else
@@ -235,6 +236,7 @@ private void CheckForInteractables()
         ResetActionButton();
     }
 }
+
 
     private void OpenDoor(RaycastHit hit) {
         DoorController door = hit.collider.GetComponent<DoorController>();
