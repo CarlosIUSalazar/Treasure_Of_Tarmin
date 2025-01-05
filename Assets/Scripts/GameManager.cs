@@ -21,11 +21,13 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI floorText;
 
     public Enemy activeEnemy;
-    private Player player;    
+    private Player player;  
+    PlayerGridMovement playerGridMovement;  
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
 
         //Subscribe to Player's stat update event
         player.OnPlayerStatsUpdated += UpdateUI;
@@ -56,5 +58,13 @@ public class GameManager : MonoBehaviour
 
     public void SetActiveEnemy(Enemy enemy) {
         activeEnemy = enemy;
+
+        if (enemy == null) {
+            // Return to exploration mode and update UI
+            isFighting = false;
+            isExploring = true;
+            playerGridMovement.ShowDirectionalButtons();
+            playerGridMovement.ShowActionButton();
+        }
     }
 }

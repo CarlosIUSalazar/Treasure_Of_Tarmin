@@ -48,17 +48,18 @@ public class PlayerGridMovement : MonoBehaviour
             HideDirectionalButtons();
         } else {
             ShowDirectionalButtons();
+            CheckForInteractables();
         }
     }
 
-    private void HideDirectionalButtons()
+    public void HideDirectionalButtons()
     {
         forwardButton.gameObject.SetActive(false);
         rotateLeftButton.gameObject.SetActive(false);
         rotateRightButton.gameObject.SetActive(false);
     }
 
-    private void ShowDirectionalButtons()
+    public void ShowDirectionalButtons()
     {
         forwardButton.gameObject.SetActive(true);
         rotateLeftButton.gameObject.SetActive(true);
@@ -280,4 +281,6 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
         }
     }
+
+
 }

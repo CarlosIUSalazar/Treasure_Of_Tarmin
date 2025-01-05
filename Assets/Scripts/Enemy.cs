@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-
-    [SerializeField] private string enemyName = "WhiteSkeleton";
+    //[SerializeField] private string enemyName = "WhiteSkeleton";
     [SerializeField] private int enemyBaseHP = 50;
     GameManager gameManager;
     private int currentHP;
@@ -33,6 +32,9 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Defeated");
         Destroy(gameObject);
         gameManager.isFighting = false;
-
+        // Trigger exploration mode after combat ends
+        gameManager.isExploring = true;
+        // Refresh UI immediately after combat
+        gameManager.SetActiveEnemy(null);  // Clear active enemy
     }
 }
