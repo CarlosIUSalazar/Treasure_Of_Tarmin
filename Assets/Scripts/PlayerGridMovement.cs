@@ -93,7 +93,6 @@ public class PlayerGridMovement : MonoBehaviour
         {
             TurnRight();
         }
-
         // else if (Input.GetKeyDown(KeyCode.Space))
         // {
         //     OpenDoorButton();
@@ -281,6 +280,4 @@ private void CheckForInteractables()
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
         }
     }
-
-
 }
