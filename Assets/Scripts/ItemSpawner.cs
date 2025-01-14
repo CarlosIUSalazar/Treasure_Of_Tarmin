@@ -6,8 +6,8 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private GameObject[] itemPrefabs; // Assign item prefabs in the Inspector
     [SerializeField] private GameObject[] enemyPrefabs; // Assign enemy prefabs in the Inspector
     [SerializeField] private Transform player; // Assign player's Transform in the Inspector
-    private int itemCount = 7; // Number of items to spawn
-    private int enemyCount = 7; // Number of enemies to spawn
+    private int itemCount = 8; // Number of items to spawn
+    private int enemyCount = 8; // Number of enemies to spawn
     private float gridSize = 10.0f; // Size of each grid square
     private float itemHeightOffset = 0.1f; // Height adjustment for items above the ground
     private float enemyHeightOffset = 0f; // Height adjustment for enemies
@@ -26,17 +26,16 @@ public class ItemSpawner : MonoBehaviour
 
     void SpawnItems()
     {
-        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item");
+        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
     }
 
     void SpawnEnemies()
     {
-        SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy");
+        SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
     }
 
-    private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type)
+    private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
     {
-        // Correct spawning area for the inner grid (10x10)
         int spawnAreaStartX = 1;
         int spawnAreaStartZ = 1;
         int spawnAreaEndX = (int)mazeSize.x - 2;
@@ -49,7 +48,6 @@ public class ItemSpawner : MonoBehaviour
             Vector2Int randomGridPosition;
             int attempts = 0;
 
-            // Ensure the position is not already occupied
             do
             {
                 if (attempts >= maxSpawnAttempts)
@@ -58,12 +56,12 @@ public class ItemSpawner : MonoBehaviour
                     return;
                 }
 
-                // Generate random grid position within adjusted spawn range
                 int randomGridX = Random.Range(spawnAreaStartX, spawnAreaEndX + 1);
                 int randomGridZ = Random.Range(spawnAreaStartZ, spawnAreaEndZ + 1);
                 randomGridPosition = new Vector2Int(randomGridX, randomGridZ);
                 attempts++;
-            } while (IsPositionOccupied(randomGridPosition));
+            } 
+            while (IsPositionOccupied(randomGridPosition) || (!isItem && IsAdjacentToEnemy(randomGridPosition)) || (isItem && IsDirectlyAdjacentToEnemy(randomGridPosition)));
 
             Debug.Log($"{type} {i + 1} spawned at grid {randomGridPosition}");
 
@@ -95,5 +93,38 @@ public class ItemSpawner : MonoBehaviour
     private void MarkGridAsOccupied(Vector2Int position)
     {
         occupiedGridPositions.Add(position);
+    }
+
+    // Check if the position is directly adjacent (N, S, E, W) to any enemy
+    private bool IsDirectlyAdjacentToEnemy(Vector2Int position)
+    {
+        Vector2Int[] adjacentOffsets = { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0) };
+        foreach (var offset in adjacentOffsets)
+        {
+            Vector2Int adjacentPosition = position + offset;
+            if (occupiedGridPositions.Contains(adjacentPosition))
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Check if the position is adjacent (including diagonals) to any enemy
+    private bool IsAdjacentToEnemy(Vector2Int position)
+    {
+        Vector2Int[] adjacentOffsets = {
+            new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0), // Direct neighbors
+            new Vector2Int(1, 1), new Vector2Int(-1, -1), new Vector2Int(1, -1), new Vector2Int(-1, 1) // Diagonals
+        };
+        foreach (var offset in adjacentOffsets)
+        {
+            Vector2Int adjacentPosition = position + offset;
+            if (occupiedGridPositions.Contains(adjacentPosition))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }
