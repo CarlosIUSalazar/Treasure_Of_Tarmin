@@ -4,6 +4,7 @@ public class Enemy : MonoBehaviour
 {
     //[SerializeField] private string enemyName = "WhiteSkeleton";
     [SerializeField] private int enemyBaseHP = 50;
+    public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     GameManager gameManager;
     private int currentHP;
 
@@ -36,5 +37,7 @@ public class Enemy : MonoBehaviour
         gameManager.isExploring = true;
         // Refresh UI immediately after combat
         gameManager.SetActiveEnemy(null);  // Clear active enemy
+        Instantiate(smokePrefab, transform.position, Quaternion.identity);
+
     }
 }
