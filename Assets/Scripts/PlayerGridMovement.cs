@@ -20,7 +20,6 @@ public class PlayerGridMovement : MonoBehaviour
     public bool isMoving = false;
     public bool isRotating = false;
     public Vector3 gridStart = new Vector3(-5, 1, -5); // Define your custom grid start position
-
     private Vector3 targetPosition;
     private Quaternion targetRotation;
 
@@ -41,7 +40,6 @@ public class PlayerGridMovement : MonoBehaviour
         }
         MoveToTarget();
         RotateToTarget();
-        //Debug.DrawRay(transform.position, transform.forward * 10.0f, Color.red);
 
         if (gameManager.isFighting)
         {
@@ -93,66 +91,70 @@ public class PlayerGridMovement : MonoBehaviour
         {
             TurnRight();
         }
-        // else if (Input.GetKeyDown(KeyCode.Space))
-        // {
-        //     OpenDoorButton();
-        // }
+        else if (Input.GetKeyDown(KeyCode.Space))
+        {
+            OpenDoorButton();
+        }
     }
 
     public void MoveForward()
     {
-        if (!isMoving && CanMoveForward())
-        {
-            targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
+        if (isMoving || isRotating)  return; // Prevent movement if already moving or rotating
+        if (CanMoveForward()) {
             isMoving = true;
+            targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
         }
     }
 
     public void MoveBackwards()
     {
-        targetPosition = transform.position - transform.forward * gridSize;
+        if (isMoving || isRotating) return; // Prevent movement if already moving or rotating
+        isMoving = true;
+        targetPosition = GetSnappedPosition(transform.position - transform.forward * gridSize);
     }
 
     public void TurnLeft()
     {
-        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
+        if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
         isRotating = true;
+        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
     }
 
     public void TurnRight()
     {
-        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
+        if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
         isRotating = true;
+        targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
     }
 
-    // public void OpenDoorButton()
-    // {
-    //     RaycastHit hit;
-    //     float rayDistance = gridSize;
-    //     if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
-    //     {
-    //         if (hit.collider.CompareTag("Door"))
-    //         {
-    //             DoorController door = hit.collider.GetComponent<DoorController>();
-    //             if (door != null)
-    //             {
-    //                 door.OpenDoor();
-    //             }
-    //         }
-    //     }
-    // }
 
-    void MoveToTarget()
+
+    private void MoveToTarget()
     {
         if (isMoving)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, movementSpeed * Time.deltaTime);
 
-            // Stop movement and snap precisely when close to target
+            // Stop movement and snap to grid when close to target
             if (Vector3.Distance(transform.position, targetPosition) < 0.01f)
             {
                 transform.position = GetSnappedPosition(targetPosition); // Ensure exact grid alignment
                 isMoving = false;
+            }
+        }
+    }
+
+    private void RotateToTarget()
+    {
+        if (isRotating && !isMoving) // Ensure rotation occurs only when not moving
+        {
+            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180 * Time.deltaTime);
+
+            // Stop rotation and snap to target rotation when close
+            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
+            {
+                transform.rotation = targetRotation; // Snap to target rotation
+                isRotating = false;
             }
         }
     }
@@ -166,18 +168,7 @@ public class PlayerGridMovement : MonoBehaviour
         );
     }
 
-    void RotateToTarget() {
-        if (isRotating) {
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180 * Time.deltaTime);
-
-            if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1d) {
-                transform.rotation = targetRotation; // Snap to target rotation
-                isRotating = false;
-            }
-        }
-    }
-
-    bool CanMoveForward() {
+    private bool CanMoveForward() {
         RaycastHit hit;
         float rayDistance = gridSize;
 
@@ -192,56 +183,74 @@ public class PlayerGridMovement : MonoBehaviour
         return true;
     }
 
-private void CheckForInteractables()
-{
-    RaycastHit hit;
-    float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
-    float interactionDistance = gridSize;           // Detect doors/enemies one grid away
-
-    Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Slight downward offset
-    Vector3 rayDirection = transform.forward;
-
-    // Short raycast for items
-    Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
-
-    if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))
+    private void CheckForInteractables()
     {
-        if (hit.collider.CompareTag("Item"))
+        RaycastHit hit;
+        float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
+        float interactionDistance = gridSize;           // Detect doors/enemies one grid away
+
+        Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Slight downward offset
+        Vector3 rayDirection = transform.forward;
+
+        // Short raycast for items
+        Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))
         {
-            actionButtonText.text = "Pick Up";
-            actionButton.onClick.RemoveAllListeners();
-            actionButton.onClick.AddListener(() => PickUpItem(hit));
-            return; // Return to avoid triggering further checks
+            if (hit.collider.CompareTag("Item"))
+            {
+                actionButtonText.text = "Pick Up";
+                actionButton.onClick.RemoveAllListeners();
+                actionButton.onClick.AddListener(() => PickUpItem(hit));
+                return; // Return to avoid triggering further checks
+            }
+        }
+
+        // Long raycast for doors and enemies
+        Debug.DrawRay(rayOrigin, rayDirection * interactionDistance, Color.red);
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, interactionDistance))
+        {
+            if (hit.collider.CompareTag("Door"))
+            {
+                actionButtonText.text = "Open";
+                actionButton.onClick.RemoveAllListeners();
+                actionButton.onClick.AddListener(() => OpenDoor(hit));
+            }
+            else if (hit.collider.CompareTag("Enemy"))
+            {
+                InitiateFight(hit);
+            }
+        }
+        else
+        {
+            ResetActionButton();
         }
     }
-
-    // Long raycast for doors and enemies
-    Debug.DrawRay(rayOrigin, rayDirection * interactionDistance, Color.red);
-
-    if (Physics.Raycast(rayOrigin, rayDirection, out hit, interactionDistance))
-    {
-        if (hit.collider.CompareTag("Door"))
-        {
-            actionButtonText.text = "Open";
-            actionButton.onClick.RemoveAllListeners();
-            actionButton.onClick.AddListener(() => OpenDoor(hit));
-        }
-        else if (hit.collider.CompareTag("Enemy"))
-        {
-            InitiateFight(hit);
-        }
-    }
-    else
-    {
-        ResetActionButton();
-    }
-}
 
 
     private void OpenDoor(RaycastHit hit) {
         DoorController door = hit.collider.GetComponent<DoorController>();
         if (door != null) {
             door.OpenDoor();
+        }
+    }
+
+
+     public void OpenDoorButton()
+    {
+        RaycastHit hit;
+        float rayDistance = gridSize;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance))
+        {
+            if (hit.collider.CompareTag("Door"))
+            {
+                DoorController door = hit.collider.GetComponent<DoorController>();
+                if (door != null)
+                {
+                    door.OpenDoor();
+                }
+            }
         }
     }
 
