@@ -16,8 +16,8 @@ public class PlayerGridMovement : MonoBehaviour
 
     PlayerShootingSpawner playerShootingSpawner;
     GameManager gameManager;
-    Enemy enemy;
     Player player;
+    Enemy enemy;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -67,6 +67,14 @@ public class PlayerGridMovement : MonoBehaviour
         if (canBackStep) {
             backwardButton.gameObject.SetActive(true);
         } else {
+            backwardButton.gameObject.SetActive(false);
+        }
+
+        if (gameManager.isFighting && gameManager.isPlayersTurn) { //This sequence is to make the StepBack/Escape logic work
+            backwardButton.gameObject.SetActive(true);
+        } else if (gameManager.isFighting && gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
+            backwardButton.gameObject.SetActive(false);
+        } else if (canBackStep && !gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
             backwardButton.gameObject.SetActive(false);
         }
     }
@@ -137,14 +145,29 @@ public class PlayerGridMovement : MonoBehaviour
 
     public void MoveBackwards()
     {
+        Debug.Log("IsMoving " + isMoving + " canStepBack" + canBackStep + " isFighting" + gameManager.isFighting + " isPlayersTurn" + gameManager.isPlayersTurn + " isEnemyTurn" + gameManager.isEnemysTurn);
         if (isMoving || isRotating) return; // Prevent movement if already moving or rotating
-        if (canBackStep) {
+        
+        if (canBackStep && !gameManager.isFighting) { //StepBack when not fighting
             player.transform.position = playerPreviousPosition;
             player.transform.rotation = playerPreviousRotation;
             canBackStep = false;
+        } else if (canBackStep && gameManager.isFighting && gameManager.isPlayersTurn) { //BATTLE ESCAPE CASE:
+            int canEscape = Random.Range(0,10); //50 - 50 Chance for escaping the battle
+            Debug.Log("CanEscape" + canEscape);
+            if (canEscape < 5) { // CAN ESCAPE
+                Debug.Log("SUCCESSFUL ESCAPE!!");
+                gameManager.isFighting = false;
+                player.transform.position = playerPreviousPosition;
+                player.transform.rotation = playerPreviousRotation;
+                canBackStep = false;
+            } else {    // CAN'T ESCAPE
+                Debug.Log("COULDN'T ESCAPE!!");
+                gameManager.isPlayersTurn = false;
+                gameManager.isEnemysTurn = true;
+                canBackStep = true;
+            }
         }
-        //isMoving = true;
-        //targetPosition = GetSnappedPosition(transform.position - transform.forward * gridSize);
     }
 
     public void TurnLeft()
@@ -181,7 +204,6 @@ public class PlayerGridMovement : MonoBehaviour
         if (isRotating && !isMoving) // Ensure rotation occurs only when not moving
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, 180 * Time.deltaTime);
-
             // Stop rotation and snap to target rotation when close
             if (Quaternion.Angle(transform.rotation, targetRotation) < 0.1f)
             {
@@ -318,6 +340,10 @@ public class PlayerGridMovement : MonoBehaviour
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
+            
+            backwardButton.gameObject.SetActive(true);
+            backwardButton.onClick.RemoveAllListeners();
+            backwardButton.onClick.AddListener(() => MoveBackwards());
         }
     }
 

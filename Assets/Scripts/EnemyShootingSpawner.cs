@@ -34,6 +34,7 @@ public class EnemyShootingSpawner : MonoBehaviour
         isEnemyAttacking = true; // Set the flag to prevent multiple calls
         yield return new WaitForSeconds(1.5f);
         ShootAtPlayer(player.transform);
+        yield return new WaitForSeconds(0.5f);
         isEnemyAttacking = false; // Reset the flag after the attack
     }
 
@@ -58,6 +59,11 @@ public class EnemyShootingSpawner : MonoBehaviour
             proj.Initialize(spawnPoint.position, player.position); //Pass the target (player) position
         }
         gameManager.isEnemysTurn = false;
+        StartCoroutine(DelayPlayerturn()); //I delayed it in order to avoid escaping too soon and triggering one more enemy attack, it could be better
+    }
+
+    IEnumerator DelayPlayerturn() {
+        yield return new WaitForSeconds(1f);
         playerGridMovement.ShowActionButton();
         gameManager.isPlayersTurn = true;
     }

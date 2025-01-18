@@ -8,7 +8,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isFighting = false;
     [SerializeField] public bool isPlayersTurn = true;
     [SerializeField] public bool isEnemysTurn = false;
-
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI physicalWeaponText;
@@ -37,9 +36,7 @@ public class GameManager : MonoBehaviour
     }
 
     void Update()
-    {
-        //physicalStrengthText.text = player.ReturnCurrentPhysicalStrength.ToString();
-    }
+    {}
 
     private void UpdateUI() {
         physicalStrengthText.text = $"{player.physicalStrength}";
