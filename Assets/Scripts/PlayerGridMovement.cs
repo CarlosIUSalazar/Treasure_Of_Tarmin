@@ -337,6 +337,16 @@ public class PlayerGridMovement : MonoBehaviour
         if (enemy != null) {
             gameManager.isFighting = true; //initiate fight more
             gameManager.SetActiveEnemy(enemy); //Register current enemy as active
+
+            if (gameManager.isPlayersTurn)
+            {
+                actionButton.gameObject.SetActive(true);
+            }
+            else
+            {
+                actionButton.gameObject.SetActive(false);
+            }
+
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
