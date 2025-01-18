@@ -19,20 +19,25 @@ public class Player : MonoBehaviour
     public int arrows;
     public int food;
     public int floor;
+    public bool canRest = false;
     
     //Events to notify UI changes
     public delegate void OnStatChanged();
     public event OnStatChanged OnPlayerStatsUpdated;
+    GameManager gameManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         InitializeValues();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
-    {}
+    {
+        CheckIfCanRest();
+    }
 
     private void InitializeValues() {
         physicalStrength = 90;
@@ -81,15 +86,25 @@ public class Player : MonoBehaviour
         gameObject.SetActive(false);
     }
 
+    public void CheckIfCanRest() {
+        if (((!gameManager.isFighting && (physicalStrength < currentMaxPhysicalStrength)) || (!gameManager.isFighting && (spiritualStrength < currentMaxSpiritualStrength))) && food > 0) {
+            canRest = true;
+        } else {
+            canRest = false;
+        }
+    }
+
     public void Rest() {
         // Resting.  Resting brings the player current health up towards the current Max Health by using
         // the availalbe food (flour) units
-        if (spiritualStrength < currentMaxPhysicalStrength && food > 0) {
-            while (spiritualStrength < currentMaxPhysicalStrength && food > 0) {
-                spiritualStrength++;
+        Debug.Log("Player Rested");
+        if (physicalStrength < currentMaxPhysicalStrength && food > 0) {
+            while (physicalStrength < currentMaxPhysicalStrength && food > 0) {
+                physicalStrength++;
                 food--;
             }
         }
+        canRest = false;
         OnPlayerStatsUpdated?.Invoke();
     }
 }

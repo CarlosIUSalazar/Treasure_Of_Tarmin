@@ -51,6 +51,12 @@ public class PlayerGridMovement : MonoBehaviour
             ShowDirectionalButtons();
             CheckForInteractables();
         }
+
+        if (player.canRest) {
+            restButton.gameObject.SetActive(true);
+        } else {
+            restButton.gameObject.SetActive(false);
+        }
     }
 
     public void HideDirectionalButtons()
@@ -290,8 +296,8 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     public void PlayerRest() {
-        Debug.Log("Player Rested");
         restButton.onClick.RemoveAllListeners();
         restButton.onClick.AddListener(() => player.Rest());
+        restButton.gameObject.SetActive(false);
     }
 }
