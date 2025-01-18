@@ -11,6 +11,8 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private Button rotateLeftButton;
     [SerializeField] private Button rotateRightButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
+    [SerializeField] private Button restButton;
+
     PlayerShootingSpawner playerShootingSpawner;
     GameManager gameManager;
     Enemy enemy;
@@ -40,6 +42,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
         MoveToTarget();
         RotateToTarget();
+        PlayerRest();
 
         if (gameManager.isFighting)
         {
@@ -126,8 +129,6 @@ public class PlayerGridMovement : MonoBehaviour
         isRotating = true;
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
     }
-
-
 
     private void MoveToTarget()
     {
@@ -228,7 +229,6 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
-
     private void OpenDoor(RaycastHit hit) {
         DoorController door = hit.collider.GetComponent<DoorController>();
         if (door != null) {
@@ -236,8 +236,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
-
-     public void OpenDoorButton()
+    public void OpenDoorButton()
     {
         RaycastHit hit;
         float rayDistance = gridSize;
@@ -288,5 +287,11 @@ public class PlayerGridMovement : MonoBehaviour
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
         }
+    }
+
+    public void PlayerRest() {
+        Debug.Log("Player Rested");
+        restButton.onClick.RemoveAllListeners();
+        restButton.onClick.AddListener(() => player.Rest());
     }
 }

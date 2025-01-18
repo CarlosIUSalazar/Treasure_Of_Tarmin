@@ -2,11 +2,13 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
-    private int maxPhysicalStrength = 199;
-    private int maxPhysicalArmor = 199;
-    private int maxSpiritualStrength = 99;
-    private int maxSpiritualArmor = 99;
+    private int totalMaxPhysicalStrength = 199;
+    private int totalMaxSpiritualStrength = 99;
+    private int totalMaxPhysicalArmor = 199;
+    private int totalMaxSpiritualArmor = 99;
     
+    public int currentMaxPhysicalStrength = 90;
+    public int currentMaxSpiritualStrength = 50;
     public int physicalStrength;
     public int physicalArmor;
     public int physicalWeapon;
@@ -60,13 +62,6 @@ public class Player : MonoBehaviour
 
         OnPlayerStatsUpdated?.Invoke();
     }
-
-    private void Die()
-    {
-        Debug.Log("Player Defeated!");
-        // Add logic for player death, like restarting the level or showing a game-over screen
-        gameObject.SetActive(false);
-    }
     
     public void ModifyArrows(int amount) {
         arrows += amount;
@@ -76,6 +71,25 @@ public class Player : MonoBehaviour
 
     public void ModifyFood(int amount) {
         food += amount;
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+    private void Die()
+    {
+        Debug.Log("Player Defeated!");
+        // Add logic for player death, like restarting the level or showing a game-over screen
+        gameObject.SetActive(false);
+    }
+
+    public void Rest() {
+        // Resting.  Resting brings the player current health up towards the current Max Health by using
+        // the availalbe food (flour) units
+        if (spiritualStrength < currentMaxPhysicalStrength && food > 0) {
+            while (spiritualStrength < currentMaxPhysicalStrength && food > 0) {
+                spiritualStrength++;
+                food--;
+            }
+        }
         OnPlayerStatsUpdated?.Invoke();
     }
 }
