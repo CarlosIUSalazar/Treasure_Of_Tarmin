@@ -10,6 +10,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private Button forwardButton;
     [SerializeField] private Button rotateLeftButton;
     [SerializeField] private Button rotateRightButton;
+    [SerializeField] private Button backwardButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private Button restButton;
 
@@ -21,9 +22,12 @@ public class PlayerGridMovement : MonoBehaviour
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
     public bool isRotating = false;
+    public bool canBackStep = false;
     public Vector3 gridStart = new Vector3(-5, 1, -5); // Define your custom grid start position
     private Vector3 targetPosition;
     private Quaternion targetRotation;
+    Vector3 playerPreviousPosition;
+    Quaternion playerPreviousRotation;
 
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -33,6 +37,8 @@ public class PlayerGridMovement : MonoBehaviour
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
+
+        backwardButton.gameObject.SetActive(false); //Start with the backwards button disabled.
     }
 
     void Update() {
@@ -56,6 +62,12 @@ public class PlayerGridMovement : MonoBehaviour
             restButton.gameObject.SetActive(true);
         } else {
             restButton.gameObject.SetActive(false);
+        }
+
+        if (canBackStep) {
+            backwardButton.gameObject.SetActive(true);
+        } else {
+            backwardButton.gameObject.SetActive(false);
         }
     }
 
@@ -112,14 +124,27 @@ public class PlayerGridMovement : MonoBehaviour
         if (CanMoveForward()) {
             isMoving = true;
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
+            EnableBackwardsStep(player.transform.position, player.transform.rotation);
         }
+    }
+
+    private void EnableBackwardsStep(Vector3 previousPosition, Quaternion previousRotation) {
+        playerPreviousPosition = previousPosition;
+        playerPreviousRotation = previousRotation;
+        backwardButton.gameObject.SetActive(true);
+        canBackStep = true;
     }
 
     public void MoveBackwards()
     {
         if (isMoving || isRotating) return; // Prevent movement if already moving or rotating
-        isMoving = true;
-        targetPosition = GetSnappedPosition(transform.position - transform.forward * gridSize);
+        if (canBackStep) {
+            player.transform.position = playerPreviousPosition;
+            player.transform.rotation = playerPreviousRotation;
+            canBackStep = false;
+        }
+        //isMoving = true;
+        //targetPosition = GetSnappedPosition(transform.position - transform.forward * gridSize);
     }
 
     public void TurnLeft()
@@ -189,6 +214,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
         return true;
     }
+
 
     private void CheckForInteractables()
     {
