@@ -38,7 +38,6 @@ public class Projectile : MonoBehaviour
                     player.ModifyPhysicalStrength(amount);
                 }
             }
-
             Destroy(gameObject);
         }
     }

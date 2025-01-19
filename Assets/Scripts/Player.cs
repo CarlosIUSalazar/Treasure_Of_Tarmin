@@ -70,6 +70,9 @@ public class Player : MonoBehaviour
     
     public void ModifyArrows(int amount) {
         arrows += amount;
+        if (arrows < 0) {
+            arrows = 0;
+        }
         Debug.Log($"Arrows Left = {arrows}");
         OnPlayerStatsUpdated?.Invoke();
     }

@@ -56,7 +56,7 @@ public class EnemyShootingSpawner : MonoBehaviour
         //Initialize projectile
         Projectile proj = projectile.GetComponent<Projectile>();
         if (proj != null) {
-            proj.Initialize(spawnPoint.position, player.position); //Pass the target (player) position
+            proj.Initialize(spawnPoint.position + new Vector3(0,1.5f,0), player.position); //Pass the target (player) position
         }
         gameManager.isEnemysTurn = false;
         StartCoroutine(DelayPlayerturn()); //I delayed it in order to avoid escaping too soon and triggering one more enemy attack, it could be better

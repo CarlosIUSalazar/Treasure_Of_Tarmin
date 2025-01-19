@@ -23,7 +23,7 @@ public class PlayerGridMovement : MonoBehaviour
     public bool isMoving = false;
     public bool isRotating = false;
     public bool canBackStep = false;
-    public Vector3 gridStart = new Vector3(-5, 1, -5); // Define your custom grid start position
+    private Vector3 gridStart = new Vector3(-5, 2.5f, -5); // Define your custom grid start position
     private Vector3 targetPosition;
     private Quaternion targetRotation;
     Vector3 playerPreviousPosition;

@@ -29,19 +29,21 @@ public class PlayerShootingSpawner : MonoBehaviour
             gameManager.isPlayersTurn = false;
 
             //Spawn and initialize the projectile
-            GameObject projectile = Instantiate(
+            if (player.arrows > 0) { // Only spawn arrows if there are any.  If not, player loses his turn.
+                GameObject projectile = Instantiate(
                 projectilePrefab, 
                 spawnPoint.position + spawnPoint.forward * projectileOffset, 
                 Quaternion.identity
-            );
+                );
 
-            player.ModifyArrows(-1);
+                player.ModifyArrows(-1);
 
-            Projectile proj = projectile.GetComponent<Projectile>();
-            if (proj != null) {
-                proj.Initialize(spawnPoint.position, enemy.position); //Pass the enemy position
+                Projectile proj = projectile.GetComponent<Projectile>();
+                if (proj != null) {
+                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //Pass the enemy position a bit shifted upwards as it was shooting towards the balls
+                }
+                Debug.Log("Arrow spawned!");
             }
-            Debug.Log("Arrow spawned!");
             playerGridMovement.HideActionButton();
             gameManager.isEnemysTurn = true;
         }

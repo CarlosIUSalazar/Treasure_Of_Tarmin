@@ -62,7 +62,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_ConstrainProportionsScale
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_Name
@@ -70,19 +70,31 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0
+      value: -0.1377156
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.08744825
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 1
+      value: 0.95231426
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.25784647
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -31.01
       objectReference: {fileID: 0}
     - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 180
+      value: 194.68
+      objectReference: {fileID: 0}
+    - target: {fileID: 1151388028547126963, guid: ef5d1435f596644689ff371146d2500e, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 6.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -131,5 +143,5 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.9172866, y: 4.1338677, z: 1}
-  m_Center: {x: -0.09592195, y: 1.6451281, z: 0}
+  m_Size: {x: 3.625002, y: 3.8456125, z: 2.940368}
+  m_Center: {x: 0.13285716, y: 1.6176194, z: 0.23952235}
