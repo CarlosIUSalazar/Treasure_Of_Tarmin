@@ -244,7 +244,7 @@ public class PlayerGridMovement : MonoBehaviour
         float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
         float interactionDistance = gridSize;           // Detect doors/enemies one grid away
 
-        Vector3 rayOrigin = transform.position + new Vector3(0, -0.5f, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
         Vector3 rayDirection = transform.forward;
 
         // Short raycast for items
