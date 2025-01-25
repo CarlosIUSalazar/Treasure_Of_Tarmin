@@ -82,6 +82,11 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+    public void ModifyScore(int amount) {
+        score += amount;
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
     private void Die()
     {
         Debug.Log("Player Defeated!");

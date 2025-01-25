@@ -18,6 +18,7 @@ public class PlayerGridMovement : MonoBehaviour
     GameManager gameManager;
     Player player;
     Enemy enemy;
+    ItemManager itemManager;
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -33,7 +34,7 @@ public class PlayerGridMovement : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
-
+        itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
@@ -256,7 +257,7 @@ public class PlayerGridMovement : MonoBehaviour
             {
                 actionButtonText.text = "Pick Up";
                 actionButton.onClick.RemoveAllListeners();
-                actionButton.onClick.AddListener(() => PickUpItem(hit));
+                actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
                 return; // Return to avoid triggering further checks
             }
         }
@@ -310,26 +311,6 @@ public class PlayerGridMovement : MonoBehaviour
     private void ResetActionButton() {
         actionButtonText.text = "";
         actionButton.onClick.RemoveAllListeners();
-    }
-
-    private void PickUpItem(RaycastHit hit) {
-        GameObject item = hit.collider.gameObject;
-        Debug.Log("item is " + item.gameObject.name);
-        
-        string itemName = hit.collider.gameObject.name;
-
-        switch (itemName) {
-            case "Flour(Clone)":
-                player.ModifyFood(10);
-                Debug.Log("Picked up flour");
-                break;
-            case "Quiver(Clone)":
-                player.ModifyArrows(10);
-                Debug.Log("Picked up 10 Arrows");
-                break;
-        }
-        
-        item.SetActive(false);
     }
 
     private void InitiateFight(RaycastHit hit) {
