@@ -8,16 +8,20 @@ public class Projectile : MonoBehaviour
     private Vector3 direction;
 
     // Called after instantiation to initialize the projectile
-    public void Initialize(Vector3 shooterPosition, Vector3 targetPosition) {
+    public void Initialize(Vector3 shooterPosition, Vector3 targetPosition)
+    {
+        // Calculate the direction toward the target
         direction = (targetPosition - shooterPosition).normalized;
-        transform.forward = direction; //Rotate the projectile to the target  
+
+        // Set the visual rotation with a 220-degree offset in Y, but keep the movement direction correct
+        Quaternion visualRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 235, 0); //
+        transform.rotation = visualRotation;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        // Move the arrow forward based on its local forward direction
-        transform.position += transform.forward * projectileSpeed * Time.deltaTime;
+        // Move the arrow in the calculated direction
+        transform.position += direction * projectileSpeed * Time.deltaTime;
     }
 
     private void OnTriggerEnter(Collider other)
