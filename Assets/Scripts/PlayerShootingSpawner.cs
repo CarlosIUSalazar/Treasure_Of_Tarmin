@@ -51,9 +51,8 @@ public class PlayerShootingSpawner : MonoBehaviour
                 Projectile proj = projectile.GetComponent<Projectile>();
                 if (proj != null)
                 {
-                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0));
+                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at the enemy
                 }
-
                 Debug.Log("Dart shot!");
             }
 

@@ -38,28 +38,39 @@ public class EnemyShootingSpawner : MonoBehaviour
         isEnemyAttacking = false; // Reset the flag after the attack
     }
 
-    public void ShootAtPlayer(Transform player) {
-        //Spawn and initialize the projectile
+    public void ShootAtPlayer(Transform playerTransform)
+    {
+        // Spawn and initialize the projectile
         GameObject projectile = Instantiate(
             projectilePrefab,
             spawnPoint.position + spawnPoint.forward * projectileOffset,
             Quaternion.identity
         );
 
+        // Disable the "Billboard" and "ItemPositioning" scripts on the projectile
+        Billboard billboard = projectile.GetComponent<Billboard>();
+        if (billboard != null) Destroy(billboard);
+
+        ItemPositioning itemPositioning = projectile.GetComponent<ItemPositioning>();
+        if (itemPositioning != null) Destroy(itemPositioning);
+
         // Ignore collision between the projectile and the enemy
         Collider projectileCollider = projectile.GetComponent<Collider>();
         Collider enemyCollider = GetComponent<Collider>();
-        if (projectileCollider != null && enemyCollider != null) {
+        if (projectileCollider != null && enemyCollider != null)
+        {
             Physics.IgnoreCollision(projectileCollider, enemyCollider);
         }
 
-        //Initialize projectile
+        // Initialize the projectile to target the player
         Projectile proj = projectile.GetComponent<Projectile>();
-        if (proj != null) {
-            proj.Initialize(spawnPoint.position + new Vector3(0,1.5f,0), player.position); //Pass the target (player) position
+        if (proj != null)
+        {
+            proj.Initialize(spawnPoint.position, playerTransform.position);
         }
+
         gameManager.isEnemysTurn = false;
-        StartCoroutine(DelayPlayerturn()); //I delayed it in order to avoid escaping too soon and triggering one more enemy attack, it could be better
+        StartCoroutine(DelayPlayerturn()); // Delay to give the player time to react
     }
 
     IEnumerator DelayPlayerturn() {
