@@ -188,5 +188,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097c2eaa29f584725b19ddb34fd885d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 469990323540740252, guid: 829da3a095f984ce18dc78c3d2e2409d, type: 3}
+  projectilePrefab: {fileID: 1198239254670312718, guid: 23384a57acebc4be99fff6b3b69bfa93, type: 3}
   spawnPoint: {fileID: 414550355969223324}

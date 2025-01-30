@@ -4,6 +4,7 @@ using UnityEngine;
 public class EnemyShootingSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
+    [SerializeField] private GameObject secondatyProjectilePrefab;
     [SerializeField] private Transform spawnPoint;
     private float projectileOffset = 0;
     private GameManager gameManager;

@@ -123,7 +123,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097c2eaa29f584725b19ddb34fd885d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 469990323540740252, guid: 829da3a095f984ce18dc78c3d2e2409d, type: 3}
+  projectilePrefab: {fileID: 2013073610343398100, guid: ed90de8ad1cc3478c90b519856a9184c, type: 3}
   spawnPoint: {fileID: 3808410540674741874}
 --- !u!1 &4763729207858975761
 GameObject:

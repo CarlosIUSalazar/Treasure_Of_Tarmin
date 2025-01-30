@@ -200,6 +200,9 @@ color-type of weapon-weapon rating
 
 ------------------------------------------------------------------------
 
+War Wapons Color Progression:
+Tan, Orange, Blue, Grey, Yellow, White
+
 1. Skeletons: These creatures are among the least dangerous in the game. Ones 
 with shields have more resistance.
 
@@ -238,13 +241,14 @@ Key:
 
 color monster - type of weapon - weapon rating
 
-
+Spiritual Weapons Color Grades:
+Blue, Grey, White, Pink, Red, Purple
 
 1. Ants: These are the weakest of the Spiritual family.
 
-Blue - blue fireball - 5
-Pink - grey fireball - 9
-Purple - white fireball - 13
+Blue - blue fireball (sml) - 5
+Pink - grey fireball (sml) - 9
+Purple - white fireball (sml) - 13
 
 2. Dwarves: This family of monsters uses the same strength color code as the 
 Giants (See #3 in the War Monsters section) Ones with shields have more 
@@ -276,6 +280,10 @@ Blue - grey fireball (lrg) - 17
 Pink - orange fireball (lrg) - 36
 Purple - purple fireball (lrg) - 49
 
+6. Snakes (It wasn't in the original document)
+Blue - red fireball (sml) - 27 (1:09:14) 
+Pink - purple fireball (sml) - 43
+Purple - blue fireball (large) -   (1:36:21)   https://www.youtube.com/watch?v=bqT7ch1NrSE
 ------------------------------------------------------------------------
 
 

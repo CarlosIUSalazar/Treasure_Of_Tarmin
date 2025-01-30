@@ -187,7 +187,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 097c2eaa29f584725b19ddb34fd885d4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  projectilePrefab: {fileID: 3030243143984785367, guid: cad7f217b103649c1928affcd5039d44, type: 3}
+  projectilePrefab: {fileID: 3603702160211667730, guid: 7210ca8f50d41494f967cdf3ef320e8d, type: 3}
+  secondatyProjectilePrefab: {fileID: 1198239254670312718, guid: 23384a57acebc4be99fff6b3b69bfa93, type: 3}
   spawnPoint: {fileID: 1919808140814488137}
 --- !u!4 &1919808140814488137 stripped
 Transform:
