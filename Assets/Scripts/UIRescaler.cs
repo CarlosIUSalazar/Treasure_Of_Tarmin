@@ -8,7 +8,6 @@ public class UIRescaler : MonoBehaviour
     void Start()
     {
         AdjustUI();
-        Debug.Log("UI Rescaled");
     }
 
     void AdjustUI()
