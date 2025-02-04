@@ -6,11 +6,15 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
     [SerializeField] private RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
+    [SerializeField] public GameObject GreyBow3D;
+    [SerializeField] public Texture2D GreyBow2D;
+
 
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
+    Player player;
 
-    public void Update() {
-        Debug.Log("leftHandSlot: " + leftHandSlot.GetComponent<RawImage>().texture.name);
+    public void Start() {
+        player = GameObject.Find("Player").GetComponent<Player>();
     }
 
     // Assign an item to a slot
@@ -44,12 +48,47 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Assign an item directly to the right hand
-    public void AssignToRightHand(Texture itemTexture)
+    public void AssignToRightHand(Texture itemTexture, bool isNew)
     {
         if (itemTexture != null)
         {
-            rightHandSlot.texture = itemTexture;
-            rightHandSlot.color = Color.white;
+            Texture currentTexture = itemTexture;
+            Debug.Log("currentTexture in rightHand: " + currentTexture.name);
+            if (isNew)
+            {
+                rightHandSlot.texture = itemTexture;
+                rightHandSlot.color = Color.white;
+                Spawn3DItem(currentTexture.name);
+            }
+            else
+            {
+                rightHandSlot.texture = itemTexture;
+                rightHandSlot.color = Color.white;
+            }
+
+            // rightHandSlot.texture = itemTexture;
+            // rightHandSlot.color = Color.white;
+        }
+    }
+
+    public void Spawn3DItem(string item)
+    {
+        Vector3 playerPosition = GameObject.Find("Player").transform.position;
+
+        GameObject = Item2Dto3D(string name);
+
+        GameObject item3D = Instantiate(item3D, new Vector3(playerPosition.x, 0.1f,playerPosition.z), Quaternion.identity);
+        Debug.Log("Instantiated 3D item: " + item3D.name);
+    }
+
+    private GameObject item2Dto3D(string name)
+    {
+        switch (name)
+        {
+            case "GreyBow2D":
+                return GreyBow3D;
+            default:
+                return null;
         }
     }
 }

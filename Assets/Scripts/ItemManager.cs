@@ -4,11 +4,13 @@ public class ItemManager : MonoBehaviour
 {
 
     Player player;
+    InventoryManager inventoryManager;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -126,7 +128,19 @@ public class ItemManager : MonoBehaviour
             player.ModifyScore(600);
             Debug.Log("Picked up Yellow Coins");
             break;
+
+        //////////////////////
+        /// WAR WEAPONS 
+        //////////////////////
+        
+        case "Bow-Grey.vox(Clone)":
+            //player.ModifyScore(600);
+            Debug.Log("Picked up " + item.gameObject.name);
+            inventoryManager.AssignToRightHand(inventoryManager.GreyBow2D, true);
+            break;
+// BOWS
     }
-    item.SetActive(false);
+    //item.SetActive(false);
+    Destroy(item);
     }
 }
