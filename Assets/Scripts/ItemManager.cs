@@ -25,6 +25,11 @@ public class ItemManager : MonoBehaviour
     
     string itemName = hit.collider.gameObject.name;
 
+    //Here checking if right hand item is already assigned
+    //If yes, then destroy the item and assign the new item to right hand and spawn the already existing item in hand on the floor in front of player in 3D
+    //If no, then only assign the item to right hand
+    inventoryManager.TakenItemDecider(itemName);
+
     switch (itemName) {
         case "Flour(Clone)":
             player.ModifyFood(10);
@@ -136,7 +141,7 @@ public class ItemManager : MonoBehaviour
         case "Bow-Grey.vox(Clone)":
             //player.ModifyScore(600);
             Debug.Log("Picked up " + item.gameObject.name);
-            inventoryManager.AssignToRightHand(inventoryManager.GreyBow2D, true);
+            //inventoryManager.AssignToRightHand(inventoryManager.GreyBow2D, true);
             break;
 // BOWS
     }

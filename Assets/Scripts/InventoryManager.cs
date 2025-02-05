@@ -1,13 +1,44 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+// Tan, Orange, Blue, Grey, Yellow, White
+// Blue, Grey, White, Pink, Red, Purple
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
     [SerializeField] private RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
+    
+    //3D models
+    [SerializeField] public GameObject TanBow3D;
+    [SerializeField] public GameObject OrangeBow3D;
+    [SerializeField] public GameObject BlueBow3D;    
     [SerializeField] public GameObject GreyBow3D;
+    [SerializeField] public GameObject YellowBow3D;
+    [SerializeField] public GameObject WhiteBow3D;
+
+    [SerializeField] public GameObject TanKnife3D;
+    [SerializeField] public GameObject OrangeKnife3D;
+    [SerializeField] public GameObject BlueKnife3D;    
+    [SerializeField] public GameObject GreyKnife3D;
+    [SerializeField] public GameObject YelowKnife3D;
+    [SerializeField] public GameObject WhiteKnife3D;
+    
+    //2D textures
+    [SerializeField] public Texture2D TanBow2D;
+    [SerializeField] public Texture2D OrangeBow2D;
     [SerializeField] public Texture2D GreyBow2D;
+    [SerializeField] public Texture2D BlueBow2D;
+    [SerializeField] public Texture2D YellowBow2D;
+    [SerializeField] public Texture2D WhiteBow2D;
+
+    [SerializeField] public Texture2D TanKnife2D;
+    [SerializeField] public Texture2D OrangeKnife2D;
+    [SerializeField] public Texture2D GreyKnife2D;
+    [SerializeField] public Texture2D BlueKnife2D;
+    [SerializeField] public Texture2D YellowKnife2D;
+    [SerializeField] public Texture2D WhiteKnife2D;
+
+    
 
 
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
@@ -15,6 +46,10 @@ public class InventoryManager : MonoBehaviour
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
+    }
+
+    public void Update() {
+        //Debug.Log("Right hand item: " + rightHandSlot.texture.name);
     }
 
     // Assign an item to a slot
@@ -48,13 +83,17 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Assign an item directly to the right hand
-    public void AssignToRightHand(Texture itemTexture, bool isNew)
+    public void AssignToRightHand(Texture itemTexture)
     {
+        if (rightHandSlot.texture != emptyTexture)
+        {
+
+        }
         if (itemTexture != null)
         {
             Texture currentTexture = itemTexture;
             Debug.Log("currentTexture in rightHand: " + currentTexture.name);
-            if (isNew)
+            if (true)
             {
                 rightHandSlot.texture = itemTexture;
                 rightHandSlot.color = Color.white;
@@ -62,8 +101,8 @@ public class InventoryManager : MonoBehaviour
             }
             else
             {
-                rightHandSlot.texture = itemTexture;
-                rightHandSlot.color = Color.white;
+                //rightHandSlot.texture = itemTexture;
+                //rightHandSlot.color = Color.white;
             }
 
             // rightHandSlot.texture = itemTexture;
@@ -75,20 +114,79 @@ public class InventoryManager : MonoBehaviour
     {
         Vector3 playerPosition = GameObject.Find("Player").transform.position;
 
-        GameObject = Item2Dto3D(string name);
+        GameObject itemToSpawn = Item2Dto3D(name);
 
-        GameObject item3D = Instantiate(item3D, new Vector3(playerPosition.x, 0.1f,playerPosition.z), Quaternion.identity);
+        GameObject item3D = Instantiate(itemToSpawn, new Vector3(playerPosition.x, 0.1f,playerPosition.z), Quaternion.identity);
         Debug.Log("Instantiated 3D item: " + item3D.name);
     }
 
-    private GameObject item2Dto3D(string name)
+    private GameObject Item2Dto3D(string name)
     {
         switch (name)
         {
-            case "GreyBow2D":
+            case "Bow-Tan":
+                return TanBow3D;
+            case "Bow-Orange":
+                return OrangeBow3D;
+            case "Bow-Grey":
                 return GreyBow3D;
+            case "Bow-Blue":
+                return BlueBow3D;
+            case "Bow-Yellow":
+                return YellowBow3D;
+            case "Bow-White":
+                return GreyBow3D;
+
+            case "Knife-Tan":
+                return TanKnife3D; 
+            case "Knife-Orange":
+                return OrangeKnife3D;
+            case "Knife-Grey":
+                return GreyKnife3D;
+            case "Knife-Blue":
+                return BlueKnife3D; 
+            case "Knife-Yellow":
+                return YelowKnife3D;
+            case "Knife-White":
+                return WhiteKnife3D;
             default:
                 return null;
         }
     }
+
+
+    public GameObject TakenItemDecider(string name) {
+        switch (name)
+        {
+            case "Bow-Tan.vox(Clone)":
+                return TanBow3D;
+            case "Bow-Orange.vox(Clone)":
+                return OrangeBow3D;
+            case "Bow-Grey.vox(Clone)":
+                return GreyBow3D;
+            case "Bow-Blue.vox(Clone)":
+                return BlueBow3D;
+            case "Bow-Yellow.vox(Clone)":
+                return YellowBow3D;
+            case "Bow-White.vox(Clone)":
+                return GreyBow3D;
+
+            case "Knife-Tan.vox(Clone)":
+                return TanKnife3D; 
+            case "Knife-Orange.vox(Clone)":
+                return OrangeKnife3D;
+            case "Knife-Grey.vox(Clone)":
+                return GreyKnife3D;
+            case "Knife-Blue.vox(Clone)":
+                return BlueKnife3D; 
+            case "Knife-Yellow.vox(Clone)":
+                return YelowKnife3D;
+            case "Knife-White.vox(Clone)":
+                return WhiteKnife3D;
+            default:
+                return null;
+        }
+
+    }
+
 }
