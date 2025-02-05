@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
   m_Name: Bow-Grey
   m_EditorClassIdentifier: 
-  itemName: Bow-Tan
-  item3DPrefab: {fileID: 4421216821836222205, guid: 0fd2e407fe6234735ba9a0069e9554e5, type: 3}
-  item2DSprite: {fileID: 2800000, guid: ce868cab0f6ce4c30a0b410c75b6888e, type: 3}
+  itemName: Bow-Grey
+  item3DPrefab: {fileID: 226634909125309438, guid: a0dacd44f3c0441c39b00414c1b91cea, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 4cb8f65a7ebbb4b379b6543a89523c43, type: 3}

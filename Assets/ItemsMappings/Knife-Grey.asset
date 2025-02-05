@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
-  m_Name: Bow-Yellow
+  m_Name: Knife-Grey
   m_EditorClassIdentifier: 
   itemName: Bow-Yellow
   item3DPrefab: {fileID: 8966979738910240259, guid: fc06837729c2845eab23250bfd69ec26, type: 3}

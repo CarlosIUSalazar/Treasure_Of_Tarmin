@@ -1,9 +1,13 @@
 using UnityEngine;
 using UnityEngine.UI;
+using System.Collections.Generic;
+
 // Tan, Orange, Blue, Grey, Yellow, White
 // Blue, Grey, White, Pink, Red, Purple
 public class InventoryManager : MonoBehaviour
 {
+    [SerializeField] private List<ItemMapping> itemMappings; // Drag all ItemMapping assets here
+
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
     [SerializeField] private RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
@@ -38,11 +42,9 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] public Texture2D YellowKnife2D;
     [SerializeField] public Texture2D WhiteKnife2D;
 
-    
-
-
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     Player player;
+
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -50,6 +52,10 @@ public class InventoryManager : MonoBehaviour
 
     public void Update() {
         //Debug.Log("Right hand item: " + rightHandSlot.texture.name);
+    }
+
+    private ItemMapping GetItemMapping(string itemName){
+        return itemMappings.Find(mapping => mapping.itemName == itemName);
     }
 
     // Assign an item to a slot
@@ -83,110 +89,124 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Assign an item directly to the right hand
-    public void AssignToRightHand(Texture itemTexture)
+    public void AssignToRightHand(string itemName)
     {
-        if (rightHandSlot.texture != emptyTexture)
+        ItemMapping itemMapping = GetItemMapping(itemName);
+        if (rightHandSlot.texture != null) // If right hand is already holding an item
         {
-
+            Debug.Log("Right hand is already holding an item which is: " + rightHandSlot.texture.name);
+            Spawn3DItem(rightHandSlot.texture.name); // Spawn the currently holding item into a 3D item on the ground
         }
-        if (itemTexture != null)
-        {
-            Texture currentTexture = itemTexture;
-            Debug.Log("currentTexture in rightHand: " + currentTexture.name);
-            if (true)
-            {
-                rightHandSlot.texture = itemTexture;
-                rightHandSlot.color = Color.white;
-                Spawn3DItem(currentTexture.name);
-            }
-            else
-            {
-                //rightHandSlot.texture = itemTexture;
-                //rightHandSlot.color = Color.white;
-            }
 
-            // rightHandSlot.texture = itemTexture;
-            // rightHandSlot.color = Color.white;
+        if (itemMapping != null) // If the item mapping is found
+        {
+            rightHandSlot.texture = itemMapping.item2DSprite; // Assign the item to the right hand in 2D
+            Debug.Log("rightHandSlot.texture is " + rightHandSlot.texture.name);
+            rightHandSlot.color = Color.white;
+
+            Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
+        } else 
+        {
+            Debug.Log("Item mapping not found for " + itemName);
         }
     }
 
-    public void Spawn3DItem(string item)
+
+    public void Spawn3DItem(string itemName)
     {
         Vector3 playerPosition = GameObject.Find("Player").transform.position;
 
-        GameObject itemToSpawn = Item2Dto3D(name);
-
-        GameObject item3D = Instantiate(itemToSpawn, new Vector3(playerPosition.x, 0.1f,playerPosition.z), Quaternion.identity);
-        Debug.Log("Instantiated 3D item: " + item3D.name);
-    }
-
-    private GameObject Item2Dto3D(string name)
-    {
-        switch (name)
+        ItemMapping itemMapping = GetItemMapping(itemName);
+        
+        if (itemMapping != null && itemMapping.item3DPrefab != null) 
         {
-            case "Bow-Tan":
-                return TanBow3D;
-            case "Bow-Orange":
-                return OrangeBow3D;
-            case "Bow-Grey":
-                return GreyBow3D;
-            case "Bow-Blue":
-                return BlueBow3D;
-            case "Bow-Yellow":
-                return YellowBow3D;
-            case "Bow-White":
-                return GreyBow3D;
+            // Instantiate the item
+            GameObject spawnedItem = Instantiate(itemMapping.item3DPrefab, 
+                new Vector3(playerPosition.x, 0.1f, playerPosition.z), 
+                Quaternion.identity);
 
-            case "Knife-Tan":
-                return TanKnife3D; 
-            case "Knife-Orange":
-                return OrangeKnife3D;
-            case "Knife-Grey":
-                return GreyKnife3D;
-            case "Knife-Blue":
-                return BlueKnife3D; 
-            case "Knife-Yellow":
-                return YelowKnife3D;
-            case "Knife-White":
-                return WhiteKnife3D;
-            default:
-                return null;
+            // Check and remove the Projectile component if it exists
+            Projectile projectileComponent = spawnedItem.GetComponent<Projectile>();
+            if (projectileComponent != null)
+            {
+                Destroy(projectileComponent);
+            }
+
+            Debug.Log("Spawned 3D Item: " + itemMapping.item3DPrefab.name);
         }
-    }
-
-
-    public GameObject TakenItemDecider(string name) {
-        switch (name)
+        else 
         {
-            case "Bow-Tan.vox(Clone)":
-                return TanBow3D;
-            case "Bow-Orange.vox(Clone)":
-                return OrangeBow3D;
-            case "Bow-Grey.vox(Clone)":
-                return GreyBow3D;
-            case "Bow-Blue.vox(Clone)":
-                return BlueBow3D;
-            case "Bow-Yellow.vox(Clone)":
-                return YellowBow3D;
-            case "Bow-White.vox(Clone)":
-                return GreyBow3D;
-
-            case "Knife-Tan.vox(Clone)":
-                return TanKnife3D; 
-            case "Knife-Orange.vox(Clone)":
-                return OrangeKnife3D;
-            case "Knife-Grey.vox(Clone)":
-                return GreyKnife3D;
-            case "Knife-Blue.vox(Clone)":
-                return BlueKnife3D; 
-            case "Knife-Yellow.vox(Clone)":
-                return YelowKnife3D;
-            case "Knife-White.vox(Clone)":
-                return WhiteKnife3D;
-            default:
-                return null;
-        }
-
+            Debug.LogWarning("3D Prefab not found for: " + itemName);
+        } 
     }
+
+
+    // private GameObject Item2Dto3D(string name)
+    // {
+    //     switch (name)
+    //     {
+    //         case "Bow-Tan":
+    //             return TanBow3D;
+    //         case "Bow-Orange":
+    //             return OrangeBow3D;
+    //         case "Bow-Grey":
+    //             return GreyBow3D;
+    //         case "Bow-Blue":
+    //             return BlueBow3D;
+    //         case "Bow-Yellow":
+    //             return YellowBow3D;
+    //         case "Bow-White":
+    //             return GreyBow3D;
+
+    //         case "Knife-Tan":
+    //             return TanKnife3D; 
+    //         case "Knife-Orange":
+    //             return OrangeKnife3D;
+    //         case "Knife-Grey":
+    //             return GreyKnife3D;
+    //         case "Knife-Blue":
+    //             return BlueKnife3D; 
+    //         case "Knife-Yellow":
+    //             return YelowKnife3D;
+    //         case "Knife-White":
+    //             return WhiteKnife3D;
+    //         default:
+    //             return null;
+    //     }
+    // }
+
+
+    // public GameObject TakenItemDecider(string name) {
+    //     switch (name)
+    //     {
+    //         case "Bow-Tan.vox(Clone)":
+    //             return TanBow3D;
+    //         case "Bow-Orange.vox(Clone)":
+    //             return OrangeBow3D;
+    //         case "Bow-Grey.vox(Clone)":
+    //             return GreyBow3D;
+    //         case "Bow-Blue.vox(Clone)":
+    //             return BlueBow3D;
+    //         case "Bow-Yellow.vox(Clone)":
+    //             return YellowBow3D;
+    //         case "Bow-White.vox(Clone)":
+    //             return GreyBow3D;
+
+    //         case "Knife-Tan.vox(Clone)":
+    //             return TanKnife3D; 
+    //         case "Knife-Orange.vox(Clone)":
+    //             return OrangeKnife3D;
+    //         case "Knife-Grey.vox(Clone)":
+    //             return GreyKnife3D;
+    //         case "Knife-Blue.vox(Clone)":
+    //             return BlueKnife3D; 
+    //         case "Knife-Yellow.vox(Clone)":
+    //             return YelowKnife3D;
+    //         case "Knife-White.vox(Clone)":
+    //             return WhiteKnife3D;
+    //         default:
+    //             return null;
+    //     }
+    // }
 
 }

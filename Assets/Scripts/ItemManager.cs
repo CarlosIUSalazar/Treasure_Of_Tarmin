@@ -20,132 +20,128 @@ public class ItemManager : MonoBehaviour
     }
 
     public void PickUpItem(RaycastHit hit) {
-    GameObject item = hit.collider.gameObject;
-    Debug.Log("item is " + item.gameObject.name);
-    
-    string itemName = hit.collider.gameObject.name;
+        GameObject item = hit.collider.gameObject;
 
-    //Here checking if right hand item is already assigned
-    //If yes, then destroy the item and assign the new item to right hand and spawn the already existing item in hand on the floor in front of player in 3D
-    //If no, then only assign the item to right hand
-    inventoryManager.TakenItemDecider(itemName);
+        string itemName = item.name.Replace(".vox(Clone)", "").Trim();
+        Debug.Log("item is " + item.gameObject.name);
+        Debug.Log("Trimmed name is " + itemName);
+        //string itemName = hit.collider.gameObject.name;
 
-    switch (itemName) {
-        case "Flour(Clone)":
-            player.ModifyFood(10);
-            Debug.Log("Picked up flour");
-            break;
-        case "Quiver(Clone)":
-            player.ModifyArrows(10);
-            Debug.Log("Picked up 10 Arrows");
-            break;
-        
-        //////////////////////
-        /// TREASURES 
-        //////////////////////
-// COINS
-        case "Coins-Grey(Clone)":
-            player.ModifyScore(10);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+        //Here checking if right hand item is already assigned
+        //If yes, then destroy the item and assign the new item to right hand and spawn the already existing item in hand on the floor in front of player in 3D
+        //If no, then only assign the item to right hand
+        switch (itemName) {
+            case "Flour":
+                player.ModifyFood(10);
+                Debug.Log("Picked up flour");
+                break;
+            case "Quiver":
+                player.ModifyArrows(10);
+                Debug.Log("Picked up 10 Arrows");
+                break;
+            
+            //////////////////////
+            /// TREASURES 
+            //////////////////////
+    // COINS
+            case "Coins-Grey":
+                player.ModifyScore(10);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Coins-Yellow(Clone)":
-            player.ModifyScore(30);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Coins-Yellow":
+                player.ModifyScore(30);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Coins-White(Clone)":
-            player.ModifyScore(70);
-            Debug.Log("Picked up Yellow Coins");
-            break;
-//  NECKLACES
-        case "Necklace-Grey(Clone)":
-            player.ModifyScore(20);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Coins-White":
+                player.ModifyScore(70);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+    //  NECKLACES
+            case "Necklace-Grey":
+                player.ModifyScore(20);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Necklace-Yellow(Clone)":
-            player.ModifyScore(70);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Necklace-Yellow":
+                player.ModifyScore(70);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Necklace-White(Clone)":
-            player.ModifyScore(200);
-            Debug.Log("Picked up Yellow Coins");
-            break;
-// INGOTS
-        case "Ingot-Grey(Clone)":
-            player.ModifyScore(50);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Necklace-White":
+                player.ModifyScore(200);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+    // INGOTS
+            case "Ingot-Grey":
+                player.ModifyScore(50);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Ingot-Yellow(Clone)":
-            player.ModifyScore(350);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Ingot-Yellow":
+                player.ModifyScore(350);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Ingot-White(Clone)":
-            player.ModifyScore(450);
-            Debug.Log("Picked up Yellow Coins");
-            break;
-// LAMPS
-        case "Lamp-Grey(Clone)":
-            player.ModifyScore(100);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Ingot-White":
+                player.ModifyScore(450);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+    // LAMPS
+            case "Lamp-Grey":
+                player.ModifyScore(100);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Lamp-Yellow(Clone)":
-            player.ModifyScore(150);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Lamp-Yellow":
+                player.ModifyScore(150);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Lamp-White(Clone)":
-            player.ModifyScore(220);
-            Debug.Log("Picked up Yellow Coins");
-            break;
-// CHALICES
-        case "Chalice-Grey(Clone)":
-            player.ModifyScore(120);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Lamp-White":
+                player.ModifyScore(220);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+    // CHALICES
+            case "Chalice-Grey":
+                player.ModifyScore(120);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Chalice-Yellow(Clone)":
-            player.ModifyScore(250);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Chalice-Yellow":
+                player.ModifyScore(250);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Chalice-White(Clone)":
-            player.ModifyScore(400);
-            Debug.Log("Picked up Yellow Coins");
-            break;
-// CROWNS
-        case "Crown-Grey(Clone)":
-            player.ModifyScore(300);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Chalice-White":
+                player.ModifyScore(400);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+    // CROWNS
+            case "Crown-Grey":
+                player.ModifyScore(300);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Crown-Yellow(Clone)":
-            player.ModifyScore(500);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Crown-Yellow":
+                player.ModifyScore(500);
+                Debug.Log("Picked up Yellow Coins");
+                break;
 
-        case "Crown-White(Clone)":
-            player.ModifyScore(600);
-            Debug.Log("Picked up Yellow Coins");
-            break;
+            case "Crown-White":
+                player.ModifyScore(600);
+                Debug.Log("Picked up Yellow Coins");
+                break;
+            
+            default: 
+                inventoryManager.AssignToRightHand(itemName);
+                break;
+        }
 
-        //////////////////////
-        /// WAR WEAPONS 
-        //////////////////////
-        
-        case "Bow-Grey.vox(Clone)":
-            //player.ModifyScore(600);
-            Debug.Log("Picked up " + item.gameObject.name);
-            //inventoryManager.AssignToRightHand(inventoryManager.GreyBow2D, true);
-            break;
-// BOWS
-    }
-    //item.SetActive(false);
-    Destroy(item);
+
+
+        //item.SetActive(false);
+        Destroy(item);
     }
 }

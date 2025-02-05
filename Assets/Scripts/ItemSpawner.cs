@@ -81,7 +81,18 @@ public class ItemSpawner : MonoBehaviour
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
 
             // Instantiate the object at the calculated position
-            Instantiate(randomPrefab, worldPosition, Quaternion.identity);
+            //Instantiate(randomPrefab, worldPosition, Quaternion.identity);
+
+            // Instantiate the object at the calculated position
+            GameObject spawnedObject = Instantiate(randomPrefab, worldPosition, Quaternion.identity);
+
+            // Check if the object has a Projectile component and remove it
+            Projectile projectileComponent = spawnedObject.GetComponent<Projectile>();
+            if (projectileComponent != null)
+            {
+                Destroy(projectileComponent);
+            }
+
         }
     }
 
