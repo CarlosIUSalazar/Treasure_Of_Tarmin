@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Pack-Orange
+  m_EditorClassIdentifier: 
+  itemName: Pack-Orange
+  item3DPrefab: {fileID: 6350445067722751819, guid: 1aa04e613b687408cb8750d21d7b0feb, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 0451df597b17a4d16a38dbaaa8307076, type: 3}

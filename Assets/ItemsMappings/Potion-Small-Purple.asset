@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Potion-Small-Purple
+  m_EditorClassIdentifier: 
+  itemName: Potion-Small-Purple
+  item3DPrefab: {fileID: 743985162397943594, guid: 9d23cee0841a9498cbb4c4e205ec253f, type: 3}
+  item2DSprite: {fileID: 2800000, guid: dbac4290203c9421099052968caff1b8, type: 3}

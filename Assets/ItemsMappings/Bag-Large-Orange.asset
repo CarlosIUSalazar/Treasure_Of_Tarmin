@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Bag-Large-Orange
+  m_EditorClassIdentifier: 
+  itemName: Bag-Large-Orange
+  item3DPrefab: {fileID: 5127303680511844583, guid: 83451ffd8bd604a93abe7e981cee9162, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 1f3815f83dc564304bd1b8c5604fe13f, type: 3}

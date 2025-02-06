@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Helmet-Orange
+  m_EditorClassIdentifier: 
+  itemName: Helmet-Orange
+  item3DPrefab: {fileID: 3597486761592605195, guid: 58d79e794e9624a5d97af2771a5ac77a, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 7771eaf192db0413cbb7c685548cf6c2, type: 3}

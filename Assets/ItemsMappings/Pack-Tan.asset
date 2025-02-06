@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Pack-Tan
+  m_EditorClassIdentifier: 
+  itemName: Pack-Tan
+  item3DPrefab: {fileID: 4597443083171209021, guid: 6d298bdfce3dd42feb97b6d95fe022b4, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 58fa284e83b9b4d0a9233c4d40bc9d87, type: 3}

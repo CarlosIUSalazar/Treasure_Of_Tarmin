@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Helmet-Tan
+  m_EditorClassIdentifier: 
+  itemName: Helmet-Tan
+  item3DPrefab: {fileID: 6436438626129976784, guid: 42719ba8b620c44618720da0c236407c, type: 3}
+  item2DSprite: {fileID: 2800000, guid: ebbc06cda6b0f40a5a249ad705eea89c, type: 3}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Chest-Blue
+  m_EditorClassIdentifier: 
+  itemName: Chest-Blue
+  item3DPrefab: {fileID: 8320289708415619571, guid: 08298c2f4a20646e8a1c2c0d774b6ab5, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 7ae5cfd14a93a459f80f6b75095e8c85, type: 3}

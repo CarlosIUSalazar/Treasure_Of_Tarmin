@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Spell-Book-Pink
+  m_EditorClassIdentifier: 
+  itemName: Spell-Book-Pink
+  item3DPrefab: {fileID: 1750110910666076061, guid: 74397cdfe93f0415a8db76870d5eab02, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 80b19d585ac9e434ca3d104ddebe5577, type: 3}

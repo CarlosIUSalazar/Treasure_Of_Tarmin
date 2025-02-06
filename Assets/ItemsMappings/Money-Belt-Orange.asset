@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Money-Belt-Orange
+  m_EditorClassIdentifier: 
+  itemName: Money-Belt-Orange
+  item3DPrefab: {fileID: 2840287071788504356, guid: 155b0ad63d7a541c3b3dd905e88315cb, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 4552483ac3c3a416ba67f34611a93e34, type: 3}

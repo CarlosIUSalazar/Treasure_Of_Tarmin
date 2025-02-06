@@ -86,7 +86,7 @@ public class ItemSpawner : MonoBehaviour
             // Instantiate the object at the calculated position
             GameObject spawnedObject = Instantiate(randomPrefab, worldPosition, Quaternion.identity);
 
-            // Check if the object has a Projectile component and remove it
+            // Check if the object has a Projectile component and remove it to avoid Hit effect to the player when picking these up
             Projectile projectileComponent = spawnedObject.GetComponent<Projectile>();
             if (projectileComponent != null)
             {

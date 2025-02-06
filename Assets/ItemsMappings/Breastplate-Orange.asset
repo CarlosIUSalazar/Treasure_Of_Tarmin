@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Breastplate-Orange
+  m_EditorClassIdentifier: 
+  itemName: Breastplate-Orange
+  item3DPrefab: {fileID: 3888452402271617220, guid: 7b54a6a001a394718a1637e77ed2b1d1, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 1d47f83cbd2644631ae7608e425752c8, type: 3}

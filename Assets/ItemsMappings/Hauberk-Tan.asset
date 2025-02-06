@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Hauberk-Tan
+  m_EditorClassIdentifier: 
+  itemName: Hauberk-Tan
+  item3DPrefab: {fileID: 4850010637604468751, guid: ccba15c70385046a1b511ecab3be5dcd, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 3369be0d0026c45a09b0f4fff085e50f, type: 3}

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Ring-Small-Grey
+  m_EditorClassIdentifier: 
+  itemName: Ring-Small-Grey
+  item3DPrefab: {fileID: 3641031583673150984, guid: 162d2497b8abc4ead923b0df70d4bdc4, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 725555eeba83241459bdbca8e2268b1b, type: 3}

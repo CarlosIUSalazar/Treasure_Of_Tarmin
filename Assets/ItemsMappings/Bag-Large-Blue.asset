@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Bag-Large-Blue
+  m_EditorClassIdentifier: 
+  itemName: Bag-Large-Blue
+  item3DPrefab: {fileID: 6362163443377584568, guid: bfb68b00213d444bca5aa2731fd1a74c, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 52991311fe7b54f8babc85193c1aba08, type: 3}

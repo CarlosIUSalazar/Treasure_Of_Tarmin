@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Book-Spiritual-Blue
+  m_EditorClassIdentifier: 
+  itemName: Book-Spiritual-Blue
+  item3DPrefab: {fileID: 2482294192839035330, guid: 9882b71e94b904a579349d32a695534b, type: 3}
+  item2DSprite: {fileID: 2800000, guid: ac9a9baf7414b4b89945a80b6fbd5432, type: 3}

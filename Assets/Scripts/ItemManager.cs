@@ -6,17 +6,10 @@ public class ItemManager : MonoBehaviour
     Player player;
     InventoryManager inventoryManager;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 
     public void PickUpItem(RaycastHit hit) {

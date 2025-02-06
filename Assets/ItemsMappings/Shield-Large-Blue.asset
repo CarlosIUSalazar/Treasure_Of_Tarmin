@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Shield-Large-Blue
+  m_EditorClassIdentifier: 
+  itemName: Shield-Large-Blue
+  item3DPrefab: {fileID: 7369048073237630177, guid: 8677ee00bf53140eb8e59cea56af06c6, type: 3}
+  item2DSprite: {fileID: 2800000, guid: 1b8621b9f68cd4c83b84d4f753c4842d, type: 3}
