@@ -19,6 +19,8 @@ public class PlayerGridMovement : MonoBehaviour
     Player player;
     Enemy enemy;
     ItemManager itemManager;
+    InventoryManager inventoryManager;
+
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
     public bool isMoving = false;
@@ -35,6 +37,7 @@ public class PlayerGridMovement : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
         itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
@@ -259,7 +262,16 @@ public class PlayerGridMovement : MonoBehaviour
                 actionButton.onClick.RemoveAllListeners();
                 actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
                 return; // Return to avoid triggering further checks
-            }
+            } 
+        }
+        
+        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))  {
+                if (inventoryManager.isHoldingRightHandItem) {
+                    actionButtonText.text = "Drop";
+                    actionButton.onClick.RemoveAllListeners();
+                    actionButton.onClick.AddListener(() => inventoryManager.DropAnItem());
+                    //return; // Return to avoid triggering further checks
+                }
         }
 
         // Long raycast for doors and enemies

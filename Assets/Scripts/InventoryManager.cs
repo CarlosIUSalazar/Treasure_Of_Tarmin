@@ -1,26 +1,42 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System;
 
 // Tan, Orange, Blue, Grey, Yellow, White
 // Blue, Grey, White, Pink, Red, Purple
 public class InventoryManager : MonoBehaviour
 {
     [SerializeField] private List<ItemMapping> itemMappings; // Drag all ItemMapping assets here
-
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
-    [SerializeField] private RawImage rightHandSlot; // RawImage for right-hand slot
+    [SerializeField] public RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
-
+    [SerializeField] private Texture2D transparentImg;
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     Player player;
-
+    public bool isHoldingRightHandItem = false;
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
     }
 
-    private ItemMapping GetItemMapping(string itemName){
+    public void Update()
+    {
+        CheckIfRightHandHasItem();
+    }
+
+    private void CheckIfRightHandHasItem()
+    {
+        if (rightHandSlot.texture == transparentImg)
+        {
+            isHoldingRightHandItem = false;
+        } else {
+            isHoldingRightHandItem = true;
+        }
+        //isHoldingRightHandItem = rightHandSlot.texture != transparentImg;
+    }
+
+    public ItemMapping GetItemMapping(string itemName){
         return itemMappings.Find(mapping => mapping.itemName == itemName);
     }
 
@@ -77,6 +93,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+    public void DropAnItem() {
+        if (rightHandSlot.texture != null) {
+            String currentItem = rightHandSlot.texture.name;
+            Spawn3DItem(currentItem);
+            rightHandSlot.texture = transparentImg;
+        }
+    }
 
     public void Spawn3DItem(string itemName)
     {

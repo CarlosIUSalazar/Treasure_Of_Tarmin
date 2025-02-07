@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Scroll-Pink
   item3DPrefab: {fileID: 8389089895167742680, guid: e8c72f59466ad4359834b2809dee27f6, type: 3}
   item2DSprite: {fileID: 2800000, guid: 9b015f0fa408b43e5bc43576de0d12cc, type: 3}
+  ammo: {fileID: 6233843619771494365, guid: b4c3eca7d545a4c70b39eb0e659cbea2, type: 3}

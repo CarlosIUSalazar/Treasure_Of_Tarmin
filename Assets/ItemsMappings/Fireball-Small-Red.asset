@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Fireball-Small-Red
   item3DPrefab: {fileID: 7977670999627210375, guid: b525d35ebd2fb4eee98795cb5e005bbd, type: 3}
   item2DSprite: {fileID: 2800000, guid: f10e58c23d1cd4d579f53124bce5d4bd, type: 3}
+  ammo: {fileID: 7977670999627210375, guid: b525d35ebd2fb4eee98795cb5e005bbd, type: 3}

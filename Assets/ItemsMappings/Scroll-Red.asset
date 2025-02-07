@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Scroll-Red
   item3DPrefab: {fileID: 5648154934466048210, guid: 2f162ef4867584b70a01390ed58033eb, type: 3}
   item2DSprite: {fileID: 2800000, guid: d4dbe0c8dff774f01a637ddb1da24aae, type: 3}
+  ammo: {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}

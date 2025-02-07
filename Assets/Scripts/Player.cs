@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         spiritualWeapon = 1;
         score = 0;
         arrows = 10;
-        food = 10;
+        food = 100;
         floor = 1;
 
         //Trigger UI update at start

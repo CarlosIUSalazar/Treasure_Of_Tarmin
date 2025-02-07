@@ -1,19 +1,22 @@
+using System;
 using UnityEngine;
 
 public class PlayerShootingSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint; // Assign this to the position where the arrow should appear
-    [SerializeField] private float projectileOffset = 1.5f; // Offset in front of the player
+    [SerializeField] private float projectileOffset = 3.5f; // Offset in front of the player
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
     Player player;
+    InventoryManager inventoryManager;
     
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
     // Update is called once per frame
@@ -22,18 +25,29 @@ public class PlayerShootingSpawner : MonoBehaviour
         
     }
 
+    private GameObject FigureOutCurrentAmmo() {
+        String curentWeaponName = inventoryManager.rightHandSlot.texture.name;
+        ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(curentWeaponName);
+        return currentAmmoPrefab.ammo;
+    }
+
     public void ShootAtEnemy(Transform enemy)
     {
         if (gameManager.isPlayersTurn)
         {
             gameManager.isPlayersTurn = false;
 
+            GameObject ammo = FigureOutCurrentAmmo();
+
+            Debug.Log("Current Ammo is: " + ammo);
+
             if (player.arrows > 0) // Only shoot if the player has arrows
             {
+
                 // Instantiate the dart (projectile) with an additional rotation of 220 degrees in Y
                 GameObject projectile = Instantiate(
-                    projectilePrefab,
-                    spawnPoint.position + spawnPoint.forward * projectileOffset,
+                    ammo,
+                    spawnPoint.position + (spawnPoint.forward * projectileOffset),
                     Quaternion.identity // Use identity rotation; the offset will be handled in Initialize in Projectile.cs
                 );
 

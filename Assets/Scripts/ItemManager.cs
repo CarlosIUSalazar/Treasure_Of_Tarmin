@@ -132,8 +132,6 @@ public class ItemManager : MonoBehaviour
                 break;
         }
 
-
-
         //item.SetActive(false);
         Destroy(item);
     }

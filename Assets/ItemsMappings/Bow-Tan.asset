@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Bow-Tan
   item3DPrefab: {fileID: 4421216821836222205, guid: 0fd2e407fe6234735ba9a0069e9554e5, type: 3}
   item2DSprite: {fileID: 2800000, guid: ce868cab0f6ce4c30a0b410c75b6888e, type: 3}
+  ammo: {fileID: 1103623130113142968, guid: 33555d5796fec4b2286265aae4c3005d, type: 3}
