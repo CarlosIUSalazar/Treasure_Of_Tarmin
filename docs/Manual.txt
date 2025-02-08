@@ -64,6 +64,18 @@ Red:
 Purple:
 
 
+Situations:
+To increase health, the player must either attack or be attacked by enemies, followed by resting (consuming a food item), which has a chance to increase either war or spiritual health based on the weapons the player has used. With the aid of Spirit or War tomes found in treasure chests, this chance may be increased greatly. 
+
+The player's maximum health (with the aid of maximum-health limit increasing books and potions) is 199 War points and 99 Spiritual.
+
+In the outer hallways, gates between adjacent mazes on the same level may be encountered. Passing through a green gate reduces the player's spiritual health and boosts the player's health, and the opposite effect occurs passing through a blue gate. Use in conjunction with war or spiritual books can boost respective health significantly. Passing through a tan gate changes nothing.
+
+The player may keep going down levels (by accessing a ladder located inside each maze) until level 256, after which the game cycles the player back to level 1, with the player's character retaining their inventory and health, but attacking enemies at the first floor's easier difficulty.
+
+It is possible to be defeated but not lose the game. Upon dying, the player can be 'reincarnated' to another section of that maze, with all of their pack's inventory gone while retaining the contents of their weapon and shield slots as well as their supply of arrows and food.
+
+
 ORIGINAL MANUAL
 
 ADVANCED DUNGEONS & DRAGONS*

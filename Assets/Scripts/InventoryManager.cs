@@ -37,7 +37,6 @@ public class InventoryManager : MonoBehaviour
         } else {
             isHoldingRightHandItem = true;
         }
-        //isHoldingRightHandItem = rightHandSlot.texture != transparentImg;
     }
 
     public ItemMapping GetItemMapping(string itemName){

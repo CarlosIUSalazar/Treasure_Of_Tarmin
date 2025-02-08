@@ -19,25 +19,30 @@ public class PlayerShootingSpawner : MonoBehaviour
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
     private GameObject FigureOutCurrentAmmo() {
-        String curentWeaponName = inventoryManager.rightHandSlot.texture.name;
-        ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(curentWeaponName);
-        return currentAmmoPrefab.ammo;
+        if (inventoryManager.rightHandSlot.texture.name != "Transparent") {
+            String curentWeaponName = inventoryManager.rightHandSlot.texture.name;
+            ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(curentWeaponName);
+            return currentAmmoPrefab.ammo;
+        } else {
+            return null;
+        }
+
+        
     }
 
     public void ShootAtEnemy(Transform enemy)
     {
         if (gameManager.isPlayersTurn)
         {
-            gameManager.isPlayersTurn = false;
-
             GameObject ammo = FigureOutCurrentAmmo();
+
+            if (ammo == null) {
+                Debug.Log("NO WEAPON SELECTED!");
+                return;
+            }
+
+            gameManager.isPlayersTurn = false;
 
             Debug.Log("Current Ammo is: " + ammo);
 
