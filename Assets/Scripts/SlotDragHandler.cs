@@ -16,12 +16,12 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         { "BackpackSlot1", new Vector3(-80, -198, 0) },
         { "BackpackSlot2", new Vector3(-35, -198, 0) },
-        { "BackpackSlot3", new Vector3(10.1f, -198, 0) },
-        { "BackpackSlot4", new Vector3(56, -198, 0) },
+        { "BackpackSlot3", new Vector3(10, -198, 0) },
+        { "BackpackSlot4", new Vector3(5, -198, 0) },
         { "BackpackSlot5", new Vector3(102, -198, 0) },
         { "BackpackSlot6", new Vector3(147, -198, 0) },
         { "LeftHandSlot", new Vector3(-140, -198, 0) },
-        { "RightHandSlot", new Vector3(133, -271.3f, 0) }
+        { "RightHandSlot", new Vector3(135, -267, 0) }
     };
 
     private void Start()
