@@ -7,6 +7,7 @@ using Unity.VisualScripting;
 public class PlayerGridMovement : MonoBehaviour
 {
     [SerializeField] private Button actionButton;
+    [SerializeField] private Button dropButton;
     [SerializeField] private Button forwardButton;
     [SerializeField] private Button rotateLeftButton;
     [SerializeField] private Button rotateRightButton;
@@ -137,6 +138,7 @@ public class PlayerGridMovement : MonoBehaviour
             isMoving = true;
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
             EnableBackwardsStep(player.transform.position, player.transform.rotation);
+            CheckForInteractables();
         }
     }
 
@@ -254,10 +256,11 @@ public class PlayerGridMovement : MonoBehaviour
         // Short raycast for items
         Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
 
-        if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))
+        if ((Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) && !gameManager.isFighting)
         {
             if (hit.collider.CompareTag("Item"))
             {
+                dropButton.gameObject.SetActive(false);
                 actionButtonText.text = "Pick Up";
                 actionButton.onClick.RemoveAllListeners();
                 actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
@@ -265,13 +268,18 @@ public class PlayerGridMovement : MonoBehaviour
             } 
         }
         
-        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance))  {
-                if (inventoryManager.isHoldingRightHandItem) {
-                    actionButtonText.text = "Drop";
-                    actionButton.onClick.RemoveAllListeners();
-                    actionButton.onClick.AddListener(() => inventoryManager.DropAnItem());
-                    //return; // Return to avoid triggering further checks
-                }
+        // This is still not working right so giving up for now.
+        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
+        {
+            if (inventoryManager.isHoldingRightHandItem) // Check if player is holding an item
+            {
+                dropButton.gameObject.SetActive(true);//dropButtonText.text = "Drop";
+                dropButton.onClick.RemoveAllListeners();
+                dropButton.onClick.AddListener(() => inventoryManager.DropAnItem());
+                //return; // Return to avoid further checks
+            } else {
+                dropButton.gameObject.SetActive(false);//dropButtonText.text = "Drop";
+            }
         }
 
         // Long raycast for doors and enemies

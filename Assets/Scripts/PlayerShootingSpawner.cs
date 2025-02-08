@@ -5,7 +5,7 @@ public class PlayerShootingSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint; // Assign this to the position where the arrow should appear
-    [SerializeField] private float projectileOffset = 3.5f; // Offset in front of the player
+    private float projectileOffset = 1.5f; // Offset in front of the player
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
     Player player;
