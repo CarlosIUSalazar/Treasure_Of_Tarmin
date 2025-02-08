@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Spear-Yellow
   item3DPrefab: {fileID: 6453033825085271153, guid: 18fab21f18d4543d686e67d84a674d38, type: 3}
   item2DSprite: {fileID: 2800000, guid: 25b228ef3229b4f84a5858f71b30914e, type: 3}
+  ammo: {fileID: 6453033825085271153, guid: 18fab21f18d4543d686e67d84a674d38, type: 3}

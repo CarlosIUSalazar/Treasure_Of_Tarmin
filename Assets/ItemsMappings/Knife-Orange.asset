@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Knife-Orange
   item3DPrefab: {fileID: 3448155900330775318, guid: 6d2517e556e884eb68d107aebeccb2ef, type: 3}
   item2DSprite: {fileID: 2800000, guid: 4d3c1e8df3adc428c88897fe9f68390e, type: 3}
+  ammo: {fileID: 3448155900330775318, guid: 6d2517e556e884eb68d107aebeccb2ef, type: 3}

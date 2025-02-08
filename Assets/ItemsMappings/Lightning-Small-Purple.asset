@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Lightning-Small-Purple
   item3DPrefab: {fileID: 1198239254670312718, guid: 23384a57acebc4be99fff6b3b69bfa93, type: 3}
   item2DSprite: {fileID: 2800000, guid: 00d63a56f77074a9e8a013ce7e10f196, type: 3}
+  ammo: {fileID: 1198239254670312718, guid: 23384a57acebc4be99fff6b3b69bfa93, type: 3}

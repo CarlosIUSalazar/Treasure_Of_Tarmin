@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Knife-Grey
   item3DPrefab: {fileID: 1480809781559806703, guid: 3dced51f836a648e09e4a7de2c3e6a4c, type: 3}
   item2DSprite: {fileID: 2800000, guid: 7c49ad403d9734241a66555e3887ac47, type: 3}
+  ammo: {fileID: 1480809781559806703, guid: 3dced51f836a648e09e4a7de2c3e6a4c, type: 3}

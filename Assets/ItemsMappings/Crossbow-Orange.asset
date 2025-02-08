@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Crossbow-Orange
   item3DPrefab: {fileID: 1537818891349332364, guid: 7117f968110f94e2ca67ddef79b90149, type: 3}
   item2DSprite: {fileID: 2800000, guid: 43159d71fad4c4e46a1d82594ba539c8, type: 3}
+  ammo: {fileID: 3742031186087403012, guid: 4f4948675bc38405d8713819b51e12f2, type: 3}

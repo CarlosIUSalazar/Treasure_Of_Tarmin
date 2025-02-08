@@ -25,6 +25,10 @@ public class InventoryManager : MonoBehaviour
         CheckIfRightHandHasItem();
     }
 
+    public void EmptyRightHand() {
+        rightHandSlot.texture = transparentImg;
+    }
+
     private void CheckIfRightHandHasItem()
     {
         if (rightHandSlot.texture == transparentImg)

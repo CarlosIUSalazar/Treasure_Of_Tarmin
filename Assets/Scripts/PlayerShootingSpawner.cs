@@ -41,9 +41,19 @@ public class PlayerShootingSpawner : MonoBehaviour
 
             Debug.Log("Current Ammo is: " + ammo);
 
-            if (player.arrows > 0) // Only shoot if the player has arrows
-            {
-
+               // Deduct one arrow from the player's inventory if user holds Bow or Crossbow only, if not turns is forfeit
+                if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
+                    inventoryManager.rightHandSlot.texture.name.Contains("Crossbow")) {
+                        if  (player.arrows <= 0) {// Only shoot if the player has arrows
+                            Debug.Log("No Arrows Left!");
+                            playerGridMovement.HideActionButton();
+                            gameManager.isEnemysTurn = true; // Switch to the enemy's turn
+                            return;
+                        } else {
+                            player.ModifyArrows(-1);
+                        }
+                }
+    
                 // Instantiate the dart (projectile) with an additional rotation of 220 degrees in Y
                 GameObject projectile = Instantiate(
                     ammo,
@@ -58,23 +68,28 @@ public class PlayerShootingSpawner : MonoBehaviour
                 ItemPositioning itemPositioning = projectile.GetComponent<ItemPositioning>();
                 if (itemPositioning != null) Destroy(itemPositioning);
 
-                // Deduct one arrow from the player's inventory
-                player.ModifyArrows(-1);
-
-                // Initialize the projectile
                 Projectile proj = projectile.GetComponent<Projectile>();
                 if (proj != null)
                 {
                     proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at the enemy
                 }
-                Debug.Log("Dart shot!");
-            }
+                Debug.Log("Shot " + ammo);
+
+                ConsumeItem();
 
             playerGridMovement.HideActionButton();
             gameManager.isEnemysTurn = true; // Switch to the enemy's turn
         }
     }
 
-
-
+    private void ConsumeItem() {
+        if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
+            inventoryManager.rightHandSlot.texture.name.Contains("Crossbow") ||
+            inventoryManager.rightHandSlot.texture.name.Contains("Spell") || 
+            inventoryManager.rightHandSlot.texture.name.Contains("Scroll")) {
+                return;
+            } else {
+            inventoryManager.EmptyRightHand();
+        }
+    }
 }

@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Dart-Tan
   item3DPrefab: {fileID: 1103623130113142968, guid: 33555d5796fec4b2286265aae4c3005d, type: 3}
   item2DSprite: {fileID: 2800000, guid: 3417cac32a13a4cfbba3ff2dc8b5e457, type: 3}
+  ammo: {fileID: 1103623130113142968, guid: 33555d5796fec4b2286265aae4c3005d, type: 3}

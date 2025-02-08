@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Spear-Orange
   item3DPrefab: {fileID: 1365905338622451374, guid: ad203856730074cffb7574183a7557da, type: 3}
   item2DSprite: {fileID: 2800000, guid: a4892f87bdb404815a2b881fa4634406, type: 3}
+  ammo: {fileID: 1365905338622451374, guid: ad203856730074cffb7574183a7557da, type: 3}

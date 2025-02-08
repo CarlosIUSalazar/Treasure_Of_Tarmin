@@ -15,3 +15,4 @@ MonoBehaviour:
   itemName: Spear-Grey
   item3DPrefab: {fileID: 6910574104714924688, guid: c660abdb8187a48abb068cc9cf692768, type: 3}
   item2DSprite: {fileID: 2800000, guid: ca8335f54ff91444888ebac34ea9faaf, type: 3}
+  ammo: {fileID: 6910574104714924688, guid: c660abdb8187a48abb068cc9cf692768, type: 3}
