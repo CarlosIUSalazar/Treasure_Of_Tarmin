@@ -49,7 +49,7 @@ public class PlayerGridMovement : MonoBehaviour
     void Update() {
         if (!isMoving && !isRotating) {
             HandleInput();
-            CheckForInteractables();
+            //CheckForInteractables();
         }
         MoveToTarget();
         RotateToTarget();
