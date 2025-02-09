@@ -74,13 +74,15 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Assign an item directly to the right hand
-    public void AssignToRightHand(string itemName)
+    public void AssignToRightHand(string itemName, bool isNewItem)
     {
         ItemMapping itemMapping = GetItemMapping(itemName);
         if (rightHandSlot.texture != null) // If right hand is already holding an item
         {
             Debug.Log("Right hand is already holding an item which is: " + rightHandSlot.texture.name);
-            Spawn3DItem(rightHandSlot.texture.name); // Spawn the currently holding item into a 3D item on the ground
+            if (isNewItem == true) {  // Is not assinged from Drag and Drop but from the floor
+                Spawn3DItem(rightHandSlot.texture.name); // Spawn the currently holding item into a 3D item on the ground
+            }
         }
 
         if (itemMapping != null) // If the item mapping is found
@@ -88,13 +90,25 @@ public class InventoryManager : MonoBehaviour
             rightHandSlot.texture = itemMapping.item2DSprite; // Assign the item to the right hand in 2D
             Debug.Log("rightHandSlot.texture is " + rightHandSlot.texture.name);
             rightHandSlot.color = Color.white;
-
+            player.ModifyWeaponAttackPower(itemMapping);
             Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
         } else 
         {
             Debug.Log("Item mapping not found for " + itemName);
         }
     }
+
+        // public void AssignToRightHandFromDragAndDrop(String itemName) {
+        //     ItemMapping itemMapping = GetItemMapping(itemName);
+        //     if (itemMapping != null) // If the item mapping is found
+        //     {
+        //         rightHandSlot.texture = itemMapping.item2DSprite; // Assign the item to the right hand in 2D
+        //         Debug.Log("rightHandSlot.texture is " + rightHandSlot.texture.name);
+        //         rightHandSlot.color = Color.white;
+        //         player.ModifyWeaponAttackPower(itemMapping);
+        //         Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
+        //     }
+        // }
 
     public void DropAnItem() {
         if (rightHandSlot.texture != null) {
@@ -131,5 +145,7 @@ public class InventoryManager : MonoBehaviour
             Debug.LogWarning("3D Prefab not found for: " + itemName);
         } 
     }
+
+
 
 }

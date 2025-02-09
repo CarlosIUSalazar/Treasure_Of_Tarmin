@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Money-Belt-Blue
   item3DPrefab: {fileID: 8828879407584601974, guid: 5ae130effcbba4f53a9983314c5aa0d3, type: 3}
   item2DSprite: {fileID: 2800000, guid: 8757c104ef5f74f4fb56e6870d78f414, type: 3}
+  ammo: {fileID: 8828879407584601974, guid: 5ae130effcbba4f53a9983314c5aa0d3, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

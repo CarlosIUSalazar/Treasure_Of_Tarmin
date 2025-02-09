@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Bag-Large-Tan
   item3DPrefab: {fileID: 695026117382650453, guid: f73bbbdbefbf846f095ac6ca3945493f, type: 3}
   item2DSprite: {fileID: 2800000, guid: 9a417db06c2fd463c9064f32c9b07a4a, type: 3}
+  ammo: {fileID: 695026117382650453, guid: f73bbbdbefbf846f095ac6ca3945493f, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

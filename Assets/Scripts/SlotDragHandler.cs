@@ -6,6 +6,7 @@ using System;
 
 public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    InventoryManager inventoryManager;
     private RawImage draggedImage; // The image being dragged
     private Transform originalSlot; // The original slot the drag started from
     private Texture originalTexture; // The texture in the original slot
@@ -27,6 +28,7 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void Start()
     {
         canvas = GetComponentInParent<Canvas>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -87,11 +89,21 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.Log("targetImage: " + targetImage.name);
             Transform targetSlot = targetImage.transform.parent;
             Debug.Log("targetSlot: " + targetSlot.name);
+            Debug.Log("DroppedOn" + droppedOn);
+            Debug.Log("DroppedOn name " + droppedOn.name);
+
 
             // Swap textures without moving slots
             Texture targetTexture = targetImage.texture;
             targetImage.texture = originalTexture;
+            Debug.Log("OnEndDrag originalTexture" + originalTexture.name);
             draggedImage.texture = targetTexture;
+            Debug.Log("OnEndDrag targetTexture" + targetTexture);
+
+            if (droppedOn.name == "RightHandSlot") { //Update Weapons Values
+                inventoryManager.AssignToRightHand(originalTexture.name, false);
+                Debug.Log("Toasty");
+            }
 
             // Reset positions of both slots to their hardcoded values
             ResetSlotPosition(originalSlot.name);

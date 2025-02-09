@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Box-Tan
   item3DPrefab: {fileID: 5947272091467637624, guid: 8ab22e3f2fba94cb7b415ca5b88647cc, type: 3}
   item2DSprite: {fileID: 2800000, guid: d58d4793f732d4b1997e2d5969814e69, type: 3}
+  ammo: {fileID: 5947272091467637624, guid: 8ab22e3f2fba94cb7b415ca5b88647cc, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

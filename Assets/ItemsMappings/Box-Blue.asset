@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Box-Blue
   item3DPrefab: {fileID: 1191517878243748726, guid: 18efa4016c027470e89144b4d3831a46, type: 3}
   item2DSprite: {fileID: 2800000, guid: 82b83204d8f304ba0ab15d9dea2dff7f, type: 3}
+  ammo: {fileID: 1191517878243748726, guid: 18efa4016c027470e89144b4d3831a46, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

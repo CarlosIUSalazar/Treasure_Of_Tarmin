@@ -59,12 +59,10 @@ public class Player : MonoBehaviour
     {
         physicalStrength += amount;
         Debug.Log($"Player PhysicalStrength: {physicalStrength}");
-
         if (physicalStrength <= 0)
         {
             Die();
         }
-
         OnPlayerStatsUpdated?.Invoke();
     }
     
@@ -87,6 +85,12 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+    public void ModifyWeaponAttackPower(ItemMapping itemMapping) {
+        physicalWeapon = itemMapping.warAttackPower;
+        spiritualWeapon = itemMapping.spiritualAttackPower;
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
     private void Die()
     {
         Debug.Log("Player Defeated!");
@@ -104,7 +108,7 @@ public class Player : MonoBehaviour
 
     public void Rest() {
         // Resting.  Resting brings the player current health up towards the current Max Health by using
-        // the availalbe food (flour) units
+        // the available food (flour) units
         Debug.Log("Player Rested");
         if (physicalStrength < currentMaxPhysicalStrength && food > 0) {
             while (physicalStrength < currentMaxPhysicalStrength && food > 0) {

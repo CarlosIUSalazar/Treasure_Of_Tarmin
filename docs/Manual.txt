@@ -19,7 +19,7 @@ Tan:
 Orange:
 Blue:
 Grey:
-Yellow:
+Yellow: 7/
 White:
 
 HELMETS
@@ -43,7 +43,7 @@ Tan:
 Orange: 10/1
 Blue:
 Grey:
-Yellow:
+Yellow: 26
 White:
 
 
@@ -51,7 +51,7 @@ SMALL RING
 Blue: 2/5
 Grey:
 White:
-Pink:
+Pink: 10/20
 Red:
 Purple:
 
@@ -74,6 +74,9 @@ In the outer hallways, gates between adjacent mazes on the same level may be enc
 The player may keep going down levels (by accessing a ladder located inside each maze) until level 256, after which the game cycles the player back to level 1, with the player's character retaining their inventory and health, but attacking enemies at the first floor's easier difficulty.
 
 It is possible to be defeated but not lose the game. Upon dying, the player can be 'reincarnated' to another section of that maze, with all of their pack's inventory gone while retaining the contents of their weapon and shield slots as well as their supply of arrows and food.
+
+Quick increase in War HP trick
+When playing the game, and you have built up a good amount of armor against War weapons (this is your left hand stat on the 2nd row down in the lower right hand corner, if you are not sure which I'm talking about), there is a little trick you can do to get lots of HP for War. Along your way through the dungeon, you'll likely find a book that turns your War HP score blue, beige, or white. These books make it easier for you to gain points by resting after a battle. If you have one of these activated, it makes the trick a lot more effective. After you have found one, and you've used it, you need to purposely run out of arrows for your bow. It might take a while, if you've picked up a lot. When you are out of arrows, go up to a weak enemy and attack it using the bow. Obviously, you'll get a loud buzzing tune, saying you don't have arrows. The monster will retaliate. Press the attack button again. Again, you'll not have anything to shoot, and the monster will again retaliate. Each time you do this, you have potential to gain 1 HP in war after the battle is over. If you have used an enhancement book like I mentioned above, it's almost a certain point. Repeat the process until you are satisfied. Then switch to another weapon and slay the monster. When the monster perishes, hit ''rest''. However many points you earned will be added to your HP score, provided you have enough food to cover the increase (1 unit of food per point gained, and there are 6 food units in each sack of flour you find in the maze).
 
 
 ORIGINAL MANUAL

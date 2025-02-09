@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Chest-Orange
   item3DPrefab: {fileID: 5431704732489114870, guid: 52a1cbda87b574565a0527b1a4886f98, type: 3}
   item2DSprite: {fileID: 2800000, guid: a5214190ee5864ab9bfabb87c92dabc7, type: 3}
+  ammo: {fileID: 5431704732489114870, guid: 52a1cbda87b574565a0527b1a4886f98, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

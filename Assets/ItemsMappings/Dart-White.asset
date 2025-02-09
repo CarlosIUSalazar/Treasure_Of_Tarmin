@@ -16,3 +16,7 @@ MonoBehaviour:
   item3DPrefab: {fileID: 6074387981640591998, guid: 5167b2aff4f95480d81c558dc1bab03b, type: 3}
   item2DSprite: {fileID: 2800000, guid: 281b607925f174bf1b38ab07737246a6, type: 3}
   ammo: {fileID: 6074387981640591998, guid: 5167b2aff4f95480d81c558dc1bab03b, type: 3}
+  warAttackPower: 75
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

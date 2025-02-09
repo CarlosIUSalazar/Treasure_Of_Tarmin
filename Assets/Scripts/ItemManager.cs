@@ -128,7 +128,7 @@ public class ItemManager : MonoBehaviour
                 break;
             
             default: 
-                inventoryManager.AssignToRightHand(itemName);
+                inventoryManager.AssignToRightHand(itemName, true);
                 break;
         }
 

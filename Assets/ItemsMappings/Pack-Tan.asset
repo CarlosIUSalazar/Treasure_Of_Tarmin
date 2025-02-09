@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Pack-Tan
   item3DPrefab: {fileID: 4597443083171209021, guid: 6d298bdfce3dd42feb97b6d95fe022b4, type: 3}
   item2DSprite: {fileID: 2800000, guid: 58fa284e83b9b4d0a9233c4d40bc9d87, type: 3}
+  ammo: {fileID: 4597443083171209021, guid: 6d298bdfce3dd42feb97b6d95fe022b4, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

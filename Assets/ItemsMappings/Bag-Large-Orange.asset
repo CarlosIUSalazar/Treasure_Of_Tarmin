@@ -15,3 +15,8 @@ MonoBehaviour:
   itemName: Bag-Large-Orange
   item3DPrefab: {fileID: 5127303680511844583, guid: 83451ffd8bd604a93abe7e981cee9162, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1f3815f83dc564304bd1b8c5604fe13f, type: 3}
+  ammo: {fileID: 5127303680511844583, guid: 83451ffd8bd604a93abe7e981cee9162, type: 3}
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0
