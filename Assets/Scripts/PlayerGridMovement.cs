@@ -113,7 +113,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
         else if (Input.GetKeyDown(KeyCode.S))
         {
-            MoveBackwards();
+            MoveBackwards(false);
         }
 
         else if (Input.GetKeyDown(KeyCode.A))
@@ -149,7 +149,7 @@ public class PlayerGridMovement : MonoBehaviour
         canBackStep = true;
     }
 
-    public void MoveBackwards()
+    public void MoveBackwards(bool isBribe)
     {
         Debug.Log("IsMoving " + isMoving + " canStepBack" + canBackStep + " isFighting" + gameManager.isFighting + " isPlayersTurn" + gameManager.isPlayersTurn + " isEnemyTurn" + gameManager.isEnemysTurn);
         if (isMoving || isRotating) return; // Prevent movement if already moving or rotating
@@ -161,7 +161,13 @@ public class PlayerGridMovement : MonoBehaviour
         } else if (canBackStep && gameManager.isFighting && gameManager.isPlayersTurn) { //BATTLE ESCAPE CASE:
             int canEscape = Random.Range(0,10); //50 - 50 Chance for escaping the battle
             Debug.Log("CanEscape" + canEscape);
-            if (canEscape < 5) { // CAN ESCAPE
+
+            if (isBribe) {
+                canEscape += 10;
+                Debug.Log("BRIBED!");
+            }
+
+            if (canEscape > 5) { // CAN ESCAPE
                 Debug.Log("SUCCESSFUL ESCAPE!!");
                 gameManager.isFighting = false;
                 player.transform.position = playerPreviousPosition;
@@ -354,7 +360,7 @@ public class PlayerGridMovement : MonoBehaviour
             
             backwardButton.gameObject.SetActive(true);
             backwardButton.onClick.RemoveAllListeners();
-            backwardButton.onClick.AddListener(() => MoveBackwards());
+            backwardButton.onClick.AddListener(() => MoveBackwards(false));
         }
     }
 

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerShootingSpawner : MonoBehaviour
@@ -19,72 +20,107 @@ public class PlayerShootingSpawner : MonoBehaviour
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
-    private GameObject FigureOutCurrentAmmo() {
+    private ItemMapping FigureOutCurrentItemMapping() {
         if (inventoryManager.rightHandSlot.texture.name != "Transparent") {
-            String curentWeaponName = inventoryManager.rightHandSlot.texture.name;
-            ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(curentWeaponName);
-            return currentAmmoPrefab.ammo;
+            String currentWeaponName = inventoryManager.rightHandSlot.texture.name;
+            ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(currentWeaponName);
+            return currentAmmoPrefab;
         } else {
             return null;
         }
-
-        
     }
 
     public void ShootAtEnemy(Transform enemy)
     {
         if (gameManager.isPlayersTurn)
         {
-            GameObject ammo = FigureOutCurrentAmmo();
+            ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
+            GameObject ammo;
 
-            if (ammo == null) {
-                Debug.Log("NO WEAPON SELECTED!");
+            if (currentItemMapping == null)
+            {
+                Debug.LogWarning("No current item mapping found! Make sure an item is selected.");
+                return;
+            }
+
+            if (currentItemMapping.ammo != null) 
+            {
+                ammo = currentItemMapping.ammo;
+            } 
+            else 
+            {
+                Debug.LogWarning($"Item '{currentItemMapping.itemName}' does not have ammo assigned!");
+                return;
+            }
+
+            // if (currentItemMapping.ammo != null) {
+            //     ammo = currentItemMapping.ammo;
+            // } else {
+            //     Debug.Log("NO WEAPON SELECTED!");
+            //     return;
+            // }
+
+            Debug.Log("Current Ammo is: " + currentItemMapping.ammo);
+
+            // Deduct one arrow from the player's inventory if user holds Bow or Crossbow only, if not turns is forfeit
+            if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
+                inventoryManager.rightHandSlot.texture.name.Contains("Crossbow")) {
+                    if  (player.arrows <= 0) {// Only shoot if the player has arrows
+                        Debug.Log("No Arrows Left!");
+                        playerGridMovement.HideActionButton();
+                        gameManager.isPlayersTurn = false; // Switch to the enemy's turn
+                        gameManager.isEnemysTurn = true; // Switch to the enemy's turn
+                        return;
+                    } else {
+                        player.ModifyArrows(-1);
+                    }
+            }
+    
+            // Instantiate the dart (projectile) with an additional rotation of 220 degrees in Y
+            GameObject projectile = Instantiate(
+                currentItemMapping.ammo,
+                spawnPoint.position + (spawnPoint.forward * projectileOffset),
+                Quaternion.identity // Use identity rotation; the offset will be handled in Initialize in Projectile.cs
+            );
+
+            // Disable the "Billboard" and "ItemPositioning" scripts on the projectile
+            Billboard billboard = projectile.GetComponent<Billboard>();
+            if (billboard != null) Destroy(billboard);
+
+            ItemPositioning itemPositioning = projectile.GetComponent<ItemPositioning>();
+            if (itemPositioning != null) Destroy(itemPositioning);
+
+            Projectile proj = projectile.GetComponent<Projectile>();
+            if (proj != null)
+            {
+                proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at the enemy
+            }
+            Debug.Log("Shot " + currentItemMapping.ammo);
+
+            ConsumeItem();
+
+
+            //BRIBE MECHANIC
+            if (currentItemMapping.isContainer == true) {
+                Debug.Log("Enters Bribe mechanic");
+                StartCoroutine(DelayBribeEscape());
+                //playerGridMovement.MoveBackwards(true);
+                //gameManager.isFighting = false;
+                //playerGridMovement.HideActionButton();
+                //gameManager.isPlayersTurn = true;
                 return;
             }
 
             gameManager.isPlayersTurn = false;
-
-            Debug.Log("Current Ammo is: " + ammo);
-
-               // Deduct one arrow from the player's inventory if user holds Bow or Crossbow only, if not turns is forfeit
-                if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
-                    inventoryManager.rightHandSlot.texture.name.Contains("Crossbow")) {
-                        if  (player.arrows <= 0) {// Only shoot if the player has arrows
-                            Debug.Log("No Arrows Left!");
-                            playerGridMovement.HideActionButton();
-                            gameManager.isEnemysTurn = true; // Switch to the enemy's turn
-                            return;
-                        } else {
-                            player.ModifyArrows(-1);
-                        }
-                }
-    
-                // Instantiate the dart (projectile) with an additional rotation of 220 degrees in Y
-                GameObject projectile = Instantiate(
-                    ammo,
-                    spawnPoint.position + (spawnPoint.forward * projectileOffset),
-                    Quaternion.identity // Use identity rotation; the offset will be handled in Initialize in Projectile.cs
-                );
-
-                // Disable the "Billboard" and "ItemPositioning" scripts on the projectile
-                Billboard billboard = projectile.GetComponent<Billboard>();
-                if (billboard != null) Destroy(billboard);
-
-                ItemPositioning itemPositioning = projectile.GetComponent<ItemPositioning>();
-                if (itemPositioning != null) Destroy(itemPositioning);
-
-                Projectile proj = projectile.GetComponent<Projectile>();
-                if (proj != null)
-                {
-                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at the enemy
-                }
-                Debug.Log("Shot " + ammo);
-
-                ConsumeItem();
-
+            //gameManager.isEnemysTurn = true; // Switch to the enemy's turn
             playerGridMovement.HideActionButton();
             gameManager.isEnemysTurn = true; // Switch to the enemy's turn
         }
+    }
+
+    IEnumerator DelayBribeEscape() {
+        yield return new WaitForSeconds(0.8f);
+        playerGridMovement.MoveBackwards(true);
     }
 
     private void ConsumeItem() {

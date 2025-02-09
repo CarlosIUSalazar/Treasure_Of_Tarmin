@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Shield-Small-Orange
   item3DPrefab: {fileID: 1742407618793489034, guid: b9afc39a3210a4e2b94034084ab70756, type: 3}
   item2DSprite: {fileID: 2800000, guid: 988241fec44af45a282eb0f084ad703e, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 1
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

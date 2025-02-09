@@ -102,7 +102,6 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
             if (droppedOn.name == "RightHandSlot") { //Update Weapons Values
                 inventoryManager.AssignToRightHand(originalTexture.name, false);
-                Debug.Log("Toasty");
             }
 
             // Reset positions of both slots to their hardcoded values

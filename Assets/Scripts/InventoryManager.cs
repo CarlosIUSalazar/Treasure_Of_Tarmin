@@ -98,18 +98,6 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-        // public void AssignToRightHandFromDragAndDrop(String itemName) {
-        //     ItemMapping itemMapping = GetItemMapping(itemName);
-        //     if (itemMapping != null) // If the item mapping is found
-        //     {
-        //         rightHandSlot.texture = itemMapping.item2DSprite; // Assign the item to the right hand in 2D
-        //         Debug.Log("rightHandSlot.texture is " + rightHandSlot.texture.name);
-        //         rightHandSlot.color = Color.white;
-        //         player.ModifyWeaponAttackPower(itemMapping);
-        //         Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
-        //     }
-        // }
-
     public void DropAnItem() {
         if (rightHandSlot.texture != null) {
             String currentItem = rightHandSlot.texture.name;

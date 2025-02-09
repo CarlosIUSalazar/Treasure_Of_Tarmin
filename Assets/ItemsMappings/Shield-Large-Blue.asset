@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Shield-Large-Blue
   item3DPrefab: {fileID: 7369048073237630177, guid: 8677ee00bf53140eb8e59cea56af06c6, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1b8621b9f68cd4c83b84d4f753c4842d, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 1
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0
