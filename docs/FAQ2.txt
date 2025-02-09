@@ -1,0 +1,333 @@
+https://zebeth.shinesparkers.net/playplanet/walkthrough.txt
+Advanced Dungeons and Dragons Treasure of Tarmin
+
+Walkthrough by Kabutroid
+
+
+Objectives: Find Minotaur. Slay Minotaur. Take Treasure of Tarmin.
+
+-----------------
+DIFFICULTY LEVELS
+-----------------
+
+There are 4 levels of difficulty in the game
+
+PRESS AT TITLE SCREEN, DIFFICULTY, NUMBER OF LEVELS,
+INITIAL HEALTH (War/spiritual), FOOD/ARROWS, VULNERABILITY
+
+"3", EASY, 2, 18/9, 9/9, 1/4
+"2", MEDIUM, 4, 16/8, 8/8, 1/2
+"1", HARD, 8, 14/7, 7/7, 3/4
+disc/other, NASTY, 12, 12/6, 6/6, FULL
+
+Upon choosing a level, you are presented with the Map Screen, with the night sky overlooking a side view of the catacombs. After a few moments, you are whisked to the labyrinth.
+
+-------------------
+MAP SCREEN FEATURES
+-------------------
+
+Each horizontal 'block' within the catacombs is a maze level. The small diagonal lines represent stairways from level to level, which are one-way downwards. The flashing white dot is you, which will move as you move westward or eastward within a level; the yellow chest represents the Treasure of Tarmin, and signifies the level upon which the Minotaur is guaranteed to appear (although he can sometimes appear earlier than that).
+
+GREEN levels - Only war weapons and monsters with war attacks are found in this level.
+BLUE levels - Only spiritual weapons and monsters with spiritual attacks are found in this level.
+TAN levels - All weapon and monster types are possible here.
+
+The black score on the right is your treasure score. Strangely, your amount of treasure has no direct bearing on winning or losing the game.  You do not buy or sell objects. It's just another way of keeping an eye on your performance.
+
+--------------
+STATUS SECTION
+--------------
+
+The bottom third of the screen is your status window, which keeps track of your inventory and characteristics.
+
+On the left is a compass heading, which is the direction you face. Surrounding it is a hexagonal space, capable of holding six objects; this is your pack. Next, at screen center, is the number 1; this is the dungeon level you are currently on, and your left and right hands are next to it. (Your right hand should be holding a tan bow at the beginning).
+
+On the far right are your characteristics, which are as follows:
+
+WAR/SPIRITUAL health (top row). These numbers are your 'hit points', so to speak -- when they hit zero, you die. They are depleted by monster attacks and bombs, and are restored by potions and food; you may increase them permanently via combat or special potions.
+
+WAR/SPIRITUAL armor (middle row). These numbers represent your resistance to attack and injury, modified further by your difficulty level (see difficulty levels above). Better armor and rings increase these values.
+
+WAR/SPIRITUAL weapon strength (bottom row). This number represents the strength of the weapon in your right hand, and is always zero if you are not holding a weapon there. Otherwise, the nonzero number indicates a war or spiritual weapon, and its damaging potential.
+
+--------
+THE MAZE
+--------
+
+You will find yourself on the outskirts of a 11x11 maze, with a path circling it. Thus, each level is 12x12. No monsters or objects appear on the outer path, although eyeball murals are beside each door, and gates may be present.
+
+Gates appear on north-south paths when two maze levels are horizontally adjacent, and appear as large barred pillars in the middle of the hall. If you pass through a gate, you are transported to the adjacent maze level, but cannot pass back through the gate.  As well, there are no further gates located on the level you just travelled to.
+
+(If this sounds confusing, go through one and watch where the white dot goes on the Map Screen.)
+
+The color of a gate determines its effect on your character.
+
+TAN - no effect on any stats.
+GREEN - war health increases by 1.5x and spiritual health is halved.
+BLUE - spiritual health increases by 1.5x and war health is halved.
+
+Eyeball murals are simply that, drawings of eyeballs on the ground. Each is outside an entrance to the maze, of which there are eight (two on each side, equally spaced). In addition, the eyeballs on the north and south sides are lined up horizontally with the stairs to descend to the next level, when stairs exist on their side. (Some levels have only one set of stairs.)
+
+---------------------------
+CONTROLS (REFER TO OVERLAY)
+---------------------------
+
+Press the following buttons to perform functions:
+
+1 - Pick up/Drop object: This swaps the object in your right hand with whatever is directly in front of you; if there is no object there, you merely drop whatever you're holding. If there is an immobile object in front of you (a ladder or eyeball mural, for example), you will hear an error beep.
+
+2 - Swap Hands: The objects in your left and right hand are exchanged.  Used mainly to equip a shield.
+
+3 - Rotate Pack: There are six positions in your pack, each capable of holding one object. Pressing this key rotates the objects clockwise one position.
+
+4 - Open Door/Object: This function opens doors, both hidden and obvious. Likewise, it will open treasure containers that do not require a key. If such a treasure container is sitting in front of a door, the container will be opened first.
+
+5 - Use Object: This function uses the item that in your right hand, if it is capable of being 'used'. If there is no usable object there, it gives an error beep. Typical usable objects are keys, magical books and potions.
+
+6 - Swap Object With Pack: This swaps the object in your right hand with the object in the 3 o'clock position in your pack.
+
+7 - Attack Monster: This attacks the monster directly in front of you with whatever weapon is in your right hand. If there is no weapon
+there, you obviously don't attack the monster.  If a container is in your hand, you will throw it at the monster, allowing you to escape it.
+
+8 - Rest: This is a non-combat function only, and consumes food. Each unit of food can restore approximately 5 health points, and if you run out of food this function no longer works. If you have been in combat and use the Rest function, your health score may increase beyond its previous maximum. (The health score which increases corresponds with the weapon type you are using.)
+
+9 - Descend Ladder: If a ladder is directly before you, this sends you down to the next level of the dungeon, however you cannot go back up.
+
+Clear - Glance Left: This gives you a quick look of what is to your left.
+
+0 - Retreat/Retrace: This function moves you back to the last square you were on. If you have used this function, you must move normally before you can retrace again. In combat, this function (if successful) moves you out of combat range to the last square you occupied, unless you run into a monster in the first square of entering a level. However, it gives the monster you're fighting one free attack. Do not press this more than once, as each press of this button resets the one-move timer before you leave combat.
+
+Enter - Glance Right. This gives you a quick look of what is to your right.
+
+Disc - Move player forward (barring obstructions), or turn left or right.
+
+Top Side Buttons - see Map Screen.
+
+Bottom Left Side Button - Count Food: Each 'click' you hear is one food unit, up to the maximum of 99.
+
+Bottom Right Side Button - Count Arrows: Each 'click' you hear is one arrow, up to the maximum of 99.
+
+-------------
+MAZE FEATURES
+-------------
+
+The maze is constructed primarily of light and dark green walls, which are generally impassible and opaque. (Two special items can circumvent them, however.) Other permanent features include:
+
+DOORS: Dark blue rectangles within a wall, which may be opened.
+
+SECRET DOORS: These are invisible, but may be opened like any other door. If you run into a dead end that seems strange, use the Open Door/Object function to see if a secret door is there.
+
+LADDERS: These are dark blue stairwells descending into the ground to the next level.
+
+EVIL DOORS: Learn to be wary of these. On rare occasions, you will approach a door (normal or secret) and it will change to another color, either blue, tan or yellow. This is an Evil Door, and is generally very difficult.  You must kill it in order to open it (see the section on Special Books later on).
+
+-------
+WEAPONS
+-------
+
+The weapon you begin with is a tan bow. Not surprisingly, this is the weakest war weapon in the game. Thus, it's a good idea to find better weapons lying around the Maze.
+
+WAR WEAPONS fall into six types, two of which are reusable. In increasing order of damage potential:
+
+ONE-SHOT (disappear when used):
+Knife, Axe, Dart, Spear
+
+REUSABLE (may break without warning during battle):
+Bow, Crossbow
+
+The color of the weapon indicates its strength as well.
+Tan, Orange, Blue, Silver, Gold, and White.
+
+SPIRITUAL WEAPONS also fall into six types, two of which are reusable:
+
+ONE-SHOT (disappear when used):
+Small Fireball, Small Lightning Bolt, Large Fireball, Large Lightning Bolt
+
+REUSABLE (may break without warning):
+Scroll, Spellbook
+
+In increasing order of damage potential:
+
+Blue, Grey, White, Pink, Red, and Purple.
+
+-----
+ARMOR
+-----
+
+These items help protect you from attack, and can appear on any level. War armor protects a little against spiritual attack, and vice versa.
+
+WAR: Breastplate, Helmet, Hauberk, Gauntlet, Small Shield, and Large Shield.
+(Shields only add to armor value when in the left hand).
+
+SPIRITUAL: Small Ring, and Large Ring.
+
+Use pieces of armor to 'wear' them.  The best color you've found for each item is kept (same as weaponry of each type). The maximum armor value possible is 119/52.
+
+----------
+CONTAINERS
+----------
+
+There are six types of treasure containers, some of which require keys to open.  Each type can be one of three colours which indicate the value of the items inside.  The colours in order of value are Tan, Orange, and Blue.  Better containers may require better keys, or contain more damaging bombs. Any container may contain a bomb and explode upon opening it. This will damage your war health, and can kill you if sufficiently powerful.  Containers can also be useful in avoiding enemies (see 'Tips' below).
+
+NO KEY REQUIRED:
+Money Belt, Small Sack, and Large Sack
+
+KEY REQUIRED (blue keys open everything, orange keys open orange and tan,
+tan keys only open tan):
+Pack, Box, and Chest.
+
+--------
+TREASURE
+--------
+
+There are six types, which add to your score on the map screen. Pick up treasure to find it's value:
+Coins, Necklace, Ingot, Lamp, Chalice, and Crown.
+
+The treasures can be one of three colours, from least to most expensive:
+Silver, Gold, and Platinum.
+
+-------
+ENEMIES
+-------
+
+Monsters appear with respect to the type of level you are on. Green levels have war monsters, blue levels have spiritual, tan levels have both.  The three monster types that can throw either attack type can appear anywhere. Colours indicate difficulty, easiest to hardest.
+
+WAR-attacking monster:
+SKELETONS: White/Grey/Orange
+SHIELDED SKELETONS: White/Grey/Orange
+ROBED SKELETONS: White/Grey/Orange
+ROBED, SHIELDED SKELETONS: White/Grey/Orange
+GIANTS: Yellow/Tan/Orange
+SHIELDED GIANTS: Yellow/Tan/Orange
+
+SPIRITUAL-attacking monsters:
+GIANT ANTS: Blue/Pink/Purple
+DWARFS: Yellow/Tan/Orange
+GIANT SCORPIONS: Blue/Pink/Purple
+SHIELDED DWARFS: Yellow/Tan/Orange
+GIANT SNAKES: Blue/Pink/Purple
+ALLIGATORS: Blue/Pink/Purple
+DRAGONS: Blue/Pink/Purple
+EVIL DOORS: Blue/Tan/Yellow
+
+BOTH-attacking monsters:
+GHOULS: White/Grey/Orange
+WRAITHS: White/Grey/Orange
+SHIELDED WRAITHS: White/Grey/Orange
+MINOTAUR: Purple
+
+------
+COMBAT
+------
+
+When you come face to face with a monster (or one that's adjacent to you attacks; you'll hear a primitive 'growl' and your attention will be grabbed), battle begins. The level-number will be replaced with the monster's health value, which starts out green.  As you whittle down its health, it will change to blue.
+
+Unless you decide to retreat, the fight is to the death (usually... read on).  First to zero health (either WAR or SPIRITUAL health for you.  The enemy only has one health value). If you win, he vanishes in a puff of smoke. If he wins, you may see a quick teleport to a maze corner with your weapons and items gone, and your stats reduced.  This is known as 'reincarnation', and you're given a second chance to start with nothing on the same level.  Otherwise, you'll see the map screen with your tombstone on the level you died on (or at the bottom if you're at or lower than that level), at which point it's game over.
+
+You and the monster alternate attacks -- if you delay in hitting the '7' key, it will even wait for you to counter-attack before doing anything else.
+
+One-shot weapons disappear when used. Reusable weapons may break and vanish at any time. Thus, it's best to keep a supply of each. Once you are out of combat, you can Rest (8) if you have food, or drink potions to regain your health points.
+
+-------------
+SPECIAL ITEMS
+-------------
+
+POTIONS:
+
+Small Blue: Restore war and spiritual health to maximum.  Can be used in or out of battle (uses one turn in battle).
+Small Pink: Lets you find better objects (and bigger bombs) in treasure containers temporarily, until you hear a little 'whoosh' sound.
+Small Purple: Turns all monsters except the Minotaur invisible and harmless until you hear the 'whoosh' sound.
+Large Blue: Restore health to full and increase maximum war health by 10 (uses one turn in battle).
+Large Pink: Restore health to full and increase maximum spiritual health by 10 (uses one turn in battle).
+Large Purple: Swap war/spiritual health ratios (uses one turn in battle):
+ - values are found from war/199 and spiritual/99
+ - ie: if your health is 100/40, this is 100/199 war and 40/99 spiritual... about 50% and 40% respectively.  This potion swaps these percentages, changing your health to 40% and 50%... about 80/50.
+
+BOOKS:
+
+WAR BOOKS: Look like a book with a 'hollow' cover, and disappears when used. These change the color of your war health attribute to dark blue (blue book), tan (pink book) or white (purple book). Your maximum potential war health achievable without potions is normally 49.  These books change the potential maximum to 99, 149 or 199 respectively.
+
+SPIRITUAL BOOKS: Look like a book with a 'solid' cover, and disappears when used. Your max potential spiritual health is 29 without potions. These books change the potential to 49 (blue book), 74 (tan book) or 99 (purple book).
+
+Only one attribute can be enhanced (colored) at a time. Also, this does not change your actual maximum health points. Finding a purple book doesn't mean you can suddenly 'rest' and go right to 99+.  Also, if your health is higher than 49/29 it will stay where it is if you later enhance a different attribute. You must earn the higher maximums through combat and experience.
+
+SPECIAL BOOKS:
+Look like a book with an 'X' on the cover. These books may be found in treasure containers, or are the guarded by Evil Doors. Blue Doors guard blue books, Tan Doors guard pink books, and Yellow Doors guard purple books. Once you have a special book, it does not disappear with use.  It is permanent unless you leave it behind.
+
+BLUE: Teleportation book. When held in a weapon slot out of combat, this lets you Use it to teleport one square forward, even through walls. You cannot teleport out of the 12x12 grid, nor can you teleport into a square with a monster in it.
+
+PINK: X-Ray Vision book. When used, you gain temporary vision through the walls of the dungeon, and can see distant objects and monsters. This lasts until you hear the 'whoosh', but the book may be reused.
+
+PURPLE: Transmutation book. When used, objects before you are transmuted into the best/most powerful object of their type. This only affects treasure, war weapons, and armor.  Use the book when the item is on the ground in front of you.
+
+----------------
+WINNING THE GAME
+----------------
+
+The Minotaur will appear on the lowest level on the Map Screen (although there's a chance of seeing him earlier, and definitely later). You can fight him there, or continue downwards off the map.  There are 255 levels, and using a ladder on 255 will warp you back to 1.  At later levels, the Minotaur may appear several times in the same level.
+
+If you fight the Minotaur and win, the treasure of Tarmin will appear in front of you. Grab it, and the game is won.
+
+--------
+STRATEGY
+--------
+
+The first thing that's important to know is that you need not fight the Minotaur on the map level when he first appears. If you're not ready, just keep going down ladders. The Minotaur will reappear soon enough.
+
+- Early stages -
+
+Right now, you're very weak. Your first task is to build up your war and spiritual health... quickly.
+
+You gain points according to what weapons you've been using, so pick an attribute and stick with it for a while. If you're in a green level, work on the war side; all weapons you'll find will be war weapons, and all monsters will only attack that side until you start running into ghouls and wraiths. Same goes for blue levels, and build the spiritual there.  Just don't concentrate on one side too long.
+
+Take it very slow in the beginning stages. Kill off everything on a level before going down a ladder, so you maximize your combat opportunities with weaker foes and build more health points. Keep an eye on the map as to what color adjacent floors are. If an adjacent area is tempting, and you have a tan gate between the two, go for it.  Blue and green gates are a bad idea right now, as they hurt your stats more than they help.
+
+Use every weapon you can find. Every axe or dart you use is one more arrow you can keep for later use, and the one-time use weapons generally do more damage too. You'll want to keep a treasure container in your inventory to avoid the enemies that you think you can't handle, or if you run out of weapons.
+
+Open every other container you can find. You might get killed by a bomb, but you haven't invested enough time in this character yet to worry about it. Look for attribute-enhancing books and keys.  You might even get lucky and find large blue or pink potions now and then.
+
+Don't overbuild on one side of your health and neglect the other! Nothing is more frustrating than building a massive war health and getting whacked by a single bolt of lightning.
+
+- Middle stages -
+
+Okay, now you've got some health built up on each side, have a decent reusable weapon and some backup items, and a key that opens some treasure chests.  A few pieces of armour should have come your way by this point as well.
+
+If you have enough spiritual health to survive on tan levels (where both war and spiritual enemies appear), start building up the war side. Use every item you can pick up because you've got a long way to go, and saving arrows may help. Turn your war health some color with a war book and start killing monsters, because your main enemy is no longer the monster, it's the bomb.
+
+Take it easy on opening containers for a while. A bomb can pack some major punch, and you have no way of avoiding its blast. You can consider yourself immune to bombs when your war health is in the mid-70s on the most difficult game level. Less on the other three difficulty settings, but you get the idea. Until then, containers are a risky thing to try. You might find blue/pink stat-boosting potions or better items, or you might find a quick death.  If you have an inventory slot available, you can carry a container or two on you.  That way, if you come across something you can't handle, you have a container to throw, or you can open if when you find the key or feel you have enough health to take the potential bomb blast.
+
+Don't pick more fights than you have to pick, and concentrate on picking up better weapons and armor lying around. Monster toughness can pick up dramatically once you've cleared a few levels, so have something in reserve that can take out a pink alligator or an orange giant.
+
+Don't forget food! Long battles can wear down your health, and you need a lot of food sometimes to regenerate them.  Generally, you should never leave a food or quiver behind, since at this point you'll likely need to rest after almost every battle.
+
+- Late stages -
+
+Once you're armed to the teeth and have a war health of 70+, go to work on the spiritual side and build that up to 40+. At this point, nothing short of a tank should be able to threaten you.  Note: Orange Wraiths do count as tanks though, so don't get too cocky.
+
+Start going after treasure again. The stat boosts that turn up will come in handy, as will the special books that turn up now and then.
+
+Oh, the Minotaur? Just kill him whenever you feel like it. You might keep a small blue potion in your pack in case you've underestimated him, but a few shots from a white crossbow or purple spell book (careful... they break quickly) should pacify the purple dungeon-keeper.
+
+And when you get bored, pick up the chest the Minotaur leaves to finish off the game.  Otherwise, you can kill him, ignore the Treasure of Tarmin, and keep going.  Further down, when there's multiple Minotaurs on a level, they're quite plentiful.
+
+----
+TIPS
+----
+
+Containers: Always useful to have one around, until you get to the later stages when you can kill (or at least run away from and not be killed while running) pretty well everything.  If you equip a container in your weapon hand and attack an enemy with it, you'll throw the container at the enemy and instantly end the battle.  The monster will still stand there, but you can pass over it and continue like it was never there.  Be careful though, since if you cross it's path again, it WILL attack again.
+
+Dead Ends: Quite often, a dead end will contain a secret door.  If it doesn't open directly in front of you, try turning to either side and checking those walls.
+
+The 'Square' of rooms: When you come across an area of a level in which there's a room taking up a single square, surrounded by a hallway, there's secret doors aplenty here.  Think of it as concentric rings, with the single-square room being the center.  Around that single room is a hallway with no doors or walls.  Around that hallway are four rooms made up of three spaces per room (each room being a corner to this particular concentric ring).  Just follow through the rooms and open the walls in front of you as if it were a ring around the square hallway.  You can clean out all of the items and enemies in these rooms in no-time.  If you don't quite understand what I mean... just look for the single room surrounded by hallway.  If you look for secret doors, it will make sense soon enough.
+
+The single hidden room: If you find that upon entering a door from the outer hallway (with the eyeball murals), and it goes two spaces forward, two spaces right from there, one space right, and end up a dead end... there's always a secret room there.  Turn right one more time so you're facing the square of space you just went around, and open the secret door.  It's quite frustrating when the Minotaur is hiding in there and you want to finish the game.
+
+The Shield slot: Remember... before you come across a shield early in the game, you can use your left hand as an extra inventory slot.
+
+Multiple of the same weapon: Don't be afraid to have two crossbows, or two spellbooks in your hand.  If one breaks, it's definitely useful to have a backup.
+
+Keys: You only need one key on you at any given time.  If you have an orange key, ignore all other tan and orange keys, and only trade it out if you find a blue key.
+
+Holding a weaker weapon: If you have purple spellbook or white crossbow, I highly suggest having a lesser-quality weapon (such as a grey bow/crossbow or white spellbook) on hand.  Often, you don't need the most powerful weapon for the weaker enemies, so why risk breaking your best weapon on something you could kill blindfolded?
+
+Boredom-killing is fun: If you have a lot of time to kill, then once you get high stats and weapons, just find every ladder you can and go deeper than level 255.  Once it warps you back to level 1 after that, it's somehow gratifying to see the enemies that once gave you so much difficulty die in a single hit without breaking a sweat.  After all, after a point, the enemies just stop getting more difficult.

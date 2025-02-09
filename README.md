@@ -23,5 +23,6 @@ seen it play over the decades.   Please note some things will be inevitably a bi
 than the original game.
 
 [FAQ](docs/FAQ.txt)
+[FAQ2](docs/FAQ2.txt)
 
 [Original Manual](https://archive.org/details/Advanced_Dungeons_and_Dragons_Treasure_of_Tarmin_1982_Mattel/page/n3/mode/2up_)
