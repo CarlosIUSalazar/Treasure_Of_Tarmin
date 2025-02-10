@@ -20,11 +20,10 @@ public class Player : MonoBehaviour
     public int food;
     public int floor;
     public bool canRest = false;
-    
+    GameManager gameManager;
     //Events to notify UI changes
     public delegate void OnStatChanged();
     public event OnStatChanged OnPlayerStatsUpdated;
-    GameManager gameManager;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created

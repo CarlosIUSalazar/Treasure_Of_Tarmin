@@ -165,6 +165,7 @@ public class PlayerGridMovement : MonoBehaviour
             if (isBribe) {
                 canEscape += 10;
                 Debug.Log("BRIBED!");
+                gameManager.enemyHPText.gameObject.SetActive(false);
             }
 
             if (canEscape > 5) { // CAN ESCAPE
@@ -173,6 +174,7 @@ public class PlayerGridMovement : MonoBehaviour
                 player.transform.position = playerPreviousPosition;
                 player.transform.rotation = playerPreviousRotation;
                 canBackStep = false;
+                gameManager.enemyHPText.gameObject.SetActive(false);
             } else {    // CAN'T ESCAPE
                 Debug.Log("COULDN'T ESCAPE!!");
                 gameManager.isPlayersTurn = false;
@@ -341,6 +343,10 @@ public class PlayerGridMovement : MonoBehaviour
 
     private void InitiateFight(RaycastHit hit) {
         enemy = hit.collider.GetComponent<Enemy>();
+        gameManager.UpdateEnemyHP(enemy.currentEnemyHP); // Get the current HP from this enemy and pass it to GameManager for display in UI 
+        gameManager.enemyHPText.gameObject.SetActive(true); //Make the Emeny HP label appear
+
+
         if (enemy != null) {
             gameManager.isFighting = true; //initiate fight more
             gameManager.SetActiveEnemy(enemy); //Register current enemy as active

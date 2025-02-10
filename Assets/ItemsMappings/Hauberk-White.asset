@@ -21,4 +21,4 @@ MonoBehaviour:
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 15
-  spiritualDefense: 1
+  spiritualDefense: 2

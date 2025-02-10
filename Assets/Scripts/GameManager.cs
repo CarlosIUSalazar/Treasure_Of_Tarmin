@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI arrowsText;
     [SerializeField] private TextMeshProUGUI foodText;
     [SerializeField] private TextMeshProUGUI floorText;
+    [SerializeField] public TextMeshProUGUI enemyHPText;
 
     public Enemy activeEnemy;
     private Player player;  
@@ -27,6 +28,7 @@ public class GameManager : MonoBehaviour
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        enemyHPText.gameObject.SetActive(false);
 
         //Subscribe to Player's stat update event
         player.OnPlayerStatsUpdated += UpdateUI;
@@ -51,6 +53,10 @@ public class GameManager : MonoBehaviour
         arrowsText.text = $"{player.arrows}";
         foodText.text = $"{player.food}";
         floorText.text = $"{player.floor}";
+    }
+
+    public void UpdateEnemyHP(int currentHP) {
+        enemyHPText.text = $"{currentHP}";
     }
 
     public void SetActiveEnemy(Enemy enemy) {

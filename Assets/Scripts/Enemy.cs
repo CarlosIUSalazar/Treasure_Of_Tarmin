@@ -6,13 +6,14 @@ public class Enemy : MonoBehaviour
     [SerializeField] private int enemyBaseHP = 50;
     public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     GameManager gameManager;
-    private int currentHP;
+    public int currentEnemyHP;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-        currentHP = Random.Range(0,15) + enemyBaseHP;
+        currentEnemyHP = Random.Range(0,15) + enemyBaseHP;
+        gameManager.UpdateEnemyHP(currentEnemyHP);
     }
 
     // Update is called once per frame
@@ -22,9 +23,10 @@ public class Enemy : MonoBehaviour
     }
 
     public void TakeDamage(int damage) {
-        currentHP -= damage;
-        Debug.Log("Enemy current HP is " + currentHP);
-        if (currentHP <= 0) {
+        currentEnemyHP -= damage;
+        Debug.Log("Enemy current HP is " + currentEnemyHP);
+        gameManager.UpdateEnemyHP(currentEnemyHP);
+        if (currentEnemyHP <= 0) {
             Die();
         }
     }
@@ -38,6 +40,6 @@ public class Enemy : MonoBehaviour
         // Refresh UI immediately after combat
         gameManager.SetActiveEnemy(null);  // Clear active enemy
         Instantiate(smokePrefab, transform.position, Quaternion.identity);
-
+        gameManager.enemyHPText.gameObject.SetActive(false);
     }
 }
