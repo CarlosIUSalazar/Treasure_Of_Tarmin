@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Ring-Small-Blue
   item3DPrefab: {fileID: 7617520694031387875, guid: 4b81b6472431f499fa99e1ee305f1409, type: 3}
   item2DSprite: {fileID: 2800000, guid: 5ec9350d336144ba9b4d869e5ce5c0f6, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 2
+  spiritualDefense: 5

@@ -1,0 +1,273 @@
+https://www.speedrun.com/sv-SE/adanddtot/guides/yc1sd
+MISCELLANEOUS NOTES
+Guider
+/
+Miscellaneous Notes
+Uppdaterad 4 years ago av
+Winslinator
+
+-- Maximum Score --
+ P7670 (327,670)
+
+-- Minimum Reincarnation Stamina --
+ 16/9
+
+-- Second Minotaur --
+ Appears at Floor 16 (all difficulties)
+
+-- Item Frequencies per floor (all difficulties) --
+ 2 Ladders
+ 1 Quiver
+ 2 Sacks of Flour
+ 2 Defensive Items
+ 8 Weapons
+ 5 Containers
+ 8 Enemies
+
+ Note: if the floor is not supposed to have two ladders, the second is located on tile 221, the furthest out of bounds tile.
+
+-- Objects --
+ Object Number in RAM - Object: WarPoints/SpiritualPoints
+ 0 - Nothing
+ 1 - Quiver
+ 2 - Sack of Flour
+ 3 - Ladder
+ 4 - Hauberk (Tan): 2/0
+ 5 - Hauberk (Orange): 4/0
+ 6 - Hauberk (Blue): 6/0
+ 7 - Hauberk (Gray): 9/1
+ 8 - Hauberk (Yellow): 12/1
+ 9 - Hauberk (White): 15/1
+ 10 - Gauntlet (Tan): 1/0
+ 11 - Gauntlet (Orange): 2/0
+ 12 - Gauntlet (Blue): 3/0
+ 13 - Gauntlet (Gray): 5/0
+ 14 - Gauntlet (Yellow): 7/0
+ 15 - Gauntlet (White): 9/1
+ 16 - Helmet (Tan): 2/0
+ 17 - Helmet (Orange): 4/0
+ 18 - Helmet (Blue): 6/0
+ 19 - Helmet (Gray): 9/1
+ 20 - Helmet (Yellow): 12/1
+ 21 - Helmet (White): 15/1
+ 22 - Breastplate (Tan): 10/1
+ 23 - Breastplate (Orange): 14/1
+ 24 - Breastplate (Blue): 18/2
+ 25 - Breastplate (Gray): 22/2
+ 26 - Breastplate (Yellow): 26/3
+ 27 - Breastplate (White): 30/3
+ 28 - Large Shield (Tan): 10/1
+ 29 - Large Shield (Orange): 14/1
+ 30 - Large Shield (Blue): 18/2
+ 31 - Large Shield (Gray): 22/2
+ 32 - Large Shield (Yellow): 26/3
+ 33 - Large Shield (White): 30/3
+ 34 - Small Shield (Tan): 5/0
+ 35 - Small Shield (Orange): 8/1
+ 36 - Small Shield (Blue): 11/1
+ 37 - Small Shield (Gray): 14/1
+ 38 - Small Shield (Yellow): 17/2
+ 39 - Small Shield (White): 20/2
+ 40 - Bow (Tan): 6/0
+ 41 - Bow (Orange): 9/0
+ 42 - Bow (Blue): 15/0
+ 43 - Bow (Gray): 21/0
+ 44 - Bow (Yellow): 27/0
+ 45 - Bow (White): 33/0
+ 46 - Crossbow (Tan): 18/0
+ 47 - Crossbow (Orange): 24/0
+ 48 - Crossbow (Blue): 30/0
+ 49 - Crossbow (Gray): 36/0
+ 50 - Crossbow (Yellow): 42/0
+ 51 - Crossbow (White): 99/0
+ 52 - Knife (Tan): 9/0
+ 53 - Knife (Orange): 15/0
+ 54 - Knife (Blue): 21/0
+ 55 - Knife (Gray): 30/0
+ 56 - Knife (Yellow): 42/0
+ 57 - Knife (White): 57/0
+ 58 - Axe (Tan): 15/0
+ 59 - Axe (Orange): 21/0
+ 60 - Axe (Blue): 27/0
+ 61 - Axe (Gray): 36/0
+ 62 - Axe (Yellow): 51/0
+ 63 - Axe (White): 66/0
+ 64 - Dart (Tan): 21/0
+ 65 - Dart (Orange): 27/0
+ 66 - Dart (Blue): 33/0
+ 67 - Dart (Gray): 42/0
+ 68 - Dart (Yellow): 57/0
+ 69 - Dart (White): 75/0
+ 70 - Spear (Tan): 27/0
+ 71 - Spear (Orange): 33/0
+ 72 - Spear (Blue): 45/0
+ 73 - Spear (Gray): 69/0
+ 74 - Spear (Yellow): 84/0
+ 75 - Spear (White): 99/0
+ 76 - Box (Tan)
+ 77 - Box (Orange)
+ 78 - Box (Blue)
+ 79 - Pack (Tan)
+ 80 - Pack (Orange)
+ 81 - Pack (Blue)
+ 82 - Chest (Tan)
+ 83 - Chest (Orange)
+ 84 - Chest (Blue)
+ 85 - Large Bag (Tan)
+ 86 - Large Bag (Orange)
+ 87 - Large Bag (Blue)
+ 88 - Money Belt (Tan)
+ 89 - Money Belt (Orange)
+ 90 - Money Belt (Blue)
+ 91 - Small Bag (Tan)
+ 92 - Small Bag (Orange)
+ 93 - Small Bag (Blue)
+ 94 - Ingot (Silver): 50
+ 95 - Ingot (Gold): 350
+ 96 - Ingot (Platinum): 450
+ 97 - Lamp (Silver): 100
+ 98 - Lamp (Gold): 150
+ 99 - Lamp (Platinum): 220
+ 100 - Chalice (Silver): 120
+ 101 - Chalice (Gold): 250
+ 102 - Chalice (Platinum): 400
+ 103 - Crown (Silver): 300
+ 104 - Crown (Gold): 500
+ 105 - Crown (Platinum): 600
+ 106 - Necklace (Silver): 20
+ 107 - Necklace (Gold): 70
+ 108 - Necklace (Platinum): 200
+ 109 - Coins (Silver): 10
+ 110 - Coins (Gold): 30
+ 111 - Coins (Platinum): 170
+ 112 - Small Potion (Blue)
+ 113 - Small Potion (Pink)
+ 114 - Small Potion (Purple)
+ 115 - Large Potion (Blue): 10/0
+ 116 - Large Potion (Pink): 0/10
+ 117 - Large Potion (Purple)
+ 118 - Teleport Book
+ 119 - Vision Book
+ 120 - Midas Book
+ 121 - War Book (Blue)
+ 122 - War Book (Pink)
+ 123 - War Book (Purple)
+ 124 - Spiritual Book (Blue)
+ 125 - Spiritual Book (Pink)
+ 126 - Spiritual Book (Purple)
+ 127 - Key (Tan)
+ 128 - Key (Orange)
+ 129 - Key (Blue)
+ 130 - Scroll (Blue): 0/3
+ 131 - Scroll (Gray): 0/5
+ 132 - Scroll (White): 0/9
+ 133 - Scroll (Pink): 0/13
+ 134 - Scroll (Red): 0/17
+ 135 - Scroll (Purple): 0/21
+ 136 - Book (Blue): 0/11
+ 137 - Book (Gray): 0/15
+ 138 - Book (White): 0/19
+ 139 - Book (Pink): 0/23
+ 140 - Book (Red): 0/27
+ 141 - Book (Purple): 0/65
+ 142 - Small Fireball (Blue): 0/5
+ 143 - Small Fireball (Gray): 0/9
+ 144 - Small Fireball (White): 0/13
+ 145 - Small Fireball (Pink): 0/19
+ 146 - Small Fireball (Red): 0/27
+ 147 - Small Fireball (Purple): 0/37
+ 148 - Small Lightning Bolt (Blue): 0/9
+ 149 - Small Lightning Bolt (Gray): 0/13
+ 150 - Small Lightning Bolt (White): 0/17
+ 151 - Small Lightning Bolt (Pink): 0/23
+ 152 - Small Lightning Bolt (Red): 0/33
+ 153 - Small Lightning Bolt (Purple): 0/43
+ 154 - Large Fireball (Blue): 0/13
+ 155 - Large Fireball (Gray): 0/17
+ 156 - Large Fireball (White): 0/21
+ 157 - Large Fireball (Pink): 0/27
+ 158 - Large Fireball (Red): 0/37
+ 159 - Large Fireball (Purple): 0/49
+ 160 - Large Lightning Bolt (Blue): 0/17
+ 161 - Large Lightning Bolt (Gray): 0/21
+ 162 - Large Lightning Bolt (White): 0/29
+ 163 - Large Lightning Bolt (Pink): 0/45
+ 164 - Large Lightning Bolt (Red): 0/55
+ 165 - Large Lightning Bolt (Purple): 0/65
+ 166 - Small Ring (Blue): 2/5
+ 167 - Small Ring (Gray): 5/10
+ 168 - Small Ring (White): 7/15
+ 169 - Small Ring (Pink): 10/20
+ 170 - Small Ring (Red): 12/25
+ 171 - Small Ring (Purple): 15/30
+ 172 - Large Ring (Blue): 4/8
+ 173 - Large Ring (Gray): 8/16
+ 174 - Large Ring (White): 9/19
+ 175 - Large Ring (Pink): 13/26
+ 176 - Large Ring (Red): 16/33
+ 177 - Large Ring (Purple): 20/40
+ 178 - Bomb 1
+ 179 - Bomb 2
+ 180 - Bomb 3
+ 181 - Tarmin Treasure
+ 182 - Eyeball Mural (Tan)
+ 183 - Eyeball Mural (Tan)
+ 184 - Eyeball Mural (Blue)
+ 185 - Eyeball Mural (Green)
+ 193 - Giant Ant (Blue)
+ 194 - Giant Ant (Pink)
+ 195 - Giant Ant (Purple)
+ 196 - Giant Scorpion (Blue)
+ 197 - Giant Scorpion (Pink)
+ 198 - Giant Scorpion (Purple)
+ 199 - Giant Snake (Blue)
+ 200 - Giant Snake (Pink)
+ 201 - Giant Snake (Purple)
+ 202 - Alligator (Blue)
+ 203 - Alligator (Pink)
+ 204 - Alligator (Purple)
+ 205 - Dragon (Blue)
+ 206 - Dragon (Pink)
+ 207 - Dragon (Purple)
+ 208 - Skeleton (White)
+ 209 - Skeleton (Gray)
+ 210 - Skeleton (Orange)
+ 211 - Skeleton With Shield (White)
+ 212 - Skeleton With Shield (Gray)
+ 213 - Skeleton With Shield (Orange)
+ 214 - Cloaked Skeleton (White)
+ 215 - Cloaked Skeleton (Gray)
+ 216 - Cloaked Skeleton (Orange)
+ 217 - Cloaked Skeleton With Shield (White)
+ 218 - Cloaked Skeleton With Shield (Gray)
+ 219 - Cloaked Skeleton With Shield (Orange)
+ 220 - Giant (Yellow)
+ 221 - Giant (Tan)
+ 222 - Giant (Orange)
+ 223 - Giant With Shield (Yellow)
+ 224 - Giant With Shield (Tan)
+ 225 - Giant With Shield (Orange)
+ 226 - Wraith (White)
+ 227 - Wraith (Gray)
+ 228 - Wraith (Orange)
+ 229 - Wraith With Shield (White)
+ 230 - Wraith With Shield (Gray)
+ 231 - Wraith With Shield (Orange)
+ 232 - Dwarf (Yellow)
+ 233 - Dwarf (Tan)
+ 234 - Dwarf (Orange)
+ 235 - Dwarf With Shield (Yellow)
+ 236 - Dwarf With Shield (Tan)
+ 237 - Dwarf With Shield (Orange)
+ 238 - Ghoul (White)
+ 239 - Ghoul (Gray)
+ 240 - Ghoul (Orange)
+ 241 - Magic Door (Blue)
+ 242 - Magic Door (Tan)
+ 243 - Magic Door (Yellow)
+ 244 - Minotaur
+ 245 - Gate (Tan)
+ 246 - Gate (Tan)
+ 247 - Gate (Blue)
+ 248 - Gate (Green)
+Note: Ghouls with shields were never programmed into the game

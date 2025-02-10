@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Breastplate-Yellow
   item3DPrefab: {fileID: 4125520429657091428, guid: c5126c4afdc1049bbac9d12ff60529dd, type: 3}
   item2DSprite: {fileID: 2800000, guid: f18c4d061fcdc488ba939e9f316d48d8, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 26
+  spiritualDefense: 3

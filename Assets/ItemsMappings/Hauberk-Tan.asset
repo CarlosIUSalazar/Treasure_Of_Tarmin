@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Hauberk-Tan
   item3DPrefab: {fileID: 4850010637604468751, guid: ccba15c70385046a1b511ecab3be5dcd, type: 3}
   item2DSprite: {fileID: 2800000, guid: 3369be0d0026c45a09b0f4fff085e50f, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 2
+  spiritualDefense: 0

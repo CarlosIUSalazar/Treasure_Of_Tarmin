@@ -20,5 +20,5 @@ MonoBehaviour:
   isShield: 1
   warAttackPower: 0
   spiritualAttackPower: 0
-  warDefense: 0
+  warDefense: 5
   spiritualDefense: 0

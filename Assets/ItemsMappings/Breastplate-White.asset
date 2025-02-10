@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Breastplate-White
   item3DPrefab: {fileID: 2220654247020787215, guid: 543c13e901e5544b9b17a258f93fdf90, type: 3}
   item2DSprite: {fileID: 2800000, guid: c8641cf9c78fa4294988c4fedd8769ce, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 30
+  spiritualDefense: 3

@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Helmet-Grey
   item3DPrefab: {fileID: 1744189132661808154, guid: d60174a507c5a43f3acf1a5f2351f156, type: 3}
   item2DSprite: {fileID: 2800000, guid: c7dd5f7d50b384261bc97803ad59647e, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 9
+  spiritualDefense: 1

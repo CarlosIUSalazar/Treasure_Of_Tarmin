@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Ring-Small-Red
   item3DPrefab: {fileID: 948588381460252711, guid: 23d3dfc9704e24abfa233909dc198ca4, type: 3}
   item2DSprite: {fileID: 2800000, guid: 582c27b179634409cb0736fba029da12, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 12
+  spiritualDefense: 25

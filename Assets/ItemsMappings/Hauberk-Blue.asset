@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Hauberk-Blue
   item3DPrefab: {fileID: 8842580161221684892, guid: 75348eb4f02fc4498ab22902b7055400, type: 3}
   item2DSprite: {fileID: 2800000, guid: 3aaf01aa3022f4d5e9af4e8e2d8abaa1, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 6
+  spiritualDefense: 0

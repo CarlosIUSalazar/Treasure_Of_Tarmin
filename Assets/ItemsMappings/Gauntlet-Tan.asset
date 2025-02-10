@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Gauntlet-Tan
   item3DPrefab: {fileID: 956942019881474977, guid: 49c54658375e049909bcf0336143a93d, type: 3}
   item2DSprite: {fileID: 2800000, guid: 8b2694465f9484def9d2bee58f92db61, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 1
+  spiritualDefense: 0

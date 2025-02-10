@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Breastplate-Orange
   item3DPrefab: {fileID: 3888452402271617220, guid: 7b54a6a001a394718a1637e77ed2b1d1, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1d47f83cbd2644631ae7608e425752c8, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 14
+  spiritualDefense: 1

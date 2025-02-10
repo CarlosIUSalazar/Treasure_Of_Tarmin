@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Helmet-Orange
   item3DPrefab: {fileID: 3597486761592605195, guid: 58d79e794e9624a5d97af2771a5ac77a, type: 3}
   item2DSprite: {fileID: 2800000, guid: 7771eaf192db0413cbb7c685548cf6c2, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 4
+  spiritualDefense: 0

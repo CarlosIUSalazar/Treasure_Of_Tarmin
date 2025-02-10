@@ -47,7 +47,7 @@ public class Player : MonoBehaviour
         spiritualArmor = 5;
         spiritualWeapon = 1;
         score = 0;
-        arrows = 1;
+        arrows = 10;
         food = 100;
         floor = 1;
 

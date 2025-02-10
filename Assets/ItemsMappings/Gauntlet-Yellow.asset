@@ -15,3 +15,10 @@ MonoBehaviour:
   itemName: Gauntlet-Yellow
   item3DPrefab: {fileID: 8524940911563642551, guid: 5160e76637bf946419afc8680c451d68, type: 3}
   item2DSprite: {fileID: 2800000, guid: 09d872d83d0c34dcaa221eadf05d6f04, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 7
+  spiritualDefense: 0
