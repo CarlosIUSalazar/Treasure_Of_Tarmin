@@ -3470,7 +3470,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d321e5a02cdc04e90b173c55c0fc87fb, type: 3}
+  m_Texture: {fileID: 2800000, guid: 48e13dbf48b0b41758c30fad00cbba1e, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -4836,18 +4836,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   itemPrefabs:
-  - {fileID: 8191541789909023615, guid: 7590855118b9947d4abfa8bf7fbf5273, type: 3}
-  - {fileID: 6193374284836625802, guid: f72f59e611c7540f88963aa121360af8, type: 3}
-  - {fileID: 6001020120728717830, guid: 0b1aa02807c1f42808be75b5d30ad81d, type: 3}
-  - {fileID: 3628909142139277534, guid: bfc346a6da04b44e9ac311ce68f1c39c, type: 3}
-  - {fileID: 5648154934466048210, guid: 2f162ef4867584b70a01390ed58033eb, type: 3}
+  - {fileID: 5366835972362230561, guid: 24a5817f208794876a92033ddbc756f6, type: 3}
+  - {fileID: 7977670999627210375, guid: b525d35ebd2fb4eee98795cb5e005bbd, type: 3}
+  - {fileID: 786704032597579913, guid: e6c43b1340941430584f9ba0b1742671, type: 3}
+  - {fileID: 2013073610343398100, guid: ed90de8ad1cc3478c90b519856a9184c, type: 3}
   - {fileID: 6926077922159799993, guid: 29d197e047cff414fad01d58f1ee1ee7, type: 3}
-  - {fileID: 4460994460046684715, guid: da8c090b88b6c48ae8b783e8d8e925ef, type: 3}
-  - {fileID: 243994836190153894, guid: 664301c3ac4124b5f9e07195f301f130, type: 3}
-  - {fileID: 5648154934466048210, guid: 2f162ef4867584b70a01390ed58033eb, type: 3}
-  - {fileID: 7617520694031387875, guid: 4b81b6472431f499fa99e1ee305f1409, type: 3}
-  - {fileID: 7198874515693062156, guid: 87111e1c87e604d3fb7f0dbde68764ff, type: 3}
-  - {fileID: 1479605808989077537, guid: 1a7dc7dcf2fc7400395209eb1166820c, type: 3}
+  - {fileID: 3083476473649006782, guid: fe946ac5f3d8143499cd3fe04a8f86e8, type: 3}
+  - {fileID: 1096498210097460157, guid: a89d8d2b1639841d880f4158c2a0f954, type: 3}
+  - {fileID: 3852359904292012227, guid: 448a6c218d4534027938dbefeb2140ef, type: 3}
+  - {fileID: 7265785245574289816, guid: a4bd3e63c4118466a810627f4f7f73f5, type: 3}
+  - {fileID: 6074387981640591998, guid: 5167b2aff4f95480d81c558dc1bab03b, type: 3}
+  - {fileID: 6453033825085271153, guid: 18fab21f18d4543d686e67d84a674d38, type: 3}
+  - {fileID: 2841995807249335249, guid: 63f5ab758552243a89e1f147dcd16b1a, type: 3}
   enemyPrefabs:
   - {fileID: 7650733504728865562, guid: 4c84aea6fc95d4255aeb5620db4d36ca, type: 3}
   - {fileID: 2351187946534896473, guid: 993d11ada0e08440692d1780ffb5b92e, type: 3}
@@ -5164,7 +5164,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: b24ee88ee281e4719a57330f98d7ce3c, type: 3}
+  m_Texture: {fileID: 2800000, guid: 14fe27848ae6e470d8f7d40b68507f4f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -7952,7 +7952,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 578698787}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -8009,9 +8009,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 27357056}
-        m_TargetAssemblyTypeName: PlayerGridMovement, Assembly-CSharp
-        m_MethodName: 
+      - m_Target: {fileID: 1647360854}
+        m_TargetAssemblyTypeName: InventoryManager, Assembly-CSharp
+        m_MethodName: UseButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -8020,7 +8020,7 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
-        m_CallState: 0
+        m_CallState: 2
 --- !u!114 &578698790
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8651,7 +8651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 256
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -10058,7 +10058,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a9f7966bec3ed4734b224d01c4578135, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -10239,7 +10239,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 5e6c3d8a8c8ef4c9285287d178e4d026, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -10556,7 +10556,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 7771eaf192db0413cbb7c685548cf6c2, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -10921,7 +10921,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2602313477387208747, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2626339639474218709, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_Layer
@@ -12518,7 +12518,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 4e38e85d70f1b4309973a565c9bcee54, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -14485,7 +14485,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: d42e6c2e1c4a3475bb9b8343d23248a8, type: 3}
+  m_Texture: {fileID: 2800000, guid: 4d3c1e8df3adc428c88897fe9f68390e, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -14920,7 +14920,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2602313477387208747, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2626339639474218709, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_Layer
@@ -15871,7 +15871,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 790fc6336ee6d4dd284fb70b5e013135, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -17395,7 +17395,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: a19c8242a6f764fe8bf8b7d7019b31d0, type: 3}
+  m_Texture: {fileID: 2800000, guid: b026c6fd476594f3ba496a9ba5efd4be, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -18927,7 +18927,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 169092365a63b49218911d54c2b10fda, type: 3}
+  m_Texture: {fileID: 2800000, guid: 617544b71a8914ce3b397af81c7492f6, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -19012,7 +19012,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 4552483ac3c3a416ba67f34611a93e34, type: 3}
+  m_Texture: {fileID: 2800000, guid: 3369be0d0026c45a09b0f4fff085e50f, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -21372,6 +21372,8 @@ MonoBehaviour:
   foodText: {fileID: 1304352537}
   floorText: {fileID: 1393316974}
   enemyHPText: {fileID: 416351865}
+  menuPhysicalArmorText: {fileID: 1736936630}
+  menuSpiritualArmorText: {fileID: 641002124}
   activeEnemy: {fileID: 0}
 --- !u!114 &1647360854
 MonoBehaviour:
@@ -21552,6 +21554,11 @@ MonoBehaviour:
   - {fileID: 1422367451}
   - {fileID: 247472206}
   transparentImg: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
+  breastPlateImg: {fileID: 761483599}
+  helmetImg: {fileID: 795106983}
+  hauberkImg: {fileID: 891647766}
+  gauntletImg: {fileID: 1201897959}
+  ringImg: {fileID: 1846379806}
   isHoldingRightHandItem: 0
 --- !u!1 &1651344996
 GameObject:
@@ -22732,7 +22739,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 256
+  m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -24294,7 +24301,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 7bd56dde960a9450c8c44087630ea8d8, type: 3}
+  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -24614,7 +24621,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 4cb8f65a7ebbb4b379b6543a89523c43, type: 3}
+  m_Texture: {fileID: 2800000, guid: 7771eaf192db0413cbb7c685548cf6c2, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -25228,7 +25235,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 2800000, guid: 69390514f263944d1af708b5ad2168c7, type: 3}
+  m_Texture: {fileID: 2800000, guid: 80b19d585ac9e434ca3d104ddebe5577, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -28372,7 +28379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2602313477387208747, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2626339639474218709, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_Layer
@@ -29515,7 +29522,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2602313477387208747, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2626339639474218709, guid: cf4d7e6618f114f2a93dba67aa504cc6, type: 3}
       propertyPath: m_Layer

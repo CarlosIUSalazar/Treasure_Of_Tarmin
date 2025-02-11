@@ -12,8 +12,21 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] public RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
     [SerializeField] private Texture2D transparentImg;
+    [SerializeField] private RawImage breastPlateImg;
+    [SerializeField] private RawImage helmetImg;
+    [SerializeField] private RawImage hauberkImg;
+    [SerializeField] private RawImage gauntletImg;
+    [SerializeField] private RawImage ringImg;
+
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     public bool isHoldingRightHandItem = false;
+    private ItemMapping currentHelmet;
+    private ItemMapping currentBreastPlate;
+    private ItemMapping currentHauberk;
+    private ItemMapping currentGauntlet;
+    private ItemMapping currentRing;
+    private ItemMapping currentShield;
+
     Player player;
 
     public void Start() {
@@ -22,7 +35,6 @@ public class InventoryManager : MonoBehaviour
 
     public void Update()
     {
-        //CheckIfRightHandHasItem();
     }
 
     public void EmptyRightHand() {
@@ -137,9 +149,116 @@ public class InventoryManager : MonoBehaviour
 
 
     public void UseButton() {
-        
+        if (!CheckIfRightHandHasItem()) {
+            Debug.Log("Nothing to use");
+        } else {
+            ItemMapping rightHandItem = GetItemMapping(rightHandSlot.texture.name);
+            ////////////////////
+            // IF ITEM IS ARMOR
+            ///////////////////
+            // BREASTPLATE
+            if (rightHandItem.isArmor && rightHandItem.isBreastPlate) {
+                if (currentBreastPlate == null || rightHandItem.warDefense > currentBreastPlate.warDefense || rightHandItem.spiritualDefense >  currentBreastPlate.spiritualDefense) {
+                    // If RightHand holding Armor is better than currently wearing one, replace:
+                    breastPlateImg.texture = rightHandItem.item2DSprite;
+                    currentBreastPlate = rightHandItem; // Update the equipped Breastplate
+                    Debug.Log("Equiped " + rightHandItem.name);
+                    CalculateCurrentArmorTotal();
+                } else {
+                    Debug.Log("Better Item Already Equiped, Discarding");
+                }
+                EmptyRightHand();
+            }
+            // HELMET
+            if (rightHandItem.isArmor && rightHandItem.isHelmet) {
+                if (currentHelmet == null || rightHandItem.warDefense > currentHelmet.warDefense || rightHandItem.spiritualDefense > currentHelmet.spiritualDefense) {
+                    // If RightHand holding Armor is better than currently wearing one, replace:
+                    helmetImg.texture = rightHandItem.item2DSprite;
+                    currentHelmet = rightHandItem; // Update the equipped helmet
+                    Debug.Log("Equiped " + rightHandItem.name);
+                    CalculateCurrentArmorTotal();
+                } else {
+                    Debug.Log("Better Item Already Equiped, Discarding");
+                }
+                EmptyRightHand();
+            }
+
+            // HAUBERK
+            if (rightHandItem.isArmor && rightHandItem.isHauberk) {
+                if (currentHauberk == null || rightHandItem.warDefense > currentHauberk.warDefense || rightHandItem.spiritualDefense > currentHauberk.spiritualDefense) {
+                    // If RightHand holding Armor is better than currently wearing one, replace:
+                    hauberkImg.texture = rightHandItem.item2DSprite;
+                    currentHauberk = rightHandItem; // Update the equipped Hauberk
+                    Debug.Log("Equiped " + rightHandItem.name);
+                    CalculateCurrentArmorTotal();
+                } else {
+                    Debug.Log("Better Item Already Equiped, Discarding");
+                }
+                EmptyRightHand();
+            }
+            
+            // GAUNTLET
+            if (rightHandItem.isArmor && rightHandItem.isGauntlet) {
+                if (currentGauntlet == null || rightHandItem.warDefense > currentGauntlet.warDefense || rightHandItem.spiritualDefense > currentGauntlet.spiritualDefense) {
+                    // If RightHand holding Armor is better than currently wearing one, replace:
+                    gauntletImg.texture = rightHandItem.item2DSprite;
+                    currentGauntlet = rightHandItem; // Update the equipped Gauntlet
+                    Debug.Log("Equiped " + rightHandItem.name);
+                    CalculateCurrentArmorTotal();
+                } else {
+                    Debug.Log("Better Item Already Equiped, Discarding");
+                }
+                EmptyRightHand();
+            }
+
+            // RING
+            if (rightHandItem.isArmor && rightHandItem.isRing) {
+                if (currentRing == null || rightHandItem.warDefense > currentRing.warDefense || rightHandItem.spiritualDefense > currentRing.spiritualDefense) {
+                    // If RightHand holding Armor is better than currently wearing one, replace:
+                    ringImg.texture = rightHandItem.item2DSprite;
+                    currentRing = rightHandItem; // Update the equipped Ring
+                    Debug.Log("Equiped " + rightHandItem.name);
+                    CalculateCurrentArmorTotal();
+                } else {
+                    Debug.Log("Better Item Already Equiped, Discarding");
+                }
+                EmptyRightHand();
+            }
+        }
     }
 
+    private void CalculateCurrentArmorTotal() {
+        int currentPhysicalArmorTotal = 0;
 
+        currentPhysicalArmorTotal = 
+            (currentHelmet?.warDefense ?? 0) + 
+            (currentBreastPlate?.warDefense ?? 0) + 
+            (currentHauberk?.warDefense ?? 0) + 
+            (currentGauntlet?.warDefense ?? 0) + 
+            (currentRing?.warDefense ?? 0);
 
+        Debug.Log("Total Physical Armor: " + currentPhysicalArmorTotal);
+
+        int currentSpiritualArmorTotal = 0;
+
+        if (currentHelmet != null) currentSpiritualArmorTotal += currentHelmet.spiritualDefense;
+        if (currentBreastPlate != null) currentSpiritualArmorTotal += currentBreastPlate.spiritualDefense;
+        if (currentHauberk != null) currentSpiritualArmorTotal += currentHauberk.spiritualDefense;
+        if (currentGauntlet != null) currentSpiritualArmorTotal += currentGauntlet.spiritualDefense;
+        if (currentRing != null) currentSpiritualArmorTotal += currentRing.spiritualDefense;
+
+        Debug.Log("Total Physical Armor: " + currentSpiritualArmorTotal);
+
+        player.physicalArmor = currentPhysicalArmorTotal;
+        player.spiritualArmor = currentSpiritualArmorTotal;
+        player.UpdateUIStats();
+        }
 }
+
+// 🔍 Explanation:
+// ?. (Null Conditional Operator):
+// currentHelmet?.warDefense means "if currentHelmet is not null, access warDefense, otherwise return null".
+// ?? (Null Coalescing Operator):
+// (currentHelmet?.warDefense ?? 0) means "if warDefense is null (because currentHelmet is null), use 0 instead".
+// Adds only non-null values:
+// If any armor piece is missing (null), its warDefense will default to 0, avoiding errors.

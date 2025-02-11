@@ -15,3 +15,18 @@ MonoBehaviour:
   itemName: Potion-Small-Blue
   item3DPrefab: {fileID: 2929848468405254473, guid: 0c2f5c7be317346d08b300ab70e8ec52, type: 3}
   item2DSprite: {fileID: 2800000, guid: c559985ac97b94b72ab6d9e5c856f23e, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  isArmor: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 1
+  isKey: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

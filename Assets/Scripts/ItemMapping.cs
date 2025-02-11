@@ -10,6 +10,11 @@ public class ItemMapping : ScriptableObject
     public bool isContainer;
     public bool isShield;
     public bool isArmor;
+    public bool isHelmet;
+    public bool isBreastPlate;
+    public bool isGauntlet;
+    public bool isHauberk;
+    public bool isRing;
     public bool isPotion;
     public bool isKey;
     public int warAttackPower;

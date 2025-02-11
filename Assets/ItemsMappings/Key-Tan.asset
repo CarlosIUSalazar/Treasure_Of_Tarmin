@@ -15,3 +15,18 @@ MonoBehaviour:
   itemName: Key-Tan
   item3DPrefab: {fileID: 1938851546418810597, guid: c14f0403c0efd46028327ea1ea111479, type: 3}
   item2DSprite: {fileID: 2800000, guid: 7c0287932ed6649c5a98e6ba47dd6dde, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  isArmor: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 1
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

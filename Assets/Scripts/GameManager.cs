@@ -14,11 +14,16 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI spiritualStrengthText;
     [SerializeField] private TextMeshProUGUI spiritualArmorText;
     [SerializeField] private TextMeshProUGUI spiritualWeaponText;
+    
     [SerializeField] private TextMeshProUGUI scoreText;
     [SerializeField] private TextMeshProUGUI arrowsText;
     [SerializeField] private TextMeshProUGUI foodText;
     [SerializeField] private TextMeshProUGUI floorText;
     [SerializeField] public TextMeshProUGUI enemyHPText;
+
+    [SerializeField] private TextMeshProUGUI menuPhysicalArmorText;
+    [SerializeField] private TextMeshProUGUI menuSpiritualArmorText;
+
 
     public Enemy activeEnemy;
     private Player player;  
@@ -53,6 +58,9 @@ public class GameManager : MonoBehaviour
         arrowsText.text = $"{player.arrows}";
         foodText.text = $"{player.food}";
         floorText.text = $"{player.floor}";
+
+        menuPhysicalArmorText.text = $"{player.physicalArmor}";
+        menuSpiritualArmorText.text = $"{player.spiritualArmor}";
     }
 
     public void UpdateEnemyHP(int currentHP) {

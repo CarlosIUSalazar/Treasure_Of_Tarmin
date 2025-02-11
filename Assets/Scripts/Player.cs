@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
         physicalArmor = 0;
         physicalWeapon = 10;
         spiritualStrength = 50;
-        spiritualArmor = 5;
+        spiritualArmor = 0;
         spiritualWeapon = 1;
         score = 0;
         arrows = 10;
@@ -116,6 +116,10 @@ public class Player : MonoBehaviour
             }
         }
         canRest = false;
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+    public void UpdateUIStats() {
         OnPlayerStatsUpdated?.Invoke();
     }
 }

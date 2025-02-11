@@ -25,5 +25,6 @@ than the original game.
 [FAQ](docs/FAQ.txt)
 [FAQ2](docs/FAQ2.txt)
 [FAQ3](docs/FAQ3.txt)
+[FAQ4](docs/FAQ4.txt)
 
-[Original Manual](https://archive.org/details/Advanced_Dungeons_and_Dragons_Treasure_of_Tarmin_1982_Mattel/page/n3/mode/2up_)
+[Original Manual](https://archive.org/details/Advanced_Dungeons_and_Dragons_Treasure_of_Tarmin_1982_Mattel/page/n3/mode/2up_)4

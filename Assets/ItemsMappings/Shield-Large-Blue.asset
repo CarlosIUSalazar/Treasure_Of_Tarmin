@@ -18,6 +18,14 @@ MonoBehaviour:
   ammo: {fileID: 0}
   isContainer: 0
   isShield: 1
+  isArmor: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 18
