@@ -279,7 +279,7 @@ public class PlayerGridMovement : MonoBehaviour
         // This is still not working right so giving up for now.
         if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
         {
-            if (inventoryManager.isHoldingRightHandItem) // Check if player is holding an item
+            if (inventoryManager.CheckIfRightHandHasItem()) // Check if player is holding an item
             {
                 dropButton.gameObject.SetActive(true);//dropButtonText.text = "Drop";
                 dropButton.onClick.RemoveAllListeners();

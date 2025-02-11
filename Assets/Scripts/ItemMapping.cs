@@ -9,6 +9,9 @@ public class ItemMapping : ScriptableObject
     public GameObject ammo; //Which ammo this weapon will shoot
     public bool isContainer;
     public bool isShield;
+    public bool isArmor;
+    public bool isPotion;
+    public bool isKey;
     public int warAttackPower;
     public int spiritualAttackPower;
     public int warDefense;

@@ -13,8 +13,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
     [SerializeField] private Texture2D transparentImg;
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
-    Player player;
     public bool isHoldingRightHandItem = false;
+    Player player;
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -22,14 +22,14 @@ public class InventoryManager : MonoBehaviour
 
     public void Update()
     {
-        CheckIfRightHandHasItem();
+        //CheckIfRightHandHasItem();
     }
 
     public void EmptyRightHand() {
         rightHandSlot.texture = transparentImg;
     }
 
-    private void CheckIfRightHandHasItem()
+    public bool CheckIfRightHandHasItem()
     {
         if (rightHandSlot.texture == transparentImg)
         {
@@ -37,6 +37,7 @@ public class InventoryManager : MonoBehaviour
         } else {
             isHoldingRightHandItem = true;
         }
+        return isHoldingRightHandItem;
     }
 
     public ItemMapping GetItemMapping(string itemName){
@@ -132,6 +133,11 @@ public class InventoryManager : MonoBehaviour
         {
             Debug.LogWarning("3D Prefab not found for: " + itemName);
         } 
+    }
+
+
+    public void UseButton() {
+        
     }
 
 
