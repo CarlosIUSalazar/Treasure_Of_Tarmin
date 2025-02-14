@@ -27656,21 +27656,20 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0401365be16774c6cbdf749762db9269, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blueBlocks:
-  - {fileID: 5068381400947659455, guid: 82a354f1c48814ea8aace459c05b452e, type: 3}
-  - {fileID: 2981751598885719979, guid: 7fc6be60c3baf4af8befdce133f1261d, type: 3}
-  - {fileID: 4615163578092284496, guid: d3ce0d977351043679b4a2bb1b9fa4e0, type: 3}
-  greenBlocks:
-  - {fileID: 3568934745259802517, guid: 43d64f5ac7ed348ada6c66ecb1eded4b, type: 3}
-  - {fileID: 1043348949399040791, guid: 358262d89246c4de980440e4e91602e7, type: 3}
-  - {fileID: 4280680871191543084, guid: 601440a6af9bb48e9a9bc9696b1dd8c4, type: 3}
-  tanBlocks:
-  - {fileID: 2788752078121182656, guid: 474d31ec7c0bd4b31ab373c558159f23, type: 3}
-  - {fileID: 1916273471369865837, guid: 76e2608d596a14d32901159b4bd38d34, type: 3}
-  - {fileID: 1352743742166718631, guid: 4f29ca3f69fe544ff88186e06980d560, type: 3}
-  maxFloors: 12
-  xSpacing: 1.8
-  ySpacing: 0.4
+  MazeBlue2Stairs: {fileID: 5068381400947659455, guid: 82a354f1c48814ea8aace459c05b452e, type: 3}
+  MazeBlue1StairLeft: {fileID: 4615163578092284496, guid: d3ce0d977351043679b4a2bb1b9fa4e0, type: 3}
+  MazeBlue1StairRight: {fileID: 2981751598885719979, guid: 7fc6be60c3baf4af8befdce133f1261d, type: 3}
+  MazeGreen2Floors: {fileID: 3568934745259802517, guid: 43d64f5ac7ed348ada6c66ecb1eded4b, type: 3}
+  MazeGreen1FloorLeft: {fileID: 4280680871191543084, guid: 601440a6af9bb48e9a9bc9696b1dd8c4, type: 3}
+  MazeGreen1FloorRight: {fileID: 1043348949399040791, guid: 358262d89246c4de980440e4e91602e7, type: 3}
+  MazeTan2Stairs: {fileID: 2788752078121182656, guid: 474d31ec7c0bd4b31ab373c558159f23, type: 3}
+  MazeTan1FloorLeft: {fileID: 1352743742166718631, guid: 4f29ca3f69fe544ff88186e06980d560, type: 3}
+  MazeTan1FloorRight: {fileID: 1916273471369865837, guid: 76e2608d596a14d32901159b4bd38d34, type: 3}
+  MazeTan2StairsTreasure: {fileID: 4600504503215520066, guid: 0f2100862bdac4ca49002a89b93a4b9c, type: 3}
+  MazeGreen2StairsTreasure: {fileID: 1324705602887659370, guid: 2dbee3d9c6b794c08a49b42d6e1529b0, type: 3}
+  blockWidth: 2
+  verticalSpacing: 0.8
+  generationDelay: 0.2
 --- !u!4 &2053999087
 Transform:
   m_ObjectHideFlags: 0
