@@ -2,7 +2,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
-public class AllPatternsDemo : MonoBehaviour
+public class DungeonGenerator : MonoBehaviour
 {
     [Header("Block Variants (3 Colors × 3 Leg Types)")]
     // BLUE
@@ -220,65 +220,98 @@ public class AllPatternsDemo : MonoBehaviour
             return MazeGreen2StairsTreasure;
     }
 
-    GameObject PickBlockVariant(int floorIndex, int slotIndex, bool[][] pattern)
+GameObject PickBlockVariant(int floorIndex, int slotIndex, bool[][] pattern)
+{
+    // Get the bounding box for the current block.
+    (float L, float R) = floorPositions[floorIndex][slotIndex];
+    float mid = (L + R) * 0.5f;
+    
+    // Compute a weighted "support" value based on the centers of blocks on the floor below.
+    // Positive support indicates that, on average, supporting blocks lie to the left.
+    // Negative support indicates that they lie to the right.
+    float supportSum = 0f;
+    int supportCount = 0;
+    
+    if (floorIndex > 0)
     {
-        (float L, float R) = floorPositions[floorIndex][slotIndex];
-        float mid = 0.5f*(L+R);
-
-        bool leftLeg=false, rightLeg=false;
-        if (floorIndex>0)
+        bool[] below = pattern[floorIndex - 1];
+        for (int s = 0; s < below.Length; s++)
         {
-            bool[] below = pattern[floorIndex-1];
-            for (int s=0; s<below.Length; s++)
-            {
-                if (!below[s]) continue;
-                (float bL, float bR) = floorPositions[floorIndex-1][s];
-                if (DoOverlap(L, mid, bL, bR)) leftLeg=true;
-                if (DoOverlap(mid, R, bL, bR)) rightLeg=true;
-            }
-        }
-
-        // random color among [blue, green, tan]
-        int colorIndex = Random.Range(0,3);
-
-        if (leftLeg && rightLeg)
-        {
-            switch(colorIndex)
-            {
-                case 0: return MazeBlue2Stairs;
-                case 1: return MazeGreen2Floors;
-                default: return MazeTan2Stairs;
-            }
-        }
-        else if (leftLeg && !rightLeg)
-        {
-            switch(colorIndex)
-            {
-                case 0: return MazeBlue1StairLeft;
-                case 1: return MazeGreen1FloorLeft;
-                default: return MazeTan1FloorLeft;
-            }
-        }
-        else if (!leftLeg && rightLeg)
-        {
-            switch(colorIndex)
-            {
-                case 0: return MazeBlue1StairRight;
-                case 1: return MazeGreen1FloorRight;
-                default: return MazeTan1FloorRight;
-            }
-        }
-        else
-        {
-            // no overlap => default 2 legs
-            switch(colorIndex)
-            {
-                case 0: return MazeBlue2Stairs;
-                case 1: return MazeGreen2Floors;
-                default: return MazeTan2Stairs;
-            }
+            if (!below[s])
+                continue;
+            
+            (float bL, float bR) = floorPositions[floorIndex - 1][s];
+            float bCenter = (bL + bR) * 0.5f;
+            // Difference: positive if the support is to the left of our midpoint.
+            float diff = mid - bCenter;
+            supportSum += diff;
+            supportCount++;
         }
     }
+    
+    // Determine average support.
+    float avgSupport = (supportCount > 0) ? (supportSum / supportCount) : 0f;
+    float tolerance = 0.1f; // tweak this as needed
+    
+    bool useLeft = false;
+    bool useRight = false;
+    
+    if (supportCount > 0)
+    {
+        if (avgSupport > tolerance)
+            useLeft = true;
+        else if (avgSupport < -tolerance)
+            useRight = true;
+        else
+        {
+            // If nearly balanced, treat it as full (two-leg) support.
+            useLeft = true;
+            useRight = true;
+        }
+    }
+    
+    // Randomly pick a color index among 0,1,2.
+    int colorIndex = Random.Range(0, 3);
+    
+    // Return the appropriate prefab based on support.
+    if (useLeft && useRight)
+    {
+        switch (colorIndex)
+        {
+            case 0: return MazeBlue2Stairs;
+            case 1: return MazeGreen2Floors;
+            default: return MazeTan2Stairs;
+        }
+    }
+    else if (useLeft && !useRight)
+    {
+        switch (colorIndex)
+        {
+            case 0: return MazeBlue1StairLeft;
+            case 1: return MazeGreen1FloorLeft;
+            default: return MazeTan1FloorLeft;
+        }
+    }
+    else if (!useLeft && useRight)
+    {
+        switch (colorIndex)
+        {
+            case 0: return MazeBlue1StairRight;
+            case 1: return MazeGreen1FloorRight;
+            default: return MazeTan1FloorRight;
+        }
+    }
+    else
+    {
+        // No support found (shouldn't happen if things overlap), so default to two-leg.
+        switch (colorIndex)
+        {
+            case 0: return MazeBlue2Stairs;
+            case 1: return MazeGreen2Floors;
+            default: return MazeTan2Stairs;
+        }
+    }
+}
 
     bool DoOverlap(float L1, float R1, float L2, float R2)
     {
