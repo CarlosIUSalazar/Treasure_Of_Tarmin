@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Data.Common;
 
 public enum BlockLegType { TwoLeg, OneLegLeft, OneLegRight }
 public enum DifficultyLevel { VeryHard, Hard, Normal, Easy }
@@ -8,7 +9,7 @@ public enum DifficultyLevel { VeryHard, Hard, Normal, Easy }
 public class MazeGenerator : MonoBehaviour
 {
     [Header("Difficulty")]
-    public DifficultyLevel difficulty = DifficultyLevel.Hard;
+    public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
 
     [Header("Block Variants (3 Colors × 3 Leg Types)")]
     // BLUE variants:
@@ -30,9 +31,9 @@ public class MazeGenerator : MonoBehaviour
 
     [Header("Spacing & Layout")]
     public float verticalSpacing = 0.84f;
-    public float generationDelay = 0.2f;
+    public float generationDelay = 0;
     [Tooltip("Horizontal spacing between slot centers")]
-    public float horizontalSpacing = 0.65f;
+    public float horizontalSpacing = 0.63f;
 
     // floorPositions will be built based on the number of floors (which depends on difficulty).
     private List<(float xLeft, float xRight)>[] floorPositions;
@@ -132,11 +133,8 @@ public class MazeGenerator : MonoBehaviour
         leg2[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
         leg2[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
         leg2[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        
         leg2[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        
         leg2[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        
         leg2[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(leg2);
 
@@ -397,6 +395,21 @@ public class MazeGenerator : MonoBehaviour
                 yield return new WaitForSeconds(generationDelay);
             }
         }
+        ScaleAndPositionFinalMaze();
+    }
+
+    private void ScaleAndPositionFinalMaze() {
+        if (difficulty == DifficultyLevel.VeryHard) {
+            transform.localPosition = new Vector3(5770, 9633, -1);
+        }   else if (difficulty == DifficultyLevel.Hard) {
+            transform.localPosition = new Vector3(5770, 9684, -1);
+        }   else if (difficulty == DifficultyLevel.Normal) {
+            transform.localPosition = new Vector3(5770, 9735, -1);
+        }   else if (difficulty == DifficultyLevel.Easy) {
+            transform.localPosition = new Vector3(5770, 9760, -1);
+        }
+        
+        transform.localScale = new Vector3(30,30,30);
     }
 
     GameObject PickTreasurePrefab()
