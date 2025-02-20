@@ -85,11 +85,13 @@ void Awake()
 
     // --- HARD-CODED VERTICAL NEIGHBOR MAPPING FOR THE "SKULL" PATTERN (pattern index 0) ---
     // (The following mapping is written in terms of active blocks on each floor.)
-    // --- Vertical mapping for the "Skull" pattern ---
+
+    // --- Vertical mapping for the "SKULL" pattern ---
     // (Indices here refer only to the “active block order” on that floor.)
     VerticalNeighborMapping[][] mappingPattern1 = new VerticalNeighborMapping[6][];
 
-    // Floor 0: no lower neighbor.
+    
+// Floor 0: no lower neighbor.
     mappingPattern1[0] = null;
 
     // Floor 1: pat1[1] = { true, true } → two active blocks.
@@ -126,6 +128,75 @@ void Awake()
 
     // Store the mapping for pattern index 0.
     verticalNeighborMappings[0] = mappingPattern1;
+
+
+
+
+    //MANUALLY FIX SOME OF THESE
+//     I notice that X3Y5 register lower neighbour below left as X2Y4  which is correct but also register this same block as lower right neigbout however but it should be X4Y4
+
+// I notice that X4Y4 register lower neighbour below left as X7Y3 but it should be X3Y3 
+
+// I notice that X7Y5 register both lower neighbours as X4Y4 but both should be X7Y4 (2 legged fully stacked gloors)
+
+// I notice that X9 Y5 register neighour below right as X7 Y4 but it should be X10 Y4
+
+
+
+    VerticalNeighborMapping[][] mappingPattern2 = new VerticalNeighborMapping[6][];
+
+    // Floor 0: No lower neighbor.
+    mappingPattern2[0] = null;
+
+    // Floor 1: Two active blocks – both connect down to Floor0’s only block.
+    mappingPattern2[1] = new VerticalNeighborMapping[2];
+    mappingPattern2[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2: Two active blocks – let the first connect to Floor1’s active index 0, and the second to active index 1.
+    mappingPattern2[2] = new VerticalNeighborMapping[2];
+    mappingPattern2[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3: Three active blocks – map as follows:
+    //   • Active index 0 → connect to Floor2 active index 0.
+    //   • Active index 1 → use a “split” connection: left from Floor2 active index 0 and right from Floor2 active index 1.
+    //   • Active index 2 → connect to Floor2 active index 1.
+    mappingPattern2[3] = new VerticalNeighborMapping[3];
+    mappingPattern2[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 1 };
+    mappingPattern2[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 4: Four active blocks – map them to Floor3’s three active blocks.
+    //   • Active index 0 → Floor3 active index 0.
+    //   • Active index 1 → both connections from Floor3 active index 0 (so the block sits directly above that one).
+    //   • Active index 2 → connect to Floor3 active index 1.
+    //   • Active index 3 → connect to Floor3 active index 2.
+    mappingPattern2[4] = new VerticalNeighborMapping[4];
+    mappingPattern2[4][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[4][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[4][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern2[4][3] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
+
+    // Floor 5: Six active blocks – map them to Floor4’s four active blocks.
+    //   • Active index 0 → Floor4 active index 0.
+    //   • Active index 1 → left from Floor4 active index 0, right from Floor4 active index 1.
+    //   • Active index 2 → connect to Floor4 active index 1.
+    //   • Active index 3 → fully stacked: both connections from Floor4 active index 2.
+    //   • Active index 4 → fully stacked: both connections from Floor4 active index 3.
+    //   • Active index 5 → Floor4 active index 3.
+    mappingPattern2[5] = new VerticalNeighborMapping[6];
+    mappingPattern2[5][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern2[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 1 };
+    mappingPattern2[5][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern2[5][3] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
+    mappingPattern2[5][4] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+    mappingPattern2[5][5] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+
+    // Finally, store the mapping (assuming your Toilet maze is at pattern index 1):
+    verticalNeighborMappings[1] = mappingPattern2;
+
+
 
     }
 
@@ -180,23 +251,23 @@ void Awake()
         leg1[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(leg1);
 
-        // //Pattern2: "Toilet" (default rule) OK OK
-        // bool[][] pat2 = new bool[6][];
-        // pat2[0] = new bool[1] { true };
-        // pat2[1] = new bool[2] { true, true };
-        // pat2[2] = new bool[5] { true, false, false, false, true };
-        // pat2[3] = new bool[7] { true, false, false, false, true, false, true };
-        // pat2[4] = new bool[9] { true, false, true, false, false, true, false, false, true };
-        // pat2[5] = new bool[11] { true, false, true, false, true, false, true, false, true, false, true };
-        // allPatterns.Add(pat2);
-        // BlockLegType[][] leg2 = new BlockLegType[6][];
-        // leg2[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        // leg2[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        // leg2[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg2[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg2[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg2[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // allPatternLegTypes.Add(leg2);
+        //Pattern2: "Toilet" (default rule) OK OK
+        bool[][] pat2 = new bool[6][];
+        pat2[0] = new bool[1] { true };
+        pat2[1] = new bool[2] { true, true };
+        pat2[2] = new bool[5] { true, false, false, false, true };
+        pat2[3] = new bool[7] { true, false, false, false, true, false, true };
+        pat2[4] = new bool[9] { true, false, true, false, false, true, false, false, true };
+        pat2[5] = new bool[11] { true, false, true, false, true, false, true, false, true, false, true };
+        allPatterns.Add(pat2);
+        BlockLegType[][] leg2 = new BlockLegType[6][];
+        leg2[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        leg2[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        leg2[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg2[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg2[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg2[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        allPatternLegTypes.Add(leg2);
 
         // // Pattern3: "Floating Mickey" (default rule) OK ok
         // bool[][] pat3 = new bool[6][];
