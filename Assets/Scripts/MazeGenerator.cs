@@ -385,6 +385,51 @@ void Awake()
     verticalNeighborMappings[5] = mappingPattern6;
 
 
+    // --- VerticalNeighborMapping for Pattern7 ("Cat Paw") ---
+    // (Indices refer to the active block order on that floor.)
+    VerticalNeighborMapping[][] mappingPattern7 = new VerticalNeighborMapping[6][];
+
+    // Floor 0: no lower neighbor.
+    mappingPattern7[0] = null;
+
+    // Floor 1 (2 active blocks): both connect down to the single block on Floor 0.
+    mappingPattern7[1] = new VerticalNeighborMapping[2];
+    mappingPattern7[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2 (2 active blocks): 
+    // Map the first active block to Floor 1 active index 0 and the second to Floor 1 active index 1.
+    mappingPattern7[2] = new VerticalNeighborMapping[2];
+    mappingPattern7[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3 (4 active blocks): 
+    // For simplicity, we map the first two active blocks to Floor 2 active index 0 and the last two to Floor 2 active index 1.
+    mappingPattern7[3] = new VerticalNeighborMapping[4];
+    mappingPattern7[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern7[3][3] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 4 (4 active blocks):
+    // Here we do a one-to-one mapping from Floor 4 to Floor 3.
+    mappingPattern7[4] = new VerticalNeighborMapping[4];
+    mappingPattern7[4][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[4][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };
+    mappingPattern7[4][2] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
+    mappingPattern7[4][3] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+
+    // Floor 5 (5 active blocks):
+    // We have 5 active blocks on Floor 5 and 4 on Floor 4, so we “split” the connections.
+    mappingPattern7[5] = new VerticalNeighborMapping[5];
+    mappingPattern7[5][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern7[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern7[5][2] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
+    mappingPattern7[5][3] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+    mappingPattern7[5][4] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+
+
+    verticalNeighborMappings[6] = mappingPattern7;  // (Replace 6 with the proper index for Pattern7 in your setup)
 
 
     }
@@ -530,23 +575,23 @@ void Awake()
         leg6[5] = new BlockLegType[11] { BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(leg6);
 
-        // // Pattern7: "Cat Paw" (default rule) OK ok
-        // bool[][] pat7 = new bool[6][];
-        // pat7[0] = new bool[1] { true };
-        // pat7[1] = new bool[2] { true, true };
-        // pat7[2] = new bool[5] { true, false, false, false, true };
-        // pat7[3] = new bool[7] { true, false, true, false, true, false, true };
-        // pat7[4] = new bool[9] { true, false, true, false, false, true, false, false, true };
-        // pat7[5] = new bool[11] { false, true, false, false, true, false, true, false, true, false, true };
-        // allPatterns.Add(pat7);
-        // BlockLegType[][] leg7 = new BlockLegType[6][];
-        // leg7[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        // leg7[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        // leg7[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg7[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg7[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg7[5] = new BlockLegType[11] { BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // allPatternLegTypes.Add(leg7);
+        // Pattern7: "Cat Paw" (default rule) OK ok
+        bool[][] pat7 = new bool[6][];
+        pat7[0] = new bool[1] { true };
+        pat7[1] = new bool[2] { true, true };
+        pat7[2] = new bool[5] { true, false, false, false, true };
+        pat7[3] = new bool[7] { true, false, true, false, true, false, true };
+        pat7[4] = new bool[9] { true, false, true, false, false, true, false, false, true };
+        pat7[5] = new bool[11] { false, true, false, false, true, false, true, false, true, false, true };
+        allPatterns.Add(pat7);
+        BlockLegType[][] leg7 = new BlockLegType[6][];
+        leg7[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        leg7[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        leg7[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg7[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg7[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg7[5] = new BlockLegType[11] { BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        allPatternLegTypes.Add(leg7);
 
         // // Pattern8: "Olimpic Rings" (default rule) OK ok
         // bool[][] pat8 = new bool[6][];
