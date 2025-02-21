@@ -164,7 +164,7 @@ void Awake()
     //   • Active index 2 → connect to Floor2 active index 1.
     mappingPattern2[3] = new VerticalNeighborMapping[3];
     mappingPattern2[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
-    mappingPattern2[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 1 };
+    mappingPattern2[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
     mappingPattern2[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
 
     // Floor 4: Four active blocks – map them to Floor3’s three active blocks.
@@ -187,7 +187,7 @@ void Awake()
     //   • Active index 5 → Floor4 active index 3.
     mappingPattern2[5] = new VerticalNeighborMapping[6];
     mappingPattern2[5][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
-    mappingPattern2[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 1 };
+    mappingPattern2[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };
     mappingPattern2[5][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
     mappingPattern2[5][3] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
     mappingPattern2[5][4] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
