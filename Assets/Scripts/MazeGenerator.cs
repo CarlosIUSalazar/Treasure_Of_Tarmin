@@ -277,6 +277,58 @@ void Awake()
     verticalNeighborMappings[3] = mappingPattern4;
 
 
+
+    // Create the vertical mapping for Pattern5 ("Peace and Love")
+    VerticalNeighborMapping[][] mappingPattern5 = new VerticalNeighborMapping[6][];
+
+    // Floor 0: no lower neighbor.
+    mappingPattern5[0] = null;
+
+    // Floor 1 (2 active blocks):
+    mappingPattern5[1] = new VerticalNeighborMapping[2];
+    mappingPattern5[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern5[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2 (2 active blocks – from positions 0 and 4):
+    mappingPattern5[2] = new VerticalNeighborMapping[2];
+    mappingPattern5[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern5[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3 (4 active blocks – from positions 0,2,4,6):
+    mappingPattern5[3] = new VerticalNeighborMapping[4];
+    mappingPattern5[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern5[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern5[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern5[3][3] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 4 (5 active blocks – from positions 0,2,4,6,8):
+    mappingPattern5[4] = new VerticalNeighborMapping[5];
+    mappingPattern5[4][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    // For the second active block, we “split” between Floor3 active order 0 and 1:
+    mappingPattern5[4][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };
+    // Then the middle block connects to Floor3 active order 1:
+    mappingPattern5[4][2] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 1 };
+    // The fourth active block connects to Floor3 active order 2:
+    mappingPattern5[4][3] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 2 };
+    // And the last active block connects to Floor3 active order 3:
+    mappingPattern5[4][4] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };
+
+    // Floor 5 (6 active blocks – from positions 0,2,4,6,8,10):
+    mappingPattern5[5] = new VerticalNeighborMapping[6];
+    mappingPattern5[5][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    // For the second active block, split between Floor4 active order 0 and 1:
+    mappingPattern5[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    // Third active block connects to Floor4 active order 1:
+    mappingPattern5[5][2] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 2};
+    // Fourth active block connects to Floor4 active order 2:
+    mappingPattern5[5][3] = new VerticalNeighborMapping { leftNeighborIndex = 4, rightNeighborIndex = 3 };
+    // Fifth active block connects to Floor4 active order 3:
+    mappingPattern5[5][4] = new VerticalNeighborMapping { leftNeighborIndex = 4, rightNeighborIndex = 4 };
+
+    // Finally, store this mapping under the appropriate pattern index (for example, if Pattern5 is index 4):
+    verticalNeighborMappings[4] = mappingPattern5;
+
+
     }
 
 
@@ -384,23 +436,23 @@ void Awake()
         leg4[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg };
         allPatternLegTypes.Add(leg4);
 
-        // // Pattern5: "Peace and Love" (custom override on floor 4) OK
-        // bool[][] pat5 = new bool[6][];
-        // pat5[0] = new bool[1] { true };
-        // pat5[1] = new bool[2] { true, true };
-        // pat5[2] = new bool[5] { true, false, false, false, true };
-        // pat5[3] = new bool[7] { true, false, true, false, true, false, true };
-        // pat5[4] = new bool[9] { true, false, true, false, true, false, true, false, true };
-        // pat5[5] = new bool[11] { true, false, false, true, false, false, true, false, true, false, true };
-        // allPatterns.Add(pat5);
-        // BlockLegType[][] leg5 = new BlockLegType[6][];
-        // leg5[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        // leg5[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        // leg5[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg5[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg5[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg5[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // allPatternLegTypes.Add(leg5);
+        // Pattern5: "Peace and Love" (custom override on floor 4) OK
+        bool[][] pat5 = new bool[6][];
+        pat5[0] = new bool[1] { true };
+        pat5[1] = new bool[2] { true, true };
+        pat5[2] = new bool[5] { true, false, false, false, true };
+        pat5[3] = new bool[7] { true, false, true, false, true, false, true };
+        pat5[4] = new bool[9] { true, false, true, false, true, false, true, false, true };
+        pat5[5] = new bool[11] { true, false, false, true, false, false, true, false, true, false, true };
+        allPatterns.Add(pat5);
+        BlockLegType[][] leg5 = new BlockLegType[6][];
+        leg5[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        leg5[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        leg5[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg5[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg5[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg5[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        allPatternLegTypes.Add(leg5);
 
         // // Pattern6: "The Bow" (default rule) OK ok
         // bool[][] pat6 = new bool[6][];
