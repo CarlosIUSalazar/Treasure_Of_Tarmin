@@ -432,6 +432,53 @@ void Awake()
     verticalNeighborMappings[6] = mappingPattern7;  // (Replace 6 with the proper index for Pattern7 in your setup)
 
 
+
+    // --- VerticalNeighborMapping for Pattern8 ("Olimpic Rings") ---
+    // (Indices refer only to the active block order on that floor.)
+
+    VerticalNeighborMapping[][] mappingPattern8 = new VerticalNeighborMapping[6][];
+
+    // Floor 0: no lower neighbor.
+    mappingPattern8[0] = null;
+
+    // Floor 1 (2 active blocks): both connect down to Floor 0’s only block.
+    mappingPattern8[1] = new VerticalNeighborMapping[2];
+    mappingPattern8[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern8[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2 (3 active blocks): map so that the first goes to Floor 1’s block 0, the middle splits between blocks 0 and 1, and the third goes to block 1.
+    mappingPattern8[2] = new VerticalNeighborMapping[3];
+    mappingPattern8[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern8[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };
+    mappingPattern8[2][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3 (3 active blocks): a one‐to‐one mapping from Floor 3 to Floor 2.
+    mappingPattern8[3] = new VerticalNeighborMapping[3];
+    mappingPattern8[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern8[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern8[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };
+
+    // Floor 4 (4 active blocks): map from Floor 4 to Floor 3. For example:
+    mappingPattern8[4] = new VerticalNeighborMapping[4];
+    mappingPattern8[4][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };  // first active block → Floor 3 block 0
+    mappingPattern8[4][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };  // second active block splits between Floor 3 blocks 0 and 1
+    mappingPattern8[4][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };  // third active block → Floor 3 block 1
+    mappingPattern8[4][3] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };  // fourth active block → Floor 3 block 2
+
+    // Floor 5 (5 active blocks): map from Floor 5 to Floor 4. For example:
+    mappingPattern8[5] = new VerticalNeighborMapping[5];
+    mappingPattern8[5][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };  // first active block → Floor 4 block 0
+    mappingPattern8[5][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };  // second active block splits between Floor 4 blocks 0 and 1
+    mappingPattern8[5][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };  // third active block → Floor 4 block 1
+    mappingPattern8[5][3] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 };  // fourth active block → Floor 4 block 2
+    mappingPattern8[5][4] = new VerticalNeighborMapping { leftNeighborIndex = 3, rightNeighborIndex = 3 };  // fifth active block → Floor 4 block 3
+
+    // Finally, store the mapping (assuming Pattern8 is at index 7 in your dictionary):
+    verticalNeighborMappings[7] = mappingPattern8;
+
+
+
+
     }
 
 
@@ -593,23 +640,23 @@ void Awake()
         leg7[5] = new BlockLegType[11] { BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(leg7);
 
-        // // Pattern8: "Olimpic Rings" (default rule) OK ok
-        // bool[][] pat8 = new bool[6][];
-        // pat8[0] = new bool[1] { true };
-        // pat8[1] = new bool[2] { true, true };
-        // pat8[2] = new bool[5] { true, false, true, false, true };
-        // pat8[3] = new bool[7] { true, false, false, true, false, false, true };
-        // pat8[4] = new bool[9] { true, false, false, true, false, true, false, false, true };
-        // pat8[5] = new bool[11] { true, false, true, false, true, false, false, true, false, true, false };
-        // allPatterns.Add(pat8);
-        // BlockLegType[][] leg8 = new BlockLegType[6][];
-        // leg8[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        // leg8[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        // leg8[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg8[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg8[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        // leg8[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg };
-        // allPatternLegTypes.Add(leg8);
+        // Pattern8: "Olimpic Rings" (default rule) OK ok
+        bool[][] pat8 = new bool[6][];
+        pat8[0] = new bool[1] { true };
+        pat8[1] = new bool[2] { true, true };
+        pat8[2] = new bool[5] { true, false, true, false, true };
+        pat8[3] = new bool[7] { true, false, false, true, false, false, true };
+        pat8[4] = new bool[9] { true, false, false, true, false, true, false, false, true };
+        pat8[5] = new bool[11] { true, false, true, false, true, false, false, true, false, true, false };
+        allPatterns.Add(pat8);
+        BlockLegType[][] leg8 = new BlockLegType[6][];
+        leg8[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        leg8[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        leg8[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg8[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg8[4] = new BlockLegType[9] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        leg8[5] = new BlockLegType[11] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg };
+        allPatternLegTypes.Add(leg8);
     }
 
     // ---------------- HARD MODE (4-floor mazes) ----------------
