@@ -22,4 +22,7 @@ public class MazeBlock : MonoBehaviour
     
     // For debugging
     public string blockName;
+
+    public string mazeName;           // New field for maze name (e.g., "TheHive")
+
 }

@@ -602,7 +602,7 @@ public class MazeGenerator : MonoBehaviour
 
         Debug.Log("Selected Maze: " + diffPatternName);
         chosenPatternIndex = mappingIndex; // For vertical neighbor mapping
-        StartCoroutine(SpawnPattern(chosenPattern, allPatternLegTypes[patternIndex])); // Use patternIndex here
+        StartCoroutine(SpawnPattern(chosenPattern, allPatternLegTypes[patternIndex],diffPatternName)); // Use patternIndex here
     }
 
     #region Pattern Building
@@ -884,7 +884,7 @@ public class MazeGenerator : MonoBehaviour
     /// Spawns the maze blocks according to the chosen pattern.
     /// Also records each block’s name and its “active slot” (the order in which it appears on that floor).
     /// </summary>
-    IEnumerator SpawnPattern(bool[][] pattern, BlockLegType[][] legTypes)
+    IEnumerator SpawnPattern(bool[][] pattern, BlockLegType[][] legTypes, string mazeName)
     {
         // For each floor we will maintain a counter of active blocks.
         for (int i = pattern.Length - 1; i >= 0; i--)
@@ -940,6 +940,8 @@ public class MazeGenerator : MonoBehaviour
                 mb.stairsCount = (i == 0) ? 0 : (legTypes[i][s] == BlockLegType.TwoLeg ? 2 : 1);
                 // Also store the exact type:
                 mb.blockLegType = (i == 0) ? BlockLegType.TwoLeg : legTypes[i][s];
+
+                mb.mazeName = mazeName; // Assign the maze name to the block
 
                 yield return new WaitForSeconds(generationDelay);
             }
