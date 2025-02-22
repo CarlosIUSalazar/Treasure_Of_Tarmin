@@ -19,7 +19,7 @@ public class ItemSpawner : MonoBehaviour
 
     void Start()
     {
-        Debug.Log($"Maze Size: {mazeSize}");
+        //Debug.Log($"Maze Size: {mazeSize}");
         SpawnItems();
         SpawnEnemies();
     }
@@ -41,7 +41,7 @@ public class ItemSpawner : MonoBehaviour
         int spawnAreaEndX = (int)mazeSize.x - 2;
         int spawnAreaEndZ = (int)mazeSize.y - 2;
 
-        Debug.Log($"Spawning {type}s in range X: [{spawnAreaStartX}, {spawnAreaEndX}], Z: [{spawnAreaStartZ}, {spawnAreaEndZ}]");
+        //Debug.Log($"Spawning {type}s in range X: [{spawnAreaStartX}, {spawnAreaEndX}], Z: [{spawnAreaStartZ}, {spawnAreaEndZ}]");
 
         for (int i = 0; i < count; i++)
         {
@@ -63,7 +63,7 @@ public class ItemSpawner : MonoBehaviour
             } 
             while (IsPositionOccupied(randomGridPosition) || (!isItem && IsAdjacentToEnemy(randomGridPosition)) || (isItem && IsDirectlyAdjacentToEnemy(randomGridPosition)));
 
-            Debug.Log($"{type} {i + 1} spawned at grid {randomGridPosition}");
+            //Debug.Log($"{type} {i + 1} spawned at grid {randomGridPosition}");
 
             // Mark the grid position as occupied
             MarkGridAsOccupied(randomGridPosition);
@@ -75,7 +75,7 @@ public class ItemSpawner : MonoBehaviour
                 randomGridPosition.y * gridSize + gridSize * 0.5f  // Center Z
             );
 
-            Debug.Log($"{type} {i + 1} world position: {worldPosition}");
+            //Debug.Log($"{type} {i + 1} world position: {worldPosition}");
 
             // Select a random prefab
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];

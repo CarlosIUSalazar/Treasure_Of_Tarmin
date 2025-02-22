@@ -3,11 +3,14 @@ using TMPro;
 
 public class GameManager : MonoBehaviour
 {
+    public DifficultyLevel CurrentDifficulty => GameSettings.SelectedDifficulty;
+
     [SerializeField] public bool isGameActive = false;
     [SerializeField] public bool isExploring = false;
     [SerializeField] public bool isFighting = false;
     [SerializeField] public bool isPlayersTurn = true;
     [SerializeField] public bool isEnemysTurn = false;
+
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI physicalWeaponText;
@@ -24,7 +27,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI menuPhysicalArmorText;
     [SerializeField] private TextMeshProUGUI menuSpiritualArmorText;
 
-
     public Enemy activeEnemy;
     private Player player;  
     PlayerGridMovement playerGridMovement;  
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour
 
         //Update UI Initially
         UpdateUI();
+        Debug.Log($"Game started with difficulty: {CurrentDifficulty}");
     }
 
     void Update()

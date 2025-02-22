@@ -19,8 +19,12 @@ public struct VerticalNeighborMapping
 
 public class MazeGenerator : MonoBehaviour
 {
-    [Header("Difficulty")]
-    public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
+    // [Header("Difficulty")]
+    // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
+    private DifficultyLevel difficulty;
+
+    // Store top-floor blocks for player placement
+    private List<MazeBlock> topFloorBlocks = new List<MazeBlock>();
 
     [Header("Block Variants (3 Colors × 3 Leg Types)")]
     // BLUE variants:
@@ -70,6 +74,10 @@ public class MazeGenerator : MonoBehaviour
         verticalNeighborMappings.Clear();
         allPatterns.Clear();
         allPatternLegTypes.Clear();
+
+        // Use the difficulty from GameSettings
+        DifficultyLevel selectedDifficulty = GameSettings.SelectedDifficulty;
+
 
     // --- HARD-CODED VERTICAL NEIGHBOR MAPPING FOR THE "SKULL" PATTERN (pattern index 0) ---
     // (The following mapping is written in terms of active blocks on each floor.)
@@ -537,7 +545,7 @@ public class MazeGenerator : MonoBehaviour
 
 
             // Build patterns based on difficulty
-        switch (difficulty)
+        switch (selectedDifficulty)
         {
             case DifficultyLevel.VeryHard:
                 BuildVeryHardPatterns();
@@ -566,7 +574,7 @@ public class MazeGenerator : MonoBehaviour
                 verticalNeighborMappings[14] = new VerticalNeighborMapping[1][] { null };
                 break;
         }
-
+        difficulty = selectedDifficulty; // Keep this for positioning logic
 
     }
 
@@ -580,7 +588,7 @@ public class MazeGenerator : MonoBehaviour
         string diffPatternName = "";
         int mappingIndex = patternIndex;
 
-        switch (difficulty)
+        switch (GameSettings.SelectedDifficulty) // Use GameSettings here
         {
             case DifficultyLevel.VeryHard:
                 diffPatternName = veryHardNames[patternIndex];
@@ -1128,9 +1136,9 @@ public class MazeGenerator : MonoBehaviour
                         // We ignore leftIdx on purpose.
                         break;
                 }
-                Debug.Log($"Floor {floor}, Slot {currentBlock.patternSlot} ({blockType}): " +
-                    $"neighborBelowRight = {(currentBlock.neighborBelowRight != null ? currentBlock.neighborBelowRight.gridCoordinate : "null")}, " +
-                    $"neighborBelowLeft = {(currentBlock.neighborBelowLeft != null ? currentBlock.neighborBelowLeft.gridCoordinate : "null")}");
+                //Debug.Log($"Floor {floor}, Slot {currentBlock.patternSlot} ({blockType}): " +
+                    //$"neighborBelowRight = {(currentBlock.neighborBelowRight != null ? currentBlock.neighborBelowRight.gridCoordinate : "null")}, " +
+                    //$"neighborBelowLeft = {(currentBlock.neighborBelowLeft != null ? currentBlock.neighborBelowLeft.gridCoordinate : "null")}");
 
             }
         }
