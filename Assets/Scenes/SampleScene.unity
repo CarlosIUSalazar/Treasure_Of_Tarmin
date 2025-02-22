@@ -12913,7 +12913,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9573da09924484c57a9d7dd3a5e67c84, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  difficulty: 0
+  difficulty: 1
   MazeBlue2Stairs: {fileID: 7289679155990501202, guid: b00a5755d096d42ff892e84a7df08602, type: 3}
   MazeBlue1StairLeft: {fileID: 5497348733596328902, guid: 0527af82d2cb64bfda1531e7044aaf43, type: 3}
   MazeBlue1StairRight: {fileID: 8015918011579826792, guid: 15063add072214ce8bac69595984e483, type: 3}

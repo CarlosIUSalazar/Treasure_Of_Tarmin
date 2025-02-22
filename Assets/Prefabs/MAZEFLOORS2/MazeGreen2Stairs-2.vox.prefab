@@ -55,5 +55,35 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: d93b4e8afe133416cb8f7a811aa5facc, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -6145150845733876318}
   m_SourcePrefab: {fileID: 100100000, guid: d93b4e8afe133416cb8f7a811aa5facc, type: 3}
+--- !u!1 &8519418343241728772 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: d93b4e8afe133416cb8f7a811aa5facc, type: 3}
+  m_PrefabInstance: {fileID: 8861505209001836117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &-6145150845733876318
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8519418343241728772}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 473d02054600a405c9b9acc944090b33, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gridCoordinate: {x: 0, y: 0}
+  colorType: 0
+  stairsCount: 0
+  neighborLeft: {fileID: 0}
+  neighborRight: {fileID: 0}
+  neighborBelowLeft: {fileID: 0}
+  neighborBelowRight: {fileID: 0}
+  blockLegType: 0
+  patternSlot: 0
+  blockName: 

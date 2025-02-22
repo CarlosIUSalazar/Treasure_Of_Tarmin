@@ -477,13 +477,98 @@ void Awake()
     verticalNeighborMappings[7] = mappingPattern8;
 
 
+    /////////////////
+    ///HARD DUNGEONS
+    ////////////////
 
+    // --- VerticalNeighborMapping for Pattern9 "The SHIELD" ---
+    // (These indices refer to the order of active blocks on the lower floor.)
+    // We need one mapping array per floor (floors 0–3):
+    VerticalNeighborMapping[][] mappingPattern9 = new VerticalNeighborMapping[4][];
+
+    // Floor 0: no lower neighbor.
+    mappingPattern9[0] = null;
+
+    // Floor 1: 2 active blocks → both connect to Floor0’s only block.
+    mappingPattern9[1] = new VerticalNeighborMapping[2];
+    mappingPattern9[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern9[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2: 2 active blocks → map the first to Floor1’s active block 0 and the second to active block 1.
+    mappingPattern9[2] = new VerticalNeighborMapping[2];
+    mappingPattern9[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern9[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3: 3 active blocks → 
+    mappingPattern9[3] = new VerticalNeighborMapping[4];
+    mappingPattern9[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern9[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern9[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+    mappingPattern9[3][3] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+
+    // Finally, store this mapping under the appropriate pattern index (Pattern6 is index 5 in your VeryHard names):
+    verticalNeighborMappings[0] = mappingPattern9; // "TheShield"
+
+
+
+    // --- VerticalNeighborMapping for Pattern10 ("TheZorro") ---
+    // (This mapping is for a 4–floor maze: floors 0–3.)
+    VerticalNeighborMapping[][] mappingPattern10 = new VerticalNeighborMapping[4][];
+
+    // Floor 0: no lower neighbor.
+    mappingPattern10[0] = null;
+
+    // Floor 1: 2 active blocks – both simply connect down to the single block on Floor 0.
+    mappingPattern10[1] = new VerticalNeighborMapping[2];
+    mappingPattern10[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern10[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+
+    // Floor 2: 2 active blocks – map the first to Floor 1’s active block 0 and the second to active block 1.
+    mappingPattern10[2] = new VerticalNeighborMapping[2];
+    mappingPattern10[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern10[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // Floor 3: 3 active blocks – here we “split” the middle connection.
+    mappingPattern10[3] = new VerticalNeighborMapping[3];
+    mappingPattern10[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 };
+    mappingPattern10[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 };
+    mappingPattern10[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 };
+
+    // (Later you store this array in your dictionary under the appropriate key for Pattern H2.)
+    verticalNeighborMappings[1] = mappingPattern10; // "TheZorro"
+
+
+    // Vertical mapping for Pattern H3: "TheHive"
+    // (We have 4 floors: floors 0 to 3.)
+    VerticalNeighborMapping[][] mappingPattern11 = new VerticalNeighborMapping[4][];
+    // Floor 0: no lower neighbor
+    mappingPattern11[0] = null;
+    // Floor 1: 2 active blocks → both connect to Floor 0’s only block
+    mappingPattern11[1] = new VerticalNeighborMapping[2];
+    mappingPattern11[1][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 }; // Slot 0 → Floor 0 active 0
+    mappingPattern11[1][1] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 }; // Slot 1 → Floor 0 active 0
+    // Floor 2: 3 active blocks
+    mappingPattern11[2] = new VerticalNeighborMapping[3];
+    mappingPattern11[2][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 }; // Slot 0 → Floor 1 active 0
+    mappingPattern11[2][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 0 }; // Slot 2 → Floor 1 active 1 (left), active 0 (right)
+    mappingPattern11[2][2] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 }; // Slot 4 → Floor 1 active 1
+    // Floor 3: 3 active blocks → corrected mapping
+    mappingPattern11[3] = new VerticalNeighborMapping[3];
+    mappingPattern11[3][0] = new VerticalNeighborMapping { leftNeighborIndex = 0, rightNeighborIndex = 0 }; // Slot 0 → Floor 2 active 0
+    mappingPattern11[3][1] = new VerticalNeighborMapping { leftNeighborIndex = 1, rightNeighborIndex = 1 }; // Slot 3 → Floor 2 active 1 (both sides)
+    mappingPattern11[3][2] = new VerticalNeighborMapping { leftNeighborIndex = 2, rightNeighborIndex = 2 }; // Slot 6 → Floor 2 active 2
+
+    verticalNeighborMappings[2] = mappingPattern11; // "The Hive"
 
     }
 
 
     void Start()
     {
+        // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
+        // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
+        
         chosenPatternIndex = Random.Range(0, allPatterns.Count);
         bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         string diffPatternName = "";
@@ -683,7 +768,7 @@ void Awake()
         hardLeg1[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(hardLeg1);
 
-        // Pattern H2: "TheZorro" (3 Blocks Top) OK
+        //Pattern H2: "TheZorro" (3 Blocks Top) OK
         bool[][] hard2 = new bool[4][];
         hard2[0] = new bool[1] { true };
         hard2[1] = new bool[2] { true, true };
@@ -711,33 +796,33 @@ void Awake()
         hardLeg3[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
         allPatternLegTypes.Add(hardLeg3);
 
-        // Pattern H4: "TheCherries" OK
-        bool[][] hard4 = new bool[4][];
-        hard4[0] = new bool[1] { true };
-        hard4[1] = new bool[2] { true, true };
-        hard4[2] = new bool[5] { true, false, false, true, false };
-        hard4[3] = new bool[7] { true, false, false, true, false, true, false };
-        allPatterns.Add(hard4);
-        BlockLegType[][] hardLeg4 = new BlockLegType[4][];
-        hardLeg4[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        hardLeg4[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        hardLeg4[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg };
-        hardLeg4[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg };
-        allPatternLegTypes.Add(hardLeg4);
+        // // Pattern H4: "TheCherries" OK
+        // bool[][] hard4 = new bool[4][];
+        // hard4[0] = new bool[1] { true };
+        // hard4[1] = new bool[2] { true, true };
+        // hard4[2] = new bool[5] { true, false, false, true, false };
+        // hard4[3] = new bool[7] { true, false, false, true, false, true, false };
+        // allPatterns.Add(hard4);
+        // BlockLegType[][] hardLeg4 = new BlockLegType[4][];
+        // hardLeg4[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        // hardLeg4[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        // hardLeg4[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg };
+        // hardLeg4[3] = new BlockLegType[7] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg };
+        // allPatternLegTypes.Add(hardLeg4);
 
-        // Pattern H5: "TheGrapes" OK
-        bool[][] hard5 = new bool[4][];
-        hard5[0] = new bool[1] { true };
-        hard5[1] = new bool[2] { true, true };
-        hard5[2] = new bool[5] { false, true, false, false, true };
-        hard5[3] = new bool[7] { false, true, false, true, false, false, true };
-        allPatterns.Add(hard5);
-        BlockLegType[][] hardLeg5 = new BlockLegType[4][];
-        hardLeg5[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
-        hardLeg5[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
-        hardLeg5[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        hardLeg5[3] = new BlockLegType[7] { BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
-        allPatternLegTypes.Add(hardLeg5);
+        // // Pattern H5: "TheGrapes" OK
+        // bool[][] hard5 = new bool[4][];
+        // hard5[0] = new bool[1] { true };
+        // hard5[1] = new bool[2] { true, true };
+        // hard5[2] = new bool[5] { false, true, false, false, true };
+        // hard5[3] = new bool[7] { false, true, false, true, false, false, true };
+        // allPatterns.Add(hard5);
+        // BlockLegType[][] hardLeg5 = new BlockLegType[4][];
+        // hardLeg5[0] = new BlockLegType[1] { BlockLegType.TwoLeg };
+        // hardLeg5[1] = new BlockLegType[2] { BlockLegType.OneLegLeft, BlockLegType.OneLegRight };
+        // hardLeg5[2] = new BlockLegType[5] { BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        // hardLeg5[3] = new BlockLegType[7] { BlockLegType.TwoLeg, BlockLegType.OneLegLeft, BlockLegType.TwoLeg, BlockLegType.OneLegRight, BlockLegType.TwoLeg, BlockLegType.TwoLeg, BlockLegType.OneLegRight };
+        // allPatternLegTypes.Add(hardLeg5);
     }
 
     // ---------------- NORMAL MODE (2-floor maze) ----------------
@@ -939,6 +1024,7 @@ void Awake()
 
         // Retrieve the vertical mapping array for this pattern.
         VerticalNeighborMapping[][] mapping = verticalNeighborMappings[chosenPatternIndex];
+        Debug.Log($"Using mapping for pattern index {chosenPatternIndex}");
 
         // Gather all MazeBlock components in the spawned maze.
         MazeBlock[] blocks = GetComponentsInChildren<MazeBlock>();
@@ -1020,6 +1106,10 @@ void Awake()
                         // We ignore leftIdx on purpose.
                         break;
                 }
+                Debug.Log($"Floor {floor}, Slot {currentBlock.patternSlot} ({blockType}): " +
+                    $"neighborBelowRight = {(currentBlock.neighborBelowRight != null ? currentBlock.neighborBelowRight.gridCoordinate : "null")}, " +
+                    $"neighborBelowLeft = {(currentBlock.neighborBelowLeft != null ? currentBlock.neighborBelowLeft.gridCoordinate : "null")}");
+
             }
         }
     }
