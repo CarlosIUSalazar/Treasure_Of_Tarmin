@@ -27,6 +27,9 @@ public class MazeBlock : MonoBehaviour
 
     public GameObject playerCursor;
 
+    public bool isActiveBlock = false; // NEW FLAG
+
+
     private void Awake()
     {
         // Attempt to find a child named "MapPlayerDot"
@@ -44,6 +47,7 @@ public class MazeBlock : MonoBehaviour
 
     public void SetPlayerCursorActive(bool isActive)
     {
+        isActiveBlock = isActive;  // Track which block is active
         if (playerCursor != null)
         {
             playerCursor.SetActive(isActive);

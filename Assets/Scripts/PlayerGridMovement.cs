@@ -30,8 +30,14 @@ public class PlayerGridMovement : MonoBehaviour
     private Vector3 gridStart = new Vector3(-5, 2.5f, -5); // Define your custom grid start position
     private Vector3 targetPosition;
     private Quaternion targetRotation;
-    Vector3 playerPreviousPosition;
-    Quaternion playerPreviousRotation;
+    private Vector3 playerPreviousPosition;
+    private Quaternion playerPreviousRotation;
+
+    public int gridX = 0; // X coordinate in the 12x12 grid
+    public int gridZ = 0; // Z coordinate in the 12x12 grid
+    public int currentFloor = 0; // Track which floor the player is on
+    public RectTransform minimapCursor; // Assign the UI cursor from Unity Editor
+    public RectTransform minimapGrid; // Parent object of the minimap grid
 
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -44,6 +50,9 @@ public class PlayerGridMovement : MonoBehaviour
         targetPosition = transform.position; // Align targetPosition to snapped position
 
         backwardButton.gameObject.SetActive(false); //Start with the backwards button disabled.
+
+        gridX = 0; // Player starts at the NW corner (leftmost on minimap)
+        gridZ = 0; // Player starts at the top row of the 12x12 grid
     }
 
     void Update() {
@@ -137,9 +146,84 @@ public class PlayerGridMovement : MonoBehaviour
         if (CanMoveForward()) {
             isMoving = true;
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
+
+            Debug.Log($"Moving forward from {transform.position}");
+
+            // Track movement direction
+            Vector3 forwardDir = transform.forward.normalized;
+            float modifier = 0f;
+
+            // Ensure the movement modifier applies ONLY when moving along the Z-axis (East-West)
+            if (Mathf.Abs(forwardDir.z) > 0.9f && Mathf.Abs(forwardDir.x) < 0.1f) 
+            {
+                modifier = (forwardDir.z > 0) ? 0.1f : -0.1f; // Forward along Z = +0.1, Backward along Z = -0.1
+                UpdateMinimapCursor(modifier);
+                Debug.Log($"Minimap Cursor Updated with modifier {modifier}");
+            }
+            else
+            {
+                Debug.Log("Ignoring minimap cursor movement because movement is along X-axis.");
+            }
+
+            // Ensure gridX and gridZ stay within bounds
+            gridX = Mathf.Clamp(gridX, 0, 11);
+            gridZ = Mathf.Clamp(gridZ, 0, 11);
+
             EnableBackwardsStep(player.transform.position, player.transform.rotation);
             CheckForInteractables();
         }
+    }
+
+
+    void UpdateMinimapCursor(float modifier)
+    {
+        //if (minimapCursor == null || minimapGrid == null) return;
+        MazeBlock currentMazeBlock = FindActiveMazeBlock();
+        
+        if (currentMazeBlock == null)
+        {
+            Debug.LogWarning("No active MazeBlock found!");
+            return;
+        } else {
+            Debug.Log("In Updateminimap CurrentMazeBlock is: " + currentMazeBlock);
+        }
+
+        if (currentMazeBlock.playerCursor == null)
+        {
+            Debug.LogWarning($"Player cursor missing in block {currentMazeBlock.name}!");
+            return;
+        } else {
+            Debug.Log("In Updateminimap playerCursor is: " + currentMazeBlock.playerCursor);
+        }
+
+        // Find the actual PlayerCursor component inside the playerCursor GameObject
+        PlayerCursor cursorComponent = currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
+        if (cursorComponent == null)
+        {
+            Debug.LogWarning($"PlayerCursor script not found on {currentMazeBlock.playerCursor.name}!");
+            return;
+        }
+        // Move the PlayerCursor object (not just playerCursor transform)
+        Vector3 cursorPosition = cursorComponent.transform.localPosition;
+        cursorPosition.x += modifier;
+        cursorComponent.transform.localPosition = cursorPosition;
+
+        Debug.Log($"Updated Minimap Cursor in {currentMazeBlock.name} to X: {cursorPosition.x}");
+    }
+
+
+    MazeBlock FindActiveMazeBlock()
+    {
+        MazeBlock[] allBlocks = FindObjectsOfType<MazeBlock>();
+
+        foreach (MazeBlock block in allBlocks)
+        {
+            if (block.isActiveBlock)
+            {
+                return block; // Return the currently active block
+            }
+        }
+        return null; // No active block found
     }
 
     private void EnableBackwardsStep(Vector3 previousPosition, Quaternion previousRotation) {

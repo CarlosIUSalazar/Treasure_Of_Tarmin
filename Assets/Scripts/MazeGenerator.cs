@@ -582,7 +582,7 @@ public class MazeGenerator : MonoBehaviour
 
     void Start()
     {
-       itemSpawner = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
+        itemSpawner = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
         // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
         // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         int patternIndex = Random.Range(0, allPatterns.Count);

@@ -420,6 +420,11 @@ MonoBehaviour:
   isMoving: 0
   isRotating: 0
   canBackStep: 0
+  gridX: 0
+  gridZ: 0
+  currentFloor: 0
+  minimapCursor: {fileID: 0}
+  minimapGrid: {fileID: 0}
 --- !u!114 &27357057
 MonoBehaviour:
   m_ObjectHideFlags: 0
