@@ -19,6 +19,8 @@ public struct VerticalNeighborMapping
 
 public class MazeGenerator : MonoBehaviour
 {
+    private MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
+    ItemSpawner itemSpawner;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
     private DifficultyLevel difficulty;
@@ -77,7 +79,6 @@ public class MazeGenerator : MonoBehaviour
 
         // Use the difficulty from GameSettings
         DifficultyLevel selectedDifficulty = GameSettings.SelectedDifficulty;
-
 
     // --- HARD-CODED VERTICAL NEIGHBOR MAPPING FOR THE "SKULL" PATTERN (pattern index 0) ---
     // (The following mapping is written in terms of active blocks on each floor.)
@@ -581,6 +582,7 @@ public class MazeGenerator : MonoBehaviour
 
     void Start()
     {
+       itemSpawner = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
         // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
         // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         int patternIndex = Random.Range(0, allPatterns.Count);
@@ -894,6 +896,9 @@ public class MazeGenerator : MonoBehaviour
     /// </summary>
     IEnumerator SpawnPattern(bool[][] pattern, BlockLegType[][] legTypes, string mazeName)
     {
+        topFloorBlocks.Clear(); // Reset list each time maze is spawned
+        int topFloorIndex = pattern.Length - 1; // Top floor is the last index
+        
         // For each floor we will maintain a counter of active blocks.
         for (int i = pattern.Length - 1; i >= 0; i--)
         {
@@ -951,6 +956,10 @@ public class MazeGenerator : MonoBehaviour
 
                 mb.mazeName = mazeName; // Assign the maze name to the block
 
+                // Store top-floor blocks
+                if (i == topFloorIndex)
+                    topFloorBlocks.Add(mb);
+
                 yield return new WaitForSeconds(generationDelay);
             }
         }
@@ -958,6 +967,67 @@ public class MazeGenerator : MonoBehaviour
         AssignVerticalNeighbors();
         AssignHorizontalNeighbors();  // <--- new call here
         ScaleAndPositionFinalMaze();
+        PlacePlayerOnTopFloor();
+    }
+
+
+    // New method to place player
+    private void PlacePlayerOnTopFloor()
+    {
+        if (topFloorBlocks.Count == 0)
+        {
+            Debug.LogError("No top floor blocks found!");
+            return;
+        }
+
+        // Randomly select a top-floor block
+        // Randomly select a top-floor block
+        int randomIndex = Random.Range(0, topFloorBlocks.Count);
+        MazeBlock startBlock = topFloorBlocks[randomIndex];
+        currentPlayerBlock = startBlock;
+
+        // Position the player cursor only on this block
+        UpdatePlayerCursor(startBlock);
+
+        // Debug log
+        Debug.Log($"Player placed at {startBlock.gridCoordinate} ({startBlock.colorType})");
+
+        // Notify ItemSpawner to generate floor contents
+        if (itemSpawner != null)
+        {
+            itemSpawner.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate);
+            Debug.Log("Calling GenerateFloorContents");
+        }
+    }
+
+
+    private void UpdatePlayerCursor(MazeBlock newBlock)
+    {
+        // Hide cursor from old block
+        if (currentPlayerBlock != null)
+            currentPlayerBlock.SetPlayerCursorActive(false);
+
+        // Show cursor on new block
+        newBlock.SetPlayerCursorActive(true);
+        currentPlayerBlock = newBlock;
+    }
+
+
+    public void MovePlayerCursor(MazeBlock newBlock)
+    {
+        if (currentPlayerBlock != null && currentPlayerBlock.playerCursor != null)
+        {
+            currentPlayerBlock.playerCursor.SetActive(false);
+        }
+
+        if (newBlock != null)
+        {
+            currentPlayerBlock = newBlock;
+            if (currentPlayerBlock.playerCursor != null)
+            {
+                currentPlayerBlock.playerCursor.SetActive(true);
+            }
+        }
     }
 
     // Example: ComputeColumn maps the world x-coordinate to a grid column.
@@ -965,6 +1035,7 @@ public class MazeGenerator : MonoBehaviour
     {
         return Mathf.RoundToInt(center / horizontalSpacing) + 6;
     }
+    
 
     private void ScaleAndPositionFinalMaze() {
         if (difficulty == DifficultyLevel.VeryHard) {

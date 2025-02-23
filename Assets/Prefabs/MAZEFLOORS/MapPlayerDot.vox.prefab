@@ -9,16 +9,28 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -48,9 +60,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 502417b05e6854282838f3363d10785d, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 502417b05e6854282838f3363d10785d, type: 3}
       propertyPath: m_Name
       value: MapPlayerDot.vox
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 502417b05e6854282838f3363d10785d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -58,14 +78,14 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 502417b05e6854282838f3363d10785d, type: 3}
       insertIndex: -1
-      addedObject: {fileID: -8323220012587673195}
+      addedObject: {fileID: 7059225555616940484}
   m_SourcePrefab: {fileID: 100100000, guid: 502417b05e6854282838f3363d10785d, type: 3}
 --- !u!1 &3752110370373273320 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 502417b05e6854282838f3363d10785d, type: 3}
   m_PrefabInstance: {fileID: 4094692702487428025}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &-8323220012587673195
+--- !u!114 &7059225555616940484
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -74,16 +94,6 @@ MonoBehaviour:
   m_GameObject: {fileID: 3752110370373273320}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 473d02054600a405c9b9acc944090b33, type: 3}
+  m_Script: {fileID: 11500000, guid: 9c6d75e4bfc97475f8db260f182a3688, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gridCoordinate: {x: 0, y: 0}
-  colorType: 0
-  stairsCount: 0
-  neighborLeft: {fileID: 0}
-  neighborRight: {fileID: 0}
-  neighborBelowLeft: {fileID: 0}
-  neighborBelowRight: {fileID: 0}
-  blockLegType: 0
-  patternSlot: 0
-  blockName: 

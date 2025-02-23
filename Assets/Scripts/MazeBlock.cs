@@ -23,6 +23,30 @@ public class MazeBlock : MonoBehaviour
     // For debugging
     public string blockName;
 
-    public string mazeName;           // New field for maze name (e.g., "TheHive")
+    public string mazeName;           // Maze name (e.g., "TheHive")
 
+    public GameObject playerCursor;
+
+    private void Awake()
+    {
+        // Attempt to find a child named "MapPlayerDot"
+        Transform dotChild = transform.Find("MapPlayerDot.vox");
+        if (dotChild != null)
+        {
+            playerCursor = dotChild.gameObject;
+            playerCursor.SetActive(false); // Start all dots as hidden
+        }
+        else
+        {
+            Debug.LogWarning($"MapPlayerDot.vox child not found on {name}.");
+        }
+    }
+
+    public void SetPlayerCursorActive(bool isActive)
+    {
+        if (playerCursor != null)
+        {
+            playerCursor.SetActive(isActive);
+        }
+    }
 }

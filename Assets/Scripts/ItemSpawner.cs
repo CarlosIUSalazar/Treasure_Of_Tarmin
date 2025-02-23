@@ -3,11 +3,19 @@ using UnityEngine;
 
 public class ItemSpawner : MonoBehaviour
 {
-    [SerializeField] private GameObject[] itemPrefabs; // Assign item prefabs in the Inspector
-    [SerializeField] private GameObject[] enemyPrefabs; // Assign enemy prefabs in the Inspector
-    [SerializeField] private Transform player; // Assign player's Transform in the Inspector
-    private int itemCount = 8; // Number of items to spawn
-    private int enemyCount = 8; // Number of enemies to spawn
+    // [SerializeField] private GameObject[] itemPrefabs; // Assign item prefabs in the Inspector
+    // [SerializeField] private GameObject[] enemyPrefabs; // Assign enemy prefabs in the Inspector
+    // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
+    // private int itemCount = 8; // Number of items to spawn
+    // private int enemyCount = 8; // Number of enemies to spawn
+    [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
+    [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
+    [SerializeField] private GameObject[] mixedMonsterPrefabs;    // Tan: Mix of both
+    [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
+    [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
+    [SerializeField] private GameObject[] mixedItemPrefabs;       // Tan: Mix of both
+    //[SerializeField] private Transform player; // Assign in Inspector
+
     private float gridSize = 10.0f; // Size of each grid square
     private float itemHeightOffset = 0.1f; // Height adjustment for items above the ground
     private float enemyHeightOffset = 0f; // Height adjustment for enemies
@@ -20,19 +28,61 @@ public class ItemSpawner : MonoBehaviour
     void Start()
     {
         //Debug.Log($"Maze Size: {mazeSize}");
-        SpawnItems();
-        SpawnEnemies();
+        //SpawnItems();
+        //SpawnEnemies();
     }
 
     void SpawnItems()
     {
-        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
+        //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
     }
 
     void SpawnEnemies()
     {
+        //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
+    }
+
+    // Called by MazeGenerator after player placement
+    public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition)
+    {
+        Debug.Log("From GenerateFloorContents in ItemSpawner in block Color: " + blockColor + " At Start Position: " + startPosition);
+        int itemCount, enemyCount;
+        GameObject[] itemPrefabs, enemyPrefabs;
+
+        // Set counts and prefabs based on block color
+        switch (blockColor)
+        {
+            case BlockColorType.Blue: // Spiritual
+                itemCount = 4;
+                enemyCount = 3;
+                itemPrefabs = spiritualItemPrefabs;
+                enemyPrefabs = spiritualMonsterPrefabs;
+                break;
+            case BlockColorType.Green: // War
+                itemCount = 4;
+                enemyCount = 3;
+                itemPrefabs = warItemPrefabs;
+                enemyPrefabs = warMonsterPrefabs;
+                break;
+            case BlockColorType.Tan: // Mixed
+                itemCount = 5;
+                enemyCount = 4;
+                itemPrefabs = mixedItemPrefabs;
+                enemyPrefabs = mixedMonsterPrefabs;
+                break;
+            default:
+                Debug.LogError("Unknown block color!");
+                return;
+        }
+
+        occupiedGridPositions.Clear();
+        occupiedGridPositions.Add(startPosition); // Reserve player’s starting spot
+
+        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
         SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
     }
+
+
 
     private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
     {
