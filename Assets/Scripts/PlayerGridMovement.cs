@@ -212,9 +212,9 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
 
-    MazeBlock FindActiveMazeBlock()
+    public MazeBlock FindActiveMazeBlock()
     {
-        MazeBlock[] allBlocks = FindObjectsOfType<MazeBlock>();
+        MazeBlock[] allBlocks = FindObjectsByType<MazeBlock>(FindObjectsSortMode.None);
 
         foreach (MazeBlock block in allBlocks)
         {
