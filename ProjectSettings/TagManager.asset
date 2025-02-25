@@ -8,6 +8,7 @@ TagManager:
   - Item
   - Enemy
   - Armor
+  - CorridorDoor
   layers:
   - Default
   - TransparentFX

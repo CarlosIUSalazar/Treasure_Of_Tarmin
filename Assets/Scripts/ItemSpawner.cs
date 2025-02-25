@@ -14,6 +14,15 @@ public class ItemSpawner : MonoBehaviour
     [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
     [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
     [SerializeField] private GameObject[] mixedItemPrefabs;       // Tan: Mix of both
+    [SerializeField] private GameObject westDoorBlue;
+    [SerializeField] private GameObject westDoorTan;
+    [SerializeField] private GameObject westDoorGreen;
+    [SerializeField] private GameObject eastDoorBlue;
+    [SerializeField] private GameObject eastDoorTan;
+    [SerializeField] private GameObject eastDoorGreen;
+    [SerializeField] private GameObject[] westLadders;
+    [SerializeField] private GameObject[] eastLadders;
+
     //[SerializeField] private Transform player; // Assign in Inspector
 
     private float gridSize = 10.0f; // Size of each grid square
