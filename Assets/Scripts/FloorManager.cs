@@ -1,18 +1,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemSpawner : MonoBehaviour
+public class FloorManager : MonoBehaviour
 {
     // [SerializeField] private GameObject[] itemPrefabs; // Assign item prefabs in the Inspector
     // [SerializeField] private GameObject[] enemyPrefabs; // Assign enemy prefabs in the Inspector
     // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
     // private int itemCount = 8; // Number of items to spawn
     // private int enemyCount = 8; // Number of enemies to spawn
-    [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
     [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
-    [SerializeField] private GameObject[] mixedMonsterPrefabs;    // Tan: Mix of both
-    [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
     [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
+    [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
+    [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
+    [SerializeField] private GameObject[] mixedMonsterPrefabs;    // Tan: Mix of both
     [SerializeField] private GameObject[] mixedItemPrefabs;       // Tan: Mix of both
     [SerializeField] private GameObject westDoorBlue;
     [SerializeField] private GameObject westDoorTan;
@@ -54,7 +54,7 @@ public class ItemSpawner : MonoBehaviour
     // Called by MazeGenerator after player placement
     public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition)
     {
-        Debug.Log("From GenerateFloorContents in ItemSpawner in block Color: " + blockColor + " At Start Position: " + startPosition);
+        Debug.Log("From GenerateFloorContents in FloorManager in block Color: " + blockColor + " At Start Position: " + startPosition);
         int itemCount, enemyCount;
         GameObject[] itemPrefabs, enemyPrefabs;
 
@@ -74,7 +74,7 @@ public class ItemSpawner : MonoBehaviour
                 enemyPrefabs = warMonsterPrefabs;
                 break;
             case BlockColorType.Tan: // Mixed
-                itemCount = 5;
+                itemCount = 4;
                 enemyCount = 4;
                 itemPrefabs = mixedItemPrefabs;
                 enemyPrefabs = mixedMonsterPrefabs;
@@ -137,6 +137,7 @@ public class ItemSpawner : MonoBehaviour
             //Debug.Log($"{type} {i + 1} world position: {worldPosition}");
 
             // Select a random prefab
+            Debug.Log("prefabs in FooorManager:" + prefabs);
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
 
             // Instantiate the object at the calculated position
@@ -197,4 +198,91 @@ public class ItemSpawner : MonoBehaviour
         }
         return false;
     }
+
+
+    public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition, MazeBlock currentBlock)
+    {
+        Debug.Log($"Generating floor contents for {currentBlock.name} with color {blockColor} at {startPosition}");
+        // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
+        ClearFloorContents();
+        // (2) Determine how many items/enemies to spawn and which prefab arrays to use based on blockColor.
+        int itemCount, enemyCount;
+        GameObject[] itemPrefabs, enemyPrefabs;
+
+        Debug.Log("currentBlock is: " + currentBlock);
+        Debug.Log("Current Block horizontal neighbour left: " + currentBlock.neighborLeft + " Neigour Right: " + currentBlock.neighborRight);
+        Debug.Log("Current Block vertical neighbour below left: " + currentBlock.neighborBelowLeft + " Neigour Below Right: " + currentBlock.neighborBelowRight);
+
+
+
+        switch (blockColor)
+        {
+            case BlockColorType.Blue:
+                itemCount = 4;
+                enemyCount = 3;
+                itemPrefabs = spiritualItemPrefabs;
+                enemyPrefabs = spiritualMonsterPrefabs;
+                break;
+            case BlockColorType.Green:
+                itemCount = 4;
+                enemyCount = 3;
+                itemPrefabs = warItemPrefabs;
+                enemyPrefabs = warMonsterPrefabs;
+                break;
+            case BlockColorType.Tan:
+                itemCount = 5;
+                enemyCount = 4;
+                itemPrefabs = mixedItemPrefabs;
+                enemyPrefabs = mixedMonsterPrefabs;
+                break;
+            default:
+                Debug.LogError("Unknown block color!");
+                return;
+        }
+
+        // Spawn items and enemies at positions inside the current MazeBlock
+        //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true, currentBlock.transform);
+        //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false, currentBlock.transform);
+
+        // (3) Corridor doors:
+        // If current block has a horizontal neighbor to the right, spawn an east door.
+        if (currentBlock.neighborRight != null)
+        {
+            //GameObject eastDoorPrefab = GetEastDoorPrefab(currentBlock.neighborRight.colorType);
+            // Determine a fixed local spawn position for the east door relative to the block.
+            //Vector3 eastDoorPosition = currentBlock.transform.position + new Vector3(doorOffsetX, doorOffsetY, 0);
+            //Instantiate(eastDoorPrefab, eastDoorPosition, Quaternion.identity, currentBlock.transform);
+        }
+        // If current block has a neighbor to the left, spawn a west door.
+        if (currentBlock.neighborLeft != null)
+        {
+            //GameObject westDoorPrefab = GetWestDoorPrefab(currentBlock.neighborLeft.colorType);
+            //Vector3 westDoorPosition = currentBlock.transform.position + new Vector3(-doorOffsetX, doorOffsetY, 0);
+            //Instantiate(westDoorPrefab, westDoorPosition, Quaternion.identity, currentBlock.transform);
+        }
+
+        // (4) Ladders for descending:
+        // If there’s a lower neighbor on the left, spawn a ladder on the west side.
+        if (currentBlock.neighborBelowLeft != null)
+        {
+            // Pick one of the available west ladder prefabs at random.
+            GameObject ladderWestPrefab = westLadders[Random.Range(0, westLadders.Length)];
+            // Use fixed offsets (which you define) relative to the MazeBlock.
+            //Vector3 ladderWestPos = currentBlock.transform.position + new Vector3(-ladderOffsetX, ladderOffsetY, ladderOffsetZ);
+            //Instantiate(ladderWestPrefab, ladderWestPos, Quaternion.identity, currentBlock.transform);
+        }
+        // Similarly, if there’s a lower neighbor on the right, spawn a ladder on the east side.
+        if (currentBlock.neighborBelowRight != null)
+        {
+            GameObject ladderEastPrefab = eastLadders[Random.Range(0, eastLadders.Length)];
+            //Vector3 ladderEastPos = currentBlock.transform.position + new Vector3(ladderOffsetX, ladderOffsetY, ladderOffsetZ);
+            //Instantiate(ladderEastPrefab, ladderEastPos, Quaternion.identity, currentBlock.transform);
+        }
+    }
+
+
+    private void ClearFloorContents() {
+        return;
+    }
+
 }

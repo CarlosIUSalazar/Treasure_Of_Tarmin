@@ -20,7 +20,7 @@ public struct VerticalNeighborMapping
 public class MazeGenerator : MonoBehaviour
 {
     private MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
-    ItemSpawner itemSpawner;
+    FloorManager floorManager;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
     private DifficultyLevel difficulty;
@@ -582,7 +582,7 @@ public class MazeGenerator : MonoBehaviour
 
     void Start()
     {
-        itemSpawner = GameObject.Find("ItemSpawner").GetComponent<ItemSpawner>();
+        floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
         // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         int patternIndex = Random.Range(0, allPatterns.Count);
@@ -992,10 +992,10 @@ public class MazeGenerator : MonoBehaviour
         // Debug log
         Debug.Log($"Player placed at {startBlock.gridCoordinate} ({startBlock.colorType})");
 
-        // Notify ItemSpawner to generate floor contents
-        if (itemSpawner != null)
+        // Notify floorManager to generate floor contents
+        if (floorManager != null)
         {
-            itemSpawner.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate);
+            floorManager.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate, currentPlayerBlock);
             Debug.Log("Calling GenerateFloorContents");
         }
     }
