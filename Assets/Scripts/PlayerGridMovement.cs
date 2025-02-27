@@ -328,8 +328,16 @@ public class PlayerGridMovement : MonoBehaviour
             Debug.Log("Obstacle detected: " + hit.collider.name);
             if (hit.collider.CompareTag("Item")) {
                 return true; //Allow to pass through Items
+            } else if (hit.collider.CompareTag("CorridorDoor")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("CorridorDoorEast")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("CorridorDoorWest")) {
+                return true; //Allow to pass through Corridor Doors
+            //} else if (hit.collider.CompareTag("Ladder")) {
+                //return true; //Allow to pass through Corridor Ladders
             } else {
-            return false; // Obstacle found, cannot move forward
+                return false; // Obstacle found, cannot move forward
             }
         }
         return true;

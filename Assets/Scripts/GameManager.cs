@@ -30,10 +30,12 @@ public class GameManager : MonoBehaviour
     public Enemy activeEnemy;
     private Player player;  
     PlayerGridMovement playerGridMovement;  
+    //FloorManager floorManager;
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
+        //floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         enemyHPText.gameObject.SetActive(false);
 

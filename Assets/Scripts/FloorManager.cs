@@ -1,4 +1,7 @@
+using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class FloorManager : MonoBehaviour
@@ -22,6 +25,13 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject eastDoorGreen;
     [SerializeField] private GameObject[] westLadders;
     [SerializeField] private GameObject[] eastLadders;
+    Player player;
+    MazeBlock currentPlayerBlock;
+    MazeBlock currentNeighbourLeft;
+    MazeBlock currentNeighbourRight;
+    MazeBlock currentNeighbourBelowLeft;
+    MazeBlock currentNeighbourBelowRight;
+    MazeGenerator mazeGenerator;
 
     //[SerializeField] private Transform player; // Assign in Inspector
 
@@ -39,7 +49,34 @@ public class FloorManager : MonoBehaviour
         //Debug.Log($"Maze Size: {mazeSize}");
         //SpawnItems();
         //SpawnEnemies();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
     }
+
+    public void PopulateCurrentNeighbours(MazeBlock currentBlock) {
+        currentPlayerBlock = currentBlock ?? currentPlayerBlock;
+        currentNeighbourLeft = currentBlock.neighborLeft ?? currentNeighbourLeft;
+        currentNeighbourRight = currentBlock.neighborRight ?? currentNeighbourRight;
+        currentNeighbourBelowLeft = currentBlock.neighborBelowLeft ?? currentNeighbourBelowLeft;
+        currentNeighbourBelowRight = currentBlock.neighborBelowRight ?? currentNeighbourBelowRight;
+
+
+        Debug.Log("CurrentPlayerBlock is " + currentPlayerBlock);
+        Debug.Log("CurrentNeighbourLeft is " + currentNeighbourLeft);
+        Debug.Log("CurrentNeighbourRight is " + currentNeighbourRight);
+        Debug.Log("CurrentNeighbourBelowLeft is " + currentNeighbourBelowLeft);
+        Debug.Log("CurrentNeighbourLowerRight is " + currentNeighbourBelowRight);
+    }
+
+
+    public void MovePlayerToNewMaze(string corridorDoorSide) {
+        if (corridorDoorSide == "CorridorDoorWest") {
+            mazeGenerator.UpdatePlayerCursor(currentNeighbourLeft);
+        } else if (corridorDoorSide == "CorridorDoorEast") {
+            mazeGenerator.UpdatePlayerCursor(currentNeighbourRight);
+        }
+    }
+
 
     void SpawnItems()
     {
@@ -212,7 +249,48 @@ public class FloorManager : MonoBehaviour
         Debug.Log("currentBlock is: " + currentBlock);
         Debug.Log("Current Block horizontal neighbour left: " + currentBlock.neighborLeft + " Neigour Right: " + currentBlock.neighborRight);
         Debug.Log("Current Block vertical neighbour below left: " + currentBlock.neighborBelowLeft + " Neigour Below Right: " + currentBlock.neighborBelowRight);
+        Debug.Log("Current Block horizontal neighbour left color: " + currentBlock.neighborLeft?.colorType ?? "None");
+        Debug.Log("Current Block horizontal neighbour right color: " + currentBlock.neighborRight?.colorType ?? "None");
 
+
+        /////
+        /// SPAWNER OF CORRIDOR DOORS
+        /////
+        if (currentBlock.neighborLeft != null) {
+            if (currentBlock.neighborLeft.colorType == BlockColorType.Blue) {
+                westDoorBlue.SetActive(true);
+            } else if (currentBlock.neighborLeft.colorType == BlockColorType.Green) {
+                westDoorGreen.SetActive(true);
+            } else if (currentBlock.neighborLeft.colorType == BlockColorType.Tan) {
+                westDoorTan.SetActive(true);
+            }
+        }
+
+        if (currentBlock.neighborRight != null) {
+            if (currentBlock.neighborRight.colorType == BlockColorType.Blue) {
+                eastDoorBlue.SetActive(true);
+            } else if (currentBlock.neighborRight.colorType == BlockColorType.Green) {
+                eastDoorGreen.SetActive(true);
+            } else if (currentBlock.neighborRight.colorType == BlockColorType.Tan) {
+                eastDoorTan.SetActive(true);
+            }
+        }
+
+        //////
+        ///SPAWNER OF LADDERS
+        /////
+        if (player.floor % 2 != 0) {
+            if (currentBlock.neighborBelowLeft != null) {
+                SpawnLadder("West");
+            }
+
+            if (currentBlock.neighborBelowRight != null) {
+                SpawnLadder("East");
+            }
+        } else {
+            SpawnLadder("West");
+            SpawnLadder("East");
+        }
 
 
         switch (blockColor)
@@ -278,6 +356,16 @@ public class FloorManager : MonoBehaviour
             //Vector3 ladderEastPos = currentBlock.transform.position + new Vector3(ladderOffsetX, ladderOffsetY, ladderOffsetZ);
             //Instantiate(ladderEastPrefab, ladderEastPos, Quaternion.identity, currentBlock.transform);
         }
+    }
+
+
+    private void SpawnLadder(string Side) {
+        int randomInt = Random.Range(0, westLadders.Length);
+        
+        if (Side == "East"){
+            eastLadders[randomInt].SetActive(true);
+        } else if (Side == "West")
+            westLadders[randomInt].SetActive(true);
     }
 
 

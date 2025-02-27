@@ -997,11 +997,12 @@ public class MazeGenerator : MonoBehaviour
         {
             floorManager.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate, currentPlayerBlock);
             Debug.Log("Calling GenerateFloorContents");
+            floorManager.PopulateCurrentNeighbours(currentPlayerBlock); //Initialize the neigbouring blocks information
         }
     }
 
 
-    private void UpdatePlayerCursor(MazeBlock newBlock)
+    public void UpdatePlayerCursor(MazeBlock newBlock)
     {
         // Hide cursor from old block
         if (currentPlayerBlock != null)
