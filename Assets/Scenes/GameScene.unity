@@ -3581,37 +3581,42 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fd397e19f3144b20be923ee9522c207, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spiritualMonsterPrefabs:
-  - {fileID: 4970426629544033962, guid: 34b60c43042954b01a27620ac026cfbc, type: 3}
-  - {fileID: 7817842419996019975, guid: c413ce1fb2b9746b68a70dd8e7bdc39a, type: 3}
-  - {fileID: 5622436538235191321, guid: a4c016526aa124d52bf0edd6eb4fb52a, type: 3}
-  - {fileID: 8096501000816952937, guid: 1a7981196adeb47d5a8c46b7fbe58172, type: 3}
-  - {fileID: 4580690347041303752, guid: f98bc32f4042d4336b85b7fff732bcd4, type: 3}
   warMonsterPrefabs:
   - {fileID: 1220477412201599698, guid: 31ec55f9788d546799f1758e303819ba, type: 3}
   - {fileID: 5145021207702075880, guid: 2c3fb04cefb5241f4b5227cc786f84e4, type: 3}
   - {fileID: 989031245265747976, guid: f979bb6ad1757483aa4490ca8a01a8f9, type: 3}
   - {fileID: 6744025764295608350, guid: f3294d2628f86410193b6f69a82447ac, type: 3}
   - {fileID: 8897214623080859312, guid: 6053f9a89af3545fa89bf30487b8e969, type: 3}
-  mixedMonsterPrefabs:
-  - {fileID: 6473471193389095757, guid: f14d0c661f58849e2a97bed91c453f71, type: 3}
-  - {fileID: 2763943938499494041, guid: d13bf762753e449d5a0136f763b66327, type: 3}
-  - {fileID: 1292348347261569267, guid: eaf3740c7308f4015ab31c2169a48f0d, type: 3}
-  - {fileID: 5820195895189521247, guid: e4b79ea3a271e4eceab1e72e14daf19f, type: 3}
-  - {fileID: 504102107948064694, guid: 51a76ef2c7b824045862d565c475f755, type: 3}
-  spiritualItemPrefabs:
-  - {fileID: 5366835972362230561, guid: 24a5817f208794876a92033ddbc756f6, type: 3}
-  - {fileID: 6001020120728717830, guid: 0b1aa02807c1f42808be75b5d30ad81d, type: 3}
-  - {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}
-  - {fileID: 8389089895167742680, guid: e8c72f59466ad4359834b2809dee27f6, type: 3}
-  - {fileID: 1096498210097460157, guid: a89d8d2b1639841d880f4158c2a0f954, type: 3}
   warItemPrefabs:
   - {fileID: 7265785245574289816, guid: a4bd3e63c4118466a810627f4f7f73f5, type: 3}
   - {fileID: 9147165659416539867, guid: 6547eb9615df94a47afa84bcf66979d7, type: 3}
   - {fileID: 2203997939170720808, guid: 367c7536abd8d4f60bc9cf1405bebdf3, type: 3}
   - {fileID: 6756616008823049172, guid: e4801310767034094a03772ac1203cb7, type: 3}
   - {fileID: 5291084980085883559, guid: 6584c22d5125240d18fdf6cd24c7b99a, type: 3}
-  mixedItemPrefabs: []
+  spiritualMonsterPrefabs:
+  - {fileID: 4970426629544033962, guid: 34b60c43042954b01a27620ac026cfbc, type: 3}
+  - {fileID: 7817842419996019975, guid: c413ce1fb2b9746b68a70dd8e7bdc39a, type: 3}
+  - {fileID: 5622436538235191321, guid: a4c016526aa124d52bf0edd6eb4fb52a, type: 3}
+  - {fileID: 8096501000816952937, guid: 1a7981196adeb47d5a8c46b7fbe58172, type: 3}
+  - {fileID: 4580690347041303752, guid: f98bc32f4042d4336b85b7fff732bcd4, type: 3}
+  spiritualItemPrefabs:
+  - {fileID: 5366835972362230561, guid: 24a5817f208794876a92033ddbc756f6, type: 3}
+  - {fileID: 6001020120728717830, guid: 0b1aa02807c1f42808be75b5d30ad81d, type: 3}
+  - {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}
+  - {fileID: 8389089895167742680, guid: e8c72f59466ad4359834b2809dee27f6, type: 3}
+  - {fileID: 1096498210097460157, guid: a89d8d2b1639841d880f4158c2a0f954, type: 3}
+  mixedMonsterPrefabs:
+  - {fileID: 6473471193389095757, guid: f14d0c661f58849e2a97bed91c453f71, type: 3}
+  - {fileID: 2763943938499494041, guid: d13bf762753e449d5a0136f763b66327, type: 3}
+  - {fileID: 1292348347261569267, guid: eaf3740c7308f4015ab31c2169a48f0d, type: 3}
+  - {fileID: 5820195895189521247, guid: e4b79ea3a271e4eceab1e72e14daf19f, type: 3}
+  - {fileID: 504102107948064694, guid: 51a76ef2c7b824045862d565c475f755, type: 3}
+  mixedItemPrefabs:
+  - {fileID: 4581801312023354261, guid: 090670b2b47f94f82934145d3e71add8, type: 3}
+  - {fileID: 6539461072555655898, guid: ea4c5b8b05cd041f6b7b143ad38cb162, type: 3}
+  - {fileID: 4581801312023354261, guid: 090670b2b47f94f82934145d3e71add8, type: 3}
+  - {fileID: 6539461072555655898, guid: ea4c5b8b05cd041f6b7b143ad38cb162, type: 3}
+  - {fileID: 4581801312023354261, guid: 090670b2b47f94f82934145d3e71add8, type: 3}
   westDoorBlue: {fileID: 521793308}
   westDoorTan: {fileID: 403454592}
   westDoorGreen: {fileID: 1294605098}
@@ -4934,18 +4939,6 @@ PrefabInstance:
     m_TransformParent: {fileID: 641794624}
     m_Modifications:
     - target: {fileID: 7088813343525416885, guid: 5520eebc846414448b1e16177969141c, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088813343525416885, guid: 5520eebc846414448b1e16177969141c, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088813343525416885, guid: 5520eebc846414448b1e16177969141c, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 7088813343525416885, guid: 5520eebc846414448b1e16177969141c, type: 3}
       propertyPath: m_LocalPosition.x
       value: -149.23761
       objectReference: {fileID: 0}
@@ -4985,24 +4978,15 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7439749932542768538, guid: 5520eebc846414448b1e16177969141c, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 7578245910456562959, guid: 5520eebc846414448b1e16177969141c, type: 3}
       propertyPath: m_Name
       value: Corridor-Door-Green-West.vox
       objectReference: {fileID: 0}
     - target: {fileID: 7578245910456562959, guid: 5520eebc846414448b1e16177969141c, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7578245910456562959, guid: 5520eebc846414448b1e16177969141c, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
+      value: CorridorDoorWest
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1239568180986445160, guid: 5520eebc846414448b1e16177969141c, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -5020,24 +5004,8 @@ PrefabInstance:
       value: Corridor-Door-Blue-East.vox
       objectReference: {fileID: 0}
     - target: {fileID: 2739762951863738994, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2739762951863738994, guid: baaa314e29839415a8947b638712d78d, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
+      value: CorridorDoorEast
       objectReference: {fileID: 0}
     - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -5079,12 +5047,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7310062365129329145, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 626435486205819055, guid: baaa314e29839415a8947b638712d78d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6375,6 +6338,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderWest2
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -6393,24 +6364,8 @@ PrefabInstance:
       value: Corridor-Door-Blue-West.vox
       objectReference: {fileID: 0}
     - target: {fileID: 2739762951863738994, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2739762951863738994, guid: baaa314e29839415a8947b638712d78d, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
+      value: CorridorDoorWest
       objectReference: {fileID: 0}
     - target: {fileID: 3264625184789592264, guid: baaa314e29839415a8947b638712d78d, type: 3}
       propertyPath: m_LocalPosition.x
@@ -6452,13 +6407,7 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 7310062365129329145, guid: baaa314e29839415a8947b638712d78d, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 626435486205819055, guid: baaa314e29839415a8947b638712d78d, type: 3}
-    - {fileID: 4110975838294763362, guid: baaa314e29839415a8947b638712d78d, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6471,18 +6420,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 641794624}
     m_Modifications:
-    - target: {fileID: 3487163582351539676, guid: e313398aae10140328e74e64a12c03db, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3487163582351539676, guid: e313398aae10140328e74e64a12c03db, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 3487163582351539676, guid: e313398aae10140328e74e64a12c03db, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 3487163582351539676, guid: e313398aae10140328e74e64a12c03db, type: 3}
       propertyPath: m_LocalPosition.x
       value: -149.23761
@@ -6528,19 +6465,10 @@ PrefabInstance:
       value: Corridor-Door-Tan-West.vox
       objectReference: {fileID: 0}
     - target: {fileID: 4264684967605151590, guid: e313398aae10140328e74e64a12c03db, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4264684967605151590, guid: e313398aae10140328e74e64a12c03db, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
+      value: CorridorDoorWest
       objectReference: {fileID: 0}
-    - target: {fileID: 6174756053865478149, guid: e313398aae10140328e74e64a12c03db, type: 3}
-      propertyPath: m_IsTrigger
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3964893383959424883, guid: e313398aae10140328e74e64a12c03db, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -6841,6 +6769,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: LadderWest1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -7949,6 +7885,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderEast2
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -9023,6 +8967,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: Ladder.West5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -12238,6 +12190,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderEast1
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14011,6 +13971,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderWest3
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -14357,6 +14325,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: LadderEast6
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -15132,6 +15108,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: LadderEast8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -16446,6 +16430,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderWest4
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -16852,6 +16844,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: Ladder.West7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -18437,6 +18437,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderEast5
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19232,6 +19240,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ladder.West6
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -19439,6 +19455,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: LadderEast7
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -21239,11 +21263,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4264684967605151590, guid: e313398aae10140328e74e64a12c03db, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4264684967605151590, guid: e313398aae10140328e74e64a12c03db, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
+      value: CorridorDoorEast
       objectReference: {fileID: 0}
     - target: {fileID: 6174756053865478149, guid: e313398aae10140328e74e64a12c03db, type: 3}
       propertyPath: m_IsTrigger
@@ -21251,6 +21275,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 3964893383959424883, guid: e313398aae10140328e74e64a12c03db, type: 3}
+    - {fileID: 926310388251025777, guid: e313398aae10140328e74e64a12c03db, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -22476,6 +22501,14 @@ PrefabInstance:
     - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
       propertyPath: m_Name
       value: LadderEast3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -25301,6 +25334,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: LadderEast4
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27223,6 +27264,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Ladder.West8
       objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4375906353063332329, guid: 08ad935a3268e4635a7376c1f927d05d, type: 3}
+      propertyPath: m_TagString
+      value: Item
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -27773,14 +27822,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7578245910456562959, guid: 5520eebc846414448b1e16177969141c, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7578245910456562959, guid: 5520eebc846414448b1e16177969141c, type: 3}
       propertyPath: m_TagString
-      value: CorridorDoor
+      value: CorridorDoorEast
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 1239568180986445160, guid: 5520eebc846414448b1e16177969141c, type: 3}
+    - {fileID: 8551189617070110334, guid: 5520eebc846414448b1e16177969141c, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

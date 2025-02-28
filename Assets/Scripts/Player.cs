@@ -64,6 +64,11 @@ public class Player : MonoBehaviour
         }
         OnPlayerStatsUpdated?.Invoke();
     }
+
+    public void ModifyFloorNumber() {
+        floor++;
+        OnPlayerStatsUpdated?.Invoke();
+    }
     
     public void ModifyArrows(int amount) {
         arrows += amount;

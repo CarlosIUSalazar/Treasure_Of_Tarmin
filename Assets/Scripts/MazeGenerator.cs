@@ -19,7 +19,7 @@ public struct VerticalNeighborMapping
 
 public class MazeGenerator : MonoBehaviour
 {
-    private MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
+    public MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
     FloorManager floorManager;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;

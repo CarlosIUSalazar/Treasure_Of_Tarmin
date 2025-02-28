@@ -53,13 +53,13 @@ public class FloorManager : MonoBehaviour
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
     }
 
+
     public void PopulateCurrentNeighbours(MazeBlock currentBlock) {
         currentPlayerBlock = currentBlock ?? currentPlayerBlock;
         currentNeighbourLeft = currentBlock.neighborLeft ?? currentNeighbourLeft;
         currentNeighbourRight = currentBlock.neighborRight ?? currentNeighbourRight;
         currentNeighbourBelowLeft = currentBlock.neighborBelowLeft ?? currentNeighbourBelowLeft;
         currentNeighbourBelowRight = currentBlock.neighborBelowRight ?? currentNeighbourBelowRight;
-
 
         Debug.Log("CurrentPlayerBlock is " + currentPlayerBlock);
         Debug.Log("CurrentNeighbourLeft is " + currentNeighbourLeft);
@@ -74,6 +74,37 @@ public class FloorManager : MonoBehaviour
             mazeGenerator.UpdatePlayerCursor(currentNeighbourLeft);
         } else if (corridorDoorSide == "CorridorDoorEast") {
             mazeGenerator.UpdatePlayerCursor(currentNeighbourRight);
+        }
+    }
+
+
+    public void MoveCursorVerticallyDown(RaycastHit hit) {
+        GameObject item = hit.collider.gameObject;
+        
+        if (player.floor % 2 == 0) {
+            Debug.Log("Even Floor");
+            if (item.name.Contains("East")) {
+                //Move Left Down
+                mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowLeft);
+                Debug.Log("Player Descended to " + currentNeighbourBelowLeft);
+                player.ModifyFloorNumber();
+            } else if (item.name.Contains("West")) {
+                //Move Right Down
+                mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowRight);
+                Debug.Log("Player Descended to " + currentNeighbourBelowRight);
+                player.ModifyFloorNumber();
+            }
+        } else {
+            Debug.Log("Odd Floor");
+            GameObject ladder = hit.collider.gameObject;
+            Debug.Log("The Ladder hit nme is " + ladder.name);
+            //This will be called whenever the user descend from an ODD floor, so the top floor within a block.
+            // Im still not sure why substracting 12 worked, its not the Y transform that i can see in the inspector, but for now I'll leave it.
+            Transform cursorTransform = mazeGenerator.currentPlayerBlock.playerCursor.transform;
+            Vector3 pos = cursorTransform.position; // get the current position
+            pos.y -= 12f; // subtract 12 from y
+            cursorTransform.position = pos; // assign the modified vector back
+            player.ModifyFloorNumber();
         }
     }
 
@@ -279,15 +310,15 @@ public class FloorManager : MonoBehaviour
         //////
         ///SPAWNER OF LADDERS
         /////
-        if (player.floor % 2 != 0) {
+        if (player.floor % 2 == 0) {
+            Debug.Log("Even Floor");
             if (currentBlock.neighborBelowLeft != null) {
                 SpawnLadder("West");
-            }
-
-            if (currentBlock.neighborBelowRight != null) {
+            } else if (currentBlock.neighborBelowRight != null) {
                 SpawnLadder("East");
             }
         } else {
+            Debug.Log("Odd Floor");
             SpawnLadder("West");
             SpawnLadder("East");
         }

@@ -9,6 +9,9 @@ TagManager:
   - Enemy
   - Armor
   - CorridorDoor
+  - Ladder
+  - CorridorDoorWest
+  - CorridorDoorEast
   layers:
   - Default
   - TransparentFX

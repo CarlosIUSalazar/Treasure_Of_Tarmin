@@ -21,6 +21,7 @@ public class PlayerGridMovement : MonoBehaviour
     Enemy enemy;
     ItemManager itemManager;
     InventoryManager inventoryManager;
+    FloorManager floorManager;
 
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
@@ -45,6 +46,7 @@ public class PlayerGridMovement : MonoBehaviour
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
         itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+        floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
@@ -311,6 +313,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
     private Vector3 GetSnappedPosition(Vector3 position)
     {
         return new Vector3(
@@ -319,6 +322,7 @@ public class PlayerGridMovement : MonoBehaviour
             Mathf.Round((position.z - gridStart.z) / gridSize) * gridSize + gridStart.z
         );
     }
+
 
     private bool CanMoveForward() {
         RaycastHit hit;
@@ -334,8 +338,8 @@ public class PlayerGridMovement : MonoBehaviour
                 return true; //Allow to pass through Corridor Doors
             } else if (hit.collider.CompareTag("CorridorDoorWest")) {
                 return true; //Allow to pass through Corridor Doors
-            //} else if (hit.collider.CompareTag("Ladder")) {
-                //return true; //Allow to pass through Corridor Ladders
+            } else if (hit.collider.CompareTag("Ladder")) {
+                return true; //Allow to pass through Corridor Ladders
             } else {
                 return false; // Obstacle found, cannot move forward
             }
@@ -364,6 +368,14 @@ public class PlayerGridMovement : MonoBehaviour
                 actionButtonText.text = "Pick Up";
                 actionButton.onClick.RemoveAllListeners();
                 actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
+                return; // Return to avoid triggering further checks
+            } 
+            if (hit.collider.CompareTag("Ladder"))
+            {
+                dropButton.gameObject.SetActive(false);
+                actionButtonText.text = "Descend";
+                actionButton.onClick.RemoveAllListeners();
+                actionButton.onClick.AddListener(() => floorManager.MoveCursorVerticallyDown(hit));
                 return; // Return to avoid triggering further checks
             } 
         }
