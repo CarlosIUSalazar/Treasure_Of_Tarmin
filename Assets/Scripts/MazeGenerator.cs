@@ -998,7 +998,9 @@ public class MazeGenerator : MonoBehaviour
             floorManager.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate, currentPlayerBlock);
             Debug.Log("Calling GenerateFloorContents");
             floorManager.PopulateCurrentNeighbours(currentPlayerBlock); //Initialize the neigbouring blocks information
+            Debug.Log("THIS SHOULD RUN ONLY AT THE BEGGINING ONCE");
         }
+        //Debug.Log("THIS SHOULD RUN ONLY AT THE BEGGINING ONCE");
     }
 
 

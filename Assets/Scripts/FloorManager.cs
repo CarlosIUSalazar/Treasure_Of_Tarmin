@@ -26,7 +26,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject[] westLadders;
     [SerializeField] private GameObject[] eastLadders;
     Player player;
-    MazeBlock currentPlayerBlock;
+    //MazeBlock currentPlayerBlock;
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
     MazeBlock currentNeighbourBelowLeft;
@@ -55,17 +55,17 @@ public class FloorManager : MonoBehaviour
 
 
     public void PopulateCurrentNeighbours(MazeBlock currentBlock) {
-        currentPlayerBlock = currentBlock ?? currentPlayerBlock;
-        currentNeighbourLeft = currentBlock.neighborLeft ?? currentNeighbourLeft;
-        currentNeighbourRight = currentBlock.neighborRight ?? currentNeighbourRight;
-        currentNeighbourBelowLeft = currentBlock.neighborBelowLeft ?? currentNeighbourBelowLeft;
-        currentNeighbourBelowRight = currentBlock.neighborBelowRight ?? currentNeighbourBelowRight;
+        //currentPlayerBlock = currentBlock ?? currentPlayerBlock;
+        currentNeighbourLeft      = currentBlock.neighborLeft;
+        currentNeighbourRight     = currentBlock.neighborRight;
+        currentNeighbourBelowLeft = currentBlock.neighborBelowLeft;
+        currentNeighbourBelowRight= currentBlock.neighborBelowRight;
 
-        Debug.Log("CurrentPlayerBlock is " + currentPlayerBlock);
-        Debug.Log("CurrentNeighbourLeft is " + currentNeighbourLeft);
-        Debug.Log("CurrentNeighbourRight is " + currentNeighbourRight);
-        Debug.Log("CurrentNeighbourBelowLeft is " + currentNeighbourBelowLeft);
-        Debug.Log("CurrentNeighbourLowerRight is " + currentNeighbourBelowRight);
+        Debug.Log("currentPlayerBlock is " + mazeGenerator.currentPlayerBlock + " At " + (mazeGenerator.currentPlayerBlock?.ToString() ?? "null"));
+        Debug.Log("CurrentNeighbourLeft is " + currentNeighbourLeft + " At " + (currentNeighbourLeft?.gridCoordinate.ToString() ?? "null"));
+        Debug.Log("CurrentNeighbourRight is " + currentNeighbourRight + " At " + (currentNeighbourRight?.gridCoordinate.ToString() ?? "null"));
+        Debug.Log("CurrentNeighbourBelowLeft is " + currentNeighbourBelowLeft + " At " + (currentNeighbourBelowLeft?.gridCoordinate.ToString() ?? "null"));
+        Debug.Log("CurrentNeighbourBelowRight is " + currentNeighbourBelowRight + " At " + (currentNeighbourBelowRight?.gridCoordinate.ToString() ?? "null"));
     }
 
 
@@ -78,24 +78,32 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    public void MoveCursorVerticallyDown(RaycastHit hit) {
+    public void MoveCursorVerticallyDown(RaycastHit hit) { //Descending using a Ladder
         GameObject item = hit.collider.gameObject;
         
-        if (player.floor % 2 == 0) {
-            Debug.Log("Even Floor");
-            if (item.name.Contains("East")) {
+        if (player.floor % 2 == 0) { // Changing to a different block
+            Debug.Log("Used Ladder from Even Floor " + player.floor);
+            if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
                 //Move Left Down
+                mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowRight); //This updates the mazeGenerator.currentPlayerBlock
+                Debug.Log("Player Descended to " + currentNeighbourBelowRight);
+                player.ModifyFloorNumber();
+
+                PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
+                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+                return;
+            } else if (item.name.Contains("West")) { ////Checking that the ladder prefab name contains West
+                //Move Right Down
                 mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowLeft);
                 Debug.Log("Player Descended to " + currentNeighbourBelowLeft);
                 player.ModifyFloorNumber();
-            } else if (item.name.Contains("West")) {
-                //Move Right Down
-                mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowRight);
-                Debug.Log("Player Descended to " + currentNeighbourBelowRight);
-                player.ModifyFloorNumber();
+
+                PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
+                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+                return;
             }
         } else {
-            Debug.Log("Odd Floor");
+            Debug.Log("Used Ladder from Odd Floor " + player.floor);
             GameObject ladder = hit.collider.gameObject;
             Debug.Log("The Ladder hit nme is " + ladder.name);
             //This will be called whenever the user descend from an ODD floor, so the top floor within a block.
@@ -105,64 +113,68 @@ public class FloorManager : MonoBehaviour
             pos.y -= 12f; // subtract 12 from y
             cursorTransform.position = pos; // assign the modified vector back
             player.ModifyFloorNumber();
+
+            //PopulateCurrentNeighbours(currentPlayerBlock);
+            GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+            return;
         }
     }
 
 
-    void SpawnItems()
-    {
-        //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
-    }
+    // void SpawnItems()
+    // {
+    //     //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
+    // }
 
-    void SpawnEnemies()
-    {
-        //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
-    }
+    // void SpawnEnemies()
+    // {
+    //     //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
+    // }
 
     // Called by MazeGenerator after player placement
-    public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition)
-    {
-        Debug.Log("From GenerateFloorContents in FloorManager in block Color: " + blockColor + " At Start Position: " + startPosition);
-        int itemCount, enemyCount;
-        GameObject[] itemPrefabs, enemyPrefabs;
+    // public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition)
+    // {
+    //     Debug.Log("From GenerateFloorContents in FloorManager in block Color: " + blockColor + " At Start Position: " + startPosition);
+    //     int itemCount, enemyCount;
+    //     GameObject[] itemPrefabs, enemyPrefabs;
 
-        // Set counts and prefabs based on block color
-        switch (blockColor)
-        {
-            case BlockColorType.Blue: // Spiritual
-                itemCount = 4;
-                enemyCount = 3;
-                itemPrefabs = spiritualItemPrefabs;
-                enemyPrefabs = spiritualMonsterPrefabs;
-                break;
-            case BlockColorType.Green: // War
-                itemCount = 4;
-                enemyCount = 3;
-                itemPrefabs = warItemPrefabs;
-                enemyPrefabs = warMonsterPrefabs;
-                break;
-            case BlockColorType.Tan: // Mixed
-                itemCount = 4;
-                enemyCount = 4;
-                itemPrefabs = mixedItemPrefabs;
-                enemyPrefabs = mixedMonsterPrefabs;
-                break;
-            default:
-                Debug.LogError("Unknown block color!");
-                return;
-        }
+    //     // Set counts and prefabs based on block color
+    //     switch (blockColor)
+    //     {
+    //         case BlockColorType.Blue: // Spiritual
+    //             itemCount = 4;
+    //             enemyCount = 3;
+    //             itemPrefabs = spiritualItemPrefabs;
+    //             enemyPrefabs = spiritualMonsterPrefabs;
+    //             break;
+    //         case BlockColorType.Green: // War
+    //             itemCount = 4;
+    //             enemyCount = 3;
+    //             itemPrefabs = warItemPrefabs;
+    //             enemyPrefabs = warMonsterPrefabs;
+    //             break;
+    //         case BlockColorType.Tan: // Mixed
+    //             itemCount = 4;
+    //             enemyCount = 4;
+    //             itemPrefabs = mixedItemPrefabs;
+    //             enemyPrefabs = mixedMonsterPrefabs;
+    //             break;
+    //         default:
+    //             Debug.LogError("Unknown block color!");
+    //             return;
+    //     }
 
-        occupiedGridPositions.Clear();
-        occupiedGridPositions.Add(startPosition); // Reserve player’s starting spot
+    //     occupiedGridPositions.Clear();
+    //     occupiedGridPositions.Add(startPosition); // Reserve player’s starting spot
 
-        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
-        SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
-    }
-
+    //     SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
+    //     SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
+    // }
 
 
     private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
     {
+        Debug.Log("Spawning Objects of type: " + type);
         int spawnAreaStartX = 1;
         int spawnAreaStartZ = 1;
         int spawnAreaEndX = (int)mazeSize.x - 2;
@@ -205,7 +217,7 @@ public class FloorManager : MonoBehaviour
             //Debug.Log($"{type} {i + 1} world position: {worldPosition}");
 
             // Select a random prefab
-            Debug.Log("prefabs in FooorManager:" + prefabs);
+            //Debug.Log("prefabs in FooorManager:" + prefabs);
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
 
             // Instantiate the object at the calculated position
@@ -220,7 +232,6 @@ public class FloorManager : MonoBehaviour
             {
                 Destroy(projectileComponent);
             }
-
         }
     }
 
@@ -278,8 +289,10 @@ public class FloorManager : MonoBehaviour
         GameObject[] itemPrefabs, enemyPrefabs;
 
         Debug.Log("currentBlock is: " + currentBlock);
-        Debug.Log("Current Block horizontal neighbour left: " + currentBlock.neighborLeft + " Neigour Right: " + currentBlock.neighborRight);
-        Debug.Log("Current Block vertical neighbour below left: " + currentBlock.neighborBelowLeft + " Neigour Below Right: " + currentBlock.neighborBelowRight);
+        Debug.Log("Current Block horizontal neighbour left: " + currentBlock.neighborLeft);
+        Debug.Log("Current Neigour Right: " + currentBlock.neighborRight);
+        Debug.Log("Current Block vertical neighbour below left: " + currentBlock.neighborBelowLeft); 
+        Debug.Log(" Neigour Below Right: " + currentBlock.neighborBelowRight);
         Debug.Log("Current Block horizontal neighbour left color: " + currentBlock.neighborLeft?.colorType ?? "None");
         Debug.Log("Current Block horizontal neighbour right color: " + currentBlock.neighborRight?.colorType ?? "None");
 
@@ -311,14 +324,14 @@ public class FloorManager : MonoBehaviour
         ///SPAWNER OF LADDERS
         /////
         if (player.floor % 2 == 0) {
-            Debug.Log("Even Floor");
+            Debug.Log("Spawning Even Floor Ladders");
             if (currentBlock.neighborBelowLeft != null) {
                 SpawnLadder("West");
             } else if (currentBlock.neighborBelowRight != null) {
                 SpawnLadder("East");
             }
         } else {
-            Debug.Log("Odd Floor");
+            Debug.Log("Spawning Odd Floor Ladders");
             SpawnLadder("West");
             SpawnLadder("East");
         }
@@ -349,44 +362,12 @@ public class FloorManager : MonoBehaviour
                 return;
         }
 
+        occupiedGridPositions.Clear(); //Maybe not needed
+
         // Spawn items and enemies at positions inside the current MazeBlock
-        //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true, currentBlock.transform);
-        //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false, currentBlock.transform);
+        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
+        SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
 
-        // (3) Corridor doors:
-        // If current block has a horizontal neighbor to the right, spawn an east door.
-        if (currentBlock.neighborRight != null)
-        {
-            //GameObject eastDoorPrefab = GetEastDoorPrefab(currentBlock.neighborRight.colorType);
-            // Determine a fixed local spawn position for the east door relative to the block.
-            //Vector3 eastDoorPosition = currentBlock.transform.position + new Vector3(doorOffsetX, doorOffsetY, 0);
-            //Instantiate(eastDoorPrefab, eastDoorPosition, Quaternion.identity, currentBlock.transform);
-        }
-        // If current block has a neighbor to the left, spawn a west door.
-        if (currentBlock.neighborLeft != null)
-        {
-            //GameObject westDoorPrefab = GetWestDoorPrefab(currentBlock.neighborLeft.colorType);
-            //Vector3 westDoorPosition = currentBlock.transform.position + new Vector3(-doorOffsetX, doorOffsetY, 0);
-            //Instantiate(westDoorPrefab, westDoorPosition, Quaternion.identity, currentBlock.transform);
-        }
-
-        // (4) Ladders for descending:
-        // If there’s a lower neighbor on the left, spawn a ladder on the west side.
-        if (currentBlock.neighborBelowLeft != null)
-        {
-            // Pick one of the available west ladder prefabs at random.
-            GameObject ladderWestPrefab = westLadders[Random.Range(0, westLadders.Length)];
-            // Use fixed offsets (which you define) relative to the MazeBlock.
-            //Vector3 ladderWestPos = currentBlock.transform.position + new Vector3(-ladderOffsetX, ladderOffsetY, ladderOffsetZ);
-            //Instantiate(ladderWestPrefab, ladderWestPos, Quaternion.identity, currentBlock.transform);
-        }
-        // Similarly, if there’s a lower neighbor on the right, spawn a ladder on the east side.
-        if (currentBlock.neighborBelowRight != null)
-        {
-            GameObject ladderEastPrefab = eastLadders[Random.Range(0, eastLadders.Length)];
-            //Vector3 ladderEastPos = currentBlock.transform.position + new Vector3(ladderOffsetX, ladderOffsetY, ladderOffsetZ);
-            //Instantiate(ladderEastPrefab, ladderEastPos, Quaternion.identity, currentBlock.transform);
-        }
     }
 
 
@@ -401,7 +382,30 @@ public class FloorManager : MonoBehaviour
 
 
     private void ClearFloorContents() {
-        return;
+        string[] itemEnemyTags = new string[] { "Item", "Enemy" };
+
+        foreach (string tag in itemEnemyTags)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+            foreach (GameObject obj in objects)
+            {
+                Destroy(obj);
+            }
+        }
+        Debug.Log("Destroyed Foor Items and Enemies");
+
+
+        string[] laddersDoorsTags = new string[] { "Ladder", "CorridorDoorEast", "CorridorDoorWest" };
+
+        foreach (string tag in laddersDoorsTags)
+        {
+            GameObject[] objects = GameObject.FindGameObjectsWithTag(tag);
+            foreach (GameObject obj in objects)
+            {
+                obj.SetActive(false);
+            }
+        }
+        Debug.Log("Deactivated Foor Ladders and Corridor Doors");
     }
 
 }
