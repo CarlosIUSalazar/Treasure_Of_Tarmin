@@ -995,7 +995,7 @@ public class MazeGenerator : MonoBehaviour
         // Notify floorManager to generate floor contents
         if (floorManager != null)
         {
-            floorManager.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate, currentPlayerBlock);
+            floorManager.GenerateFloorContents(startBlock.colorType, startBlock.gridCoordinate, currentPlayerBlock,  "NoCorridorDoorUsed");
             Debug.Log("Calling GenerateFloorContents");
             floorManager.PopulateCurrentNeighbours(currentPlayerBlock); //Initialize the neigbouring blocks information
         }

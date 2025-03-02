@@ -6,11 +6,7 @@ using UnityEngine;
 
 public class FloorManager : MonoBehaviour
 {
-    // [SerializeField] private GameObject[] itemPrefabs; // Assign item prefabs in the Inspector
-    // [SerializeField] private GameObject[] enemyPrefabs; // Assign enemy prefabs in the Inspector
     // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
-    // private int itemCount = 8; // Number of items to spawn
-    // private int enemyCount = 8; // Number of enemies to spawn
     [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
     [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
     [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
@@ -27,15 +23,11 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject[] eastLadders;
     Player player;
     PlayerGridMovement playerGridMovement;
-    //MazeBlock currentPlayerBlock;
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
     MazeBlock currentNeighbourBelowLeft;
     MazeBlock currentNeighbourBelowRight;
     MazeGenerator mazeGenerator;
-
-    //[SerializeField] private Transform player; // Assign in Inspector
-
     private float gridSize = 10.0f; // Size of each grid square
     private float itemHeightOffset = 0.1f; // Height adjustment for items above the ground
     private float enemyHeightOffset = 0f; // Height adjustment for enemies
@@ -47,9 +39,6 @@ public class FloorManager : MonoBehaviour
 
     void Start()
     {
-        //Debug.Log($"Maze Size: {mazeSize}");
-        //SpawnItems();
-        //SpawnEnemies();
         player = GameObject.Find("Player").GetComponent<Player>();
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
@@ -126,45 +115,58 @@ public class FloorManager : MonoBehaviour
             cursorTransform.position = pos; // assign the modified vector back
         }
         
-        // Disable the corridor door that was crossed (so the player cannot go back).
-        // For example, you might have a reference from the door's OnTriggerEnter to disable it:
-        // gameObject.SetActive(false);
-        
         // Now update the player's transform immediately.
-        // (Assuming PlayerGridMovement is on the same object as 'player'.)
         player.GetComponent<PlayerGridMovement>().SetPlayerImmediatePosition(newPosition, newRotation);
         
         // Now regenerate the floor contents based on the new block.
-        GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType, mazeGenerator.currentPlayerBlock.gridCoordinate, mazeGenerator.currentPlayerBlock);
-
+        GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType, mazeGenerator.currentPlayerBlock.gridCoordinate, mazeGenerator.currentPlayerBlock, corridorDoorSide);
     }
 
 
     public void MoveCursorVerticallyDown(RaycastHit hit) { //Descending using a Ladder
         GameObject item = hit.collider.gameObject;
-        
+        Vector3 newPosition = player.transform.position;
+        Quaternion newRotation = player.transform.rotation;
+        float floorCursorPositionOffset; // Position 1 is origin West (x +0) z=5.  Posiiton 2 is ladder west (x +0.3) z=35, 3 = Ladder East (x + 0.8) z=85, 4 = End of Maze east (x + 1.1) z=115
         if (player.floor % 2 == 0) { // Changing to a different block
             Debug.Log("Used Ladder from Even Floor " + player.floor);
             if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
+                
+                if (currentNeighbourBelowLeft == currentNeighbourBelowRight) { // If its a double stacked floor stay on East side
+                    floorCursorPositionOffset = 0.8f; 
+                } else {
+                    floorCursorPositionOffset = 0.3f; // If its not a double stacked, descend to the West ladder side of new block 
+                    // Now update the player's transform immediately.
+                    player.GetComponent<PlayerGridMovement>().SetPlayerImmediatePosition(new Vector3(newPosition.x, newPosition.y, newPosition.z =35), newRotation);
+                }
                 //Move Left Down
                 mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowRight); //This updates the mazeGenerator.currentPlayerBlock
                 Debug.Log("Player Descended to " + currentNeighbourBelowRight);
                 player.ModifyFloorNumber();
-
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
-                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");                
+                playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset);
                 return;
             } else if (item.name.Contains("West")) { ////Checking that the ladder prefab name contains West
+                
+                if (currentNeighbourBelowLeft == currentNeighbourBelowRight) {
+                    floorCursorPositionOffset = 0.3f; // If its a double stacked floor stay on West side
+                } else {
+                    floorCursorPositionOffset = 0.8f; // If its not a double stacked, descend to the East ladder side of new block 
+                    player.GetComponent<PlayerGridMovement>().SetPlayerImmediatePosition(new Vector3(newPosition.x, newPosition.y, newPosition.z =85), newRotation);
+                }
+                
                 //Move Right Down
                 mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowLeft);
                 Debug.Log("Player Descended to " + currentNeighbourBelowLeft);
                 player.ModifyFloorNumber();
 
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
-                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+                GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
+                playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset); //Shift X position on minimap to match the Ladder used
                 return;
             }
-        } else {
+        } else { //Descending within the same block
             Debug.Log("Used Ladder from Odd Floor " + player.floor);
             GameObject ladder = hit.collider.gameObject;
             Debug.Log("The Ladder hit nme is " + ladder.name);
@@ -177,7 +179,7 @@ public class FloorManager : MonoBehaviour
             player.ModifyFloorNumber();
 
             //PopulateCurrentNeighbours(currentPlayerBlock);
-            GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock);
+            GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
             return;
         }
     }
@@ -290,7 +292,7 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition, MazeBlock currentBlock)
+    public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition, MazeBlock currentBlock, string corridorDoorSide)
     {
         Debug.Log($"Generating floor contents for {currentBlock.name} with color {blockColor} at {startPosition}");
         // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
@@ -307,11 +309,11 @@ public class FloorManager : MonoBehaviour
         Debug.Log("Current Block horizontal neighbour left color: " + currentBlock.neighborLeft?.colorType ?? "None");
         Debug.Log("Current Block horizontal neighbour right color: " + currentBlock.neighborRight?.colorType ?? "None");
 
-
         /////
         /// SPAWNER OF CORRIDOR DOORS
         /////
-        if (currentBlock.neighborLeft != null) {
+
+        if (currentBlock.neighborLeft != null && corridorDoorSide != "CorridorDoorEast") {
             if (currentBlock.neighborLeft.colorType == BlockColorType.Blue) {
                 westDoorBlue.SetActive(true);
             } else if (currentBlock.neighborLeft.colorType == BlockColorType.Green) {
@@ -321,7 +323,7 @@ public class FloorManager : MonoBehaviour
             }
         }
 
-        if (currentBlock.neighborRight != null) {
+        if (currentBlock.neighborRight != null && corridorDoorSide != "CorridorDoorWest") {
             if (currentBlock.neighborRight.colorType == BlockColorType.Blue) {
                 eastDoorBlue.SetActive(true);
             } else if (currentBlock.neighborRight.colorType == BlockColorType.Green) {
@@ -330,7 +332,6 @@ public class FloorManager : MonoBehaviour
                 eastDoorTan.SetActive(true);
             }
         }
-
         //////
         ///SPAWNER OF LADDERS
         /////
@@ -346,7 +347,6 @@ public class FloorManager : MonoBehaviour
             SpawnLadder("West");
             SpawnLadder("East");
         }
-
 
         switch (blockColor)
         {
@@ -383,13 +383,6 @@ public class FloorManager : MonoBehaviour
 
 
     private void SpawnLadder(string side) {
-        // int randomInt = Random.Range(0, westLadders.Length);
-        
-        // if (side == "East"){
-        //     eastLadders[randomInt].SetActive(true);
-        // } else if (side == "West")
-        //     westLadders[randomInt].SetActive(true);
-
         int randomInt = Random.Range(0, westLadders.Length);
 
         if (side == "East")
@@ -442,5 +435,4 @@ public class FloorManager : MonoBehaviour
         }
         Debug.Log("Deactivated Foor Ladders and Corridor Doors");
     }
-
 }
