@@ -26,6 +26,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject[] westLadders;
     [SerializeField] private GameObject[] eastLadders;
     Player player;
+    PlayerGridMovement playerGridMovement;
     //MazeBlock currentPlayerBlock;
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
@@ -51,6 +52,7 @@ public class FloorManager : MonoBehaviour
         //SpawnEnemies();
         player = GameObject.Find("Player").GetComponent<Player>();
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
     }
 
 
@@ -69,12 +71,72 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    public void MovePlayerToNewMaze(string corridorDoorSide) {
+    public void MovePlayerToNewMaze(string corridorDoorSide) { // Crossing Corridor Door
+        MazeBlock targetBlock = null;
         if (corridorDoorSide == "CorridorDoorWest") {
-            mazeGenerator.UpdatePlayerCursor(currentNeighbourLeft);
+            targetBlock = currentNeighbourLeft;
         } else if (corridorDoorSide == "CorridorDoorEast") {
-            mazeGenerator.UpdatePlayerCursor(currentNeighbourRight);
+            targetBlock = currentNeighbourRight;
         }
+        if (targetBlock == null) {
+            Debug.LogWarning("No neighboring block found for door: " + corridorDoorSide);
+            return;
+        }
+
+        // Update the current block in the maze generator.
+        mazeGenerator.UpdatePlayerCursor(targetBlock);
+        PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
+
+        // Get the player's current rotation for comparison.
+        float currentY = player.transform.eulerAngles.y;
+
+        // Assign default values (so the variables are always initialized)
+        Vector3 newPosition = player.transform.position;
+        Quaternion newRotation = player.transform.rotation;
+
+        // Determine the new position/rotation based on the door crossed and the player’s current facing.
+        if (corridorDoorSide == "CorridorDoorWest") {
+            // If crossing the West door:
+            if (Mathf.Abs(Mathf.DeltaAngle(currentY, 90)) < 10f) { // Facing South
+                newPosition = new Vector3(65, 2.5f, 115);
+                newRotation = Quaternion.Euler(0, 90, 0);
+            } else if (Mathf.Abs(Mathf.DeltaAngle(currentY, 270)) < 10f) { // Facing North
+                newPosition = new Vector3(55, 2.5f, 115);
+                newRotation = Quaternion.Euler(0, -90, 0);
+            }
+
+            playerGridMovement.UpdateMinimapCursor(1.1f);
+        }
+        else if (corridorDoorSide == "CorridorDoorEast") {
+            // If crossing the East door:
+            if (Mathf.Abs(Mathf.DeltaAngle(currentY, 90)) < 10f) { // Facing South
+                newPosition = new Vector3(65, 2.5f, 5);
+                newRotation = Quaternion.Euler(0, 90, 0);
+            } else if (Mathf.Abs(Mathf.DeltaAngle(currentY, 270)) < 10f) { // Facing North
+                newPosition = new Vector3(55, 2.5f, 5);
+                newRotation = Quaternion.Euler(0, -90, 0);
+            }
+        }
+
+        //IF PLAYER IS ON EVEN FLOOR NEED TO LOWER THE CURSOR VERTICALLY NOT ONLY MOVE HORIZONTALLY WHEN CROSSING CORRIDOR DOORS
+        if (player.floor % 2 == 0){ 
+            Transform cursorTransform = mazeGenerator.currentPlayerBlock.playerCursor.transform;
+            Vector3 pos = cursorTransform.position; // get the current position
+            pos.y -= 12f; // subtract 12 from y
+            cursorTransform.position = pos; // assign the modified vector back
+        }
+        
+        // Disable the corridor door that was crossed (so the player cannot go back).
+        // For example, you might have a reference from the door's OnTriggerEnter to disable it:
+        // gameObject.SetActive(false);
+        
+        // Now update the player's transform immediately.
+        // (Assuming PlayerGridMovement is on the same object as 'player'.)
+        player.GetComponent<PlayerGridMovement>().SetPlayerImmediatePosition(newPosition, newRotation);
+        
+        // Now regenerate the floor contents based on the new block.
+        GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType, mazeGenerator.currentPlayerBlock.gridCoordinate, mazeGenerator.currentPlayerBlock);
+
     }
 
 
@@ -119,57 +181,6 @@ public class FloorManager : MonoBehaviour
             return;
         }
     }
-
-
-    // void SpawnItems()
-    // {
-    //     //SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
-    // }
-
-    // void SpawnEnemies()
-    // {
-    //     //SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
-    // }
-
-    // Called by MazeGenerator after player placement
-    // public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition)
-    // {
-    //     Debug.Log("From GenerateFloorContents in FloorManager in block Color: " + blockColor + " At Start Position: " + startPosition);
-    //     int itemCount, enemyCount;
-    //     GameObject[] itemPrefabs, enemyPrefabs;
-
-    //     // Set counts and prefabs based on block color
-    //     switch (blockColor)
-    //     {
-    //         case BlockColorType.Blue: // Spiritual
-    //             itemCount = 4;
-    //             enemyCount = 3;
-    //             itemPrefabs = spiritualItemPrefabs;
-    //             enemyPrefabs = spiritualMonsterPrefabs;
-    //             break;
-    //         case BlockColorType.Green: // War
-    //             itemCount = 4;
-    //             enemyCount = 3;
-    //             itemPrefabs = warItemPrefabs;
-    //             enemyPrefabs = warMonsterPrefabs;
-    //             break;
-    //         case BlockColorType.Tan: // Mixed
-    //             itemCount = 4;
-    //             enemyCount = 4;
-    //             itemPrefabs = mixedItemPrefabs;
-    //             enemyPrefabs = mixedMonsterPrefabs;
-    //             break;
-    //         default:
-    //             Debug.LogError("Unknown block color!");
-    //             return;
-    //     }
-
-    //     occupiedGridPositions.Clear();
-    //     occupiedGridPositions.Add(startPosition); // Reserve player’s starting spot
-
-    //     SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);
-    //     SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);
-    // }
 
 
     private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
@@ -371,13 +382,38 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    private void SpawnLadder(string Side) {
-        int randomInt = Random.Range(0, westLadders.Length);
+    private void SpawnLadder(string side) {
+        // int randomInt = Random.Range(0, westLadders.Length);
         
-        if (Side == "East"){
+        // if (side == "East"){
+        //     eastLadders[randomInt].SetActive(true);
+        // } else if (side == "West")
+        //     westLadders[randomInt].SetActive(true);
+
+        int randomInt = Random.Range(0, westLadders.Length);
+
+        if (side == "East")
+        {
             eastLadders[randomInt].SetActive(true);
-        } else if (Side == "West")
+
+            // Now mark the ladder’s grid cell as occupied
+            GameObject ladderObj = eastLadders[randomInt];
+            Vector3 ladderPos = ladderObj.transform.position;
+            int gx = Mathf.FloorToInt(ladderPos.x / gridSize);
+            int gz = Mathf.FloorToInt(ladderPos.z / gridSize);
+            MarkGridAsOccupied(new Vector2Int(gx, gz));
+        }
+        else if (side == "West")
+        {
             westLadders[randomInt].SetActive(true);
+
+            // Mark the ladder’s grid cell as occupied
+            GameObject ladderObj = westLadders[randomInt];
+            Vector3 ladderPos = ladderObj.transform.position;
+            int gx = Mathf.FloorToInt(ladderPos.x / gridSize);
+            int gz = Mathf.FloorToInt(ladderPos.z / gridSize);
+            MarkGridAsOccupied(new Vector2Int(gx, gz));
+        }
     }
 
 
@@ -393,7 +429,6 @@ public class FloorManager : MonoBehaviour
             }
         }
         Debug.Log("Destroyed Foor Items and Enemies");
-
 
         string[] laddersDoorsTags = new string[] { "Ladder", "CorridorDoorEast", "CorridorDoorWest" };
 

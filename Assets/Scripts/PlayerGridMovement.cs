@@ -177,7 +177,7 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
 
-    void UpdateMinimapCursor(float modifier)
+    public void UpdateMinimapCursor(float modifier)
     {
         //if (minimapCursor == null || minimapGrid == null) return;
         MazeBlock currentMazeBlock = FindActiveMazeBlock();
@@ -227,7 +227,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
         return null; // No active block found
     }
-
+    
     private void EnableBackwardsStep(Vector3 previousPosition, Quaternion previousRotation) {
         playerPreviousPosition = previousPosition;
         playerPreviousRotation = previousRotation;
@@ -345,6 +345,17 @@ public class PlayerGridMovement : MonoBehaviour
             }
         }
         return true;
+    }
+
+
+    public void SetPlayerImmediatePosition(Vector3 newPos, Quaternion newRot)
+    {
+        transform.position = newPos;
+        targetPosition = newPos;
+        transform.rotation = newRot;
+        targetRotation = newRot;
+        isMoving = false;
+        isRotating = false;
     }
 
 
