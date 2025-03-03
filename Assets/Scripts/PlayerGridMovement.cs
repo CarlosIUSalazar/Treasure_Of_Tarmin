@@ -410,13 +410,15 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out hit, interactionDistance))
         {
-            if (hit.collider.CompareTag("Door"))
-            {
-                actionButtonText.text = "Open";
-                actionButton.onClick.RemoveAllListeners();
-                actionButton.onClick.AddListener(() => OpenDoor(hit));
-            }
-            else if (hit.collider.CompareTag("Enemy"))
+            //if (hit.collider.CompareTag("Door"))
+            //{
+                
+                // actionButtonText.text = "Open";
+                // actionButton.onClick.RemoveAllListeners();
+                // actionButton.onClick.AddListener(() => OpenDoor(hit));
+            //}
+            //else 
+            if (hit.collider.CompareTag("Enemy"))
             {
                 InitiateFight(hit);
             }
@@ -427,12 +429,12 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
-    private void OpenDoor(RaycastHit hit) {
-        DoorController door = hit.collider.GetComponent<DoorController>();
-        if (door != null) {
-            door.OpenDoor();
-        }
-    }
+    // private void OpenDoor(RaycastHit hit) {
+    //     DoorController door = hit.collider.GetComponent<DoorController>();
+    //     if (door != null) {
+    //         door.OpenDoor();
+    //     }
+    // }
 
     public void OpenDoorButton()
     {
