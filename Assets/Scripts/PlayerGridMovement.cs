@@ -121,7 +121,6 @@ public class PlayerGridMovement : MonoBehaviour
                 }
             }
         }
-
     }
 
     public void HideDirectionalButtons()
