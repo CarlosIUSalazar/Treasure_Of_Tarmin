@@ -1,12 +1,10 @@
 using UnityEngine;
-using System.Collections;
 using UnityEngine.UI;
 using TMPro;
-using Unity.VisualScripting;
 
 public class PlayerGridMovement : MonoBehaviour
 {
-    [SerializeField] private Button actionButton;
+    [SerializeField] public Button actionButton;
     [SerializeField] private Button dropButton;
     [SerializeField] private Button forwardButton;
     [SerializeField] private Button rotateLeftButton;
@@ -40,6 +38,8 @@ public class PlayerGridMovement : MonoBehaviour
     public RectTransform minimapCursor; // Assign the UI cursor from Unity Editor
     public RectTransform minimapGrid; // Parent object of the minimap grid
 
+    private float maxInteractionDistance = 5f;
+
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
@@ -50,9 +50,8 @@ public class PlayerGridMovement : MonoBehaviour
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
-
         backwardButton.gameObject.SetActive(false); //Start with the backwards button disabled.
-
+        HideActionButton();
         gridX = 0; // Player starts at the NW corner (leftmost on minimap)
         gridZ = 0; // Player starts at the top row of the 12x12 grid
     }
@@ -68,6 +67,7 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (gameManager.isFighting)
         {
+            ShowActionButton();
             HideDirectionalButtons();
         } else {
             ShowDirectionalButtons();
@@ -88,11 +88,40 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (gameManager.isFighting && gameManager.isPlayersTurn) { //This sequence is to make the StepBack/Escape logic work
             backwardButton.gameObject.SetActive(true);
+            ShowActionButton();
         } else if (gameManager.isFighting && gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
             backwardButton.gameObject.SetActive(false);
+            HideActionButton();
         } else if (canBackStep && !gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
             backwardButton.gameObject.SetActive(false);
+            HideActionButton();
         }
+
+
+            // Instead of checking for a button press, check for a mouse click.
+        if (Input.GetMouseButtonDown(0))
+        {
+            // Create a ray from the main camera through the mouse position.
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            if (Physics.Raycast(ray, out RaycastHit hit, maxInteractionDistance))
+            {
+                // If the ray hits an item, trigger pickup.
+                if (hit.collider.CompareTag("Item"))
+                {
+                    itemManager.PickUpItem(hit);
+                }
+                // If the ray hits a ladder, trigger descend.
+                else if (hit.collider.CompareTag("Ladder"))
+                {
+                    if (gameManager.isFighting) {
+                        Debug.Log("Can't Use Ladder while fighting");
+                    } else {
+                        floorManager.MoveCursorVerticallyDown(hit);
+                    }
+                }
+            }
+        }
+
     }
 
     public void HideDirectionalButtons()
@@ -257,6 +286,7 @@ public class PlayerGridMovement : MonoBehaviour
             if (canEscape > 5) { // CAN ESCAPE
                 Debug.Log("SUCCESSFUL ESCAPE!!");
                 gameManager.isFighting = false;
+                HideActionButton();
                 player.transform.position = playerPreviousPosition;
                 player.transform.rotation = playerPreviousRotation;
                 canBackStep = false;
@@ -365,31 +395,32 @@ public class PlayerGridMovement : MonoBehaviour
         float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
         float interactionDistance = gridSize;           // Detect doors/enemies one grid away
 
-        Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
+        //Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + new Vector3(0, 1, 0); // Slight downward offset
         Vector3 rayDirection = transform.forward;
 
         // Short raycast for items
         Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
 
-        if ((Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) && !gameManager.isFighting)
-        {
-            if (hit.collider.CompareTag("Item"))
-            {
-                dropButton.gameObject.SetActive(false);
-                actionButtonText.text = "Pick Up";
-                actionButton.onClick.RemoveAllListeners();
-                actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
-                return; // Return to avoid triggering further checks
-            } 
-            if (hit.collider.CompareTag("Ladder"))
-            {
-                dropButton.gameObject.SetActive(false);
-                actionButtonText.text = "Descend";
-                actionButton.onClick.RemoveAllListeners();
-                actionButton.onClick.AddListener(() => floorManager.MoveCursorVerticallyDown(hit));
-                return; // Return to avoid triggering further checks
-            } 
-        }
+        // if ((Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) && !gameManager.isFighting)
+        // {
+        //     if (hit.collider.CompareTag("Item"))
+        //     {
+        //         dropButton.gameObject.SetActive(false);
+        //         actionButtonText.text = "Pick Up";
+        //         actionButton.onClick.RemoveAllListeners();
+        //         actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
+        //         return; // Return to avoid triggering further checks
+        //     } 
+        //     if (hit.collider.CompareTag("Ladder"))
+        //     {
+        //         dropButton.gameObject.SetActive(false);
+        //         actionButtonText.text = "Descend";
+        //         actionButton.onClick.RemoveAllListeners();
+        //         actionButton.onClick.AddListener(() => floorManager.MoveCursorVerticallyDown(hit));
+        //         return; // Return to avoid triggering further checks
+        //     } 
+        // }
         
         // This is still not working right so giving up for now.
         if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
@@ -463,18 +494,17 @@ public class PlayerGridMovement : MonoBehaviour
         gameManager.UpdateEnemyHP(enemy.currentEnemyHP); // Get the current HP from this enemy and pass it to GameManager for display in UI 
         gameManager.enemyHPText.gameObject.SetActive(true); //Make the Emeny HP label appear
 
-
         if (enemy != null) {
             gameManager.isFighting = true; //initiate fight more
             gameManager.SetActiveEnemy(enemy); //Register current enemy as active
 
             if (gameManager.isPlayersTurn)
             {
-                actionButton.gameObject.SetActive(true);
+                ShowActionButton();
             }
             else
             {
-                actionButton.gameObject.SetActive(false);
+                HideActionButton();
             }
 
             actionButtonText.text = "Attack";

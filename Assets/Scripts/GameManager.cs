@@ -74,13 +74,12 @@ public class GameManager : MonoBehaviour
 
     public void SetActiveEnemy(Enemy enemy) {
         activeEnemy = enemy;
-
         if (enemy == null) {
             // Return to exploration mode and update UI
             isFighting = false;
+            playerGridMovement.HideActionButton();
             isExploring = true;
             playerGridMovement.ShowDirectionalButtons();
-            playerGridMovement.ShowActionButton();
         }
     }
 }

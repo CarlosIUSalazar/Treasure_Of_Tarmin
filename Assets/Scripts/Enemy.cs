@@ -7,11 +7,13 @@ public class Enemy : MonoBehaviour
     public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     GameManager gameManager;
     public int currentEnemyHP;
+    PlayerGridMovement playerGridMovement;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         currentEnemyHP = Random.Range(0,15) + enemyBaseHP;
         gameManager.UpdateEnemyHP(currentEnemyHP);
     }
@@ -35,6 +37,7 @@ public class Enemy : MonoBehaviour
         Debug.Log("Enemy Defeated");
         Destroy(gameObject);
         gameManager.isFighting = false;
+        playerGridMovement.HideActionButton();
         // Trigger exploration mode after combat ends
         gameManager.isExploring = true;
         // Refresh UI immediately after combat

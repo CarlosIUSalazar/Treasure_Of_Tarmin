@@ -76,7 +76,7 @@ public class EnemyShootingSpawner : MonoBehaviour
 
     IEnumerator DelayPlayerturn() {
         yield return new WaitForSeconds(1f);
-        playerGridMovement.ShowActionButton();
         gameManager.isPlayersTurn = true;
+        playerGridMovement.ShowActionButton();
     }
 }
