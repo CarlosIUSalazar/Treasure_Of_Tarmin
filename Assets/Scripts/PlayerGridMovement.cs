@@ -12,6 +12,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private Button backwardButton;
     [SerializeField] private TextMeshProUGUI actionButtonText;
     [SerializeField] private Button restButton;
+    [SerializeField] private TextMeshProUGUI facingOrientationText;
 
     PlayerShootingSpawner playerShootingSpawner;
     GameManager gameManager;
@@ -54,6 +55,8 @@ public class PlayerGridMovement : MonoBehaviour
         HideActionButton();
         gridX = 0; // Player starts at the NW corner (leftmost on minimap)
         gridZ = 0; // Player starts at the top row of the 12x12 grid
+        //facingOrientationText.text = "East";
+        UpdateFacingOrientation();
     }
 
     void Update() {
@@ -97,7 +100,6 @@ public class PlayerGridMovement : MonoBehaviour
             HideActionButton();
         }
 
-
             // Instead of checking for a button press, check for a mouse click.
         if (Input.GetMouseButtonDown(0))
         {
@@ -120,6 +122,24 @@ public class PlayerGridMovement : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    private void UpdateFacingOrientation() {
+        float y = transform.eulerAngles.y;
+
+        if (y == 0 || y == 360) {
+            facingOrientationText.text = "East";
+            Debug.Log("Y Orientation is " + y);
+        } else if (y == 90) {
+            Debug.Log("Y Orientation is " + y);
+            facingOrientationText.text = "South";
+        } else if (y == 180 || y == -180) {
+            Debug.Log("Y Orientation is " + y);
+            facingOrientationText.text = "West";
+        } else if (y == 270 || y == -90) {
+            Debug.Log("Y Orientation is " + y);
+            facingOrientationText.text = "North";
         }
     }
 
@@ -340,6 +360,7 @@ public class PlayerGridMovement : MonoBehaviour
                 isRotating = false;
             }
         }
+        UpdateFacingOrientation();
     }
 
 
