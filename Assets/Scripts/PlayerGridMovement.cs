@@ -126,19 +126,21 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     private void UpdateFacingOrientation() {
-        float y = transform.eulerAngles.y;
+        // Get the y-angle (in degrees) and normalize it between 0 and 360.
+        float y = transform.eulerAngles.y % 360f;
+        if (y < 0) y += 360f;
 
-        if (y == 0 || y == 360) {
+        // According to our mapping (0° = East, 90° = South, 180° = West, 270° = North)
+        if (y < 45f || y >= 315f) {
             facingOrientationText.text = "East";
-            Debug.Log("Y Orientation is " + y);
-        } else if (y == 90) {
-            Debug.Log("Y Orientation is " + y);
+        }
+        else if (y >= 45f && y < 135f) {
             facingOrientationText.text = "South";
-        } else if (y == 180 || y == -180) {
-            Debug.Log("Y Orientation is " + y);
+        }
+        else if (y >= 135f && y < 225f) {
             facingOrientationText.text = "West";
-        } else if (y == 270 || y == -90) {
-            Debug.Log("Y Orientation is " + y);
+        }
+        else if (y >= 225f && y < 315f) {
             facingOrientationText.text = "North";
         }
     }
