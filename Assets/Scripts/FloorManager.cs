@@ -52,19 +52,7 @@ public class FloorManager : MonoBehaviour
 
 
     private void GenerateMazeSets() {
-        // Maze1 Vector3(114.669998,-444.940002,505.359985)
-        // Maze2 Vector3(114.669998,-444.940002,555.359985)
-        // Maze3 Vector3(164.669998,-444.940002,505.359985)
-        // Maze4 Vector3(164.669998,-444.940002,555.359985)
         int mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(114.669998f,-444.940002f,505.359985f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(114.669998f,-444.940002f,555.359985f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(164.669998f,-444.940002f,505.359985f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(164.669998f,-444.940002f,555.359985f),Quaternion.identity);
-
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint1.transform.localPosition,Quaternion.identity);
         mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint2.transform.localPosition,Quaternion.identity);
@@ -72,30 +60,6 @@ public class FloorManager : MonoBehaviour
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint3.transform.localPosition,Quaternion.identity);
         mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint4.transform.localPosition,Quaternion.identity);
-
-        // Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint1.transform.position,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint2.transform.position,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint3.transform.position,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint4.transform.position,Quaternion.identity);
-
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(114.559998f,0,505.26001f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(114.559998f,0,555.26001f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(164.559998f,0,505.26001f),Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],new Vector3(164.559998f,0,555.26001f),Quaternion.identity);
-
-        // Instantiate(mazeSetsPrefabs[mazeIndex],Vector3.zero,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],Vector3.zero,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],Vector3.zero,Quaternion.identity);
-        // mazeIndex = Random.Range(0,15);
-        // Instantiate(mazeSetsPrefabs[mazeIndex],Vector3.zero,Quaternion.identity);
     }
 
 
