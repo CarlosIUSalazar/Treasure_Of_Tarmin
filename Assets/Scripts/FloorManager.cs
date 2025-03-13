@@ -34,7 +34,7 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject southWestEntranceDarkSpawnPoint;
     [SerializeField] private GameObject southEastEntranceDarkSpawnPoint;
     [SerializeField] private GameObject southEastEntranceLightSpawnPoint;
-    [SerializeField] private GameObject nortEastEntranceLightSpawnPoint;
+    [SerializeField] private GameObject northEastEntranceLightSpawnPoint;
     [SerializeField] private GameObject northEastEntranceDarkSpawnPoint;
     [SerializeField] private GameObject northWestEntranceDarkSpawnPoint;
     // 4 CONNECTING DOORS BETWEEN MAZE BLOCKS
@@ -74,9 +74,8 @@ public class FloorManager : MonoBehaviour
 
 
     private void GenerateMazeSets() {
-        
-
-
+        // Generate 4 Maze Sets
+        int randomIndex;
         int mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint1.transform.localPosition,Quaternion.identity);
         mazeIndex = Random.Range(0,15);
@@ -85,6 +84,110 @@ public class FloorManager : MonoBehaviour
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint3.transform.localPosition,Quaternion.identity);
         mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint4.transform.localPosition,Quaternion.identity);
+        
+        // Generate Maze entrance DoorWalls
+        // 1. NorthWest Light
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,northWestEntranceLightSpawnPoint.transform.position,Quaternion.identity);
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,northWestEntranceLightSpawnPoint.transform.position,Quaternion.identity);
+        }
+        // 2. SouthWest Light
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,southWestEntranceLightSpawnPoint.transform.position,Quaternion.identity);
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,southWestEntranceLightSpawnPoint.transform.position,Quaternion.identity);
+        }
+        // 3. SouthWest Dark
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorDark,southWestEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorDark,southWestEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        }
+        // 4. SouthEast Dark
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorDark,southEastEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorDark,southEastEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        }
+        // 5. SouthEast Light
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,southEastEntranceLightSpawnPoint.transform.position,Quaternion.Euler(0, 180, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,southEastEntranceLightSpawnPoint.transform.position,Quaternion.Euler(0, 180, 0));
+        }
+        // 6. NorthEast Light
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,northEastEntranceLightSpawnPoint.transform.position,Quaternion.Euler(0, 180, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,northEastEntranceLightSpawnPoint.transform.position,Quaternion.Euler(0, 180, 0));
+        }
+        // 7. NorthEast Dark
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorDark,northEastEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorDark,northEastEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        }
+        // 8. NorthWest Dark
+        randomIndex = Random.Range(0,3);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorDark,northWestEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorDark,northWestEntranceDarkSpawnPoint.transform.position,Quaternion.Euler(0, 270, 0));
+        }
+
+        // SPAWN DOORS CONNECTING INNER MAZES
+        // 1. Northside East To West 
+        randomIndex = Random.Range(0,5);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,MazeConnectDoorPoint1.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,MazeConnectDoorPoint1.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 3) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint1.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 4) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint1.transform.position,Quaternion.Euler(0, 0, 0));
+        }
+        // 2. West Side North To South 
+        randomIndex = Random.Range(0,5);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,MazeConnectDoorPoint2.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,MazeConnectDoorPoint2.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 3) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint2.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 4) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint2.transform.position,Quaternion.Euler(0, 270, 0));
+        }
+        // 3. South Side East To West 
+        randomIndex = Random.Range(0,5);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,MazeConnectDoorPoint3.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,MazeConnectDoorPoint3.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 3) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint3.transform.position,Quaternion.Euler(0, 0, 0));
+        } else if (randomIndex == 4) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint3.transform.position,Quaternion.Euler(0, 0, 0));
+        }
+        // 4. East Side North To South 
+        randomIndex = Random.Range(0,5);
+        if (randomIndex == 1) {
+            Instantiate(MazeDoorLight,MazeConnectDoorPoint4.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 2) {
+            Instantiate(MazeSecretDoorLight,MazeConnectDoorPoint4.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 3) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint4.transform.position,Quaternion.Euler(0, 270, 0));
+        } else if (randomIndex == 4) {
+            Instantiate(MazeSecretDoorDark,MazeConnectDoorPoint4.transform.position,Quaternion.Euler(0, 270, 0));
+        }
     }
 
 
@@ -455,7 +558,7 @@ public class FloorManager : MonoBehaviour
 
 
     private void ClearFloorContents() {
-        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet" };
+        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet", "MazeEntranceDoorWall" };
 
         foreach (string tag in itemEnemyTags)
         {

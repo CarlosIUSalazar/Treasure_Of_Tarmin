@@ -3872,7 +3872,7 @@ MonoBehaviour:
   southWestEntranceDarkSpawnPoint: {fileID: 1578596241}
   southEastEntranceDarkSpawnPoint: {fileID: 1992954102}
   southEastEntranceLightSpawnPoint: {fileID: 128271957}
-  nortEastEntranceLightSpawnPoint: {fileID: 107837476}
+  northEastEntranceLightSpawnPoint: {fileID: 107837476}
   northEastEntranceDarkSpawnPoint: {fileID: 858853578}
   northWestEntranceDarkSpawnPoint: {fileID: 1082223951}
   MazeConnectDoorPoint1: {fileID: 1735824023}
