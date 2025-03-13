@@ -12,6 +12,7 @@ TagManager:
   - Ladder
   - CorridorDoorWest
   - CorridorDoorEast
+  - MazeSet
   layers:
   - Default
   - TransparentFX

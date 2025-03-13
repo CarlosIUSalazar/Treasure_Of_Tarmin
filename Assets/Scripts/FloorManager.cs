@@ -26,6 +26,28 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject mazeSpawnPoint3;
     [SerializeField] private GameObject mazeSpawnPoint4;
     [SerializeField] private GameObject[] mazeSetsPrefabs;
+    //[SerializeField] private GameObject mazeWallEntranceLight;
+    //[SerializeField] private GameObject mazeWallEntranceDark;
+    //ENTRANCES TO THE MAZE
+    [SerializeField] private GameObject northWestEntranceLightSpawnPoint;
+    [SerializeField] private GameObject southWestEntranceLightSpawnPoint;
+    [SerializeField] private GameObject southWestEntranceDarkSpawnPoint;
+    [SerializeField] private GameObject southEastEntranceDarkSpawnPoint;
+    [SerializeField] private GameObject southEastEntranceLightSpawnPoint;
+    [SerializeField] private GameObject nortEastEntranceLightSpawnPoint;
+    [SerializeField] private GameObject northEastEntranceDarkSpawnPoint;
+    [SerializeField] private GameObject northWestEntranceDarkSpawnPoint;
+    // 4 CONNECTING DOORS BETWEEN MAZE BLOCKS
+    [SerializeField] private GameObject MazeConnectDoorPoint1;
+    [SerializeField] private GameObject MazeConnectDoorPoint2;
+    [SerializeField] private GameObject MazeConnectDoorPoint3;
+    [SerializeField] private GameObject MazeConnectDoorPoint4;
+    // MAZE DOOR WALLS
+    [SerializeField] private GameObject MazeDoorLight;
+    [SerializeField] private GameObject MazeSecretDoorLight;
+    [SerializeField] private GameObject MazeDoorDark;
+    [SerializeField] private GameObject MazeSecretDoorDark;
+
     Player player;
     PlayerGridMovement playerGridMovement;
     MazeBlock currentNeighbourLeft;
@@ -52,6 +74,9 @@ public class FloorManager : MonoBehaviour
 
 
     private void GenerateMazeSets() {
+        
+
+
         int mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint1.transform.localPosition,Quaternion.identity);
         mazeIndex = Random.Range(0,15);
@@ -315,6 +340,7 @@ public class FloorManager : MonoBehaviour
         Debug.Log($"Generating floor contents for {currentBlock.name} with color {blockColor} at {startPosition}");
         // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
         ClearFloorContents();
+        GenerateMazeSets();
         // (2) Determine how many items/enemies to spawn and which prefab arrays to use based on blockColor.
         int itemCount, enemyCount;
         GameObject[] itemPrefabs, enemyPrefabs;
@@ -429,7 +455,7 @@ public class FloorManager : MonoBehaviour
 
 
     private void ClearFloorContents() {
-        string[] itemEnemyTags = new string[] { "Item", "Enemy" };
+        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet" };
 
         foreach (string tag in itemEnemyTags)
         {
