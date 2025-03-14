@@ -47,6 +47,20 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject MazeSecretDoorLight;
     [SerializeField] private GameObject MazeDoorDark;
     [SerializeField] private GameObject MazeSecretDoorDark;
+    // MAZE EYES SPAWN POSITIONS
+    [SerializeField] private GameObject EyeSpawnPoint1;
+    [SerializeField] private GameObject EyeSpawnPoint2;
+    [SerializeField] private GameObject EyeSpawnPoint3;
+    [SerializeField] private GameObject EyeSpawnPoint4;
+    [SerializeField] private GameObject EyeSpawnPoint5;
+    [SerializeField] private GameObject EyeSpawnPoint6;
+    [SerializeField] private GameObject EyeSpawnPoint7;
+    [SerializeField] private GameObject EyeSpawnPoint8;
+    // Eye Prefabs
+    [SerializeField] private GameObject WallEyesBluePrefab;
+    [SerializeField] private GameObject WallEyesGreenPrefab;
+    [SerializeField] private GameObject WallEyesTanPrefab;
+
 
     Player player;
     PlayerGridMovement playerGridMovement;
@@ -69,7 +83,7 @@ public class FloorManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
-        GenerateMazeSets();
+        //GenerateMazeSets();
     }
 
 
@@ -457,9 +471,43 @@ public class FloorManager : MonoBehaviour
         Debug.Log("Current Block horizontal neighbour right color: " + currentBlock.neighborRight?.colorType ?? "None");
 
         /////
+        /// SPAWNER OF WALL EYES 
+        /////
+        if (currentBlock.colorType == BlockColorType.Blue) {
+                Debug.Log("Spawning Blue Eyes");
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint1.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint2.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint3.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint4.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint5.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint6.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint7.transform.localPosition,Quaternion.Euler(0,90,0));
+                Instantiate(WallEyesBluePrefab,EyeSpawnPoint8.transform.localPosition,Quaternion.Euler(0,90,0));
+        } else if (currentBlock.colorType == BlockColorType.Green) {
+                Debug.Log("Spawning Green Eyes");
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint1.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint2.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint3.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint4.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint5.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint6.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint7.transform.localPosition,Quaternion.Euler(0,90,0));
+                Instantiate(WallEyesGreenPrefab,EyeSpawnPoint8.transform.localPosition,Quaternion.Euler(0,90,0));
+        }   else if (currentBlock.colorType == BlockColorType.Tan) {
+                Debug.Log("Spawning Tan Eyes");
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint1.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint2.transform.localPosition,Quaternion.identity);
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint3.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint4.transform.localPosition,Quaternion.Euler(0,270,0));
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint5.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint6.transform.localPosition,Quaternion.Euler(0,180,0));
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint7.transform.localPosition,Quaternion.Euler(0,90,0));
+                Instantiate(WallEyesTanPrefab,EyeSpawnPoint8.transform.localPosition,Quaternion.Euler(0,90,0));
+        }
+
+        /////
         /// SPAWNER OF CORRIDOR DOORS
         /////
-
         if (currentBlock.neighborLeft != null && corridorDoorSide != "CorridorDoorEast") {
             if (currentBlock.neighborLeft.colorType == BlockColorType.Blue) {
                 westDoorBlue.SetActive(true);
