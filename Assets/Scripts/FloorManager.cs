@@ -61,7 +61,6 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject WallEyesGreenPrefab;
     [SerializeField] private GameObject WallEyesTanPrefab;
 
-
     Player player;
     PlayerGridMovement playerGridMovement;
     MazeBlock currentNeighbourLeft;
@@ -99,6 +98,7 @@ public class FloorManager : MonoBehaviour
         mazeIndex = Random.Range(0,15);
         Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint4.transform.localPosition,Quaternion.identity);
         
+        /////
         // Generate Maze entrance DoorWalls
         // 1. NorthWest Light
         randomIndex = Random.Range(0,3);
@@ -408,6 +408,7 @@ public class FloorManager : MonoBehaviour
         }
     }
 
+
     private bool IsPositionOccupied(Vector2Int position)
     {
         return occupiedGridPositions.Contains(position);
@@ -417,6 +418,7 @@ public class FloorManager : MonoBehaviour
     {
         occupiedGridPositions.Add(position);
     }
+
 
     // Check if the position is directly adjacent (N, S, E, W) to any enemy
     private bool IsDirectlyAdjacentToEnemy(Vector2Int position)
@@ -432,6 +434,7 @@ public class FloorManager : MonoBehaviour
         }
         return false;
     }
+
 
     // Check if the position is adjacent (including diagonals) to any enemy
     private bool IsAdjacentToEnemy(Vector2Int position)
@@ -543,23 +546,32 @@ public class FloorManager : MonoBehaviour
             SpawnLadder("East");
         }
 
+        // -- Item Frequencies per floor (all difficulties) --
+        //  2 Ladders
+        //  1 Quiver
+        //  2 Sacks of Flour
+        //  2 Defensive Items
+        //  8 Weapons
+        //  5 Containers
+        //  8 Enemies
+
         switch (blockColor)
         {
             case BlockColorType.Blue:
-                itemCount = 4;
-                enemyCount = 3;
+                itemCount = 8;
+                enemyCount = 8;
                 itemPrefabs = spiritualItemPrefabs;
                 enemyPrefabs = spiritualMonsterPrefabs;
                 break;
             case BlockColorType.Green:
-                itemCount = 4;
-                enemyCount = 3;
+                itemCount = 8;
+                enemyCount = 8;
                 itemPrefabs = warItemPrefabs;
                 enemyPrefabs = warMonsterPrefabs;
                 break;
             case BlockColorType.Tan:
-                itemCount = 5;
-                enemyCount = 4;
+                itemCount = 8;
+                enemyCount = 8;
                 itemPrefabs = mixedItemPrefabs;
                 enemyPrefabs = mixedMonsterPrefabs;
                 break;
@@ -568,12 +580,11 @@ public class FloorManager : MonoBehaviour
                 return;
         }
 
-        occupiedGridPositions.Clear(); //Maybe not needed
+        //occupiedGridPositions.Clear(); //Maybe not needed
 
         // Spawn items and enemies at positions inside the current MazeBlock
         SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
         SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-
     }
 
 

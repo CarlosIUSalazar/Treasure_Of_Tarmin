@@ -16,27 +16,45 @@ Status: Vote
 Elapsed Time
 02:24.0
 
-The master and expert of the game Ryan Winslow can explain it a lot better. I did my best. I am trying to help to understand the game to make it easier to adjudicate
+The master and expert of the game Ryan Winslow can explain it a lot better. I did my best. I am trying 
+to help to understand the game to make it easier to adjudicate
 Note:
 Helpful Information for Twin Galaxy Members that do not know the game:
 Please watch
 https://www.youtube.com/watch?v=9qYpz4WKLf8
 To find out about the game go to https://en.wikipedia.org/wiki/Advanc...sure_of_Tarmin
 
-The player begins the game with the lowest level bow, a small supply of food, a number of arrows dependent on the selected difficulty level, and minimal "Spiritual" and "War" health. Randomly placed throughout the maze are new weapons, armor, magical items, and treasure.[3] The treasure in the maze (aside from the Treasure of Tarmin the Minotaur holds) can either boost the player's score (visible from the map screen), contain a potion (blue, pink, or purple in large and small varieties), or a bomb reducing the player's war/spiritual score. The bomb can cause a game over depending on the strength of the player at the time of the bomb trigger.
+The player begins the game with the lowest level bow, a small supply of food, a number of arrows dependent 
+on the selected difficulty level, and minimal "Spiritual" and "War" health. Randomly placed throughout the 
+maze are new weapons, armor, magical items, and treasure.[3] The treasure in the maze (aside from the 
+Treasure of Tarmin the Minotaur holds) can either boost the player's score (visible from the map screen), 
+contain a potion (blue, pink, or purple in large and small varieties), or a bomb reducing the player's war/spiritual score. 
+The bomb can cause a game over depending on the strength of the player at the time of the bomb trigger.
 
-To increase health, the player must either attack or be attacked by enemies, followed by resting (consuming a food item), which has a chance to increase either war or spiritual health based on the weapons the player has used. With the aid of Spirit or War tomes found in treasure chests, this chance may be increased greatly. The player's maximum health (with the aid of maximum-health limit increasing books and potions) is 199 War points and 99 Spiritual.
+To increase health, the player must either attack or be attacked by enemies, followed by resting (consuming a 
+food item), which has a chance to increase either war or spiritual health based on the weapons the player has used. 
+With the aid of Spirit or War tomes found in treasure chests, this chance may be increased greatly. The player's 
+maximum health (with the aid of maximum-health limit increasing books and potions) is 199 War points and 99 Spiritual.
 
-In the outer hallways, gates between adjacent mazes on the same level may be encountered. Passing through a green gate reduces the player's spiritual health and boosts the player's health, and the opposite effect occurs passing through a blue gate. Use in conjunction with war or spiritual books can boost respective health significantly. Passing through a tan gate changes nothing.
+In the outer hallways, gates between adjacent mazes on the same level may be encountered. Passing through a green 
+gate reduces the player's spiritual health and boosts the player's health, and the opposite effect occurs passing 
+through a blue gate. Use in conjunction with war or spiritual books can boost respective health significantly. 
+Passing through a tan gate changes nothing.
 
-The player may keep going down levels (by accessing a ladder located inside each maze) until level 256, after which the game cycles the player back to level 1, with the player's character retaining their inventory and health, but attacking enemies at the first floor's easier difficulty.
+The player may keep going down levels (by accessing a ladder located inside each maze) until level 256, after which 
+the game cycles the player back to level 1, with the player's character retaining their inventory and health, but 
+attacking enemies at the first floor's easier difficulty.
 
-It is possible to be defeated but not lose the game. Upon dying, the player can be 'reincarnated' to another section of that maze, with all of their pack's inventory gone while retaining the contents of their weapon and shield slots as well as their supply of arrows and food.
+It is possible to be defeated but not lose the game. Upon dying, the player can be 'reincarnated' to another section 
+of that maze, with all of their pack's inventory gone while retaining the contents of their weapon and shield slots 
+as well as their supply of arrows and food.
 
 Here is a Game Faq I created on what I found out about the game here below:
 
 
-How to tell what the difficulty of the game, is by how many Mazes their are at the start of the game ,within they have a map with randomly created dungeons with levels the lowest level has the Minotaur that has the Tarmin Treasure the main goal of the game.
+How to tell what the difficulty of the game, is by how many Mazes their are at the start of the game ,within 
+they have a map with randomly created dungeons with levels the lowest level has the Minotaur that has the Tarmin 
+Treasure the main goal of the game.
 
 Harder the difficulty the more mazes their are in the game, and monsters are harder to kill.
 
@@ -53,9 +71,13 @@ n-north,
 s-south,
 w-west,
 e-east
-also, inventory of weapons for Physical Weapons like the regular bow 6 attack & steel bow has 15 attack must have arrows to use , Hatchet can only throw to attack or magical weapon like the Scrolls are reusable or Fire Ball are 1 time use etc.
+also, inventory of weapons for Physical Weapons like the regular bow 6 attack & steel bow has 15 attack must 
+have arrows to use , Hatchet can only throw to attack or magical weapon like the Scrolls are reusable or Fire 
+Ball are 1 time use etc.
 
-At the lower bottom right corner in yellow reading from right to left in yellow are your PHYSICAL HEALTH / SPIRITUAL or MAGIC HEALTH the numbers that are your Physical Defense & Magic Defense and the numbers at the bottom are Physical-> 6 & Magical Attacks-> 6
+At the lower bottom right corner in yellow reading from right to left in yellow are your PHYSICAL HEALTH / 
+SPIRITUAL or MAGIC HEALTH the numbers that are your Physical Defense & Magic Defense and the numbers at 
+the bottom are Physical-> 6 & Magical Attacks-> 6
 
 A player can rest after battles to recover health
 Your health increases after killing a monster
@@ -77,6 +99,7 @@ Hard War Health ->12 / Spiritual Health->6
 Physical Defense-> 0 & Magic Defense-> 0
 Physical Attacks-> 6 & Magical Attacks-> 0
 
-The the number in green at the the bottom middle of the screen is the monsters Hit Points & their are physical The skeleton and magical the Dwarf
+The the number in green at the the bottom middle of the screen is the monsters Hit Points & their are physical 
+The skeleton and magical the Dwarf
 
 =========

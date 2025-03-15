@@ -1,5 +1,6 @@
 using UnityEngine;
 using TMPro;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -30,10 +31,12 @@ public class GameManager : MonoBehaviour
     public Enemy activeEnemy;
     private Player player;  
     PlayerGridMovement playerGridMovement;  
+    ViewSwitcher viewSwitcher;
     //FloorManager floorManager;
 
     void Start()
     {
+        viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
         player = GameObject.Find("Player").GetComponent<Player>();
         //floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
@@ -45,7 +48,15 @@ public class GameManager : MonoBehaviour
         //Update UI Initially
         UpdateUI();
         Debug.Log($"Game started with difficulty: {CurrentDifficulty}");
+        StartCoroutine(ViewMapUponGameStart());
     }
+
+    IEnumerator ViewMapUponGameStart(){
+        viewSwitcher.SwitchToMapAndArmorView();
+        yield return new WaitForSeconds(4f);
+        viewSwitcher.SwitchToGameView();
+    }
+
 
     void Update()
     {}

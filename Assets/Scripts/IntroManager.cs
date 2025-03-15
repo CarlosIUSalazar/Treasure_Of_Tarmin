@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections;
 
 public class IntroManager : MonoBehaviour
 {
@@ -10,11 +11,12 @@ public class IntroManager : MonoBehaviour
     [SerializeField] private Button hardButton;
     [SerializeField] private Button normalButton;
     [SerializeField] private Button easyButton;
+    //ViewSwitcher viewSwitcher;
 
     void Start()
     {
         //titleText.text = "Treasure of Tarmin";
-
+        //viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
         veryHardButton.onClick.AddListener(() => StartGame(DifficultyLevel.VeryHard));
         hardButton.onClick.AddListener(() => StartGame(DifficultyLevel.Hard));
         normalButton.onClick.AddListener(() => StartGame(DifficultyLevel.Normal));
@@ -26,6 +28,16 @@ public class IntroManager : MonoBehaviour
         // Store the chosen difficulty in a static class or PlayerPrefs
         GameSettings.SelectedDifficulty = difficulty;
         SceneManager.LoadScene("GameScene"); // Load GameScene
+        //StartCoroutine(ViewMapUponGameStart());
     }
+
+    // IEnumerator ViewMapUponGameStart(){
+    //     viewSwitcher.SwitchToMapAndArmorView();
+    //     yield return new WaitForSeconds(4f);
+    //     viewSwitcher.SwitchToGameView();
+    // }
+
+
+
 }
 
