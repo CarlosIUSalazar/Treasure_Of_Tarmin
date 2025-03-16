@@ -1,6 +1,7 @@
 using UnityEngine;
 using TMPro;
 using System.Collections;
+using System;
 
 public class GameManager : MonoBehaviour
 {
@@ -24,6 +25,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI foodText;
     [SerializeField] private TextMeshProUGUI floorText;
     [SerializeField] public TextMeshProUGUI enemyHPText;
+    [SerializeField] public TextMeshProUGUI playerMessages;
 
     [SerializeField] private TextMeshProUGUI menuPhysicalArmorText;
     [SerializeField] private TextMeshProUGUI menuSpiritualArmorText;
@@ -92,5 +94,15 @@ public class GameManager : MonoBehaviour
             isExploring = true;
             playerGridMovement.ShowDirectionalButtons();
         }
+    }
+
+    public void SetPlayerMessage(String text) {
+        playerMessages.text = text;
+        StartCoroutine(ClearPlayerMessage());
+    }
+
+    IEnumerator ClearPlayerMessage() {
+        yield return new WaitForSeconds(1.5f);    
+        playerMessages.text = "";
     }
 }

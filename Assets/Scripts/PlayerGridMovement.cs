@@ -306,6 +306,7 @@ public class PlayerGridMovement : MonoBehaviour
 
             if (canEscape > 5) { // CAN ESCAPE
                 Debug.Log("SUCCESSFUL ESCAPE!!");
+                gameManager.SetPlayerMessage("Successful Escape!");
                 gameManager.isFighting = false;
                 HideActionButton();
                 player.transform.position = playerPreviousPosition;
@@ -314,6 +315,7 @@ public class PlayerGridMovement : MonoBehaviour
                 gameManager.enemyHPText.gameObject.SetActive(false);
             } else {    // CAN'T ESCAPE
                 Debug.Log("COULDN'T ESCAPE!!");
+                gameManager.SetPlayerMessage("Couldn't Escape!");
                 gameManager.isPlayersTurn = false;
                 gameManager.isEnemysTurn = true;
                 canBackStep = true;

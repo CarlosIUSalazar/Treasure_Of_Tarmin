@@ -457,6 +457,7 @@ public class FloorManager : MonoBehaviour
 
     public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition, MazeBlock currentBlock, string corridorDoorSide)
     {
+        occupiedGridPositions.Clear(); //Clear previous occupied positions so thigns keep spawning on new floors
         Debug.Log($"Generating floor contents for {currentBlock.name} with color {blockColor} at {startPosition}");
         // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
         ClearFloorContents();
@@ -559,19 +560,19 @@ public class FloorManager : MonoBehaviour
         {
             case BlockColorType.Blue:
                 itemCount = 8;
-                enemyCount = 8;
+                enemyCount = 12;
                 itemPrefabs = spiritualItemPrefabs;
                 enemyPrefabs = spiritualMonsterPrefabs;
                 break;
             case BlockColorType.Green:
-                itemCount = 8;
-                enemyCount = 8;
+                itemCount = 12;
+                enemyCount = 12;
                 itemPrefabs = warItemPrefabs;
                 enemyPrefabs = warMonsterPrefabs;
                 break;
             case BlockColorType.Tan:
-                itemCount = 8;
-                enemyCount = 8;
+                itemCount = 12;
+                enemyCount = 12;
                 itemPrefabs = mixedItemPrefabs;
                 enemyPrefabs = mixedMonsterPrefabs;
                 break;

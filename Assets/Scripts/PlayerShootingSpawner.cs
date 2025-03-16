@@ -40,6 +40,7 @@ public class PlayerShootingSpawner : MonoBehaviour
             if (currentItemMapping == null)
             {
                 Debug.LogWarning("No current item mapping found! Make sure an item is selected.");
+                gameManager.SetPlayerMessage("No Weapon Selected!");
                 return;
             }
 
@@ -50,6 +51,7 @@ public class PlayerShootingSpawner : MonoBehaviour
             else 
             {
                 Debug.LogWarning($"Item '{currentItemMapping.itemName}' does not have ammo assigned!");
+                gameManager.SetPlayerMessage("No Weapon Selected!");
                 return;
             }
 
@@ -67,6 +69,7 @@ public class PlayerShootingSpawner : MonoBehaviour
                 inventoryManager.rightHandSlot.texture.name.Contains("Crossbow")) {
                     if  (player.arrows <= 0) {// Only shoot if the player has arrows
                         Debug.Log("No Arrows Left!");
+                        gameManager.SetPlayerMessage("No Arrows Left!");
                         playerGridMovement.HideActionButton();
                         gameManager.isPlayersTurn = false; // Switch to the enemy's turn
                         gameManager.isEnemysTurn = true; // Switch to the enemy's turn
@@ -121,6 +124,7 @@ public class PlayerShootingSpawner : MonoBehaviour
     IEnumerator DelayBribeEscape() {
         yield return new WaitForSeconds(0.8f);
         playerGridMovement.MoveBackwards(true);
+        gameManager.SetPlayerMessage("Successfully Bribed!");
     }
 
     private void ConsumeItem() {
