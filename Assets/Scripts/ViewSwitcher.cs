@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 public class ViewSwitcher : MonoBehaviour
 {
@@ -6,7 +7,7 @@ public class ViewSwitcher : MonoBehaviour
     [SerializeField] private Camera mapCamera;
     [SerializeField] private Canvas gameCanvas;       // Assign your Game Canvas
     [SerializeField] private Canvas mapAndArmorCanvas; // Assign your Map/Armor Canvas
-
+    
     private void Start()
     {
         // Enable the map camera GameObject if disabled in the Editor

@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 90;
+        physicalStrength = 20;
         physicalArmor = 0;
         physicalWeapon = 10;
         spiritualStrength = 50;
@@ -99,7 +99,8 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player Defeated!");
         // Add logic for player death, like restarting the level or showing a game-over screen
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
+        gameManager.GameOverSequence();
     }
 
     public void CheckIfCanRest() {

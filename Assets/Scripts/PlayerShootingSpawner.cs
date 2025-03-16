@@ -55,13 +55,6 @@ public class PlayerShootingSpawner : MonoBehaviour
                 return;
             }
 
-            // if (currentItemMapping.ammo != null) {
-            //     ammo = currentItemMapping.ammo;
-            // } else {
-            //     Debug.Log("NO WEAPON SELECTED!");
-            //     return;
-            // }
-
             Debug.Log("Current Ammo is: " + currentItemMapping.ammo);
 
             // Deduct one arrow from the player's inventory if user holds Bow or Crossbow only, if not turns is forfeit

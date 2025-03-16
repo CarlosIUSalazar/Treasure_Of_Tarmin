@@ -1,7 +1,9 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System;
+using Unity.VisualScripting;
 
 public class GameManager : MonoBehaviour
 {
@@ -29,11 +31,14 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] private TextMeshProUGUI menuPhysicalArmorText;
     [SerializeField] private TextMeshProUGUI menuSpiritualArmorText;
+    [SerializeField] private TextMeshProUGUI menuScoreText;
+    [SerializeField] private Button mapBackButton;
 
     public Enemy activeEnemy;
     private Player player;  
     PlayerGridMovement playerGridMovement;  
     ViewSwitcher viewSwitcher;
+    MazeGenerator mazeGenerator;
     //FloorManager floorManager;
 
     void Start()
@@ -42,6 +47,7 @@ public class GameManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         //floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         enemyHPText.gameObject.SetActive(false);
 
         //Subscribe to Player's stat update event
@@ -73,6 +79,7 @@ public class GameManager : MonoBehaviour
         spiritualWeaponText.text = $"{player.spiritualWeapon}";
 
         scoreText.text = $"{player.score}";
+        menuScoreText.text = $"{player.score}";
         arrowsText.text = $"{player.arrows}";
         foodText.text = $"{player.food}";
         floorText.text = $"{player.floor}";
@@ -104,5 +111,11 @@ public class GameManager : MonoBehaviour
     IEnumerator ClearPlayerMessage() {
         yield return new WaitForSeconds(1.5f);    
         playerMessages.text = "";
+    }
+
+    public void GameOverSequence() {
+        mazeGenerator.currentPlayerBlock.playerCursor.transform.localScale = new Vector3 (2,2,2);
+        viewSwitcher.SwitchToMapAndArmorView();
+        mapBackButton.gameObject.SetActive(false);
     }
 }
