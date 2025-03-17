@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 20;
+        physicalStrength = 90;
         physicalArmor = 0;
         physicalWeapon = 10;
         spiritualStrength = 50;

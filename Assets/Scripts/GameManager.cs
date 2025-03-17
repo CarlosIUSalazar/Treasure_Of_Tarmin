@@ -88,8 +88,13 @@ public class GameManager : MonoBehaviour
         menuSpiritualArmorText.text = $"{player.spiritualArmor}";
     }
 
-    public void UpdateEnemyHP(int currentHP) {
-        enemyHPText.text = $"{currentHP}";
+    public void UpdateEnemyHP(int currentEnemyHP) {
+        enemyHPText.text = $"{currentEnemyHP}";
+        if (currentEnemyHP <= 15) {
+            enemyHPText.color = Color.blue;
+        } else {
+            enemyHPText.color = Color.green;
+        }
     }
 
     public void SetActiveEnemy(Enemy enemy) {
