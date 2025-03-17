@@ -1,13 +1,16 @@
+//sing Unity.Mathematics;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
     //[SerializeField] private string enemyName = "WhiteSkeleton";
     [SerializeField] private int enemyBaseHP = 50;
+    [SerializeField] private GameObject treasureOfTarminPrefab;
     public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     GameManager gameManager;
     public int currentEnemyHP;
     PlayerGridMovement playerGridMovement;
+
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -34,7 +37,12 @@ public class Enemy : MonoBehaviour
     }
 
     public void Die() {
-        Debug.Log("Enemy Defeated");
+        Debug.Log("Enemy Defeated: " + gameObject.name);
+        if (gameObject.name == "Minotaur.vox(Clone)") {
+            Instantiate(treasureOfTarminPrefab, transform.position, Quaternion.identity);
+        }
+
+
         Destroy(gameObject);
         gameManager.isFighting = false;
         playerGridMovement.HideActionButton();

@@ -123,4 +123,5 @@ public class GameManager : MonoBehaviour
         viewSwitcher.SwitchToMapAndArmorView();
         mapBackButton.gameObject.SetActive(false);
     }
+
 }

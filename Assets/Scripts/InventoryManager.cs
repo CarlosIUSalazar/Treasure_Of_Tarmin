@@ -28,9 +28,11 @@ public class InventoryManager : MonoBehaviour
     private ItemMapping currentShield;
 
     Player player;
+    ViewSwitcher viewSwitcher;
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
+        viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
     }
 
     public void Update()
@@ -105,8 +107,10 @@ public class InventoryManager : MonoBehaviour
             rightHandSlot.color = Color.white;
             player.ModifyWeaponAttackPower(itemMapping);
             Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
-        } else 
-        {
+        } else if (itemName == "Treasure-Tarmin") {
+            // WIN GAME SEQUENCE!!
+            viewSwitcher.GameWinningSequence();
+        } else {
             Debug.Log("Item mapping not found for " + itemName);
         }
     }

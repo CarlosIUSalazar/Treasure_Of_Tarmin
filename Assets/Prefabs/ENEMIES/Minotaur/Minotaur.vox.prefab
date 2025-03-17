@@ -174,7 +174,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBaseHP: 20
+  treasureOfTarminPrefab: {fileID: 2620418534768044356, guid: 1c3635d810dc2454ea6d66521eb4ba23, type: 3}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
 --- !u!114 &7021099410833878400
 MonoBehaviour:
   m_ObjectHideFlags: 0
