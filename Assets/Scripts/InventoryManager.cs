@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Collections;
 using System;
 
 // Tan, Orange, Blue, Grey, Yellow, White
@@ -29,10 +30,15 @@ public class InventoryManager : MonoBehaviour
 
     Player player;
     ViewSwitcher viewSwitcher;
+    PlayerGridMovement playerGridMovement;
+    GameManager gameManager;
+
 
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
         viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void Update()
@@ -228,7 +234,23 @@ public class InventoryManager : MonoBehaviour
                 }
                 EmptyRightHand();
             }
+
+            ////////////////////
+            // IF ITEM IS SPECIAL BOOKS
+            ///////////////////
+            
+            if (rightHandItem.name == "Book-Special-Purple" && !gameManager.isMazeTransparent){
+                playerGridMovement.MakeMazeSetsTransparent();
+                gameManager.isMazeTransparent = true;
+                StartCoroutine(TimerToEndTransparentMaze());
+            }
         }
+    }
+
+    private IEnumerator TimerToEndTransparentMaze() {
+        yield return new WaitForSeconds(15f);
+        playerGridMovement.RestoreMazeOpacity();
+        gameManager.isMazeTransparent = false;
     }
 
     private void CalculateCurrentArmorTotal() {

@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Collections.Generic;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -546,4 +547,89 @@ public class PlayerGridMovement : MonoBehaviour
         restButton.onClick.AddListener(() => player.Rest());
         restButton.gameObject.SetActive(false);
     }
+
+
+    
+    [Range(0f, 1f)]
+    public float transparencyLevel = 0.1f; // Adjust transparency level (0 = fully transparent, 1 = fully opaque)
+
+    public void MakeMazeSetsTransparent()
+    {
+        List<GameObject> objectsToModify = new List<GameObject>();
+
+        // Find all MazeSet objects
+        objectsToModify.AddRange(GameObject.FindGameObjectsWithTag("MazeSet"));
+
+        // Find all Door objects
+        objectsToModify.AddRange(GameObject.FindGameObjectsWithTag("Door"));
+
+        // Apply transparency to all objects
+        foreach (GameObject obj in objectsToModify)
+        {
+            Renderer rend = obj.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                Material mat = rend.material; // Get material instance
+                SetTransparent(mat, transparencyLevel);
+            }
+        }
+    }
+
+    private void SetTransparent(Material mat, float alpha)
+    {
+        Color color = mat.color;
+        color.a = alpha; // Adjust transparency
+        mat.color = color;
+
+        // Change material rendering mode to Transparent
+        mat.SetFloat("_Mode", 3);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.SrcAlpha);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.OneMinusSrcAlpha);
+        mat.SetInt("_ZWrite", 0);
+        mat.DisableKeyword("_ALPHATEST_ON");
+        mat.EnableKeyword("_ALPHABLEND_ON");
+        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        mat.renderQueue = 3000;
+    }
+
+    public void RestoreMazeOpacity()
+    {
+        List<GameObject> objectsToModify = new List<GameObject>();
+
+        // Find all MazeSet objects
+        objectsToModify.AddRange(GameObject.FindGameObjectsWithTag("MazeSet"));
+
+        // Find all Door objects
+        objectsToModify.AddRange(GameObject.FindGameObjectsWithTag("Door"));
+
+        // Restore original opacity
+        foreach (GameObject obj in objectsToModify)
+        {
+            Renderer rend = obj.GetComponent<Renderer>();
+            if (rend != null)
+            {
+                Material mat = rend.material;
+                SetOpaque(mat);
+            }
+        }
+    }
+
+    private void SetOpaque(Material mat)
+    {
+        Color color = mat.color;
+        color.a = 1.0f; // Fully opaque
+        mat.color = color;
+
+        // Change material rendering mode back to Opaque
+        mat.SetFloat("_Mode", 0);
+        mat.SetInt("_SrcBlend", (int)UnityEngine.Rendering.BlendMode.One);
+        mat.SetInt("_DstBlend", (int)UnityEngine.Rendering.BlendMode.Zero);
+        mat.SetInt("_ZWrite", 1);
+        mat.DisableKeyword("_ALPHABLEND_ON");
+        mat.DisableKeyword("_ALPHATEST_ON");
+        mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
+        mat.renderQueue = -1;
+    }
+
+
 }

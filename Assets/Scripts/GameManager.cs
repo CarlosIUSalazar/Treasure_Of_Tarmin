@@ -39,7 +39,7 @@ public class GameManager : MonoBehaviour
     PlayerGridMovement playerGridMovement;  
     ViewSwitcher viewSwitcher;
     MazeGenerator mazeGenerator;
-    //FloorManager floorManager;
+    public bool isMazeTransparent = false;
 
     void Start()
     {
