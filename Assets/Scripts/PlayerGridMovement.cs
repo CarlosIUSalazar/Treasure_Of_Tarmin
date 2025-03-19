@@ -426,26 +426,6 @@ public class PlayerGridMovement : MonoBehaviour
 
         // Short raycast for items
         Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
-
-        // if ((Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) && !gameManager.isFighting)
-        // {
-        //     if (hit.collider.CompareTag("Item"))
-        //     {
-        //         dropButton.gameObject.SetActive(false);
-        //         actionButtonText.text = "Pick Up";
-        //         actionButton.onClick.RemoveAllListeners();
-        //         actionButton.onClick.AddListener(() => itemManager.PickUpItem(hit));
-        //         return; // Return to avoid triggering further checks
-        //     } 
-        //     if (hit.collider.CompareTag("Ladder"))
-        //     {
-        //         dropButton.gameObject.SetActive(false);
-        //         actionButtonText.text = "Descend";
-        //         actionButton.onClick.RemoveAllListeners();
-        //         actionButton.onClick.AddListener(() => floorManager.MoveCursorVerticallyDown(hit));
-        //         return; // Return to avoid triggering further checks
-        //     } 
-        // }
         
         // This is still not working right so giving up for now.
         if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
@@ -491,6 +471,29 @@ public class PlayerGridMovement : MonoBehaviour
     //         door.OpenDoor();
     //     }
     // }
+
+
+    public Collider CheckForInteractablesAndReturnHitCollider()
+    {
+        RaycastHit hit;
+        float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
+        float interactionDistance = gridSize;           // Detect doors/enemies one grid away
+
+        //Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + new Vector3(0, -2, 0); // Slight downward offset
+        Vector3 rayDirection = transform.forward;
+
+        // Short raycast for items
+        Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
+        
+        // This is still not working right so giving up for now.
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
+        {
+            return hit.collider;
+        } 
+        return null;
+    }
+
 
     public void OpenDoorButton()
     {
