@@ -193,10 +193,116 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
+    private bool CanMoveForward() {
+        RaycastHit hit;
+        float rayDistance = gridSize;
+
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
+            Debug.Log("Obstacle detected: " + hit.collider.name);
+            if (hit.collider.CompareTag("Item")) {
+                return true; //Allow to pass through Items
+            } else if (hit.collider.CompareTag("CorridorDoor")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("CorridorDoorEast")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("CorridorDoorWest")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("Ladder")) {
+                return true; //Allow to pass through Corridor Ladders
+            } else {
+                return false; // Obstacle found, cannot move forward
+            }
+        }
+        return true;
+    }
+
+
     public void MoveForward()
     {
         if (isMoving || isRotating)  return; // Prevent movement if already moving or rotating
         if (CanMoveForward()) {
+            isMoving = true;
+            targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
+
+            Debug.Log($"Moving forward from {transform.position}");
+
+            // Track movement direction
+            Vector3 forwardDir = transform.forward.normalized;
+            float modifier = 0f;
+
+            // Ensure the movement modifier applies ONLY when moving along the Z-axis (East-West)
+            if (Mathf.Abs(forwardDir.z) > 0.9f && Mathf.Abs(forwardDir.x) < 0.1f) 
+            {
+                modifier = (forwardDir.z > 0) ? 0.1f : -0.1f; // Forward along Z = +0.1, Backward along Z = -0.1
+                UpdateMinimapCursor(modifier);
+                Debug.Log($"Minimap Cursor Updated with modifier {modifier}");
+            }
+            else
+            {
+                Debug.Log("Ignoring minimap cursor movement because movement is along X-axis.");
+            }
+
+            // Ensure gridX and gridZ stay within bounds
+            gridX = Mathf.Clamp(gridX, 0, 11);
+            gridZ = Mathf.Clamp(gridZ, 0, 11);
+
+            EnableBackwardsStep(player.transform.position, player.transform.rotation);
+            CheckForInteractables();
+        }
+    }
+
+
+    private bool CanMoveForwardWithBlueBook() {
+        RaycastHit enemyHit;
+        float enemyDetectionDistance = gridSize;  // Detect items within half the grid
+        float interactionDistance = gridSize;           // Detect doors/enemies one grid away
+
+        //Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + (transform.forward * (gridSize * 0.6f)) + new Vector3(0, 1, 0); 
+        Vector3 rayDirection = transform.forward;
+
+        Debug.DrawRay(rayOrigin, rayDirection * enemyDetectionDistance, Color.blue); 
+
+        if (Physics.Raycast(rayOrigin, rayDirection, out enemyHit, enemyDetectionDistance)) {
+            if (enemyHit.collider.CompareTag("Enemy")) {
+                Debug.Log("Enemy found through wall, can't teleport");
+                return false;
+            }
+        }
+
+        RaycastHit hit;
+        float rayDistance = gridSize;
+        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
+            Debug.Log("Obstacle detected w Blue Book: " + hit.collider.name + " with Tag: " + hit.collider.tag);
+            if (hit.collider.CompareTag("Item")) {
+                return true; //Allow to pass through Items
+            } else if (hit.collider.CompareTag("CorridorDoor")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("Door")) {
+                return true; //Allow to pass through Doors
+            } else if (hit.collider.CompareTag("MazeSet")) {
+                return true; //Allow to pass through Maze Walls
+            } else if (hit.collider.CompareTag("CorridorDoorEast")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("CorridorDoorWest")) {
+                return true; //Allow to pass through Corridor Doors
+            } else if (hit.collider.CompareTag("Ladder")) {
+                return true; //Allow to pass through Corridor Ladders
+            } else if (hit.collider.CompareTag("OuterWall")) {
+                return false; //Cannot pass through Outside Maze Walls
+            } else {
+                return false; // Obstacle found, cannot move forward
+            }
+        }
+        return true;
+    }
+
+
+    public void MoveForwardWithBlueBook()
+    {
+        if (isMoving || isRotating)  return; // Prevent movement if already moving or rotating
+        if (CanMoveForwardWithBlueBook()) {
             isMoving = true;
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
 
@@ -379,30 +485,6 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
 
-    private bool CanMoveForward() {
-        RaycastHit hit;
-        float rayDistance = gridSize;
-
-        if (Physics.Raycast(transform.position, transform.forward, out hit, rayDistance)) {
-            Debug.Log("Obstacle detected: " + hit.collider.name);
-            if (hit.collider.CompareTag("Item")) {
-                return true; //Allow to pass through Items
-            } else if (hit.collider.CompareTag("CorridorDoor")) {
-                return true; //Allow to pass through Corridor Doors
-            } else if (hit.collider.CompareTag("CorridorDoorEast")) {
-                return true; //Allow to pass through Corridor Doors
-            } else if (hit.collider.CompareTag("CorridorDoorWest")) {
-                return true; //Allow to pass through Corridor Doors
-            } else if (hit.collider.CompareTag("Ladder")) {
-                return true; //Allow to pass through Corridor Ladders
-            } else {
-                return false; // Obstacle found, cannot move forward
-            }
-        }
-        return true;
-    }
-
-
     public void SetPlayerImmediatePosition(Vector3 newPos, Quaternion newRot)
     {
         transform.position = newPos;
@@ -545,12 +627,12 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
     public void PlayerRest() {
         restButton.onClick.RemoveAllListeners();
         restButton.onClick.AddListener(() => player.Rest());
         restButton.gameObject.SetActive(false);
     }
-
 
     
     [Range(0f, 1f)]
@@ -578,6 +660,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
     private void SetTransparent(Material mat, float alpha)
     {
         Color color = mat.color;
@@ -594,6 +677,7 @@ public class PlayerGridMovement : MonoBehaviour
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         mat.renderQueue = 3000;
     }
+
 
     public void RestoreMazeOpacity()
     {
@@ -617,6 +701,7 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
     private void SetOpaque(Material mat)
     {
         Color color = mat.color;
@@ -633,6 +718,4 @@ public class PlayerGridMovement : MonoBehaviour
         mat.DisableKeyword("_ALPHAPREMULTIPLY_ON");
         mat.renderQueue = -1;
     }
-
-
 }

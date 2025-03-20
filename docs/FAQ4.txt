@@ -103,3 +103,35 @@ The the number in green at the the bottom middle of the screen is the monsters H
 The skeleton and magical the Dwarf
 
 =========
+
+Stairs can be right at the endtrance of the maze
+
+Money Belt 
+Tan: gray coins, tan key, 
+Orange:
+Blue:  gray lamp (45), blue key
+
+Small Bag:
+Tan: yellow coins, blue book clear cover, gray lamp. gray necklace
+Orange: gray coins, yellow coins, orange key, 
+Blue: bomb, 
+
+Large Bag:
+Tan: gray necklace, gray ingot, gray coins, bomb, yellow lamp
+Orange: Red Book (solid cover), gray chalice, yellow necklace, 
+Blue:
+
+Box:
+Tan: red book (clear cover war up), large blue potion, blue book clear cover, yellow coins, 
+Orange: gray lamp, gray chalice, white coins, large red potion, 
+Blue:  Bomb, yellow necklace, red book clear, 
+
+Pack:
+Tan: yellow necklace, 
+Orange: large blue potion, gray, necklace, orange key, purple book solid, 
+Blue: purple small potion, red book clear), blue book teleportation, purple book clear, yellow chalice
+
+Chest:
+Tan: yellow challice, bomb, gray challice, blue book clear, 
+Orange: yellow necklace, orange key, 
+Blue: White Crown, tan key, white chalice, gray crown, white necklace, gray chalice, white lamp

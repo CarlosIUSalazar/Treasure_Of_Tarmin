@@ -241,7 +241,9 @@ public class InventoryManager : MonoBehaviour
             ///BLUE BOOK - TELEPORTATION ///
             if (rightHandItem.name == "Book-Special-Blue"){
                 Debug.Log("Used Blue Special Book");
+                playerGridMovement.MoveForwardWithBlueBook();            
             }
+
             ///PINK BOOK - INVISIBLE WALLS ///
             if (rightHandItem.name == "Book-Special-Pink" && !gameManager.isMazeTransparent){
                 playerGridMovement.MakeMazeSetsTransparent();
@@ -249,31 +251,32 @@ public class InventoryManager : MonoBehaviour
                 StartCoroutine(TimerToEndTransparentMaze());
             }
 
-
             /// PURPLE BOOK - MIDAS ///
             if (rightHandItem.name == "Book-Special-Purple"){
                 //Debug.Log("Purple special");
                 Collider item = playerGridMovement.CheckForInteractablesAndReturnHitCollider();
-                string itemName = item.name.Replace(".vox(Clone)", "").Trim();
-                //Debug.Log("item is " + item.gameObject.name);
-                //Debug.Log("Trimmed name is " + itemName);
-                if (item == null) {
-                    Debug.Log("No Collider");
-                    return;
-                } else {
-                    ItemMapping itemMapping = GetItemMapping(itemName);
-                    if (!itemMapping.isArmor && !itemMapping.isWarWeapon && !itemMapping.isShield) { //Only Apply to War weapons, Shields and Armor
-                        Debug.Log("Can't apply Midas to " + itemName);
+                if (item != null) {
+                    string itemName = item.name.Replace(".vox(Clone)", "").Trim();
+                    //Debug.Log("item is " + item.gameObject.name);
+                    //Debug.Log("Trimmed name is " + itemName);
+                    if (item == null) {
+                        Debug.Log("No Collider");
+                        return;
                     } else {
-                        // if itemName = "Knife-Orange" change to "Knife-White"
-                        // Replace the last color with "White"
-                        int lastDashIndex = itemName.LastIndexOf('-');
-                        if (lastDashIndex != -1) 
-                        {
-                            string newItemName = itemName.Substring(0, lastDashIndex) + "-White";
-                            Debug.Log($"Converted {itemName} to {newItemName}");
-                            Destroy(item.gameObject);
-                            Spawn3DItem(newItemName);
+                        ItemMapping itemMapping = GetItemMapping(itemName);
+                        if (!itemMapping.isArmor && !itemMapping.isWarWeapon && !itemMapping.isShield) { //Only Apply to War weapons, Shields and Armor
+                            Debug.Log("Can't apply Midas to " + itemName);
+                        } else {
+                            // if itemName = "Knife-Orange" change to "Knife-White"
+                            // Replace the last color with "White"
+                            int lastDashIndex = itemName.LastIndexOf('-');
+                            if (lastDashIndex != -1) 
+                            {
+                                string newItemName = itemName.Substring(0, lastDashIndex) + "-White";
+                                Debug.Log($"Converted {itemName} to {newItemName}");
+                                Destroy(item.gameObject);
+                                Spawn3DItem(newItemName);
+                            }
                         }
                     }
                 }
@@ -281,11 +284,13 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+
     private IEnumerator TimerToEndTransparentMaze() {
-        yield return new WaitForSeconds(15f);
+        yield return new WaitForSeconds(30f);
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
     }
+
 
     private void CalculateCurrentArmorTotal() {
         int currentPhysicalArmorTotal = 0;
