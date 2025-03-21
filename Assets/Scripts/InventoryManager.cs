@@ -32,6 +32,7 @@ public class InventoryManager : MonoBehaviour
     ViewSwitcher viewSwitcher;
     PlayerGridMovement playerGridMovement;
     GameManager gameManager;
+    ItemManager itemManager;
 
 
     public void Start() {
@@ -39,10 +40,12 @@ public class InventoryManager : MonoBehaviour
         viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
     }
 
     public void Update()
     {
+        CheckIfRightHandHasItem();
     }
 
     public void EmptyRightHand() {
@@ -122,10 +125,41 @@ public class InventoryManager : MonoBehaviour
     }
 
     public void DropAnItem() {
-        if (rightHandSlot.texture != null) {
-            String currentItem = rightHandSlot.texture.name;
+        Debug.Log("Pressed Drop Button");
+        if (!isHoldingRightHandItem) {
+            Debug.Log("I don't have anything to drop");
+            return;
+        } 
+        
+        Collider itemOnTheFloor = playerGridMovement.CheckForInteractablesAndReturnHitCollider();
+        if (isHoldingRightHandItem && !itemOnTheFloor) { //If I have something in my right hand and there is nothing on the floor just drop it
+            Debug.Log("I have something in my right hand drop it");
+            String currentItem = rightHandSlot.texture.name; //Remember current item in hand
             Spawn3DItem(currentItem);
             rightHandSlot.texture = transparentImg;
+            isHoldingRightHandItem = false;
+        } else if (isHoldingRightHandItem && itemOnTheFloor) { // If I have something in my right hand and there is something on the floor Swap it
+            Debug.Log("I already have something in my right, I'll swap drop it");
+            String currentItem = rightHandSlot.texture.name; //Remember current item in hand
+            RaycastHit hit;
+            hit = playerGridMovement.CheckForInteractablesAndReturnRaycastHit();
+            Debug.Log("hit is " + hit.collider.name);
+
+            if (hit.collider.name.Contains("Ladder")) {
+                Debug.Log("Can't drop item on Ladder");
+                gameManager.SetPlayerMessage("Can't drop item on Ladder");
+                return;    
+            } else if (hit.collider.name.Contains("Treasure")) {
+                Debug.Log("Can't drop item on Ladder or Treasure");
+                gameManager.SetPlayerMessage("Can't drop item on Treasure");
+                return;
+            }
+
+            Debug.Log("item in hand is " + currentItem);
+            rightHandSlot.texture = transparentImg; //For a moment erase the item from right hand
+            itemManager.PickUpItem(hit);
+            Spawn3DItem(currentItem);
+            isHoldingRightHandItem = true;
         }
     }
 

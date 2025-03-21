@@ -510,18 +510,18 @@ public class PlayerGridMovement : MonoBehaviour
         Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
         
         // This is still not working right so giving up for now.
-        if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
-        {
-            if (inventoryManager.CheckIfRightHandHasItem()) // Check if player is holding an item
-            {
-                dropButton.gameObject.SetActive(true);//dropButtonText.text = "Drop";
-                dropButton.onClick.RemoveAllListeners();
-                dropButton.onClick.AddListener(() => inventoryManager.DropAnItem());
-                //return; // Return to avoid further checks
-            } else {
-                dropButton.gameObject.SetActive(false);//dropButtonText.text = "Drop";
-            }
-        }
+        // if (!Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
+        // {
+        //     if (inventoryManager.CheckIfRightHandHasItem()) // Check if player is holding an item
+        //     {
+        //         dropButton.gameObject.SetActive(true);//dropButtonText.text = "Drop";
+        //         dropButton.onClick.RemoveAllListeners();
+        //         dropButton.onClick.AddListener(() => inventoryManager.DropAnItem());
+        //         //return; // Return to avoid further checks
+        //     } else {
+        //         dropButton.gameObject.SetActive(false);//dropButtonText.text = "Drop";
+        //     }
+        // }
 
         // Long raycast for doors and enemies
         Debug.DrawRay(rayOrigin, rayDirection * interactionDistance, Color.red);
@@ -546,6 +546,7 @@ public class PlayerGridMovement : MonoBehaviour
             ResetActionButton();
         }
     }
+
 
     // private void OpenDoor(RaycastHit hit) {
     //     DoorController door = hit.collider.GetComponent<DoorController>();
@@ -574,6 +575,28 @@ public class PlayerGridMovement : MonoBehaviour
             return hit.collider;
         } 
         return null;
+    }
+
+
+        public RaycastHit CheckForInteractablesAndReturnRaycastHit()
+    {
+        RaycastHit hit;
+        float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
+        float interactionDistance = gridSize;           // Detect doors/enemies one grid away
+
+        //Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + new Vector3(0, -2, 0); // Slight downward offset
+        Vector3 rayDirection = transform.forward;
+
+        // Short raycast for items
+        Debug.DrawRay(rayOrigin, rayDirection * itemDetectionDistance, Color.blue); 
+        
+        // This is still not working right so giving up for now.
+        if (Physics.Raycast(rayOrigin, rayDirection, out hit, itemDetectionDistance)) // This is still fucked up
+        {
+            return hit;
+        } 
+        return default;
     }
 
 
