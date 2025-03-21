@@ -19,6 +19,8 @@ MonoBehaviour:
   isContainer: 0
   isShield: 0
   isArmor: 0
+  isWarWeapon: 1
+  isSpiritualWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0

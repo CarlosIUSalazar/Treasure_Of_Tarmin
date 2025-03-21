@@ -16,6 +16,18 @@ MonoBehaviour:
   item3DPrefab: {fileID: 6910574104714924688, guid: c660abdb8187a48abb068cc9cf692768, type: 3}
   item2DSprite: {fileID: 2800000, guid: ca8335f54ff91444888ebac34ea9faaf, type: 3}
   ammo: {fileID: 6910574104714924688, guid: c660abdb8187a48abb068cc9cf692768, type: 3}
+  isContainer: 0
+  isShield: 0
+  isArmor: 0
+  isWarWeapon: 1
+  isSpiritualWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
   warAttackPower: 69
   spiritualAttackPower: 0
   warDefense: 0
