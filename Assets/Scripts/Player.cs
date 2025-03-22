@@ -54,6 +54,16 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
+    public void RestoreMaxPhysicalStrengthWithPotion() {
+        physicalStrength = currentMaxPhysicalStrength;
+        gameManager.isPlayersTurn = false;
+        gameManager.isEnemysTurn = true;
+
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+
     public void ModifyPhysicalStrength(int amount)
     {
         physicalStrength += amount;

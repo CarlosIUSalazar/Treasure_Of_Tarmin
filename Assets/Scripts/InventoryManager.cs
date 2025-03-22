@@ -315,6 +315,17 @@ public class InventoryManager : MonoBehaviour
                     }
                 }
             }
+
+            ///////////
+            ///POTIONS
+            /////////
+            if (rightHandItem.name == "Potion-Small-Blue"){
+                player.RestoreMaxPhysicalStrengthWithPotion();
+                EmptyRightHand();
+            }
+
+
+
         }
     }
 
