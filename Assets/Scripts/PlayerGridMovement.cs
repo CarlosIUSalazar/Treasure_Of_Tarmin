@@ -119,6 +119,9 @@ public class PlayerGridMovement : MonoBehaviour
                     if (gameManager.isFighting) {
                         Debug.Log("Can't Use Ladder while fighting");
                     } else {
+                        canBackStep = false;
+                        Debug.Log("USED LADDER");
+                        Debug.Log("canBackStep is " + canBackStep);
                         floorManager.MoveCursorVerticallyDown(hit);
                     }
                 }

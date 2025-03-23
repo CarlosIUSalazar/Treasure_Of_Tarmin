@@ -220,13 +220,14 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    public void MovePlayerToNewMaze(string corridorDoorSide) { // Crossing Corridor Door
+    public void MovePlayerToNewMazeViaCorridorDoor(string corridorDoorSide) { // Crossing Corridor Door
         MazeBlock targetBlock = null;
         if (corridorDoorSide == "CorridorDoorWest") {
             targetBlock = currentNeighbourLeft;
         } else if (corridorDoorSide == "CorridorDoorEast") {
             targetBlock = currentNeighbourRight;
         }
+        playerGridMovement.canBackStep = false; // Disable backstep when changing mazes
         if (targetBlock == null) {
             Debug.LogWarning("No neighboring block found for door: " + corridorDoorSide);
             return;

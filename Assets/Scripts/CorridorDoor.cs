@@ -19,7 +19,7 @@ public class CorridorDoor : MonoBehaviour
     private void OnTriggerEnter(Collider other) {
         if (other.CompareTag("Player")){
             Debug.Log("Player crossed Corridor Door");
-            floorManager.MovePlayerToNewMaze(gameObject.tag);
+            floorManager.MovePlayerToNewMazeViaCorridorDoor(gameObject.tag);
         }
     }
 }
