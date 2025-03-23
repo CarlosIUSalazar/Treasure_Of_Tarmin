@@ -55,14 +55,49 @@ public class Player : MonoBehaviour
     }
 
 
-    public void RestoreMaxPhysicalStrengthWithPotion() {
+    public void RestoreMaxPhysicalStrengthWithSmallBluePotion() {
         physicalStrength = currentMaxPhysicalStrength;
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+
+    public void IncreasePhysicalScoreBy10WithLargeBluePotion() {
+        if (physicalStrength + 10 >= 199) {
+            totalMaxPhysicalStrength = 199;
+            currentMaxPhysicalStrength = 199;
+            physicalStrength = 199;
+        } else {
+            totalMaxSpiritualStrength += 10;
+            currentMaxPhysicalStrength += 10;
+            physicalStrength += 10;
+        }
+        gameManager.isPlayersTurn = false;
+        gameManager.isEnemysTurn = true;
+        Debug.Log("totalMaxPhysicalStrength is " + totalMaxSpiritualStrength);
+        Debug.Log("CurrentMaxPhysicalStrength is " + currentMaxPhysicalStrength);
 
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
+    public void IncreaseSpiritualScoreBy10WithLargePinkPotion() {
+        if (spiritualStrength + 10 >= 99) {
+            totalMaxSpiritualStrength = 99;
+            currentMaxSpiritualStrength = 99;
+            spiritualStrength = 99;
+        } else {
+            totalMaxSpiritualStrength += 10;
+            currentMaxSpiritualStrength =+ 10;
+            spiritualStrength += 10;
+        }
+        gameManager.isPlayersTurn = false;
+        gameManager.isEnemysTurn = true;
+        OnPlayerStatsUpdated?.Invoke();
+        Debug.Log("totalMaxSpiritualStrength is " + totalMaxSpiritualStrength);
+        Debug.Log("currentMaxSpiritualStrength is " + currentMaxSpiritualStrength);
+    }
 
     public void ModifyPhysicalStrength(int amount)
     {

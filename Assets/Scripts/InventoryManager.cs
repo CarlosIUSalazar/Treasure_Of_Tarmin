@@ -317,15 +317,35 @@ public class InventoryManager : MonoBehaviour
             }
 
             ///////////
-            ///POTIONS
+            ///SMALL POTIONS
             /////////
             if (rightHandItem.name == "Potion-Small-Blue"){
-                player.RestoreMaxPhysicalStrengthWithPotion();
+                player.RestoreMaxPhysicalStrengthWithSmallBluePotion();
                 EmptyRightHand();
             }
 
+            if (rightHandItem.name == "Potion-Small-Pink"){
+                //Help find better things in containers; magic ends with a little "whoosh" noise
+            }
 
+            if (rightHandItem.name == "Potion-Small-Purple"){
+                //Make you invisible to all demons except the Minotaur (while making them invisible to you); magic ends with a little "whoosh" noise
+            }
+            ///////////
+            ///LARGE POTIONS
+            /////////
+            if (rightHandItem.name == "Potion-Large-Blue"){
+                player.IncreasePhysicalScoreBy10WithLargeBluePotion();
+                EmptyRightHand();
+            }
 
+            if (rightHandItem.name == "Potion-Large-Pink"){
+                player.IncreaseSpiritualScoreBy10WithLargePinkPotion();
+                EmptyRightHand();
+            }
+
+            if (rightHandItem.name == "Potion-Large-Purple"){
+            }
         }
     }
 
