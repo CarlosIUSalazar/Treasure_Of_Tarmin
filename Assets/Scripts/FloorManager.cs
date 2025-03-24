@@ -63,6 +63,7 @@ public class FloorManager : MonoBehaviour
 
     Player player;
     PlayerGridMovement playerGridMovement;
+    GameManager gameManager;
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
     MazeBlock currentNeighbourBelowLeft;
@@ -82,7 +83,7 @@ public class FloorManager : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
-        //GenerateMazeSets();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
 
@@ -587,6 +588,11 @@ public class FloorManager : MonoBehaviour
         // Spawn items and enemies at positions inside the current MazeBlock
         SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
         SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+
+        if (gameManager.isMazeTransparent) {
+            playerGridMovement.MakeMazeSetsTransparent();
+            // The original Coroutine to deactivate this spell stays active so no need to worry about it here.
+        }
     }
 
 
