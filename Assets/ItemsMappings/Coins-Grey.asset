@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
   m_Name: Coins-Grey
   m_EditorClassIdentifier: 
-  itemName: Chalice-Grey
+  itemName: Coins-Grey
   item3DPrefab: {fileID: 4675667651558309472, guid: 77788e5db8dc94cb285454db3b71b970, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
