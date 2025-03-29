@@ -5,11 +5,13 @@ public class ItemManager : MonoBehaviour
 
     Player player;
     InventoryManager inventoryManager;
+    GameManager gameManager;
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     public void PickUpItem(RaycastHit hit) {
@@ -27,10 +29,12 @@ public class ItemManager : MonoBehaviour
             case "Flour":
                 player.ModifyFood(10);
                 Debug.Log("Picked up flour");
+                gameManager.SetPlayerMessage("Picked up Food");
                 break;
             case "Quiver":
                 player.ModifyArrows(10);
                 Debug.Log("Picked up 10 Arrows");
+                gameManager.SetPlayerMessage("Picked up 10 Arrows");
                 break;
             
             //////////////////////
@@ -39,92 +43,110 @@ public class ItemManager : MonoBehaviour
     // COINS
             case "Coins-Grey":
                 player.ModifyScore(10);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Coins");
+                gameManager.SetPlayerMessage("Picked up Grey Coins");
                 break;
 
             case "Coins-Yellow":
                 player.ModifyScore(30);
                 Debug.Log("Picked up Yellow Coins");
+                gameManager.SetPlayerMessage("Picked up Yellow Coins");
                 break;
 
             case "Coins-White":
                 player.ModifyScore(70);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Coins");
+                gameManager.SetPlayerMessage("Picked up White Coins");
                 break;
     //  NECKLACES
             case "Necklace-Grey":
                 player.ModifyScore(20);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Necklace");
+                gameManager.SetPlayerMessage("Picked up Grey Necklace");
                 break;
 
             case "Necklace-Yellow":
                 player.ModifyScore(70);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Yellow Necklace");
+                gameManager.SetPlayerMessage("Picked up Yellow Neckalce");
                 break;
 
             case "Necklace-White":
                 player.ModifyScore(200);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Necklace");
+                gameManager.SetPlayerMessage("Picked up White Necklace");
                 break;
     // INGOTS
             case "Ingot-Grey":
                 player.ModifyScore(50);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Ingot");
+                gameManager.SetPlayerMessage("Picked up Grey Ingot");
                 break;
 
             case "Ingot-Yellow":
                 player.ModifyScore(350);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Yellow Ingot");
+                gameManager.SetPlayerMessage("Picked up Yellow Ingot");
                 break;
 
             case "Ingot-White":
                 player.ModifyScore(450);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Ingot");
+                gameManager.SetPlayerMessage("Picked up White Ingot");
                 break;
     // LAMPS
             case "Lamp-Grey":
                 player.ModifyScore(100);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Lamp");
+                gameManager.SetPlayerMessage("Picked up Grey Lamp");
                 break;
 
             case "Lamp-Yellow":
                 player.ModifyScore(150);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Yellow Lamp");
+                gameManager.SetPlayerMessage("Picked up Yellow Lamp");
                 break;
 
             case "Lamp-White":
                 player.ModifyScore(220);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Lamp");
+                gameManager.SetPlayerMessage("Picked up White Lamp");
                 break;
     // CHALICES
             case "Chalice-Grey":
                 player.ModifyScore(120);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Chalice");
+                gameManager.SetPlayerMessage("Picked up Grey Chalice");
                 break;
 
             case "Chalice-Yellow":
                 player.ModifyScore(250);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Yellow Chalice");
+                gameManager.SetPlayerMessage("Picked up Yellow Chalice");
                 break;
 
             case "Chalice-White":
                 player.ModifyScore(400);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Chalice");
+                gameManager.SetPlayerMessage("Picked up White Chalice");
                 break;
     // CROWNS
             case "Crown-Grey":
                 player.ModifyScore(300);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Grey Crown");
+                gameManager.SetPlayerMessage("Picked up Grey Crown");
                 break;
 
             case "Crown-Yellow":
                 player.ModifyScore(500);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up Yellow Crown");
+                gameManager.SetPlayerMessage("Picked up Yellow Crown");
                 break;
 
             case "Crown-White":
                 player.ModifyScore(600);
-                Debug.Log("Picked up Yellow Coins");
+                Debug.Log("Picked up White Crown");
+                gameManager.SetPlayerMessage("Picked up White Crown");
                 break;
             
             default: 
