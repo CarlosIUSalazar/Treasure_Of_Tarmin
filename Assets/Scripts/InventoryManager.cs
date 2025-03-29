@@ -165,12 +165,15 @@ public class InventoryManager : MonoBehaviour
 
     public void Spawn3DItem(string itemName)
     {
+        Debug.Log("Inside Spawn3DItem, Sting is " + itemName);
         Vector3 playerPosition = GameObject.Find("Player").transform.position;
 
         ItemMapping itemMapping = GetItemMapping(itemName);
-        
+        Debug.Log("Spawn3D itemMapping is " + itemMapping);
+
         if (itemMapping != null && itemMapping.item3DPrefab != null) 
         {
+            Debug.Log("Spawn3D inside if");
             // Instantiate the item
             GameObject spawnedItem = Instantiate(itemMapping.item3DPrefab, 
                 new Vector3(playerPosition.x, 0.1f, playerPosition.z), 

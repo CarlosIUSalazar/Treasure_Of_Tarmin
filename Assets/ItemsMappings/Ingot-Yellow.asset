@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d5f94bb02fb4571984ba1b08195e83, type: 3}
+  m_Name: Ingot-Yellow
+  m_EditorClassIdentifier: 
+  itemName: Ingot-Yellow
+  item3DPrefab: {fileID: 4352301208470385372, guid: f19bb140277724ac6a0124d961bfac26, type: 3}
+  item2DSprite: {fileID: 0}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isShield: 0
+  isArmor: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

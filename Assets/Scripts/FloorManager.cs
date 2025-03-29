@@ -600,7 +600,7 @@ public class FloorManager : MonoBehaviour
         // Spawn items and enemies at positions inside the current MazeBlock
         SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
         SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-        SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Item",true);
+        SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Container",true);
 
 
         if (gameManager.isMazeTransparent) {

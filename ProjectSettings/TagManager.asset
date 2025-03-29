@@ -15,6 +15,7 @@ TagManager:
   - MazeSet
   - MazeEntranceDoorWall
   - OuterWall
+  - Container
   layers:
   - Default
   - TransparentFX

@@ -27,7 +27,11 @@ public class ContainerLootGenerator : MonoBehaviour
     [SerializeField] private GameObject[] containers;   //Containers
     private Dictionary<string, GameObject> containerPrefabDict;
     Dictionary<string, WeightedGroup[]> containerLootGroups;
+    InventoryManager inventoryManager;
 
+    private void Start() {
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+    }
 
     private void BuildContainerPrefabDict()
     {
@@ -136,8 +140,8 @@ public class ContainerLootGenerator : MonoBehaviour
         //////////////////////
         /// MONEY BELT
         //////////////////////
-        // MoneyBelt-Tan
-        containerLootGroups["MoneyBelt-Tan"] = new WeightedGroup[]
+        // Money-Belt-Tan
+        containerLootGroups["Money-Belt-Tan"] = new WeightedGroup[]
         {
             // BIG probability group
             new WeightedGroup(0.60f, new string[] {
@@ -153,8 +157,8 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        // MoneyBelt-Orange
-        containerLootGroups["MoneyBelt-Orange"] = new WeightedGroup[]
+        // Money-Belt-Orange
+        containerLootGroups["Money-Belt-Orange"] = new WeightedGroup[]
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
@@ -171,8 +175,8 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        // MoneyBelt-Blue
-        containerLootGroups["MoneyBelt-Blue"] = new WeightedGroup[]
+        // Money-Belt-Blue
+        containerLootGroups["Money-Belt-Blue"] = new WeightedGroup[]
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
@@ -193,8 +197,8 @@ public class ContainerLootGenerator : MonoBehaviour
         //////////////////////
         /// SMALL BAG
         //////////////////////
-        // SmallBag-Tan
-        containerLootGroups["SmallBag-Tan"] = new WeightedGroup[]
+        // Bag-Small-Tan
+        containerLootGroups["Bag-Small-Tan"] = new WeightedGroup[]
         {
             // BIG
             new WeightedGroup(0.60f, new string[] {
@@ -210,8 +214,8 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        // SmallBag-Orange
-        containerLootGroups["SmallBag-Orange"] = new WeightedGroup[]
+        // Bag-Small-Orange
+        containerLootGroups["Bag-Small-Orange"] = new WeightedGroup[]
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
@@ -228,8 +232,8 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        // SmallBag-Blue
-        containerLootGroups["SmallBag-Blue"] = new WeightedGroup[]
+        // Bag-Small-Blue
+        containerLootGroups["Bag-Small-Blue"] = new WeightedGroup[]
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
@@ -251,7 +255,7 @@ public class ContainerLootGenerator : MonoBehaviour
         //////////////////////
         /// LARGE BAG
         //////////////////////
-        containerLootGroups["LargeBag-Tan"] = new WeightedGroup[]
+        containerLootGroups["Bag-Large-Tan"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
                 "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey",
@@ -265,7 +269,7 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        containerLootGroups["LargeBag-Orange"] = new WeightedGroup[]
+        containerLootGroups["Bag-Large-Orange"] = new WeightedGroup[]
         {
             new WeightedGroup(0.50f, new string[] {
                 "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow"
@@ -279,7 +283,7 @@ public class ContainerLootGenerator : MonoBehaviour
             })
         };
 
-        containerLootGroups["LargeBag-Blue"] = new WeightedGroup[]
+        containerLootGroups["Bag-Large-Blue"] = new WeightedGroup[]
         {
             new WeightedGroup(0.50f, new string[] {
                 "Key-Orange", "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White"
@@ -426,6 +430,9 @@ public class ContainerLootGenerator : MonoBehaviour
     /// </summary>
     public string GetRandomItem(string containerType)
     {
+        Debug.Log("Inside GetRandomItem method");
+        containerType = containerType.Replace(".vox(Clone)", "").Trim();
+
         if (!containerLootGroups.ContainsKey(containerType))
         {
             Debug.LogWarning($"No loot table for container type: {containerType}");
@@ -456,7 +463,10 @@ public class ContainerLootGenerator : MonoBehaviour
                     return null;
                 }
                 int index = UnityEngine.Random.Range(0, g.items.Length);
+                Debug.Log("Contained Item:" + g.items[index]);
+                inventoryManager.Spawn3DItem(g.items[index]);
                 return g.items[index];
+
             }
         }
 

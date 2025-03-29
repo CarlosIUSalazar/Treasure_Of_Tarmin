@@ -2,6 +2,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections.Generic;
+using System.Collections;
+using Unity.VisualScripting;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -41,6 +43,10 @@ public class PlayerGridMovement : MonoBehaviour
     public RectTransform minimapGrid; // Parent object of the minimap grid
 
     private float maxInteractionDistance = 5f;
+    private float doubleClickThreshold = 0.3f;
+    private bool waitingForSecondClick = false;
+    private Collider lastClickedCollider = null;
+    private Coroutine singleClickCoroutine = null;
 
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -108,11 +114,47 @@ public class PlayerGridMovement : MonoBehaviour
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, maxInteractionDistance))
             {
+                // For items, we can immediately pick them up on a single click.
                 // If the ray hits an item, trigger pickup.
                 if (hit.collider.CompareTag("Item"))
                 {
+                    // If it's an item, we pick it up immediately.
                     itemManager.PickUpItem(hit);
+                    // Also cancel any pending click for containers
+                    if (singleClickCoroutine != null)
+                    {
+                        StopCoroutine(singleClickCoroutine);
+                        waitingForSecondClick = false;
+                    }
                 }
+
+                // For containers, we want to distinguish single vs. double click.
+                else if (hit.collider.CompareTag("Container"))
+                {
+                    if (waitingForSecondClick && lastClickedCollider == hit.collider)
+                    {
+                        // Double click detected on the same container.
+                        if (singleClickCoroutine != null)
+                        {
+                            StopCoroutine(singleClickCoroutine);
+                        }
+                        waitingForSecondClick = false;
+                        Debug.Log("Open Container");
+                        OpenContainer(hit.collider);
+                        Destroy(hit.collider.gameObject); //Destroy the container to replace with Loot / I need to first validate the key for chets etc.
+
+                    }
+                    else
+                    {
+                        // First click on a container.
+                        waitingForSecondClick = true;
+                        lastClickedCollider = hit.collider;
+                        // Start a coroutine that waits for a double click.
+                        singleClickCoroutine = StartCoroutine(WaitForDoubleClick(hit));
+                    }
+                }
+
+
                 // If the ray hits a ladder, trigger descend.
                 else if (hit.collider.CompareTag("Ladder"))
                 {
@@ -128,6 +170,32 @@ public class PlayerGridMovement : MonoBehaviour
             }
         }
     }
+
+
+    private IEnumerator WaitForDoubleClick(RaycastHit hit)
+    {
+        // Wait for the double click threshold.
+        yield return new WaitForSeconds(doubleClickThreshold);
+
+         // If no second click has been detected, treat it as a single click (pickup the container).
+        if (waitingForSecondClick)
+        {
+            // Call your pickup method for containers.
+            itemManager.PickUpItem(hit);
+            waitingForSecondClick = false;
+            lastClickedCollider = null;
+        }
+    }
+
+    private void OpenContainer(Collider containerCol)
+    {
+        // Here you call your method to "open" the container.
+        // For example, you might show its contents:
+        Debug.Log("Double-click: Opening container " + containerCol.name);
+        floorManager.GetComponent<ContainerLootGenerator>().GetRandomItem(containerCol.name);
+        //containerLootGenerator.OpenContainer(containerCol.gameObject);
+    }
+
 
     private void UpdateFacingOrientation() {
         // Get the y-angle (in degrees) and normalize it between 0 and 360.
