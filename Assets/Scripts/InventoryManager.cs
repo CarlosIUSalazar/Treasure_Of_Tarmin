@@ -301,7 +301,7 @@ public class InventoryManager : MonoBehaviour
                         return;
                     } else {
                         ItemMapping itemMapping = GetItemMapping(itemName);
-                        if (!itemMapping.isArmor && !itemMapping.isWarWeapon && !itemMapping.isShield && !itemMapping.isTreasure) { //Only Apply to War weapons, Shields and Armor
+                        if (!itemMapping.isArmor && !itemMapping.isWarWeapon && !itemMapping.isShield && !itemMapping.isTreasure && !itemMapping.isQuiver && !itemMapping.isFlour) { //Only Apply to War weapons, Shields and Armor
                             Debug.Log("Can't apply Midas to " + itemName);
                         } else {
                             // if itemName = "Knife-Orange" change to "Knife-White"

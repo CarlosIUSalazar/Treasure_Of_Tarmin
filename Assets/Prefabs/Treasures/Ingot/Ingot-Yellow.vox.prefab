@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe70a7f010e334a6da962ea8623a86e0, type: 3}
       propertyPath: m_Name
-      value: Ingot-Yellow
+      value: Ingot-Yellow.vox
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: fe70a7f010e334a6da962ea8623a86e0, type: 3}
       propertyPath: m_IsActive
@@ -117,8 +117,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4513022, y: 0.36352444, z: 0.10319878}
-  m_Center: {x: -0.0042989077, y: 0.20609756, z: 0.043727264}
+  m_Size: {x: 1.4513022, y: 0.3972989, z: 0.10319878}
+  m_Center: {x: -0.004298916, y: 0.18921031, z: 0.043727264}
 --- !u!54 &6501441036574676529
 Rigidbody:
   m_ObjectHideFlags: 0

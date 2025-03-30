@@ -8,11 +8,24 @@ public class FloorManager : MonoBehaviour
 {
     // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
     [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
-    [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
     [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
+    [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
     [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
     [SerializeField] private GameObject[] mixedMonsterPrefabs;    // Tan: Mix of both
     [SerializeField] private GameObject[] mixedItemPrefabs;       // Tan: Mix of both
+    [SerializeField] private GameObject[] defensiveItems1to4;
+    [SerializeField] private GameObject[] defensiveItems5to8;
+    [SerializeField] private GameObject[] defensiveItems9to12;
+    [SerializeField] private GameObject[] warWeapons1to4;
+    [SerializeField] private GameObject[] warWeapons5to8;
+    [SerializeField] private GameObject[] warWeapons9to12;
+    [SerializeField] private GameObject[] spiritualWeapons1to4;
+    [SerializeField] private GameObject[] spiritualWeapons5to8;
+    [SerializeField] private GameObject[] spiritualWeapons9to12;
+
+    [SerializeField] private GameObject[] quiverPrefab;       
+    [SerializeField] private GameObject[] flourPrefab;      
+
     //[SerializeField] private GameObject[] containers;   //Containers
     [SerializeField] private GameObject westDoorBlue;
     [SerializeField] private GameObject westDoorTan;
@@ -353,6 +366,8 @@ public class FloorManager : MonoBehaviour
     private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
     {
         Debug.Log("Spawning Objects of type: " + type);
+        Debug.Log("Spawning Objects of type: " + prefabs[0]);
+
         int spawnAreaStartX = 1;
         int spawnAreaStartZ = 1;
         int spawnAreaEndX = (int)mazeSize.x - 2;
@@ -468,8 +483,8 @@ public class FloorManager : MonoBehaviour
         ClearFloorContents();
         GenerateMazeSets();
         // (2) Determine how many items/enemies to spawn and which prefab arrays to use based on blockColor.
-        int itemCount, enemyCount;
-        GameObject[] itemPrefabs, enemyPrefabs;
+        int itemCount, enemyCount, quiverCount, flourCount, defensiveItemsCount, weaponsCount;
+        GameObject[] itemPrefabs = null, enemyPrefabs = null, defensiveItemsPrefabs = null, warWeaponsPrefabs = null, spiritualWeaponsPrefabs = null;
 
         Debug.Log("currentBlock is: " + currentBlock);
         Debug.Log("Current Block horizontal neighbour left: " + currentBlock.neighborLeft);
@@ -561,47 +576,168 @@ public class FloorManager : MonoBehaviour
         //  5 Containers
         //  8 Enemies
 
+        //Generate 5 containers and store in containerPrefabArray
         GameObject[] containerPrefabArray = new GameObject[5];
-
         for (int i = 0; i < containerPrefabArray.Length; i++) {
             containerPrefabArray[i] = containerLootGenerator.GenerateAContainer(player.floor);
             Debug.Log("Container is: " + containerPrefabArray[i]);
         }
+        // switch (blockColor)
+        // {
+        //     case BlockColorType.Blue:
+        //         quiverCount = 1;
+        //         flourCount = 2;
+        //         itemCount = 8;
+        //         enemyCount = 8;
+        //         defensiveItemsCount = 2;
+        //         weaponsCount = 8;
+        //         //itemPrefabs = spiritualItemPrefabs;
+        //         enemyPrefabs = spiritualMonsterPrefabs;
+        //         // if (player.floor <= 4) {
+        //         //     defensiveItemsPrefabs = defensiveItems1to4;
+        //         //     spiritualItemPrefabs = spiritualWeapons1to4;
+        //         // } else if (player.floor >= 5 && player.floor >= 8) {
+        //         //     defensiveItemsPrefabs = defensiveItems5to8;
+        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
+        //         // }  else if (player.floor >= 12) {
+        //         //     defensiveItemsPrefabs = defensiveItems9to12;
+        //         //     spiritualItemPrefabs = spiritualWeapons9to12;               
+        //         // }
+        //         break;
 
+        //     case BlockColorType.Green:
+        //         quiverCount = 1;
+        //         flourCount = 2;
+        //         itemCount = 8;
+        //         enemyCount = 8;
+        //         defensiveItemsCount = 2;
+        //         weaponsCount = 8;
+        //         //itemPrefabs = warItemPrefabs;
+        //         enemyPrefabs = warMonsterPrefabs;
+        //         // if (player.floor <= 4) {
+        //         //     defensiveItemsPrefabs = defensiveItems1to4;
+        //         //     warWeaponsPrefabs = warWeapons1to4;
+        //         // } else if (player.floor >= 5 && player.floor >= 8) {
+        //         //     defensiveItemsPrefabs = defensiveItems5to8;
+        //         //     warWeaponsPrefabs = warWeapons5to8;
+        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
+        //         // }  else if (player.floor >= 12) {
+        //         //     defensiveItemsPrefabs = defensiveItems9to12;
+        //         //     warWeaponsPrefabs = warWeapons9to12;
+        //         // }
+        //         break;
 
+        //     case BlockColorType.Tan:
+        //         quiverCount = 1;
+        //         flourCount = 2;
+        //         itemCount = 8;
+        //         enemyCount = 8;
+        //         defensiveItemsCount = 2;
+        //         weaponsCount = 8;
+        //         //itemPrefabs = mixedItemPrefabs;
+        //         enemyPrefabs = mixedMonsterPrefabs;
+        //         // if (player.floor <= 4) {
+        //         //     defensiveItemsPrefabs = defensiveItems1to4;
+        //         //     warWeaponsPrefabs = warWeapons1to4;
+        //         //     spiritualItemPrefabs = spiritualWeapons1to4;
+        //         // } else if (player.floor >= 5 && player.floor >= 8) {
+        //         //     defensiveItemsPrefabs = defensiveItems5to8;
+        //         //     warWeaponsPrefabs = warWeapons5to8;
+        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
+        //         // }  else if (player.floor >= 12) {
+        //         //     defensiveItemsPrefabs = defensiveItems9to12;
+        //         //     spiritualItemPrefabs = spiritualWeapons9to12;              
+        //         // }
+        //         break;
+        //     default:
+        //         Debug.LogError("Unknown block color!");
+        //         return;
+        // }
 
-        switch (blockColor)
-        {
-            case BlockColorType.Blue:
-                itemCount = 8;
-                enemyCount = 12;
-                itemPrefabs = spiritualItemPrefabs;
-                enemyPrefabs = spiritualMonsterPrefabs;
-                break;
-            case BlockColorType.Green:
-                itemCount = 12;
-                enemyCount = 12;
-                itemPrefabs = warItemPrefabs;
-                enemyPrefabs = warMonsterPrefabs;
-                break;
-            case BlockColorType.Tan:
-                itemCount = 12;
-                enemyCount = 12;
-                itemPrefabs = mixedItemPrefabs;
-                enemyPrefabs = mixedMonsterPrefabs;
-                break;
-            default:
-                Debug.LogError("Unknown block color!");
-                return;
-        }
+        quiverCount = 1;
+        flourCount = 2;
+        enemyCount = 8;
+        defensiveItemsCount = 2;
+        weaponsCount = 8;
 
         //occupiedGridPositions.Clear(); //Maybe not needed
+        //////
+        // GREEN FLOOR
+        if (blockColor == BlockColorType.Green && player.floor <= 4) {
+            defensiveItemsPrefabs = defensiveItems1to4;
+            warWeaponsPrefabs = warWeapons1to4;  
+        } else if (blockColor == BlockColorType.Green && player.floor >= 5 && player.floor <= 8) {
+            defensiveItemsPrefabs = defensiveItems5to8;
+            warWeaponsPrefabs = warWeapons5to8;
+        } else if (blockColor == BlockColorType.Green && player.floor >= 9) {
+            defensiveItemsPrefabs = defensiveItems9to12;
+            warWeaponsPrefabs = warWeapons9to12;
+        }
+        //////
+        // BLUE FLOOR
+        if (blockColor == BlockColorType.Blue && player.floor <= 4) {
+            defensiveItemsPrefabs = defensiveItems1to4;
+            spiritualWeaponsPrefabs = spiritualWeapons1to4;  
+        } else if (blockColor == BlockColorType.Blue && player.floor >= 5 && player.floor <= 8) {
+            defensiveItemsPrefabs = defensiveItems5to8;
+            spiritualWeaponsPrefabs = spiritualWeapons5to8;
+        } else if (blockColor == BlockColorType.Blue && player.floor >= 9) {
+            defensiveItemsPrefabs = defensiveItems9to12;
+            spiritualWeaponsPrefabs = spiritualWeapons9to12;
+        }
+        //////
+        // TAN FLOOR
+        if (blockColor == BlockColorType.Tan && player.floor <= 4) {
+            defensiveItemsPrefabs = defensiveItems1to4;
+            warWeaponsPrefabs = warWeapons1to4;  
+            spiritualWeaponsPrefabs = spiritualWeapons1to4;  
+        } else if (blockColor == BlockColorType.Tan && player.floor >= 5 && player.floor <= 8) {
+            defensiveItemsPrefabs = defensiveItems5to8;
+            warWeaponsPrefabs = warWeapons5to8;
+            spiritualWeaponsPrefabs = spiritualWeapons5to8;
+        } else if (blockColor == BlockColorType.Tan && player.floor >= 9) {
+            defensiveItemsPrefabs = defensiveItems9to12;
+            warWeaponsPrefabs = warWeapons9to12;
+            spiritualWeaponsPrefabs = spiritualWeapons9to12;
+        }
 
         // Spawn items and enemies at positions inside the current MazeBlock
-        SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
-        SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        //  1 Quiver
+        SpawnObjects(quiverPrefab, quiverCount,itemHeightOffset,"Item",true);//, currentBlock.transform);
+        //  2 Sacks of Flour
+        SpawnObjects(flourPrefab, flourCount,itemHeightOffset,"Item",true);
+        //WEAPONS & ENEMIES SPAWN
+        if (blockColor == BlockColorType.Tan) {
+            //  4 Weapons War
+            SpawnObjects(warWeaponsPrefabs, 4,itemHeightOffset,"item",true);
+            //  4 Weapons Spiritual
+            SpawnObjects(spiritualWeaponsPrefabs, 4,itemHeightOffset,"item",true);
+            // 4 War enemies
+            SpawnObjects(warMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+            // 4 Spiritual enemies
+            SpawnObjects(spiritualMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        } else if (blockColor == BlockColorType.Green) {
+            //  8 Weapons War
+            SpawnObjects(warWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
+            // 4 War enemies
+            SpawnObjects(warMonsterPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        } else if (blockColor == BlockColorType.Blue) {
+            //  8 Spiritual War
+            SpawnObjects(spiritualWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
+            // 4 Spiritual enemies
+            SpawnObjects(spiritualMonsterPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        }
+        //  2 Defensive Items war and spirtual mixed OK
+        SpawnObjects(defensiveItemsPrefabs, defensiveItemsCount,itemHeightOffset,"item",true);
+        //  5 Containers
         SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Container",true);
 
+
+        // SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
+        // SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        // SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Container",true);
+        // SpawnObjects(quiverPrefab, quiverCount,itemHeightOffset,"Item",true);
+        // SpawnObjects(flourPrefab, flourCount,itemHeightOffset,"Item",true);
 
         if (gameManager.isMazeTransparent) {
             playerGridMovement.MakeMazeSetsTransparent();

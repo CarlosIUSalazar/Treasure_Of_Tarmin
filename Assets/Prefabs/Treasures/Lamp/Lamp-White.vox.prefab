@@ -66,7 +66,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 335b45bb1e7c040cf961bd1c148e1a17, type: 3}
       propertyPath: m_Name
-      value: Lamp-White
+      value: Lamp-White.vox
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 335b45bb1e7c040cf961bd1c148e1a17, type: 3}
       propertyPath: m_IsActive
@@ -117,8 +117,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.4513022, y: 0.77341896, z: 0.10319878}
-  m_Center: {x: -0.0042989077, y: 0.41104478, z: 0.043727264}
+  m_Size: {x: 1.6226724, y: 0.77341896, z: 0.10319878}
+  m_Center: {x: -0.0001096267, y: 0.41104478, z: 0.043727264}
 --- !u!54 &13524350212162169
 Rigidbody:
   m_ObjectHideFlags: 0

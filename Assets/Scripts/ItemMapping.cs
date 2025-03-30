@@ -11,6 +11,8 @@ public class ItemMapping : ScriptableObject
     public bool isShield;
     public bool isArmor;
     public bool isTreasure;
+    public bool isQuiver;
+    public bool isFlour;
     public bool isWarWeapon;
     public bool isSpiritualWeapon;
     public bool isHelmet;

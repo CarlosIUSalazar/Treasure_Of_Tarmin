@@ -135,3 +135,6 @@ Chest:
 Tan: yellow challice, bomb, gray challice, blue book clear, 
 Orange: yellow necklace, orange key, 
 Blue: White Crown, tan key, white chalice, gray crown, white necklace, gray chalice, white lamp
+
+
+https://docs.google.com/spreadsheets/d/1jqqI34sGs0kx1J_uOj5Jc2wu2Sv4D0Um0ZMVFC0thjk/edit?gid=0#gid=0
