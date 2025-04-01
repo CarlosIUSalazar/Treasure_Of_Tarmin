@@ -3,17 +3,20 @@ using System.Collections.Generic;
 using System.Globalization;
 using Unity.VisualScripting;
 using UnityEngine;
+using System.Linq;
 
 public class FloorManager : MonoBehaviour
 {
     // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
-    [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
-    [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
-    [SerializeField] private GameObject[] warItemPrefabs;         // Green: Swords, shields, etc.
-    [SerializeField] private GameObject[] spiritualItemPrefabs;   // Blue: Spellbooks, wands, etc.
-    [SerializeField] private GameObject[] mixedMonsterPrefabs;    // Tan: Mix of both
-    [SerializeField] private GameObject[] mixedItemPrefabs;       // Tan: Mix of both
+    // [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
+    // [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
     [SerializeField] private GameObject[] defensiveItems1to4;
+    [SerializeField] private GameObject[] warMonsters1to4;
+    [SerializeField] private GameObject[] warMonsters5to8;
+    [SerializeField] private GameObject[] warMonsters9to12;
+    [SerializeField] private GameObject[] spiritualMonsters1to4;
+    [SerializeField] private GameObject[] spiritualMonsters5to8;
+    [SerializeField] private GameObject[] spiritualMonsters9to12;
     [SerializeField] private GameObject[] defensiveItems5to8;
     [SerializeField] private GameObject[] defensiveItems9to12;
     [SerializeField] private GameObject[] warWeapons1to4;
@@ -22,9 +25,9 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject[] spiritualWeapons1to4;
     [SerializeField] private GameObject[] spiritualWeapons5to8;
     [SerializeField] private GameObject[] spiritualWeapons9to12;
-
     [SerializeField] private GameObject[] quiverPrefab;       
-    [SerializeField] private GameObject[] flourPrefab;      
+    [SerializeField] private GameObject[] flourPrefab; 
+    [SerializeField] private GameObject[] minotaurPrefab;
 
     //[SerializeField] private GameObject[] containers;   //Containers
     [SerializeField] private GameObject westDoorBlue;
@@ -80,6 +83,8 @@ public class FloorManager : MonoBehaviour
     GameManager gameManager;
     MazeGenerator mazeGenerator;
     ContainerLootGenerator containerLootGenerator;
+    DifficultyLevel selectedDifficulty = GameSettings.SelectedDifficulty;
+
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
     MazeBlock currentNeighbourBelowLeft;
@@ -91,6 +96,8 @@ public class FloorManager : MonoBehaviour
 
     // Keep track of occupied grid positions
     private HashSet<Vector2Int> occupiedGridPositions = new HashSet<Vector2Int>();
+    private List<Vector2Int> availableGridPositions;
+
     private const int maxSpawnAttempts = 100; // Limit to prevent infinite loops
 
     void Start()
@@ -363,63 +370,68 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
+    private void InitializeAvailablePositions()
     {
-        Debug.Log("Spawning Objects of type: " + type);
-        Debug.Log("Spawning Objects of type: " + prefabs[0]);
-
+        // Set up the available grid positions based on your mazeSize and spawn boundaries.
+        availableGridPositions = new List<Vector2Int>();
         int spawnAreaStartX = 1;
         int spawnAreaStartZ = 1;
         int spawnAreaEndX = (int)mazeSize.x - 2;
         int spawnAreaEndZ = (int)mazeSize.y - 2;
 
-        //Debug.Log($"Spawning {type}s in range X: [{spawnAreaStartX}, {spawnAreaEndX}], Z: [{spawnAreaStartZ}, {spawnAreaEndZ}]");
+        for (int x = spawnAreaStartX; x <= spawnAreaEndX; x++)
+        {
+            for (int z = spawnAreaStartZ; z <= spawnAreaEndZ; z++)
+            {
+                availableGridPositions.Add(new Vector2Int(x, z));
+            }
+        }
+    }
 
+
+    // Returns a reserved grid position and removes it from availableGridPositions.
+    private Vector2Int ReserveGridPosition()
+    {
+        if (availableGridPositions.Count == 0)
+        {
+            Debug.LogWarning("No available grid positions left!");
+            return new Vector2Int(0, 0); // Fallback or error handling.
+        }
+        int index = Random.Range(0, availableGridPositions.Count);
+        Vector2Int pos = availableGridPositions[index];
+        availableGridPositions.RemoveAt(index);
+        return pos;
+    }
+
+
+    // Converts a grid position to a world position.
+    private Vector3 GridToWorld(Vector2Int gridPos, float heightOffset)
+    {
+        return new Vector3(
+            gridPos.x * gridSize + gridSize * 0.5f,
+            heightOffset,
+            gridPos.y * gridSize + gridSize * 0.5f
+        );
+    }
+
+
+    // Modified SpawnObjects that uses ReserveGridPosition.
+    private void SpawnObjects(GameObject[] prefabs, int count, float heightOffset, string type, bool isItem)
+    {
+        Debug.Log("Spawning Objects of type: " + type);
         for (int i = 0; i < count; i++)
         {
-            Vector2Int randomGridPosition;
-            int attempts = 0;
+            // Reserve a grid position from the pool.
+            Vector2Int reservedPos = ReserveGridPosition();
 
-            do
-            {
-                if (attempts >= maxSpawnAttempts)
-                {
-                    Debug.LogWarning($"Max spawn attempts reached for {type}s. Skipping {type} spawn.");
-                    return;
-                }
+            // Convert the reserved grid position to world position.
+            Vector3 worldPosition = GridToWorld(reservedPos, heightOffset);
 
-                int randomGridX = Random.Range(spawnAreaStartX, spawnAreaEndX + 1);
-                int randomGridZ = Random.Range(spawnAreaStartZ, spawnAreaEndZ + 1);
-                randomGridPosition = new Vector2Int(randomGridX, randomGridZ);
-                attempts++;
-            } 
-            while (IsPositionOccupied(randomGridPosition) || (!isItem && IsAdjacentToEnemy(randomGridPosition)) || (isItem && IsDirectlyAdjacentToEnemy(randomGridPosition)));
-
-            //Debug.Log($"{type} {i + 1} spawned at grid {randomGridPosition}");
-
-            // Mark the grid position as occupied
-            MarkGridAsOccupied(randomGridPosition);
-
-            // Convert grid position to world position, centering within the grid square
-            Vector3 worldPosition = new Vector3(
-                randomGridPosition.x * gridSize + gridSize * 0.5f, // Center X
-                heightOffset, // Height adjustment
-                randomGridPosition.y * gridSize + gridSize * 0.5f  // Center Z
-            );
-
-            //Debug.Log($"{type} {i + 1} world position: {worldPosition}");
-
-            // Select a random prefab
-            //Debug.Log("prefabs in FooorManager:" + prefabs);
+            // Select and instantiate a random prefab.
             GameObject randomPrefab = prefabs[Random.Range(0, prefabs.Length)];
-
-            // Instantiate the object at the calculated position
-            //Instantiate(randomPrefab, worldPosition, Quaternion.identity);
-
-            // Instantiate the object at the calculated position
             GameObject spawnedObject = Instantiate(randomPrefab, worldPosition, Quaternion.identity);
 
-            // Check if the object has a Projectile component and remove it to avoid Hit effect to the player when picking these up
+            // Remove unwanted components if needed.
             Projectile projectileComponent = spawnedObject.GetComponent<Projectile>();
             if (projectileComponent != null)
             {
@@ -429,50 +441,97 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    private bool IsPositionOccupied(Vector2Int position)
+    private void SpawnLadder(string side)
     {
-        return occupiedGridPositions.Contains(position);
-    }
+        // Pick a ladder from the designated array.
+        int randomInt = Random.Range(0, (side == "East" ? eastLadders.Length : westLadders.Length));
+        GameObject ladderObj = (side == "East" ? eastLadders[randomInt] : westLadders[randomInt]);
 
-    private void MarkGridAsOccupied(Vector2Int position)
-    {
-        occupiedGridPositions.Add(position);
-    }
+        // Activate it.
+        ladderObj.SetActive(true);
 
+        // Use its preset position.
+        Vector3 worldPosition = ladderObj.transform.position;
 
-    // Check if the position is directly adjacent (N, S, E, W) to any enemy
-    private bool IsDirectlyAdjacentToEnemy(Vector2Int position)
-    {
-        Vector2Int[] adjacentOffsets = { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0) };
-        foreach (var offset in adjacentOffsets)
+        // Mark its grid cell as taken by removing it from availableGridPositions.
+        int gx = Mathf.FloorToInt(worldPosition.x / gridSize);
+        int gz = Mathf.FloorToInt(worldPosition.z / gridSize);
+        Vector2Int ladderGrid = new Vector2Int(gx, gz);
+        if (availableGridPositions != null && availableGridPositions.Contains(ladderGrid))
         {
-            Vector2Int adjacentPosition = position + offset;
-            if (occupiedGridPositions.Contains(adjacentPosition))
-            {
-                return true;
-            }
+            availableGridPositions.Remove(ladderGrid);
         }
-        return false;
     }
 
 
-    // Check if the position is adjacent (including diagonals) to any enemy
-    private bool IsAdjacentToEnemy(Vector2Int position)
+    private void ReserveFixedLadderPositions()
     {
-        Vector2Int[] adjacentOffsets = {
-            new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0), // Direct neighbors
-            new Vector2Int(1, 1), new Vector2Int(-1, -1), new Vector2Int(1, -1), new Vector2Int(-1, 1) // Diagonals
-        };
-        foreach (var offset in adjacentOffsets)
+        // Suppose your fixed ladder positions are determined by the ladder prefabs’ positions.
+        // Loop through the ladder arrays and remove their grid cell from availableGridPositions.
+        foreach (GameObject ladder in westLadders)
         {
-            Vector2Int adjacentPosition = position + offset;
-            if (occupiedGridPositions.Contains(adjacentPosition))
-            {
-                return true;
-            }
+            int gx = Mathf.FloorToInt(ladder.transform.position.x / gridSize);
+            int gz = Mathf.FloorToInt(ladder.transform.position.z / gridSize);
+            Vector2Int pos = new Vector2Int(gx, gz);
+            availableGridPositions.Remove(pos);
         }
-        return false;
+        foreach (GameObject ladder in eastLadders)
+        {
+            int gx = Mathf.FloorToInt(ladder.transform.position.x / gridSize);
+            int gz = Mathf.FloorToInt(ladder.transform.position.z / gridSize);
+            Vector2Int pos = new Vector2Int(gx, gz);
+            availableGridPositions.Remove(pos);
+        }
     }
+
+
+////////
+////// LEGACY METHODS NO LONGER NEEDED UNLESS I EVER WANT TO ENFORCE extra spacing (for example, to keep enemies a certain distance from each other) 
+///////
+    // private bool IsPositionOccupied(Vector2Int position)
+    // {
+    //     return occupiedGridPositions.Contains(position);
+    // }
+
+    // private void MarkGridAsOccupied(Vector2Int position)
+    // {
+    //     occupiedGridPositions.Add(position);
+    // }
+
+
+    // // Check if the position is directly adjacent (N, S, E, W) to any enemy
+    // private bool IsDirectlyAdjacentToEnemy(Vector2Int position)
+    // {
+    //     Vector2Int[] adjacentOffsets = { new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0) };
+    //     foreach (var offset in adjacentOffsets)
+    //     {
+    //         Vector2Int adjacentPosition = position + offset;
+    //         if (occupiedGridPositions.Contains(adjacentPosition))
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
+
+
+    // // Check if the position is adjacent (including diagonals) to any enemy
+    // private bool IsAdjacentToEnemy(Vector2Int position)
+    // {
+    //     Vector2Int[] adjacentOffsets = {
+    //         new Vector2Int(0, 1), new Vector2Int(0, -1), new Vector2Int(1, 0), new Vector2Int(-1, 0), // Direct neighbors
+    //         new Vector2Int(1, 1), new Vector2Int(-1, -1), new Vector2Int(1, -1), new Vector2Int(-1, 1) // Diagonals
+    //     };
+    //     foreach (var offset in adjacentOffsets)
+    //     {
+    //         Vector2Int adjacentPosition = position + offset;
+    //         if (occupiedGridPositions.Contains(adjacentPosition))
+    //         {
+    //             return true;
+    //         }
+    //     }
+    //     return false;
+    // }
 
 
     public void GenerateFloorContents(BlockColorType blockColor, Vector2Int startPosition, MazeBlock currentBlock, string corridorDoorSide)
@@ -482,6 +541,12 @@ public class FloorManager : MonoBehaviour
         // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
         ClearFloorContents();
         GenerateMazeSets();
+         // Initialize the pool of available grid positions for the new floor.
+        InitializeAvailablePositions();
+        
+        ReserveFixedLadderPositions();
+
+
         // (2) Determine how many items/enemies to spawn and which prefab arrays to use based on blockColor.
         int itemCount, enemyCount, quiverCount, flourCount, defensiveItemsCount, weaponsCount;
         GameObject[] itemPrefabs = null, enemyPrefabs = null, defensiveItemsPrefabs = null, warWeaponsPrefabs = null, spiritualWeaponsPrefabs = null;
@@ -554,18 +619,17 @@ public class FloorManager : MonoBehaviour
         //////
         ///SPAWNER OF LADDERS
         /////
-        if (player.floor % 2 == 0) {
-            Debug.Log("Spawning Even Floor Ladders");
-            if (currentBlock.neighborBelowLeft != null) {
-                SpawnLadder("West");
-            } else if (currentBlock.neighborBelowRight != null) {
-                SpawnLadder("East");
-            }
-        } else {
-            Debug.Log("Spawning Odd Floor Ladders");
+    if (player.floor % 2 == 0) {
+        // Even floor: spawn one ladder based on neighboring blocks.
+        if (currentBlock.neighborBelowLeft != null)
             SpawnLadder("West");
+        else if (currentBlock.neighborBelowRight != null)
             SpawnLadder("East");
-        }
+    } else {
+        // Odd floor: always spawn both.
+        SpawnLadder("West");
+        SpawnLadder("East");
+    }
 
         // -- Item Frequencies per floor (all difficulties) --
         //  2 Ladders
@@ -582,77 +646,6 @@ public class FloorManager : MonoBehaviour
             containerPrefabArray[i] = containerLootGenerator.GenerateAContainer(player.floor);
             Debug.Log("Container is: " + containerPrefabArray[i]);
         }
-        // switch (blockColor)
-        // {
-        //     case BlockColorType.Blue:
-        //         quiverCount = 1;
-        //         flourCount = 2;
-        //         itemCount = 8;
-        //         enemyCount = 8;
-        //         defensiveItemsCount = 2;
-        //         weaponsCount = 8;
-        //         //itemPrefabs = spiritualItemPrefabs;
-        //         enemyPrefabs = spiritualMonsterPrefabs;
-        //         // if (player.floor <= 4) {
-        //         //     defensiveItemsPrefabs = defensiveItems1to4;
-        //         //     spiritualItemPrefabs = spiritualWeapons1to4;
-        //         // } else if (player.floor >= 5 && player.floor >= 8) {
-        //         //     defensiveItemsPrefabs = defensiveItems5to8;
-        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
-        //         // }  else if (player.floor >= 12) {
-        //         //     defensiveItemsPrefabs = defensiveItems9to12;
-        //         //     spiritualItemPrefabs = spiritualWeapons9to12;               
-        //         // }
-        //         break;
-
-        //     case BlockColorType.Green:
-        //         quiverCount = 1;
-        //         flourCount = 2;
-        //         itemCount = 8;
-        //         enemyCount = 8;
-        //         defensiveItemsCount = 2;
-        //         weaponsCount = 8;
-        //         //itemPrefabs = warItemPrefabs;
-        //         enemyPrefabs = warMonsterPrefabs;
-        //         // if (player.floor <= 4) {
-        //         //     defensiveItemsPrefabs = defensiveItems1to4;
-        //         //     warWeaponsPrefabs = warWeapons1to4;
-        //         // } else if (player.floor >= 5 && player.floor >= 8) {
-        //         //     defensiveItemsPrefabs = defensiveItems5to8;
-        //         //     warWeaponsPrefabs = warWeapons5to8;
-        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
-        //         // }  else if (player.floor >= 12) {
-        //         //     defensiveItemsPrefabs = defensiveItems9to12;
-        //         //     warWeaponsPrefabs = warWeapons9to12;
-        //         // }
-        //         break;
-
-        //     case BlockColorType.Tan:
-        //         quiverCount = 1;
-        //         flourCount = 2;
-        //         itemCount = 8;
-        //         enemyCount = 8;
-        //         defensiveItemsCount = 2;
-        //         weaponsCount = 8;
-        //         //itemPrefabs = mixedItemPrefabs;
-        //         enemyPrefabs = mixedMonsterPrefabs;
-        //         // if (player.floor <= 4) {
-        //         //     defensiveItemsPrefabs = defensiveItems1to4;
-        //         //     warWeaponsPrefabs = warWeapons1to4;
-        //         //     spiritualItemPrefabs = spiritualWeapons1to4;
-        //         // } else if (player.floor >= 5 && player.floor >= 8) {
-        //         //     defensiveItemsPrefabs = defensiveItems5to8;
-        //         //     warWeaponsPrefabs = warWeapons5to8;
-        //         //     spiritualItemPrefabs = spiritualWeapons5to8;
-        //         // }  else if (player.floor >= 12) {
-        //         //     defensiveItemsPrefabs = defensiveItems9to12;
-        //         //     spiritualItemPrefabs = spiritualWeapons9to12;              
-        //         // }
-        //         break;
-        //     default:
-        //         Debug.LogError("Unknown block color!");
-        //         return;
-        // }
 
         quiverCount = 1;
         flourCount = 2;
@@ -660,45 +653,53 @@ public class FloorManager : MonoBehaviour
         defensiveItemsCount = 2;
         weaponsCount = 8;
 
-        //occupiedGridPositions.Clear(); //Maybe not needed
         //////
         // GREEN FLOOR
         if (blockColor == BlockColorType.Green && player.floor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
             warWeaponsPrefabs = warWeapons1to4;  
+            enemyPrefabs = warMonsters1to4;
         } else if (blockColor == BlockColorType.Green && player.floor >= 5 && player.floor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
+            enemyPrefabs = warMonsters5to8;
         } else if (blockColor == BlockColorType.Green && player.floor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             warWeaponsPrefabs = warWeapons9to12;
+            enemyPrefabs = warMonsters9to12;
         }
         //////
         // BLUE FLOOR
         if (blockColor == BlockColorType.Blue && player.floor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
-            spiritualWeaponsPrefabs = spiritualWeapons1to4;  
+            spiritualWeaponsPrefabs = spiritualWeapons1to4;
+            enemyPrefabs = spiritualMonsters1to4;
         } else if (blockColor == BlockColorType.Blue && player.floor >= 5 && player.floor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
+            enemyPrefabs = spiritualMonsters5to8;
         } else if (blockColor == BlockColorType.Blue && player.floor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             spiritualWeaponsPrefabs = spiritualWeapons9to12;
+            enemyPrefabs = spiritualMonsters9to12;
         }
         //////
         // TAN FLOOR
         if (blockColor == BlockColorType.Tan && player.floor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
             warWeaponsPrefabs = warWeapons1to4;  
-            spiritualWeaponsPrefabs = spiritualWeapons1to4;  
+            spiritualWeaponsPrefabs = spiritualWeapons1to4;
+            enemyPrefabs = warMonsters1to4.Concat(spiritualMonsters1to4).ToArray();
         } else if (blockColor == BlockColorType.Tan && player.floor >= 5 && player.floor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
+            enemyPrefabs = warMonsters5to8.Concat(spiritualMonsters5to8).ToArray();
         } else if (blockColor == BlockColorType.Tan && player.floor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             warWeaponsPrefabs = warWeapons9to12;
             spiritualWeaponsPrefabs = spiritualWeapons9to12;
+            enemyPrefabs = warMonsters9to12.Concat(spiritualMonsters9to12).ToArray();
         }
 
         // Spawn items and enemies at positions inside the current MazeBlock
@@ -706,38 +707,57 @@ public class FloorManager : MonoBehaviour
         SpawnObjects(quiverPrefab, quiverCount,itemHeightOffset,"Item",true);//, currentBlock.transform);
         //  2 Sacks of Flour
         SpawnObjects(flourPrefab, flourCount,itemHeightOffset,"Item",true);
+
+        // Spawn Minotaur at floor 12, 16 and then randomly after
+        switch (selectedDifficulty)
+        {
+            case DifficultyLevel.VeryHard:
+                if (player.floor == 12 || player.floor == 16) {
+                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
+                }
+                break;
+            case DifficultyLevel.Hard:
+                if (player.floor == 8) {
+                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
+                }
+                break;
+            case DifficultyLevel.Normal:
+                if (player.floor == 4) {
+                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
+                }
+                break;
+            case DifficultyLevel.Easy:
+                if (player.floor == 2) {
+                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
+                }
+                break;
+        }
+
         //WEAPONS & ENEMIES SPAWN
         if (blockColor == BlockColorType.Tan) {
             //  4 Weapons War
             SpawnObjects(warWeaponsPrefabs, 4,itemHeightOffset,"item",true);
             //  4 Weapons Spiritual
             SpawnObjects(spiritualWeaponsPrefabs, 4,itemHeightOffset,"item",true);
-            // 4 War enemies
-            SpawnObjects(warMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+            // 8 Mixed enemies
+            SpawnObjects(enemyPrefabs, 8, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
             // 4 Spiritual enemies
-            SpawnObjects(spiritualMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+            //SpawnObjects(spiritualMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
         } else if (blockColor == BlockColorType.Green) {
             //  8 Weapons War
             SpawnObjects(warWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
             // 4 War enemies
-            SpawnObjects(warMonsterPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+            SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
         } else if (blockColor == BlockColorType.Blue) {
             //  8 Spiritual War
             SpawnObjects(spiritualWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
             // 4 Spiritual enemies
-            SpawnObjects(spiritualMonsterPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+            SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
         }
         //  2 Defensive Items war and spirtual mixed OK
         SpawnObjects(defensiveItemsPrefabs, defensiveItemsCount,itemHeightOffset,"item",true);
         //  5 Containers
         SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Container",true);
-
-
-        // SpawnObjects(itemPrefabs, itemCount, itemHeightOffset, "Item", true);//, currentBlock.transform);
-        // SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-        // SpawnObjects(containerPrefabArray, 5,itemHeightOffset,"Container",true);
-        // SpawnObjects(quiverPrefab, quiverCount,itemHeightOffset,"Item",true);
-        // SpawnObjects(flourPrefab, flourCount,itemHeightOffset,"Item",true);
 
         if (gameManager.isMazeTransparent) {
             playerGridMovement.MakeMazeSetsTransparent();
@@ -746,36 +766,8 @@ public class FloorManager : MonoBehaviour
     }
 
 
-    private void SpawnLadder(string side) {
-        int randomInt = Random.Range(0, westLadders.Length);
-
-        if (side == "East")
-        {
-            eastLadders[randomInt].SetActive(true);
-
-            // Now mark the ladder’s grid cell as occupied
-            GameObject ladderObj = eastLadders[randomInt];
-            Vector3 ladderPos = ladderObj.transform.position;
-            int gx = Mathf.FloorToInt(ladderPos.x / gridSize);
-            int gz = Mathf.FloorToInt(ladderPos.z / gridSize);
-            MarkGridAsOccupied(new Vector2Int(gx, gz));
-        }
-        else if (side == "West")
-        {
-            westLadders[randomInt].SetActive(true);
-
-            // Mark the ladder’s grid cell as occupied
-            GameObject ladderObj = westLadders[randomInt];
-            Vector3 ladderPos = ladderObj.transform.position;
-            int gx = Mathf.FloorToInt(ladderPos.x / gridSize);
-            int gz = Mathf.FloorToInt(ladderPos.z / gridSize);
-            MarkGridAsOccupied(new Vector2Int(gx, gz));
-        }
-    }
-
-
     private void ClearFloorContents() {
-        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet", "MazeEntranceDoorWall" };
+        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet", "MazeEntranceDoorWall", "Container" };
 
         foreach (string tag in itemEnemyTags)
         {
