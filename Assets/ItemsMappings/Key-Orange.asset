@@ -17,8 +17,17 @@ MonoBehaviour:
   item2DSprite: {fileID: 2800000, guid: 219a9bd75f2b142bfbce5ebe9e605f45, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 1
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0

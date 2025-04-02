@@ -431,7 +431,16 @@ public class ContainerLootGenerator : MonoBehaviour
     public string GetRandomItem(string containerType)
     {
         Debug.Log("Inside GetRandomItem method");
-        containerType = containerType.Replace(".vox(Clone)", "").Trim();
+        //containerType = containerType.Replace(".vox(Clone)", "").Trim();
+
+
+        if (containerType.EndsWith(".vox(Clone)"))
+        {
+            containerType = containerType.Replace(".vox(Clone)", "").Trim();
+        } else if (containerType.EndsWith(".vox")) {
+            containerType = containerType.Replace(".vox", "").Trim();
+        }
+
 
         if (!containerLootGroups.ContainsKey(containerType))
         {

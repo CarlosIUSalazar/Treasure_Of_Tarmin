@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System.Collections;
 using System;
+using System.Linq;
 
 // Tan, Orange, Blue, Grey, Yellow, White
 // Blue, Grey, White, Pink, Red, Purple
@@ -63,9 +64,84 @@ public class InventoryManager : MonoBehaviour
         return isHoldingRightHandItem;
     }
 
-    public ItemMapping GetItemMapping(string itemName){
+
+    public ItemMapping GetItemMapping(string itemName) {
+        // Check if the name ends with ".vox(Clone)" and remove it if so.
+        if (itemName.EndsWith(".vox(Clone)"))
+        {
+            itemName = itemName.Replace(".vox(Clone)", "").Trim();
+        } else if (itemName.EndsWith(".vox")) {
+            itemName = itemName.Replace(".vox", "").Trim();
+        }
         return itemMappings.Find(mapping => mapping.itemName == itemName);
     }
+
+
+    public List<ItemMapping> GetBackpackItemMappings() {
+        List<ItemMapping> backpackItems = new List<ItemMapping>();
+        foreach (RawImage slot in backpackSlots) {
+            // Check if the slot is not empty (assuming transparentImg means empty)
+            if (slot.texture != null && slot.texture != transparentImg) {
+                // Use the texture name to find the corresponding mapping
+                ItemMapping mapping = GetItemMapping(slot.texture.name);
+                if (mapping != null) {
+                    backpackItems.Add(mapping);
+                }
+            }
+        }
+        return backpackItems;
+    }
+
+
+    public List<ItemMapping> GetKeysInBackpack() {
+        // Reuse your existing method that gets backpack items.
+        List<ItemMapping> backpackItems = GetBackpackItemMappings();
+        // Filter for items that are keys.
+        return backpackItems.FindAll(item => item.isKey);
+    }
+
+
+    public bool HasKeyForContainer(ItemMapping containerMapping) {
+        List<ItemMapping> keys = GetAllKeys(); // Now includes backpack, left, and right keys
+
+        if (containerMapping.isBlue) {
+            // Blue containers require a blue key.
+            return keys.Any(key => key.isBlue);
+        } else if (containerMapping.isOrange) {
+            // Orange containers accept an orange key or a blue key.
+            return keys.Any(key => key.isBlue || key.isOrange);
+        } else if (containerMapping.isTan) {
+            // Tan containers accept any key.
+            return keys.Any(key => key.isBlue || key.isOrange || key.isTan);
+        }
+        return false;
+    }
+
+
+    public List<ItemMapping> GetAllKeys() {
+        List<ItemMapping> keys = new List<ItemMapping>();
+
+        // Get keys from backpack slots.
+        keys.AddRange(GetKeysInBackpack());
+
+        // Check left hand slot.
+        if (leftHandSlot.texture != null && leftHandSlot.texture != transparentImg) {
+            ItemMapping leftItem = GetItemMapping(leftHandSlot.texture.name);
+            if (leftItem != null && leftItem.isKey) {
+                keys.Add(leftItem);
+            }
+        }
+
+        // Check right hand slot.
+        if (rightHandSlot.texture != null && rightHandSlot.texture != transparentImg) {
+            ItemMapping rightItem = GetItemMapping(rightHandSlot.texture.name);
+            if (rightItem != null && rightItem.isKey) {
+                keys.Add(rightItem);
+            }
+        }
+        return keys;
+    }
+
 
     // Assign an item to a slot
     public void AssignItemToSlot(int slotIndex, Texture itemTexture)

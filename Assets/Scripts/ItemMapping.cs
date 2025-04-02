@@ -8,6 +8,10 @@ public class ItemMapping : ScriptableObject
     public Texture2D item2DSprite; // Reference to the 2D sprite
     public GameObject ammo; //Which ammo this weapon will shoot
     public bool isContainer;
+    public bool isLocked;
+    public bool isTan;
+    public bool isOrange;
+    public bool isBlue;
     public bool isShield;
     public bool isArmor;
     public bool isTreasure;

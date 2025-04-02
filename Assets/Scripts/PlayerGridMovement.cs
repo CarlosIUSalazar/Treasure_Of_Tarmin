@@ -139,10 +139,39 @@ public class PlayerGridMovement : MonoBehaviour
                             StopCoroutine(singleClickCoroutine);
                         }
                         waitingForSecondClick = false;
-                        Debug.Log("Open Container");
-                        OpenContainer(hit.collider);
-                        Destroy(hit.collider.gameObject); //Destroy the container to replace with Loot / I need to first validate the key for chets etc.
+                        Debug.Log("Try Open Container");
 
+                        //Obtain item mapping
+                        ItemMapping containerInFront;
+                        Debug.Log("hit.collider.name" + hit.collider.name);
+                        containerInFront = inventoryManager.GetItemMapping(hit.collider.name);
+                        Debug.Log("Found" + hit.collider.name);
+                        Debug.Log("isLocked?" + containerInFront.isLocked);
+                        // Check if it's locked
+                        if (!containerInFront.isLocked) {
+                            // Open Container
+                            OpenContainer(hit.collider);
+                            Destroy(hit.collider.gameObject);
+                        } else {
+                            // Get all keys the player is holding (backpack, left hand, and right hand)
+                            List<ItemMapping> allKeys = inventoryManager.GetAllKeys();
+                            if (allKeys.Count == 0) {
+                                // No key at all
+                                Debug.Log("No key found.");
+                                gameManager.SetPlayerMessage("It's locked");
+                            }
+                            else if (inventoryManager.HasKeyForContainer(containerInFront)) {
+                                // Player has at least one key that meets the requirements.
+                                Debug.Log("Key found, opening container.");
+                                OpenContainer(hit.collider);
+                                Destroy(hit.collider.gameObject);
+                            }
+                            else {
+                                // The player has a key, but it's not the right quality.
+                                Debug.Log("Key(s) present but not sufficient.");
+                                gameManager.SetPlayerMessage("Need better key");
+                            }
+                        }
                     }
                     else
                     {
