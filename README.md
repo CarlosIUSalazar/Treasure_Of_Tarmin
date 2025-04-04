@@ -2,6 +2,9 @@
 ## Treasure Of Tarmin (Minotaur)
 ### _Intellivision 1983_
 
+## Beta Version (updated frequently with my progress)
+http://tarmin.s3-website-ap-northeast-1.amazonaws.com
+
 ## Overview
 
 This is a complete 3D Remake of the 'Treasure of Tarmin' game released for Intellivision 
