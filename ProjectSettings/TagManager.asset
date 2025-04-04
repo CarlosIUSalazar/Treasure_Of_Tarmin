@@ -17,6 +17,8 @@ TagManager:
   - OuterWall
   - Container
   - Bomb
+  - EvilDoorWall
+  - EvilDoor
   layers:
   - Default
   - TransparentFX

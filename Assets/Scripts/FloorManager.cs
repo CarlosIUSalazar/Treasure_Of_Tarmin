@@ -113,15 +113,33 @@ public class FloorManager : MonoBehaviour
     private void GenerateMazeSets() {
         // Generate 4 Maze Sets
         int randomIndex;
-        int mazeIndex = Random.Range(0,15);
-        Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint1.transform.localPosition,Quaternion.identity);
-        mazeIndex = Random.Range(0,15);
-        Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint2.transform.localPosition,Quaternion.identity);
-        mazeIndex = Random.Range(0,15);
-        Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint3.transform.localPosition,Quaternion.identity);
-        mazeIndex = Random.Range(0,15);
-        Instantiate(mazeSetsPrefabs[mazeIndex],mazeSpawnPoint4.transform.localPosition,Quaternion.identity);
-        
+        // Spawn maze set at mazeSpawnPoint1
+        int mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        int randomYRotation = Random.Range(0, 4) * 90; // 0, 90, 180, or 270 degrees
+        Instantiate(mazeSetsPrefabs[mazeIndex],
+                    mazeSpawnPoint1.transform.position,
+                    Quaternion.Euler(0, randomYRotation, 0));
+
+        // Spawn maze set at mazeSpawnPoint2
+        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        randomYRotation = Random.Range(0, 4) * 90;
+        Instantiate(mazeSetsPrefabs[mazeIndex],
+                    mazeSpawnPoint2.transform.position,
+                    Quaternion.Euler(0, randomYRotation, 0));
+
+        // Spawn maze set at mazeSpawnPoint3
+        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        randomYRotation = Random.Range(0, 4) * 90;
+        Instantiate(mazeSetsPrefabs[mazeIndex],
+                    mazeSpawnPoint3.transform.position,
+                    Quaternion.Euler(0, randomYRotation, 0));
+
+        // Spawn maze set at mazeSpawnPoint4
+        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        randomYRotation = Random.Range(0, 4) * 90;
+        Instantiate(mazeSetsPrefabs[mazeIndex],
+                    mazeSpawnPoint4.transform.position,
+                    Quaternion.Euler(0, randomYRotation, 0));
         /////
         // Generate Maze entrance DoorWalls
         // 1. NorthWest Light
