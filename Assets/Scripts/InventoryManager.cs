@@ -19,7 +19,6 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage hauberkImg;
     [SerializeField] private RawImage gauntletImg;
     [SerializeField] private RawImage ringImg;
-
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     public bool isHoldingRightHandItem = false;
     private ItemMapping currentHelmet;
@@ -28,7 +27,6 @@ public class InventoryManager : MonoBehaviour
     private ItemMapping currentGauntlet;
     private ItemMapping currentRing;
     private ItemMapping currentShield;
-
     Player player;
     ViewSwitcher viewSwitcher;
     PlayerGridMovement playerGridMovement;
@@ -49,9 +47,11 @@ public class InventoryManager : MonoBehaviour
         CheckIfRightHandHasItem();
     }
 
+
     public void EmptyRightHand() {
         rightHandSlot.texture = transparentImg;
     }
+
 
     public bool CheckIfRightHandHasItem()
     {
@@ -103,7 +103,6 @@ public class InventoryManager : MonoBehaviour
 
     public bool HasKeyForContainer(ItemMapping containerMapping) {
         List<ItemMapping> keys = GetAllKeys(); // Now includes backpack, left, and right keys
-
         if (containerMapping.isBlue) {
             // Blue containers require a blue key.
             return keys.Any(key => key.isBlue);
@@ -120,10 +119,8 @@ public class InventoryManager : MonoBehaviour
 
     public List<ItemMapping> GetAllKeys() {
         List<ItemMapping> keys = new List<ItemMapping>();
-
         // Get keys from backpack slots.
         keys.AddRange(GetKeysInBackpack());
-
         // Check left hand slot.
         if (leftHandSlot.texture != null && leftHandSlot.texture != transparentImg) {
             ItemMapping leftItem = GetItemMapping(leftHandSlot.texture.name);
@@ -131,7 +128,6 @@ public class InventoryManager : MonoBehaviour
                 keys.Add(leftItem);
             }
         }
-
         // Check right hand slot.
         if (rightHandSlot.texture != null && rightHandSlot.texture != transparentImg) {
             ItemMapping rightItem = GetItemMapping(rightHandSlot.texture.name);
@@ -147,21 +143,21 @@ public class InventoryManager : MonoBehaviour
     public void AssignItemToSlot(int slotIndex, Texture itemTexture)
     {
         if (slotIndex < 0 || slotIndex >= backpackSlots.Length) return;
-
         backpackSlots[slotIndex].texture = itemTexture;
         backpackSlots[slotIndex].color = Color.white; // Make sure it’s visible
     }
+
 
     // Swap items between two slots
     public void SwapItems(int slotIndexA, int slotIndexB)
     {
         if (slotIndexA < 0 || slotIndexB < 0 || slotIndexA >= backpackSlots.Length || slotIndexB >= backpackSlots.Length)
             return;
-
         Texture temp = backpackSlots[slotIndexA].texture;
         backpackSlots[slotIndexA].texture = backpackSlots[slotIndexB].texture;
         backpackSlots[slotIndexB].texture = temp;
     }
+
 
     // Assign an item directly to the left hand
     public void AssignToLeftHand(Texture shieldTexture)
@@ -172,6 +168,7 @@ public class InventoryManager : MonoBehaviour
             leftHandSlot.color = Color.white;
         }
     }
+
 
     // Assign an item directly to the right hand
     public void AssignToRightHand(string itemName, bool isNewItem)
@@ -184,7 +181,6 @@ public class InventoryManager : MonoBehaviour
                 Spawn3DItem(rightHandSlot.texture.name); // Spawn the currently holding item into a 3D item on the ground
             }
         }
-
         if (itemMapping != null) // If the item mapping is found
         {
             rightHandSlot.texture = itemMapping.item2DSprite; // Assign the item to the right hand in 2D
@@ -200,16 +196,21 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+
     public void DropAnItem() {
         Debug.Log("Pressed Drop Button");
         if (!isHoldingRightHandItem) {
             Debug.Log("I don't have anything to drop");
             return;
         } 
-        
         Collider itemOnTheFloor = playerGridMovement.CheckForInteractablesAndReturnHitCollider();
-        if (isHoldingRightHandItem && !itemOnTheFloor) { //If I have something in my right hand and there is nothing on the floor just drop it
-            Debug.Log("I have something in my right hand drop it");
+        
+        if (!itemOnTheFloor || itemOnTheFloor.gameObject.tag == "MazeSet" || itemOnTheFloor.gameObject.tag == "Door" || itemOnTheFloor.gameObject.tag == "OuterWall" || itemOnTheFloor.gameObject.tag == "CorridorDoorEast" || itemOnTheFloor.gameObject.tag == "CorridorDoorWest" || itemOnTheFloor.gameObject.tag == "Enemy") {
+            itemOnTheFloor = null;
+        }
+        
+        if (isHoldingRightHandItem && itemOnTheFloor == null) { //If I have something in my right hand and there is nothing on the floor just drop it
+            Debug.Log("I have something in my right hand and nothing on the floor, I'll drop it");
             String currentItem = rightHandSlot.texture.name; //Remember current item in hand
             Spawn3DItem(currentItem);
             rightHandSlot.texture = transparentImg;
@@ -239,9 +240,10 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
+
     public void Spawn3DItem(string itemName)
     {
-        Debug.Log("Inside Spawn3DItem, Sting is " + itemName);
+        Debug.Log("Inside Spawn3DItem, String is " + itemName);
         Vector3 playerPosition = GameObject.Find("Player").transform.position;
 
         ItemMapping itemMapping = GetItemMapping(itemName);
@@ -264,10 +266,11 @@ public class InventoryManager : MonoBehaviour
             
             Debug.Log("Spawned 3D Item: " + itemMapping.item3DPrefab.name);
         }
-        else 
-        {
-            Debug.LogWarning("3D Prefab not found for: " + itemName);
-        } 
+        // else 
+        // {
+        //     //This happens when you pick up an item with nothin in right hand currently
+        //     Debug.LogWarning("3D Prefab not found for: " + itemName);
+        // } 
     }
 
 
@@ -430,7 +433,7 @@ public class InventoryManager : MonoBehaviour
 
 
     private IEnumerator TimerToEndTransparentMaze() {
-        yield return new WaitForSeconds(30f);
+        yield return new WaitForSeconds(90f);
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
     }

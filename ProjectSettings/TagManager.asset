@@ -16,6 +16,7 @@ TagManager:
   - MazeEntranceDoorWall
   - OuterWall
   - Container
+  - Bomb
   layers:
   - Default
   - TransparentFX

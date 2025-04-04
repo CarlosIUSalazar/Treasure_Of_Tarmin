@@ -48,7 +48,7 @@ public class Player : MonoBehaviour
         score = 0;
         arrows = 10;
         food = 100;
-        floor = 9;
+        floor = 1;
 
         //Trigger UI update at start
         OnPlayerStatsUpdated?.Invoke();

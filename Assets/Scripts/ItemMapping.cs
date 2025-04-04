@@ -26,6 +26,7 @@ public class ItemMapping : ScriptableObject
     public bool isRing;
     public bool isPotion;
     public bool isKey;
+    public bool isBomb;
     public int warAttackPower;
     public int spiritualAttackPower;
     public int warDefense;

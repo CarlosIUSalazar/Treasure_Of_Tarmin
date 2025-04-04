@@ -539,7 +539,7 @@ public class FloorManager : MonoBehaviour
         occupiedGridPositions.Clear(); //Clear previous occupied positions so thigns keep spawning on new floors
         Debug.Log($"Generating floor contents for {currentBlock.name} with color {blockColor} at {startPosition}");
         // (1) Clear previous floor content (you can implement ClearFloorContents() to destroy all spawned items, enemies, doors, ladders, etc.)
-        //ClearFloorContents();
+        ClearFloorContents();
         GenerateMazeSets();
          // Initialize the pool of available grid positions for the new floor.
         InitializeAvailablePositions();

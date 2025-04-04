@@ -145,15 +145,15 @@ public class ContainerLootGenerator : MonoBehaviour
         {
             // BIG probability group
             new WeightedGroup(0.60f, new string[] {
-                "Coins-Grey", "Necklace-Grey", "Ingot-Grey"
+                "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Bomb"
             }),
             // SMALL probability group
             new WeightedGroup(0.30f, new string[] {
-                "Key-Tan", "Lamp-Grey", "Chalice-Grey"
+                "Key-Tan", "Lamp-Grey", "Chalice-Grey", "Bomb"
             }),
             // VERY SMALL probability group
             new WeightedGroup(0.10f, new string[] {
-                "Crown-Grey"
+                "Crown-Grey", "Bomb"
             })
         };
 
@@ -162,16 +162,16 @@ public class ContainerLootGenerator : MonoBehaviour
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
-                "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey"
+                "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey", "Bomb"
             }),
             // SMALL
             new WeightedGroup(0.35f, new string[] {
                 "Key-Tan", "Chalice-Grey", "Crown-Grey",
-                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow"
+                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Bomb"
             }),
             // VERY SMALL
             new WeightedGroup(0.15f, new string[] {
-                "Potion-Small-Blue"
+                "Potion-Small-Blue", "Bomb"
             })
         };
 
@@ -181,16 +181,16 @@ public class ContainerLootGenerator : MonoBehaviour
             // BIG
             new WeightedGroup(0.50f, new string[] {
                 "Ingot-Grey", "Lamp-Grey", "Chalice-Grey", "Crown-Grey",
-                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow"
+                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Bomb"
             }),
             // SMALL
             new WeightedGroup(0.35f, new string[] {
                 "Potion-Small-Blue", "Key-Tan", "Key-Orange",
-                "Chalice-Yellow", "Crown-Yellow", "Coins-White", "Necklace-White"
+                "Chalice-Yellow", "Crown-Yellow", "Coins-White", "Necklace-White", "Bomb"
             }),
             // VERY SMALL
             new WeightedGroup(0.15f, new string[] {
-                "Book-War-Blue", "Book-Spiritual-Blue"
+                "Book-War-Blue", "Book-Spiritual-Blue", "Bomb"
             })
         };
 
@@ -202,15 +202,15 @@ public class ContainerLootGenerator : MonoBehaviour
         {
             // BIG
             new WeightedGroup(0.60f, new string[] {
-                "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey", "Chalice-Grey"
+                "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey", "Chalice-Grey", "Bomb"
             }),
             // SMALL
             new WeightedGroup(0.30f, new string[] {
-                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow"
+                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Bomb"
             }),
             // VERY SMALL
             new WeightedGroup(0.10f, new string[] {
-                "Chalice-Yellow", "Crown-Grey"
+                "Chalice-Yellow", "Crown-Grey", "Bomb"
             })
         };
 
@@ -219,16 +219,16 @@ public class ContainerLootGenerator : MonoBehaviour
         {
             // BIG
             new WeightedGroup(0.50f, new string[] {
-                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow"
+                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Bomb"
             }),
             // SMALL
             new WeightedGroup(0.35f, new string[] {
-                "Chalice-Yellow", "Crown-Grey", "Potion-Small-Blue"
+                "Chalice-Yellow", "Crown-Grey", "Potion-Small-Blue", "Bomb"
             }),
             // VERY SMALL
             new WeightedGroup(0.15f, new string[] {
                 "Key-Orange", "Chalice-Yellow", "Lamp-Yellow", "Chalice-White", "Crown-Yellow",
-                "Book-War-Blue", "Book-Spiritual-Blue"
+                "Book-War-Blue", "Book-Spiritual-Blue", "Bomb"
             })
         };
 
@@ -238,17 +238,17 @@ public class ContainerLootGenerator : MonoBehaviour
             // BIG
             new WeightedGroup(0.50f, new string[] {
                 "Key-Tan", "Crown-Grey", "Coins-Yellow", "Necklace-Yellow",
-                "Ingot-Yellow", "Lamp-Yellow", "Potion-Small-Blue"
+                "Ingot-Yellow", "Lamp-Yellow", "Potion-Small-Blue", "Bomb"
             }),
             // SMALL
             new WeightedGroup(0.35f, new string[] {
                 "Key-Orange", "Coins-White", "Necklace-White", "Ingot-White",
-                "Chalice-Yellow", "Lamp-Yellow"
+                "Chalice-Yellow", "Lamp-Yellow", "Bomb"
             }),
             // VERY SMALL
             new WeightedGroup(0.15f, new string[] {
                 "Key-Blue", "Chalice-Yellow", "Lamp-White", "Crown-Yellow",
-                "Book-War-Blue", "Book-Spiritual-Blue"
+                "Book-War-Blue", "Book-Spiritual-Blue", "Bomb"
             })
         };
 
@@ -259,82 +259,83 @@ public class ContainerLootGenerator : MonoBehaviour
         {
             new WeightedGroup(0.60f, new string[] {
                 "Coins-Grey", "Necklace-Grey", "Ingot-Grey", "Lamp-Grey",
-                "Chalice-Grey", "Crown-Grey"
+                "Chalice-Grey", "Crown-Grey", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow"
+                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Potion-Small-Blue", "Potion-Small-Pink"
+                "Potion-Small-Blue", "Potion-Small-Pink", "Bomb"
             })
         };
 
         containerLootGroups["Bag-Large-Orange"] = new WeightedGroup[]
         {
             new WeightedGroup(0.50f, new string[] {
-                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow"
+                "Key-Tan", "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Bomb"
             }),
             new WeightedGroup(0.35f, new string[] {
-                "Chalice-Yellow", "Crown-Grey", "Potion-Small-Blue", "Potion-Small-Pink"
+                "Chalice-Yellow", "Crown-Grey", "Potion-Small-Blue", "Potion-Small-Pink", "Bomb"
             }),
             new WeightedGroup(0.15f, new string[] {
                 "Key-Orange", "Chalice-White", "Crown-Yellow",
-                "Book-War-Pink", "Book-Spiritual-Pink", "Potion-Small-Purple"
+                "Book-War-Pink", "Book-Spiritual-Pink", "Potion-Small-Purple", "Bomb"
             })
         };
 
         containerLootGroups["Bag-Large-Blue"] = new WeightedGroup[]
         {
             new WeightedGroup(0.50f, new string[] {
-                "Key-Orange", "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White"
+                "Key-Orange", "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Bomb"
             }),
             new WeightedGroup(0.35f, new string[] {
-                "Chalice-Yellow", "Crown-Yellow", "Potion-Small-Purple"
+                "Chalice-Yellow", "Crown-Yellow", "Potion-Small-Purple", "Bomb"
             }),
             new WeightedGroup(0.15f, new string[] {
-                "Key-Blue", "Book-War-Purple", "Book-Spiritual-Purple"
+                "Key-Blue", "Book-War-Purple", "Book-Spiritual-Purple", "Bomb"
             })
         };
 
         //////////////////////
-        /// BOX
+        /// LOCKED CONTAINERS 
+        //  BOX
         //////////////////////
         containerLootGroups["Box-Tan"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Chalice-Yellow"
+                "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Chalice-Yellow", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-Grey", "Potion-Small-Blue", "Potion-Large-Blue"
+                "Crown-Grey", "Potion-Small-Blue", "Potion-Large-Blue", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-War-Blue", "Book-Spiritual-Blue"
+                "Book-War-Blue", "Book-Spiritual-Blue", "Bomb"
             })
         };
 
         containerLootGroups["Box-Orange"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-Yellow", "Potion-Large-Pink"
+                "Crown-Yellow", "Potion-Large-Pink", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-War-Pink", "Book-Spiritual-Pink"
+                "Book-War-Pink", "Book-Spiritual-Pink", "Bomb"
             })
         };
 
         containerLootGroups["Box-Blue"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple"
+                "Crown-White", "Potion-Large-Purple", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-War-Purple", "Book-Spiritual-Purple"
+                "Book-War-Purple", "Book-Spiritual-Purple", "Bomb"
             })
         };
 
@@ -344,39 +345,39 @@ public class ContainerLootGenerator : MonoBehaviour
         containerLootGroups["Pack-Tan"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Pink"
+                "Crown-White", "Potion-Large-Pink", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-War-Pink"
+                "Book-War-Pink", "Bomb"
             })
         };
 
         containerLootGroups["Pack-Orange"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple"
+                "Crown-White", "Potion-Large-Purple", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-War-Purple"
+                "Book-War-Purple", "Bomb"
             })
         };
 
         containerLootGroups["Pack-Blue"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple"
+                "Crown-White", "Potion-Large-Purple", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-Special-Blue"
+                "Book-Special-Blue", "Bomb"
             })
         };
 
@@ -386,39 +387,39 @@ public class ContainerLootGenerator : MonoBehaviour
         containerLootGroups["Chest-Tan"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple"
+                "Crown-White", "Potion-Large-Purple", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-Special-Pink"
+                "Book-Special-Pink", "Bomb"
             })
         };
 
         containerLootGroups["Chest-Orange"] = new WeightedGroup[]
         {
             new WeightedGroup(0.60f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple"
+                "Crown-White", "Potion-Large-Purple", "Bomb"
             }),
             new WeightedGroup(0.10f, new string[] {
-                "Book-Special-Purple"
+                "Book-Special-Purple", "Bomb"
             })
         };
 
         containerLootGroups["Chest-Blue"] = new WeightedGroup[]
         {
             new WeightedGroup(0.50f, new string[] {
-                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White"
+                "Coins-White", "Necklace-White", "Ingot-White", "Lamp-White", "Chalice-White", "Bomb"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-White", "Potion-Large-Purple", "Key-Blue"
+                "Crown-White", "Potion-Large-Purple", "Key-Blue", "Bomb"
             }),
             new WeightedGroup(0.20f, new string[] {
-                "Book-Special-Blue"
+                "Book-Special-Blue", "Bomb"
             })
         };
     }

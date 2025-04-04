@@ -45,6 +45,7 @@ public class PlayerGridMovement : MonoBehaviour
     private float maxInteractionDistance = 5f;
     private float doubleClickThreshold = 0.3f;
     private bool waitingForSecondClick = false;
+    public bool isWaitingForBombToExplode = false;
     private Collider lastClickedCollider = null;
     private Coroutine singleClickCoroutine = null;
 
@@ -58,7 +59,8 @@ public class PlayerGridMovement : MonoBehaviour
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
-        backwardButton.gameObject.SetActive(false); //Start with the backwards button disabled.
+        // //Start with the backwards button disabled.
+        HideBackwardButton();
         HideActionButton();
         gridX = 0; // Player starts at the NW corner (leftmost on minimap)
         gridZ = 0; // Player starts at the top row of the 12x12 grid
@@ -84,26 +86,36 @@ public class PlayerGridMovement : MonoBehaviour
             CheckForInteractables();
         }
 
+        if (isWaitingForBombToExplode) {
+            HideDirectionalButtons();
+            HideBackwardButton();
+        }
+
         if (player.canRest) {
             restButton.gameObject.SetActive(true);
         } else {
             restButton.gameObject.SetActive(false);
         }
 
-        if (canBackStep) {
-            backwardButton.gameObject.SetActive(true);
+        if (canBackStep && !isWaitingForBombToExplode) {
+            //backwardButton.gameObject.SetActive(true);
+            ShowBackwardButton();
         } else {
-            backwardButton.gameObject.SetActive(false);
+            //backwardButton.gameObject.SetActive(false);
+            HideBackwardButton();
         }
 
         if (gameManager.isFighting && gameManager.isPlayersTurn) { //This sequence is to make the StepBack/Escape logic work
-            backwardButton.gameObject.SetActive(true);
+            //backwardButton.gameObject.SetActive(true);
+            ShowBackwardButton();
             ShowActionButton();
         } else if (gameManager.isFighting && gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
-            backwardButton.gameObject.SetActive(false);
+            HideBackwardButton();
+            //backwardButton.gameObject.SetActive(false);
             HideActionButton();
         } else if (canBackStep && !gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
-            backwardButton.gameObject.SetActive(false);
+            //backwardButton.gameObject.SetActive(false);
+            HideBackwardButton();
             HideActionButton();
         }
 
@@ -293,6 +305,15 @@ public class PlayerGridMovement : MonoBehaviour
         }
     }
 
+
+    public void HideBackwardButton() {
+        backwardButton.gameObject.SetActive(false); //Backwards button disabled.
+    }
+
+
+    public void ShowBackwardButton() {
+        backwardButton.gameObject.SetActive(true); //Backwards button enabled.
+    }
 
     private bool CanMoveForward() {
         RaycastHit hit;
@@ -488,7 +509,8 @@ public class PlayerGridMovement : MonoBehaviour
     private void EnableBackwardsStep(Vector3 previousPosition, Quaternion previousRotation) {
         playerPreviousPosition = previousPosition;
         playerPreviousRotation = previousRotation;
-        backwardButton.gameObject.SetActive(true);
+        ShowBackwardButton();
+        //backwardButton.gameObject.SetActive(true);
         canBackStep = true;
     }
 
@@ -743,8 +765,8 @@ public class PlayerGridMovement : MonoBehaviour
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
-            
-            backwardButton.gameObject.SetActive(true);
+            //backwardButton.gameObject.SetActive(true);
+            ShowBackwardButton();
             backwardButton.onClick.RemoveAllListeners();
             backwardButton.onClick.AddListener(() => MoveBackwards(false));
         }

@@ -155,6 +155,11 @@ public class ItemManager : MonoBehaviour
         }
 
         //item.SetActive(false);
-        Destroy(item);
+        // Prevents certain types of items or things from being destroyed when dropping an item and there's no other item to swap for
+        //if (item.tag != "MazeSet" && item.tag != "Door" && item.tag != "OuterWall" && item.tag != "CorridorDoorEast" && item.tag != "CorridorDoorWest" && item.tag != "Enemy") {
+            Debug.Log("Destroying " + item.name);
+            Debug.Log("Destroy tag is " + item.tag);
+            Destroy(item);
+        //}
     }
 }
