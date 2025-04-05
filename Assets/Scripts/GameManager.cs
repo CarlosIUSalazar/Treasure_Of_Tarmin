@@ -14,6 +14,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isFighting = false;
     [SerializeField] public bool isPlayersTurn = true;
     [SerializeField] public bool isEnemysTurn = false;
+    public bool isFreeAttackPhase = false;
+    public bool isPassiveFight = false;
+
 
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;

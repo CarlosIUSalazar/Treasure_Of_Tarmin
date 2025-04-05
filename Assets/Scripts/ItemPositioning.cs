@@ -70,9 +70,17 @@ public class ItemPositioning : MonoBehaviour
             // Facing north or south
             offset = new Vector3(0, 0, Mathf.Sign(playerForward.z) * offsetDistance);
         }
-
         //Debug.Log($"GridCenter: {gridCenter}, Offset: {offset}, NewPosition: {gridCenter + offset}");
-
         transform.position = gridCenter + offset;
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        // Prevents a non Special book item to spawn in the same location as the inside of an Evil Door
+        if (other.gameObject.name.Contains("Book-Special")) {
+            Debug.Log("DESTROYED Non Special Book" + gameObject.name);
+            Destroy(gameObject);
+        }
+    }
+
 }

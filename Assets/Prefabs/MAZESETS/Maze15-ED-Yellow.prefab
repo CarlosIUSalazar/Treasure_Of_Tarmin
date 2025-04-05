@@ -375,6 +375,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505972958176415340}
     m_Modifications:
+    - target: {fileID: 3710858880978090449, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_TagString
+      value: EvilDoorWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6310961315995585655, guid: c25526316abad42e8990e9e59926780e, type: 3}
       propertyPath: m_Name
       value: NormalWallLight  (2)
@@ -546,6 +550,10 @@ PrefabInstance:
     - target: {fileID: 3588486699552315495, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4959227729693817793, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
+      propertyPath: m_TagString
+      value: EvilDoorWall
       objectReference: {fileID: 0}
     - target: {fileID: 5593811593999615231, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
       propertyPath: m_Name
@@ -1097,6 +1105,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505972958176415340}
     m_Modifications:
+    - target: {fileID: 3932596685613802389, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
+      propertyPath: m_TagString
+      value: EvilDoorWall
+      objectReference: {fileID: 0}
     - target: {fileID: 8849802475566977004, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_Name
       value: DoorWallDark (10)
@@ -1837,7 +1849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8931428282224444552, guid: c55d2df4a55e84101bfaa33419695512, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 15
+      value: 15.05
       objectReference: {fileID: 0}
     - target: {fileID: 8931428282224444552, guid: c55d2df4a55e84101bfaa33419695512, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2611,6 +2623,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505972958176415340}
     m_Modifications:
+    - target: {fileID: 3710858880978090449, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_TagString
+      value: EvilDoorWall
+      objectReference: {fileID: 0}
     - target: {fileID: 6310961315995585655, guid: c25526316abad42e8990e9e59926780e, type: 3}
       propertyPath: m_Name
       value: NormalWallLight  (07)

@@ -105,18 +105,43 @@ public class PlayerGridMovement : MonoBehaviour
             HideBackwardButton();
         }
 
-        if (gameManager.isFighting && gameManager.isPlayersTurn) { //This sequence is to make the StepBack/Escape logic work
-            //backwardButton.gameObject.SetActive(true);
-            ShowBackwardButton();
-            ShowActionButton();
-        } else if (gameManager.isFighting && gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
-            HideBackwardButton();
-            //backwardButton.gameObject.SetActive(false);
-            HideActionButton();
-        } else if (canBackStep && !gameManager.isEnemysTurn && !gameManager.isPlayersTurn) {
-            //backwardButton.gameObject.SetActive(false);
-            HideBackwardButton();
-            HideActionButton();
+        // Update UI based on the current fight state:
+        if (gameManager.isFighting) {
+            if (gameManager.isPassiveFight) {
+                // Passive fight: EvilDoor enemy.
+                // Directional buttons remain visible so the player can change facing,
+                // and the attack button is available until the player commits to attack.
+                ShowDirectionalButtons();
+                ShowActionButton();
+                // Show backstep if it's the player's turn
+                if (gameManager.isPlayersTurn) {
+                    ShowBackwardButton();
+                } else {
+                    HideBackwardButton();
+                }
+            } 
+            else { // Normal fight
+                if (gameManager.isFreeAttackPhase) {
+                    // During free attack phase: show only the attack button.
+                    HideDirectionalButtons();
+                    ShowActionButton();
+                    // You may choose to show the backstep button or not during the free phase.
+                } else {
+                    // Standard turn-based combat:
+                    HideDirectionalButtons();
+                    if (gameManager.isPlayersTurn) {
+                        ShowActionButton();
+                        ShowBackwardButton();
+                    } else if (gameManager.isEnemysTurn) {
+                        HideActionButton();
+                        HideBackwardButton();
+                    }
+                }
+            }
+        } else {
+            // Not in a fight: exploration mode.
+            ShowDirectionalButtons();
+            CheckForInteractables();
         }
 
             // Instead of checking for a button press, check for a mouse click.
@@ -208,6 +233,19 @@ public class PlayerGridMovement : MonoBehaviour
                         floorManager.MoveCursorVerticallyDown(hit);
                     }
                 }
+            }
+        }
+        // If there's an active enemy that's a passive (EvilDoor) enemy,
+        // check if the player is still facing it. If not, reset the active enemy.
+        if (gameManager.activeEnemy != null && gameManager.isPassiveFight)
+        {
+            Vector3 toEnemy = gameManager.activeEnemy.transform.position - transform.position;
+            float angle = Vector3.Angle(transform.forward, toEnemy);
+            // If the angle is greater than, say, 45 degrees, the player isn't really facing the door.
+            if (angle > 45f)
+            {
+                gameManager.SetActiveEnemy(null);
+                gameManager.enemyHPText.text = "";
             }
         }
     }
@@ -744,32 +782,106 @@ public class PlayerGridMovement : MonoBehaviour
         actionButton.onClick.RemoveAllListeners();
     }
 
+    // private void InitiateFight(RaycastHit hit) {
+    //     enemy = hit.collider.GetComponent<Enemy>();
+    //     gameManager.UpdateEnemyHP(enemy.currentEnemyHP); // Get the current HP from this enemy and pass it to GameManager for display in UI 
+    //     gameManager.enemyHPText.gameObject.SetActive(true); //Make the Emeny HP label appear
+
+    //     if (enemy != null) {
+    //         gameManager.isFighting = true; //initiate fight more
+    //         gameManager.SetActiveEnemy(enemy); //Register current enemy as active
+
+    //         if (gameManager.isPlayersTurn)
+    //         {
+    //             ShowActionButton();
+    //         }
+    //         else
+    //         {
+    //             HideActionButton();
+    //         }
+
+    //         actionButtonText.text = "Attack";
+    //         actionButton.onClick.RemoveAllListeners();
+    //         actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
+    //         //backwardButton.gameObject.SetActive(true);
+    //         ShowBackwardButton();
+    //         backwardButton.onClick.RemoveAllListeners();
+    //         backwardButton.onClick.AddListener(() => MoveBackwards(false));
+    //     }
+    // }
+
+
     private void InitiateFight(RaycastHit hit) {
         enemy = hit.collider.GetComponent<Enemy>();
-        gameManager.UpdateEnemyHP(enemy.currentEnemyHP); // Get the current HP from this enemy and pass it to GameManager for display in UI 
-        gameManager.enemyHPText.gameObject.SetActive(true); //Make the Emeny HP label appear
+        gameManager.UpdateEnemyHP(enemy.currentEnemyHP);
+        gameManager.enemyHPText.gameObject.SetActive(true);
 
         if (enemy != null) {
-            gameManager.isFighting = true; //initiate fight more
-            gameManager.SetActiveEnemy(enemy); //Register current enemy as active
+            gameManager.isFighting = true;
+            gameManager.SetActiveEnemy(enemy);
 
-            if (gameManager.isPlayersTurn)
-            {
-                ShowActionButton();
-            }
-            else
-            {
-                HideActionButton();
-            }
+            // Determine if this enemy is an EvilDoor
+            bool isPassiveDoor = IsEvilDoor(enemy.gameObject.name);
+            gameManager.isPassiveFight = isPassiveDoor;
 
+            // Reset turn flags and mark free attack phase
+            gameManager.isPlayersTurn = false;
+            gameManager.isEnemysTurn = false;
+            gameManager.isFreeAttackPhase = true;
+
+            // Show the attack button during the free phase
+            ShowActionButton();
             actionButtonText.text = "Attack";
             actionButton.onClick.RemoveAllListeners();
-            actionButton.onClick.AddListener(() => playerShootingSpawner.ShootAtEnemy(enemy.transform));
-            //backwardButton.gameObject.SetActive(true);
+            actionButton.onClick.AddListener(() => {
+                // When the player attacks:
+                gameManager.isPlayersTurn = true;
+                gameManager.isFreeAttackPhase = false;
+                gameManager.isPassiveFight = false; // commit to full fight
+                HideDirectionalButtons();           // hide directional controls now
+                playerShootingSpawner.ShootAtEnemy(enemy.transform);
+            });
+
+            // For non-passive enemies, start the free attack phase coroutine
+            if (!isPassiveDoor) {
+                StartCoroutine(FreeAttackPhase());
+            }
+            
             ShowBackwardButton();
             backwardButton.onClick.RemoveAllListeners();
             backwardButton.onClick.AddListener(() => MoveBackwards(false));
         }
+    }
+
+
+    private IEnumerator FreeAttackPhase() {
+        float freeAttackDuration = 1f; // Adjust duration as needed
+        float elapsed = 0f;
+        
+        while (elapsed < freeAttackDuration) {
+            // If the player attacks during this phase, exit early
+            if (gameManager.isPlayersTurn) {
+                gameManager.isFreeAttackPhase = false;
+                yield break;
+            }
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        
+        // Free attack phase expired: enemy wins the initiative
+        if (!gameManager.isPlayersTurn) {
+            gameManager.isFreeAttackPhase = false;
+            gameManager.isEnemysTurn = true;
+            HideActionButton();
+        }
+    }
+    
+
+    private bool IsEvilDoor(string enemyName)
+    {
+        return enemyName.Contains("EvilDoorBlue") || 
+            enemyName.Contains("EvilDoorTan") || 
+            enemyName.Contains("EvilDoorYellow");
     }
 
 

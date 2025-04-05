@@ -43,6 +43,8 @@ public class FloorManager : MonoBehaviour
     [SerializeField] private GameObject mazeSpawnPoint3;
     [SerializeField] private GameObject mazeSpawnPoint4;
     [SerializeField] private GameObject[] mazeSetsPrefabs;
+    [SerializeField] private GameObject[] mazeSetsEvilDoorPrefabs;
+
     //[SerializeField] private GameObject mazeWallEntranceLight;
     //[SerializeField] private GameObject mazeWallEntranceDark;
     //ENTRANCES TO THE MAZE
@@ -114,30 +116,31 @@ public class FloorManager : MonoBehaviour
         // Generate 4 Maze Sets
         int randomIndex;
         // Spawn maze set at mazeSpawnPoint1
-        int mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        //mazeSetsEvilDoorPrefabs
+        int mazeIndex = Random.Range(0, mazeSetsEvilDoorPrefabs.Length);
         int randomYRotation = Random.Range(0, 4) * 90; // 0, 90, 180, or 270 degrees
-        Instantiate(mazeSetsPrefabs[mazeIndex],
+        Instantiate(mazeSetsEvilDoorPrefabs[mazeIndex],
                     mazeSpawnPoint1.transform.position,
                     Quaternion.Euler(0, randomYRotation, 0));
 
         // Spawn maze set at mazeSpawnPoint2
-        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        mazeIndex = Random.Range(0, mazeSetsEvilDoorPrefabs.Length);
         randomYRotation = Random.Range(0, 4) * 90;
-        Instantiate(mazeSetsPrefabs[mazeIndex],
+        Instantiate(mazeSetsEvilDoorPrefabs[mazeIndex],
                     mazeSpawnPoint2.transform.position,
                     Quaternion.Euler(0, randomYRotation, 0));
 
         // Spawn maze set at mazeSpawnPoint3
-        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        mazeIndex = Random.Range(0, mazeSetsEvilDoorPrefabs.Length);
         randomYRotation = Random.Range(0, 4) * 90;
-        Instantiate(mazeSetsPrefabs[mazeIndex],
+        Instantiate(mazeSetsEvilDoorPrefabs[mazeIndex],
                     mazeSpawnPoint3.transform.position,
                     Quaternion.Euler(0, randomYRotation, 0));
 
         // Spawn maze set at mazeSpawnPoint4
-        mazeIndex = Random.Range(0, mazeSetsPrefabs.Length);
+        mazeIndex = Random.Range(0, mazeSetsEvilDoorPrefabs.Length);
         randomYRotation = Random.Range(0, 4) * 90;
-        Instantiate(mazeSetsPrefabs[mazeIndex],
+        Instantiate(mazeSetsEvilDoorPrefabs[mazeIndex],
                     mazeSpawnPoint4.transform.position,
                     Quaternion.Euler(0, randomYRotation, 0));
         /////
