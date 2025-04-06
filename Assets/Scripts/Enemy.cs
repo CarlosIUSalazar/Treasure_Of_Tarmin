@@ -19,7 +19,7 @@ public class Enemy : MonoBehaviour
     // Detection / Ambush
     [Header("Ambush Settings")]
     //public float detectionDistance = 10f;     // How far the enemy can see forward
-    public float detectionTimeRequired = 3f; // How many seconds the player must stay in sight
+    public float detectionTimeRequired = 2f; // How many seconds the player must stay in sight
     private float timePlayerInSight = 0f;
     private bool hasAmbushed = false;
 
@@ -57,33 +57,28 @@ private void DetectPlayerForAmbush()
     Vector3 rayOrigin = transform.position + new Vector3(0, 1.2f, 0f);
     bool detected = false;
     
-    int numRays = 12; // Cast a ray every 30° (360 / 12 = 30° per ray)
+    int numRays = 12; // Cast a ray every 30° (360 / 12)
+    int layerMask = ~LayerMask.GetMask("Enemy"); // Exclude enemy colliders.
+    
     for (int i = 0; i < numRays; i++)
     {
         float angle = i * (360f / numRays);
-        // Calculate the direction relative to the enemy's local space.
+        // Calculate the direction in local space.
         Vector3 dir = transform.TransformDirection(Quaternion.Euler(0, angle, 0) * Vector3.forward);
-        Debug.DrawRay(rayOrigin, dir * detectionRadius, Color.Lerp(Color.blue, Color.cyan, (float)i / numRays));
+        // Offset the origin slightly so it doesn't hit our own colliders.
+        float selfOffset = 0.5f;
+        Vector3 adjustedOrigin = rayOrigin + dir * selfOffset;
         
-        if (Physics.Raycast(rayOrigin, dir, out RaycastHit hit, detectionRadius))
+        Debug.DrawRay(adjustedOrigin, dir * detectionRadius, Color.Lerp(Color.blue, Color.cyan, (float)i / numRays));
+        
+        if (Physics.Raycast(adjustedOrigin, dir, out RaycastHit hit, detectionRadius, layerMask))
         {
-            // Debug what was hit
-            Debug.Log($"Ray {i} hit {hit.collider.name}");
-
-            // Skip self-hits: if the ray hits the enemy's own collider, continue to next iteration.
-            if (hit.collider.gameObject == gameObject)
-            continue;
-
-            // Skip if it’s the same skeleton (root comparison)
-            if (hit.collider.transform.root == transform.root)
-                continue;
-
-            // If we hit the player
+            Debug.Log($"Ray {i} (angle {angle}°) hit {hit.collider.name}");
             if (hit.collider.CompareTag("Player"))
             {
                 Debug.Log($"Player detected at local angle {angle}°.");
                 detected = true;
-                break; // No need to check further if we detect the player.
+                break; // No need to check further.
             }
         }
     }
@@ -94,7 +89,7 @@ private void DetectPlayerForAmbush()
         if (timePlayerInSight >= detectionTimeRequired)
         {
             Debug.Log("AMBUSHED!!");
-            gameManager.ambushInProgress = true; // Global flag so no other enemy ambushes simultaneously.
+            gameManager.ambushInProgress = true;
             hasAmbushed = true;
             AmbushPlayer();
         }
