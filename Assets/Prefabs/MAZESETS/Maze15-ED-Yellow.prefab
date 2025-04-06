@@ -652,8 +652,12 @@ PrefabInstance:
       value: EvilDoorYellow
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.03
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606070429614746830, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.86
+      value: 39.89
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
       propertyPath: m_LocalPosition.y

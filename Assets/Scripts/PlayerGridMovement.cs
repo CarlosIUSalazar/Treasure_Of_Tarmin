@@ -580,6 +580,7 @@ public class PlayerGridMovement : MonoBehaviour
                 player.transform.rotation = playerPreviousRotation;
                 canBackStep = false;
                 gameManager.enemyHPText.gameObject.SetActive(false);
+                gameManager.ambushInProgress = false;
             } else {    // CAN'T ESCAPE
                 Debug.Log("COULDN'T ESCAPE!!");
                 gameManager.SetPlayerMessage("Couldn't Escape!");

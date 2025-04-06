@@ -39,123 +39,123 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        DetectPlayerForAmbush();
+        //DetectPlayerForAmbush();
     }
 
 
-private void DetectPlayerForAmbush()
-{
-    // Skip detection for EvilDoor types.
-    if (playerGridMovement.IsEvilDoor(gameObject.name))
-        return;
+// private void DetectPlayerForAmbush()
+// {
+//     // Skip detection for EvilDoor types.
+//     if (playerGridMovement.IsEvilDoor(gameObject.name))
+//         return;
     
-    // If already fighting or another ambush is in progress, don't detect.
-    if (gameManager.isFighting || gameManager.ambushInProgress)
-        return;
+//     // If already fighting or another ambush is in progress, don't detect.
+//     if (gameManager.isFighting || gameManager.ambushInProgress)
+//         return;
     
-    float detectionRadius = 11f; // How far the enemy "sees"
-    Vector3 rayOrigin = transform.position + new Vector3(0, 1.2f, 0f);
-    bool detected = false;
+//     float detectionRadius = 11f; // How far the enemy "sees"
+//     Vector3 rayOrigin = transform.position + new Vector3(0, 1.2f, 0f);
+//     bool detected = false;
     
-    int numRays = 12; // Cast a ray every 30° (360 / 12)
-    int layerMask = ~LayerMask.GetMask("Enemy"); // Exclude enemy colliders.
+//     int numRays = 12; // Cast a ray every 30° (360 / 12)
+//     int layerMask = ~LayerMask.GetMask("Enemy"); // Exclude enemy colliders.
     
-    for (int i = 0; i < numRays; i++)
-    {
-        float angle = i * (360f / numRays);
-        // Calculate the direction in local space.
-        Vector3 dir = transform.TransformDirection(Quaternion.Euler(0, angle, 0) * Vector3.forward);
-        // Offset the origin slightly so it doesn't hit our own colliders.
-        float selfOffset = 0.5f;
-        Vector3 adjustedOrigin = rayOrigin + dir * selfOffset;
+//     for (int i = 0; i < numRays; i++)
+//     {
+//         float angle = i * (360f / numRays);
+//         // Calculate the direction in local space.
+//         Vector3 dir = transform.TransformDirection(Quaternion.Euler(0, angle, 0) * Vector3.forward);
+//         // Offset the origin slightly so it doesn't hit our own colliders.
+//         float selfOffset = 0.5f;
+//         Vector3 adjustedOrigin = rayOrigin + dir * selfOffset;
         
-        Debug.DrawRay(adjustedOrigin, dir * detectionRadius, Color.Lerp(Color.blue, Color.cyan, (float)i / numRays));
+//         Debug.DrawRay(adjustedOrigin, dir * detectionRadius, Color.Lerp(Color.blue, Color.cyan, (float)i / numRays));
         
-        if (Physics.Raycast(adjustedOrigin, dir, out RaycastHit hit, detectionRadius, layerMask))
-        {
-            Debug.Log($"Ray {i} (angle {angle}°) hit {hit.collider.name}");
-            if (hit.collider.CompareTag("Player"))
-            {
-                Debug.Log($"Player detected at local angle {angle}°.");
-                detected = true;
-                break; // No need to check further.
-            }
-        }
-    }
+//         if (Physics.Raycast(adjustedOrigin, dir, out RaycastHit hit, detectionRadius, layerMask))
+//         {
+//             Debug.Log($"Ray {i} (angle {angle}°) hit {hit.collider.name}");
+//             if (hit.collider.CompareTag("Player"))
+//             {
+//                 Debug.Log($"Player detected at local angle {angle}°.");
+//                 detected = true;
+//                 break; // No need to check further.
+//             }
+//         }
+//     }
     
-    if (detected)
-    {
-        timePlayerInSight += Time.deltaTime;
-        if (timePlayerInSight >= detectionTimeRequired)
-        {
-            Debug.Log("AMBUSHED!!");
-            gameManager.ambushInProgress = true;
-            hasAmbushed = true;
-            AmbushPlayer();
-        }
-    }
-    else
-    {
-        timePlayerInSight = 0f;
-    }
-}
+//     if (detected)
+//     {
+//         timePlayerInSight += Time.deltaTime;
+//         if (timePlayerInSight >= detectionTimeRequired)
+//         {
+//             Debug.Log("AMBUSHED!!");
+//             gameManager.ambushInProgress = true;
+//             hasAmbushed = true;
+//             AmbushPlayer();
+//         }
+//     }
+//     else
+//     {
+//         timePlayerInSight = 0f;
+//     }
+// }
 
 
 
 
 
-    private void AmbushPlayer()
-    {
-        Debug.Log($"Ambush! {gameObject.name} attacks first!");
+//     private void AmbushPlayer()
+//     {
+//         Debug.Log($"Ambush! {gameObject.name} attacks first!");
         
-        // Set global ambush flag.
-        gameManager.ambushInProgress = true;
+//         // Set global ambush flag.
+//         gameManager.ambushInProgress = true;
         
-        // Calculate the direction for the player to face.
-        Vector3 dirToEnemy = transform.position - player.transform.position;
-        dirToEnemy.y = 0; // Keep rotation on the same horizontal plane.
+//         // Calculate the direction for the player to face.
+//         Vector3 dirToEnemy = transform.position - player.transform.position;
+//         dirToEnemy.y = 0; // Keep rotation on the same horizontal plane.
         
-        // Gradually rotate the player to face the enemy.
-        StartCoroutine(RotatePlayerToFaceEnemy(dirToEnemy, 0.5f));
+//         // Gradually rotate the player to face the enemy.
+//         StartCoroutine(RotatePlayerToFaceEnemy(dirToEnemy, 0.5f));
         
-        // Set up the fight so the enemy goes first.
-        gameManager.isFighting = true;
-        gameManager.SetActiveEnemy(this);
-        gameManager.isPlayersTurn = false;    // Player does NOT act first.
-        gameManager.isEnemysTurn = true;        // Enemy acts first.
-        gameManager.isFreeAttackPhase = false;
+//         // Set up the fight so the enemy goes first.
+//         gameManager.isFighting = true;
+//         gameManager.SetActiveEnemy(this);
+//         gameManager.isPlayersTurn = false;    // Player does NOT act first.
+//         gameManager.isEnemysTurn = true;        // Enemy acts first.
+//         gameManager.isFreeAttackPhase = false;
         
-        // Make sure the enemy's HP is shown on the UI.
-        gameManager.enemyHPText.gameObject.SetActive(true);
-        gameManager.UpdateEnemyHP(currentEnemyHP);
+//         // Make sure the enemy's HP is shown on the UI.
+//         gameManager.enemyHPText.gameObject.SetActive(true);
+//         gameManager.UpdateEnemyHP(currentEnemyHP);
         
-        // Set up the action button for the ambush scenario.
-        playerGridMovement.ShowActionButton();
-        playerGridMovement.actionButtonText.text = "Attack";
-        playerGridMovement.actionButton.onClick.RemoveAllListeners();
-        playerGridMovement.actionButton.onClick.AddListener(() => {
-            gameManager.isPlayersTurn = true;
-            gameManager.isFreeAttackPhase = false;
-            gameManager.isPassiveFight = false; // Commit to full fight.
-            playerGridMovement.HideDirectionalButtons();
-            playerShootingSpawner.ShootAtEnemy(transform);
-        });
-    }
+//         // Set up the action button for the ambush scenario.
+//         playerGridMovement.ShowActionButton();
+//         playerGridMovement.actionButtonText.text = "Attack";
+//         playerGridMovement.actionButton.onClick.RemoveAllListeners();
+//         playerGridMovement.actionButton.onClick.AddListener(() => {
+//             gameManager.isPlayersTurn = true;
+//             gameManager.isFreeAttackPhase = false;
+//             gameManager.isPassiveFight = false; // Commit to full fight.
+//             playerGridMovement.HideDirectionalButtons();
+//             playerShootingSpawner.ShootAtEnemy(transform);
+//         });
+//     }
 
 
-    private IEnumerator RotatePlayerToFaceEnemy(Vector3 targetDirection, float duration)
-    {
-        Quaternion startRotation = player.transform.rotation;
-        Quaternion endRotation = Quaternion.LookRotation(targetDirection.normalized);
-        float elapsed = 0f;
-        while (elapsed < duration)
-        {
-            player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
-            elapsed += Time.deltaTime;
-            yield return null;
-        }
-        player.transform.rotation = endRotation;
-    }
+//     private IEnumerator RotatePlayerToFaceEnemy(Vector3 targetDirection, float duration)
+//     {
+//         Quaternion startRotation = player.transform.rotation;
+//         Quaternion endRotation = Quaternion.LookRotation(targetDirection.normalized);
+//         float elapsed = 0f;
+//         while (elapsed < duration)
+//         {
+//             player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+//             elapsed += Time.deltaTime;
+//             yield return null;
+//         }
+//         player.transform.rotation = endRotation;
+//     }
 
 
     public void TakeDamage(int damage) {
