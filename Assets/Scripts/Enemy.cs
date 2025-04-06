@@ -1,4 +1,5 @@
 //sing Unity.Mathematics;
+using System.Collections;
 using UnityEngine;
 
 public class Enemy : MonoBehaviour
@@ -6,10 +7,21 @@ public class Enemy : MonoBehaviour
     //[SerializeField] private string enemyName = "WhiteSkeleton";
     [SerializeField] private int enemyBaseHP = 50;
     [SerializeField] private GameObject treasureOfTarminPrefab;
-    public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     GameManager gameManager;
-    public int currentEnemyHP;
     PlayerGridMovement playerGridMovement;
+    Player player;
+    PlayerShootingSpawner playerShootingSpawner;
+    public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
+    public int currentEnemyHP;
+    private float maxInteractionDistance = 5f;
+    public float gridSize = 10.0f; //Size of each grid step
+
+    // Detection / Ambush
+    [Header("Ambush Settings")]
+    //public float detectionDistance = 10f;     // How far the enemy can see forward
+    public float detectionTimeRequired = 3f; // How many seconds the player must stay in sight
+    private float timePlayerInSight = 0f;
+    private bool hasAmbushed = false;
 
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
@@ -17,6 +29,9 @@ public class Enemy : MonoBehaviour
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        player = GameObject.Find("Player").GetComponent<Player>();
+        playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
+
         currentEnemyHP = Random.Range(0,15) + enemyBaseHP;
         gameManager.UpdateEnemyHP(currentEnemyHP);
     }
@@ -24,8 +39,129 @@ public class Enemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+        DetectPlayerForAmbush();
     }
+
+
+private void DetectPlayerForAmbush()
+{
+    // Skip detection for EvilDoor types.
+    if (playerGridMovement.IsEvilDoor(gameObject.name))
+        return;
+    
+    // If already fighting or another ambush is in progress, don't detect.
+    if (gameManager.isFighting || gameManager.ambushInProgress)
+        return;
+    
+    float detectionRadius = 11f; // How far the enemy "sees"
+    Vector3 rayOrigin = transform.position + new Vector3(0, 1.2f, 0f);
+    bool detected = false;
+    
+    int numRays = 12; // Cast a ray every 30° (360 / 12 = 30° per ray)
+    for (int i = 0; i < numRays; i++)
+    {
+        float angle = i * (360f / numRays);
+        // Calculate the direction relative to the enemy's local space.
+        Vector3 dir = transform.TransformDirection(Quaternion.Euler(0, angle, 0) * Vector3.forward);
+        Debug.DrawRay(rayOrigin, dir * detectionRadius, Color.Lerp(Color.blue, Color.cyan, (float)i / numRays));
+        
+        if (Physics.Raycast(rayOrigin, dir, out RaycastHit hit, detectionRadius))
+        {
+            // Debug what was hit
+            Debug.Log($"Ray {i} hit {hit.collider.name}");
+
+            // Skip self-hits: if the ray hits the enemy's own collider, continue to next iteration.
+            if (hit.collider.gameObject == gameObject)
+            continue;
+
+            // Skip if it’s the same skeleton (root comparison)
+            if (hit.collider.transform.root == transform.root)
+                continue;
+
+            // If we hit the player
+            if (hit.collider.CompareTag("Player"))
+            {
+                Debug.Log($"Player detected at local angle {angle}°.");
+                detected = true;
+                break; // No need to check further if we detect the player.
+            }
+        }
+    }
+    
+    if (detected)
+    {
+        timePlayerInSight += Time.deltaTime;
+        if (timePlayerInSight >= detectionTimeRequired)
+        {
+            Debug.Log("AMBUSHED!!");
+            gameManager.ambushInProgress = true; // Global flag so no other enemy ambushes simultaneously.
+            hasAmbushed = true;
+            AmbushPlayer();
+        }
+    }
+    else
+    {
+        timePlayerInSight = 0f;
+    }
+}
+
+
+
+
+
+    private void AmbushPlayer()
+    {
+        Debug.Log($"Ambush! {gameObject.name} attacks first!");
+        
+        // Set global ambush flag.
+        gameManager.ambushInProgress = true;
+        
+        // Calculate the direction for the player to face.
+        Vector3 dirToEnemy = transform.position - player.transform.position;
+        dirToEnemy.y = 0; // Keep rotation on the same horizontal plane.
+        
+        // Gradually rotate the player to face the enemy.
+        StartCoroutine(RotatePlayerToFaceEnemy(dirToEnemy, 0.5f));
+        
+        // Set up the fight so the enemy goes first.
+        gameManager.isFighting = true;
+        gameManager.SetActiveEnemy(this);
+        gameManager.isPlayersTurn = false;    // Player does NOT act first.
+        gameManager.isEnemysTurn = true;        // Enemy acts first.
+        gameManager.isFreeAttackPhase = false;
+        
+        // Make sure the enemy's HP is shown on the UI.
+        gameManager.enemyHPText.gameObject.SetActive(true);
+        gameManager.UpdateEnemyHP(currentEnemyHP);
+        
+        // Set up the action button for the ambush scenario.
+        playerGridMovement.ShowActionButton();
+        playerGridMovement.actionButtonText.text = "Attack";
+        playerGridMovement.actionButton.onClick.RemoveAllListeners();
+        playerGridMovement.actionButton.onClick.AddListener(() => {
+            gameManager.isPlayersTurn = true;
+            gameManager.isFreeAttackPhase = false;
+            gameManager.isPassiveFight = false; // Commit to full fight.
+            playerGridMovement.HideDirectionalButtons();
+            playerShootingSpawner.ShootAtEnemy(transform);
+        });
+    }
+
+
+    private IEnumerator RotatePlayerToFaceEnemy(Vector3 targetDirection, float duration)
+    {
+        Quaternion startRotation = player.transform.rotation;
+        Quaternion endRotation = Quaternion.LookRotation(targetDirection.normalized);
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            player.transform.rotation = Quaternion.Slerp(startRotation, endRotation, elapsed / duration);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+        player.transform.rotation = endRotation;
+    }
+
 
     public void TakeDamage(int damage) {
         currentEnemyHP -= damage;

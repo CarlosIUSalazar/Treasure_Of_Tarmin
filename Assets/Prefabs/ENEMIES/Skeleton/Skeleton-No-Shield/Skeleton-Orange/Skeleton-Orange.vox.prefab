@@ -144,12 +144,12 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1265941, y: 1.634252, z: 0.1421535}
-  m_Center: {x: 0.049797237, y: 0.78119963, z: 0.101793826}
+  m_Size: {x: 1.1265941, y: 1.59041, z: 0.1421535}
+  m_Center: {x: 0.04979722, y: 0.8031211, z: 0.101793826}
 --- !u!114 &4125339587168165670
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -157,7 +157,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4077217455170140736}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb3c754df04649deab6c806011c1f35, type: 3}
   m_Name: 
@@ -175,7 +175,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBaseHP: 40
+  treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
+  gridSize: 10
+  detectionTimeRequired: 2
 --- !u!114 &424588940337439761
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,4 +193,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 6432465651812175634, guid: 3ebb2d5a53ee3465980378e74a1ced5f, type: 3}
+  secondatyProjectilePrefab: {fileID: 0}
   spawnPoint: {fileID: 3737705120486416634}

@@ -91,7 +91,27 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 993268ddfaa23433b87b8026e0f0e4c9, type: 3}
       insertIndex: -1
       addedObject: {fileID: -3699906879995186342}
+    - targetCorrespondingSourceObject: {fileID: 8164078558771037576, guid: 993268ddfaa23433b87b8026e0f0e4c9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7047073029421791426}
   m_SourcePrefab: {fileID: 100100000, guid: 993268ddfaa23433b87b8026e0f0e4c9, type: 3}
+--- !u!1 &2971515332340325962 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8164078558771037576, guid: 993268ddfaa23433b87b8026e0f0e4c9, type: 3}
+  m_PrefabInstance: {fileID: 6372685019305728962}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7047073029421791426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2971515332340325962}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb3c754df04649deab6c806011c1f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6102723374124295827 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 993268ddfaa23433b87b8026e0f0e4c9, type: 3}
@@ -116,8 +136,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 3.1972055, y: 1.4976974, z: 0.094256684}
-  m_Center: {x: -0.0025471053, y: 0.76513857, z: 0.058614433}
+  m_Size: {x: 2.878988, y: 1.4455633, z: 0.094256684}
+  m_Center: {x: -0.026292961, y: 0.79120624, z: 0.058614433}
 --- !u!54 &4655779591978564648
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -152,7 +172,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6102723374124295827}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb3c754df04649deab6c806011c1f35, type: 3}
   m_Name: 
@@ -170,7 +190,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBaseHP: 29
+  treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
+  gridSize: 10
+  detectionTimeRequired: 2
 --- !u!114 &-3699906879995186342
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -184,6 +208,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 5335314035566461727, guid: 71acee83e2ac64f008d46c9481b461d9, type: 3}
+  secondatyProjectilePrefab: {fileID: 0}
   spawnPoint: {fileID: 6916097736896330793}
 --- !u!4 &6916097736896330793 stripped
 Transform:

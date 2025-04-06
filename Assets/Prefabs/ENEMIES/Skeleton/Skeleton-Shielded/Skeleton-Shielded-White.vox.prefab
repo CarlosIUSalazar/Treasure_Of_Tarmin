@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6143027579606718852}
   - component: {fileID: 9049777108301177038}
   - component: {fileID: 5526759467349427290}
+  - component: {fileID: 2105561734099344247}
   m_Layer: 0
   m_Name: default
   m_TagString: Untagged
@@ -86,6 +87,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &2105561734099344247
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3167794666636364479}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aeb3c754df04649deab6c806011c1f35, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6231732390178304614
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,8 +155,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.0982428, y: 1.6125892, z: 0.08580804}
-  m_Center: {x: 0.049120665, y: 0.801068, z: 0.055710774}
+  m_Size: {x: 1.0982428, y: 1.6130513, z: 0.08580804}
+  m_Center: {x: 0.049120665, y: 0.80083716, z: 0.055710774}
 --- !u!54 &7535309859804852539
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -178,7 +191,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6231732390178304614}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: aeb3c754df04649deab6c806011c1f35, type: 3}
   m_Name: 
@@ -196,7 +209,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBaseHP: 25
+  treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
+  gridSize: 10
+  detectionTimeRequired: 2
 --- !u!114 &933805180347458496
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,4 +227,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 2447890428595972521, guid: 00f59c0b5953e4768ae2cc4515cbab0b, type: 3}
+  secondatyProjectilePrefab: {fileID: 0}
   spawnPoint: {fileID: 6714971755199326428}

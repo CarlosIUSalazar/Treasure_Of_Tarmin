@@ -121,8 +121,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1127571, y: 1.5653329, z: 0.09042452}
-  m_Center: {x: 0.05637773, y: 0.81982875, z: 0.05228282}
+  m_Size: {x: 1.1127571, y: 1.595423, z: 0.09042452}
+  m_Center: {x: 0.05637773, y: 0.80478376, z: 0.05228282}
 --- !u!54 &848187880447521797
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -175,7 +175,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyBaseHP: 30
+  treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
+  gridSize: 10
+  detectionDistance: 5
+  detectionTimeRequired: 2
 --- !u!114 &7187313434675984816
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -189,4 +194,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 8686449444322490631, guid: 0566462d3bbf44805af90d847d73ed39, type: 3}
+  secondatyProjectilePrefab: {fileID: 0}
   spawnPoint: {fileID: 8084683864646425610}

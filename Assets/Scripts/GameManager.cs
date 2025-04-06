@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isEnemysTurn = false;
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
+    public bool ambushInProgress = false;
 
 
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
@@ -62,6 +63,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(ViewMapUponGameStart());
     }
 
+
     IEnumerator ViewMapUponGameStart(){
         viewSwitcher.SwitchToMapAndArmorView();
         yield return new WaitForSeconds(4f);
@@ -91,6 +93,7 @@ public class GameManager : MonoBehaviour
         menuSpiritualArmorText.text = $"{player.spiritualArmor}";
     }
 
+
     public void UpdateEnemyHP(int currentEnemyHP) {
         enemyHPText.text = $"{currentEnemyHP}";
         if (currentEnemyHP <= 15) {
@@ -100,31 +103,37 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void SetActiveEnemy(Enemy enemy) {
-        activeEnemy = enemy;
-        if (enemy == null) {
-            // Return to exploration mode and update UI
-            isFighting = false;
-            playerGridMovement.HideActionButton();
-            isExploring = true;
-            playerGridMovement.ShowDirectionalButtons();
-        }
+
+public void SetActiveEnemy(Enemy enemy)
+{
+    activeEnemy = enemy;
+    if (enemy == null)
+    {
+        isFighting = false;
+        ambushInProgress = false; // Reset global ambush flag.
+        playerGridMovement.HideActionButton();
+        isExploring = true;
+        playerGridMovement.ShowDirectionalButtons();
     }
+}
+
+
 
     public void SetPlayerMessage(String text) {
         playerMessages.text = text;
         StartCoroutine(ClearPlayerMessage());
     }
 
+
     IEnumerator ClearPlayerMessage() {
         yield return new WaitForSeconds(1.5f);    
         playerMessages.text = "";
     }
+
 
     public void GameOverSequence() {
         mazeGenerator.currentPlayerBlock.playerCursor.transform.localScale = new Vector3 (2,2,2);
         viewSwitcher.SwitchToMapAndArmorView();
         mapBackButton.gameObject.SetActive(false);
     }
-
 }

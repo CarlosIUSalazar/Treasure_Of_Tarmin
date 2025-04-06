@@ -13,7 +13,7 @@ public class PlayerGridMovement : MonoBehaviour
     [SerializeField] private Button rotateLeftButton;
     [SerializeField] private Button rotateRightButton;
     [SerializeField] private Button backwardButton;
-    [SerializeField] private TextMeshProUGUI actionButtonText;
+    [SerializeField] public TextMeshProUGUI actionButtonText;
     [SerializeField] private Button restButton;
     [SerializeField] private TextMeshProUGUI facingOrientationText;
 
@@ -877,7 +877,7 @@ public class PlayerGridMovement : MonoBehaviour
     }
     
 
-    private bool IsEvilDoor(string enemyName)
+    public bool IsEvilDoor(string enemyName)
     {
         return enemyName.Contains("EvilDoorBlue") || 
             enemyName.Contains("EvilDoorTan") || 
