@@ -425,8 +425,13 @@ public class PlayerGridMovement : MonoBehaviour
 
         if (Physics.Raycast(rayOrigin, rayDirection, out enemyHit, enemyDetectionDistance)) {
             if (enemyHit.collider.CompareTag("Enemy")) {
-                Debug.Log("Enemy found through wall, can't teleport");
-                return false;
+                if (IsEvilDoor(enemyHit.collider.gameObject.name)) {
+                    Debug.Log("Evil door on the other side, I can teleport");
+                    return true;
+                } else {
+                    Debug.Log("Enemy found through wall, can't teleport");
+                    return false;
+                }
             }
         }
 
@@ -449,6 +454,8 @@ public class PlayerGridMovement : MonoBehaviour
             } else if (hit.collider.CompareTag("Ladder")) {
                 return true; //Allow to pass through Corridor Ladders
             } else if (hit.collider.CompareTag("OuterWall")) {
+                return false; //Cannot pass through Outside Maze Walls
+            } else if (hit.collider.CompareTag("EvilDoorWall")) {
                 return false; //Cannot pass through Outside Maze Walls
             } else {
                 return false; // Obstacle found, cannot move forward
@@ -659,6 +666,9 @@ public class PlayerGridMovement : MonoBehaviour
 
     private void CheckForInteractables()
     {
+        if (isRotating && !isMoving)
+            return;
+
         RaycastHit hit;
         float itemDetectionDistance = gridSize * 0.5f;  // Detect items within half the grid
         float interactionDistance = gridSize;           // Detect doors/enemies one grid away

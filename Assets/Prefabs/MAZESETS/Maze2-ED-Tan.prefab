@@ -258,6 +258,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029138899974954747}
     m_Modifications:
+    - target: {fileID: 1610840932977339592, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
+      propertyPath: m_Size.z
+      value: 4.952324
+      objectReference: {fileID: 0}
+    - target: {fileID: 1610840932977339592, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
+      propertyPath: m_Center.z
+      value: -1.976162
+      objectReference: {fileID: 0}
     - target: {fileID: 3588486699552315495, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
       propertyPath: m_LocalPosition.x
       value: 9.98
@@ -682,9 +690,29 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029138899974954747}
     m_Modifications:
+    - target: {fileID: 974464427772598731, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9716121
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
+      propertyPath: m_Size.z
+      value: 2.431891
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0058238036
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
+      propertyPath: m_Center.z
+      value: 0.9083324
+      objectReference: {fileID: 0}
     - target: {fileID: 2046351571387345787, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
       propertyPath: m_Name
       value: EvilDoorTan
+      objectReference: {fileID: 0}
+    - target: {fileID: 7606070429614746830, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.03
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
       propertyPath: m_LocalPosition.x
@@ -696,7 +724,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 9.98
+      value: 9.96
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 0b9fb8dd26fe14f7b82965e906aa93af, type: 3}
       propertyPath: m_LocalRotation.w

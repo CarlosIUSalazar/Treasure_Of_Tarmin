@@ -375,6 +375,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505972958176415340}
     m_Modifications:
+    - target: {fileID: 1626289349647084683, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_Size.z
+      value: 5.232267
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626289349647084683, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_Center.x
+      value: 2.0629223e-17
+      objectReference: {fileID: 0}
+    - target: {fileID: 1626289349647084683, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_Center.z
+      value: 2.1161318
+      objectReference: {fileID: 0}
     - target: {fileID: 3710858880978090449, guid: c25526316abad42e8990e9e59926780e, type: 3}
       propertyPath: m_TagString
       value: EvilDoorWall
@@ -647,6 +659,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 505972958176415340}
     m_Modifications:
+    - target: {fileID: 974464427772598731, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
+      propertyPath: m_Size.x
+      value: 0.986124
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
+      propertyPath: m_Size.z
+      value: 2.4195864
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
+      propertyPath: m_Center.x
+      value: -0.0061624222
+      objectReference: {fileID: 0}
+    - target: {fileID: 974464427772598731, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
+      propertyPath: m_Center.z
+      value: -1.1739353
+      objectReference: {fileID: 0}
     - target: {fileID: 2046351571387345787, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
       propertyPath: m_Name
       value: EvilDoorYellow
@@ -657,7 +685,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 39.89
+      value: 39.94
       objectReference: {fileID: 0}
     - target: {fileID: 7606070429614746830, guid: 18eec0c2a64554240be0ce5fa96a7f27, type: 3}
       propertyPath: m_LocalPosition.y
