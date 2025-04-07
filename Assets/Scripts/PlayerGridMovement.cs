@@ -666,7 +666,7 @@ public class PlayerGridMovement : MonoBehaviour
 
     private void CheckForInteractables()
     {
-        if (isRotating && !isMoving)
+        if (isRotating && !isMoving) // Added this to prevent engaging with Evil Doors while turning　
             return;
 
         RaycastHit hit;
