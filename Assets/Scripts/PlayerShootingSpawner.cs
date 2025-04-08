@@ -7,6 +7,7 @@ public class PlayerShootingSpawner : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint; // Assign this to the position where the arrow should appear
     private float projectileOffset = 1.5f; // Offset in front of the player
+    private bool isPlayerAttacking = false;
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
     Player player;
@@ -32,8 +33,9 @@ public class PlayerShootingSpawner : MonoBehaviour
 
     public void ShootAtEnemy(Transform enemy)
     {
-        if (gameManager.isPlayersTurn)
+        if (gameManager.isPlayersTurn && !isPlayerAttacking)
         {
+            isPlayerAttacking = true; // Prevent additional attack calls
             ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
             GameObject ammo;
 
@@ -93,6 +95,7 @@ public class PlayerShootingSpawner : MonoBehaviour
             }
             Debug.Log("Shot " + currentItemMapping.ammo);
 
+            StartCoroutine(ResetPlayerAttackFlag());
             ConsumeItem();
 
 
@@ -114,6 +117,14 @@ public class PlayerShootingSpawner : MonoBehaviour
         }
     }
 
+
+    IEnumerator ResetPlayerAttackFlag()
+    {
+        yield return new WaitForSeconds(1f); // Adjust delay as needed
+        isPlayerAttacking = false;
+    }
+
+    
     IEnumerator DelayBribeEscape() {
         yield return new WaitForSeconds(0.8f);
         playerGridMovement.MoveBackwards(true);

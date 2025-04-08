@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
     public bool ambushInProgress = false;
-
-
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI physicalWeaponText;

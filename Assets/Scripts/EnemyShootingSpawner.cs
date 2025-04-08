@@ -33,9 +33,9 @@ public class EnemyShootingSpawner : MonoBehaviour
 
     IEnumerator EnemyAttack() {
         isEnemyAttacking = true; // Set the flag to prevent multiple calls
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(1f);
         ShootAtPlayer(player.transform);
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(1f);
         isEnemyAttacking = false; // Reset the flag after the attack
     }
 
@@ -70,12 +70,13 @@ public class EnemyShootingSpawner : MonoBehaviour
             proj.Initialize(spawnPoint.position, playerTransform.position);
         }
 
-        gameManager.isEnemysTurn = false;
+
         StartCoroutine(DelayPlayerturn()); // Delay to give the player time to react
     }
 
     IEnumerator DelayPlayerturn() {
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(0.7f);
+        gameManager.isEnemysTurn = false;
         gameManager.isPlayersTurn = true;
         playerGridMovement.ShowActionButton();
     }

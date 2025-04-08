@@ -846,6 +846,7 @@ public class PlayerGridMovement : MonoBehaviour
             actionButton.onClick.RemoveAllListeners();
             actionButton.onClick.AddListener(() => {
                 // When the player attacks:
+                //actionButton.interactable = false; // Disable immediately to block spamming
                 gameManager.isPlayersTurn = true;
                 gameManager.isFreeAttackPhase = false;
                 gameManager.isPassiveFight = false; // commit to full fight

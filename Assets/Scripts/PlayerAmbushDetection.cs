@@ -8,7 +8,7 @@ public class PlayerAmbushDetection : MonoBehaviour
     public float detectionTimeRequired = 3f;      // How long an enemy must remain in view.
     
     private float timeEnemyInSight = 0f;
-    private bool ambushTriggered = false;
+    public bool ambushTriggered = false;
     private float currentDetectionThreshold = 0f;
 
     private GameManager gameManager;
@@ -126,6 +126,7 @@ public class PlayerAmbushDetection : MonoBehaviour
         playerGridMovement.actionButtonText.text = "Attack";
         playerGridMovement.actionButton.onClick.RemoveAllListeners();
         playerGridMovement.actionButton.onClick.AddListener(() => {
+            //playerGridMovement.actionButton.interactable = false; // Disable immediately to block spamming
             gameManager.isPlayersTurn = true;
             gameManager.isFreeAttackPhase = false;
             gameManager.isPassiveFight = false;
