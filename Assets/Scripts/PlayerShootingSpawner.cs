@@ -7,7 +7,7 @@ public class PlayerShootingSpawner : MonoBehaviour
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint; // Assign this to the position where the arrow should appear
     private float projectileOffset = 1.5f; // Offset in front of the player
-    private bool isPlayerAttacking = false;
+    public bool isPlayerAttacking = false;
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
     Player player;
@@ -33,8 +33,10 @@ public class PlayerShootingSpawner : MonoBehaviour
 
     public void ShootAtEnemy(Transform enemy)
     {
+        Debug.Log("Attack button pressed before if");
         if (gameManager.isPlayersTurn && !isPlayerAttacking)
         {
+            Debug.Log("Attack button pressed");
             isPlayerAttacking = true; // Prevent additional attack calls
             ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
             GameObject ammo;
@@ -42,7 +44,9 @@ public class PlayerShootingSpawner : MonoBehaviour
             if (currentItemMapping == null)
             {
                 Debug.LogWarning("No current item mapping found! Make sure an item is selected.");
+                Debug.Log("No current item mapping found! Make sure an item is selected");
                 gameManager.SetPlayerMessage("No Weapon Selected!");
+                isPlayerAttacking = false;
                 return;
             }
 
@@ -53,7 +57,9 @@ public class PlayerShootingSpawner : MonoBehaviour
             else 
             {
                 Debug.LogWarning($"Item '{currentItemMapping.itemName}' does not have ammo assigned!");
+                Debug.Log($"Item '{currentItemMapping.itemName}' does not have ammo assigned!");
                 gameManager.SetPlayerMessage("No Weapon Selected!");
+                isPlayerAttacking = false;
                 return;
             }
 
@@ -124,7 +130,7 @@ public class PlayerShootingSpawner : MonoBehaviour
         isPlayerAttacking = false;
     }
 
-    
+
     IEnumerator DelayBribeEscape() {
         yield return new WaitForSeconds(0.8f);
         playerGridMovement.MoveBackwards(true);
