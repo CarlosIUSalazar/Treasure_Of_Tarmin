@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92cb74bb5feb64cb0b2f90477fed24f5, type: 3}
+  m_Name: Ghoul-Orange
+  m_EditorClassIdentifier: 
+  enemyName: Ghoul-Orange
+  baseWarHP: 80
+  baseSpiritualHP: 80
+  baseAttack: 40
+  baseDefense: 42
+  colorMultiplier: 1.2
+  shieldBonus: 0
+  hpPerFloor: 2
+  attackPerFloor: 0.5
+  defensePerFloor: 0.5
+  isWar: 0
+  isSpiritual: 0
+  isHorrible: 1
+  isMinotaur: 0
+  projectilePrefab: {fileID: 1198239254670312718, guid: 23384a57acebc4be99fff6b3b69bfa93, type: 3}
+  secondaryProjectilePrefab: {fileID: 3603702160211667730, guid: 7210ca8f50d41494f967cdf3ef320e8d, type: 3}

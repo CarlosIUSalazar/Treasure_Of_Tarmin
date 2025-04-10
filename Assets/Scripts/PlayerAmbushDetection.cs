@@ -14,12 +14,14 @@ public class PlayerAmbushDetection : MonoBehaviour
     private GameManager gameManager;
     private PlayerGridMovement playerGridMovement;
     private PlayerShootingSpawner playerShootingSpawner;
-    
+    ViewSwitcher viewSwitcher;
+
     void Start()
     {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
+        viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
     }
     
     void Update()
@@ -104,7 +106,7 @@ public class PlayerAmbushDetection : MonoBehaviour
         
         // Set the global ambush flag so no other ambush triggers.
         gameManager.ambushInProgress = true;
-        
+        viewSwitcher.SwitchToGameView();
         // Rotate the player gradually to face the enemy.
         Vector3 dirToEnemy = enemy.transform.position - transform.position;
         dirToEnemy.y = 0; // Keep it horizontal.

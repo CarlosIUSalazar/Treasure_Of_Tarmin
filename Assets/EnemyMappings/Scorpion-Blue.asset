@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92cb74bb5feb64cb0b2f90477fed24f5, type: 3}
+  m_Name: Scorpion-Blue
+  m_EditorClassIdentifier: 
+  enemyName: Scorpion-Blue
+  baseWarHP: 5
+  baseSpiritualHP: 7
+  baseAttack: 8
+  baseDefense: 6
+  colorMultiplier: 1
+  shieldBonus: 0
+  hpPerFloor: 2
+  attackPerFloor: 0.5
+  defensePerFloor: 0.5
+  isWar: 0
+  isSpiritual: 1
+  isHorrible: 0
+  isMinotaur: 0
+  projectilePrefab: {fileID: 5919541258860438190, guid: b4231559ca0ab460ab871342ae9ac349, type: 3}
+  secondaryProjectilePrefab: {fileID: 0}
