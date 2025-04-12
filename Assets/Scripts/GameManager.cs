@@ -41,7 +41,8 @@ public class GameManager : MonoBehaviour
     PlayerGridMovement playerGridMovement;  
     ViewSwitcher viewSwitcher;
     MazeGenerator mazeGenerator;
-    public bool isMazeTransparent = false;
+    public bool isMazeTransparent = false; // Special book
+    public bool isSmallPinkPotionActive = false; //Helps find better loot
 
     void Start()
     {

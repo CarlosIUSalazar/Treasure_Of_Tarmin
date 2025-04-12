@@ -408,6 +408,18 @@ public class InventoryManager : MonoBehaviour
 
             if (rightHandItem.name == "Potion-Small-Pink"){
                 //Help find better things in containers; magic ends with a little "whoosh" noise
+                Debug.Log("Potion Better Loot enabled");
+                gameManager.isSmallPinkPotionActive = true;
+                StartCoroutine(DisableSmallPinkPotionEffect());
+                EmptyRightHand();
+            }
+
+
+            IEnumerator DisableSmallPinkPotionEffect() {
+                yield return new WaitForSeconds(300f); //5Minutes
+                gameManager.isSmallPinkPotionActive = false;
+                // SWOOSH Sunds effct 
+                Debug.Log("Potion Better Loot disabled");
             }
 
             if (rightHandItem.name == "Potion-Small-Purple"){
