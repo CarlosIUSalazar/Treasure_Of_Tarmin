@@ -53,10 +53,6 @@ public class ContainerLootGenerator : MonoBehaviour
 
     public GameObject GenerateAContainer(int floor) 
     {
-        if (gameManager.isSmallPinkPotionActive) {
-            floor = floor + 4;
-        }
-
         Dictionary<string, float> containerProbabilities = new Dictionary<string, float>();
 
         // Define probabilities for different floors

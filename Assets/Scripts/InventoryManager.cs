@@ -411,6 +411,7 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Potion Better Loot enabled");
                 gameManager.isSmallPinkPotionActive = true;
                 StartCoroutine(DisableSmallPinkPotionEffect());
+                // SWOOSH Sunds effct 
                 EmptyRightHand();
             }
 
