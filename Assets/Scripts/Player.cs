@@ -101,7 +101,11 @@ public class Player : MonoBehaviour
 
     public void ModifyPhysicalStrength(int amount)
     {
+        Debug.Log("Amount" + amount);
+        Debug.Log("physicalStrength Before" + physicalStrength);
+
         physicalStrength += amount;
+        Debug.Log("physicalStrength After" + physicalStrength);
         Debug.Log($"Player PhysicalStrength: {physicalStrength}");
         if (physicalStrength <= 0)
         {

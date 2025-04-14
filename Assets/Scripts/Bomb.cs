@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private GameObject smokePrefab;
-    public int explosivePower = 20;
+    private int explosivePower = 20;
     PlayerGridMovement playerGridMovement;
     Player player;
 
@@ -30,7 +30,7 @@ public class Bomb : MonoBehaviour
             childRenderer.enabled = false;
         }
         Instantiate(smokePrefab, transform.position, Quaternion.identity);
-        player.ModifyPhysicalStrength(-explosivePower);
+        player.ModifyPhysicalStrength(-20);
         playerGridMovement.isWaitingForBombToExplode = false;
         Destroy(gameObject);
     }
