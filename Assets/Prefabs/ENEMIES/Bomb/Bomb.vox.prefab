@@ -173,4 +173,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
-  explosivePower: 0
+  explosivePower: 50

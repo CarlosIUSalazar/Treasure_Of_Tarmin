@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bomb : MonoBehaviour
 {
     [SerializeField] private GameObject smokePrefab;
-    private int explosivePower = 20;
+    [HideInInspector] public int explosivePower = 50;  //So other classes can modify but not the editor
     PlayerGridMovement playerGridMovement;
     Player player;
 
@@ -30,7 +30,7 @@ public class Bomb : MonoBehaviour
             childRenderer.enabled = false;
         }
         Instantiate(smokePrefab, transform.position, Quaternion.identity);
-        player.ModifyPhysicalStrength(-20);
+        player.ModifyPhysicalStrength(-explosivePower);
         playerGridMovement.isWaitingForBombToExplode = false;
         Destroy(gameObject);
     }
