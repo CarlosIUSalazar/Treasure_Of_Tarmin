@@ -139,13 +139,20 @@ public void SetActiveEnemy(Enemy enemy)
 
 
     public void HideAllEnemies(bool isEffectAccrossFloors) { // Small Purple Potion effect 
+        //These 4 lines works so that you can use the purple potion and wear off within the same floor, witout them oyu need to change floors for it to wear off
+        if (isSmallPurplePotionActive == false) {
+            StartCoroutine(PurplePotionTimer());
+            isSmallPurplePotionActive = true;
+        }
+        
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         List<GameObject> nonMinotaurEnemies = new List<GameObject>();
         
-        //Filter out the Minotaur if exists on current floor
+        //Filter out the Minotaur and EvilDoors if exists on current floor
         for (int i = 0; i < allEnemies.Length; i++) {
             Debug.Log("Enemy #"+i+ " is " + allEnemies[i].name);
-            if (allEnemies[i].name != "Minotaur.vox(Clone)") {
+            if (allEnemies[i].name != "Minotaur.vox(Clone)" && allEnemies[i].name != "EvilDoorTan" && allEnemies[i].name != "EvilDoorBlue" && allEnemies[i].name != "EvilDoorYellow") {
+                Debug.Log("Added enemy " + allEnemies[i].name);
                 nonMinotaurEnemies.Add(allEnemies[i]);
             }
         }
@@ -167,26 +174,28 @@ public void SetActiveEnemy(Enemy enemy)
         }
 
         //Start a coroutine to disable the potion effect.  If the player has the potion active and changes floor, do not trigger a new timer
-        if (isEffectAccrossFloors == true) {
+        if (isEffectAccrossFloors == true && isSmallPurplePotionActive == true) {
             StartCoroutine(PurplePotionTimer());
         }
     }
 
 
     IEnumerator PurplePotionTimer() { //After Small Purple Potion wears off
-        yield return new WaitForSeconds(15f); 
-        isSmallPurplePotionActive = false;
+        yield return new WaitForSeconds(8f); 
         ShowAllEnemies();
+        Debug.Log("Purple Small Potion WearsOff!");
     }
 
     private void ShowAllEnemies() {
+        isSmallPurplePotionActive = false;
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         List<GameObject> nonMinotaurEnemies = new List<GameObject>();
         
-        //Filter out the Minotaur if exists on current floor
+        //Filter out the Minotaur and EvilDoors if exists on current floor
         for (int i = 0; i < allEnemies.Length; i++) {
             Debug.Log("Enemy #"+i+ " is " + allEnemies[i].name);
-            if (allEnemies[i].name != "Minotaur.vox(Clone)") {
+            if (allEnemies[i].name != "Minotaur.vox(Clone)" && allEnemies[i].name != "EvilDoorTan" && allEnemies[i].name != "EvilDoorBlue" && allEnemies[i].name != "EvilDoorYellow") {
+                Debug.Log("Added enemy " + allEnemies[i].name);
                 nonMinotaurEnemies.Add(allEnemies[i]);
             }
         }
@@ -204,6 +213,16 @@ public void SetActiveEnemy(Enemy enemy)
             if (defaultChild != null) {
                 MeshRenderer mesh = defaultChild.GetComponent<MeshRenderer>();
                 mesh.enabled = true;
+            }
+        }
+
+        //IF A MONSTER RE-SPAWNS WITH THE PLAYER DESTROY THE MONSTER (ITS OK BECAUSE IT WONT BE THE MINOTAUR)
+        GameObject player = GameObject.FindWithTag("Player");
+        foreach (GameObject enemy in nonMinotaurEnemies) {
+            Debug.Log("Checking overlapping with " + enemy.name);
+            if (Vector3.Distance(enemy.transform.position, player.transform.position) < 3f) {
+                Debug.Log("Enemy overlapped, destroyed " + enemy.name);
+                Destroy(enemy);
             }
         }
     }

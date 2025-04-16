@@ -401,12 +401,14 @@ public class InventoryManager : MonoBehaviour
 
             ///////////
             ///SMALL POTIONS
-            /////////
+            ///////////
+            /// 
+            ///BLUE SMALL POTION
             if (rightHandItem.name == "Potion-Small-Blue"){
                 player.RestoreMaxPhysicalStrengthWithSmallBluePotion();
                 EmptyRightHand();
             }
-
+            ///PINK SMALL POTION
             if (rightHandItem.name == "Potion-Small-Pink"){
                 //Help find better things in containers; magic ends with a little "whoosh" noise
                 Debug.Log("Potion Better Loot enabled");
@@ -416,8 +418,9 @@ public class InventoryManager : MonoBehaviour
                 EmptyRightHand();
             }
 
+            ///PURPLE SMALL POTION
             if (rightHandItem.name == "Potion-Small-Purple"){
-//              //Make you invisible to all demons except the Minotaur (while making them invisible to you); magic ends with a little "whoosh" noise
+                //Make you invisible to all demons except the Minotaur (while making them invisible to you); magic ends with a little "whoosh" noise
                 if (gameManager.isFighting == true) {
                     gameManager.SetPlayerMessage("Can't use in combat");
                     return;
@@ -427,8 +430,6 @@ public class InventoryManager : MonoBehaviour
                     gameManager.SetPlayerMessage("Potion already active");
                     return;
                 }
-                
-                gameManager.isSmallPurplePotionActive = true;
                 gameManager.HideAllEnemies(false);
                 EmptyRightHand();
             }
