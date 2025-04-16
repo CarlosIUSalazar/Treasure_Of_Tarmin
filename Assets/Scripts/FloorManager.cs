@@ -327,6 +327,10 @@ public class FloorManager : MonoBehaviour
         
         // Now regenerate the floor contents based on the new block.
         GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType, mazeGenerator.currentPlayerBlock.gridCoordinate, mazeGenerator.currentPlayerBlock, corridorDoorSide);
+
+        if (gameManager.isSmallPurplePotionActive == true) {
+            gameManager.HideAllEnemies(true);
+        }
     }
 
 
@@ -353,6 +357,10 @@ public class FloorManager : MonoBehaviour
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
                 GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");                
                 playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset);
+                //Purple small potion effect check
+                if (gameManager.isSmallPurplePotionActive == true) {
+                    gameManager.HideAllEnemies(true);
+                }
                 return;
             } else if (item.name.Contains("West")) { ////Checking that the ladder prefab name contains West
                 
@@ -371,6 +379,10 @@ public class FloorManager : MonoBehaviour
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
                 GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
                 playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset); //Shift X position on minimap to match the Ladder used
+                //Purple small potion effect check
+                if (gameManager.isSmallPurplePotionActive == true) {
+                    gameManager.HideAllEnemies(true);
+                }
                 return;
             }
         } else { //Descending within the same block
@@ -387,6 +399,10 @@ public class FloorManager : MonoBehaviour
 
             //PopulateCurrentNeighbours(currentPlayerBlock);
             GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
+            //Purple small potion effect check
+            if (gameManager.isSmallPurplePotionActive == true) {
+                gameManager.HideAllEnemies(true);
+            }
             return;
         }
     }

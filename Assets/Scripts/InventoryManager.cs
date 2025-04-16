@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System;
 using System.Linq;
+using Unity.VisualScripting;
 
 // Tan, Orange, Blue, Grey, Yellow, White
 // Blue, Grey, White, Pink, Red, Purple
@@ -415,6 +416,22 @@ public class InventoryManager : MonoBehaviour
                 EmptyRightHand();
             }
 
+            if (rightHandItem.name == "Potion-Small-Purple"){
+//              //Make you invisible to all demons except the Minotaur (while making them invisible to you); magic ends with a little "whoosh" noise
+                if (gameManager.isFighting == true) {
+                    gameManager.SetPlayerMessage("Can't use in combat");
+                    return;
+                }
+                
+                if (gameManager.isSmallPurplePotionActive == true) {
+                    gameManager.SetPlayerMessage("Potion already active");
+                    return;
+                }
+                
+                gameManager.isSmallPurplePotionActive = true;
+                gameManager.HideAllEnemies(false);
+                EmptyRightHand();
+            }
 
             IEnumerator DisableSmallPinkPotionEffect() {
                 yield return new WaitForSeconds(300f); //5Minutes
@@ -423,9 +440,6 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Potion Better Loot disabled");
             }
 
-            if (rightHandItem.name == "Potion-Small-Purple"){
-                //Make you invisible to all demons except the Minotaur (while making them invisible to you); magic ends with a little "whoosh" noise
-            }
             ///////////
             ///LARGE POTIONS
             /////////

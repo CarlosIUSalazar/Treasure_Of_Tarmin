@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using TMPro;
 using System.Collections;
 using System;
-using Unity.VisualScripting;
+using System.Collections.Generic;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,6 +43,7 @@ public class GameManager : MonoBehaviour
     MazeGenerator mazeGenerator;
     public bool isMazeTransparent = false; // Special book
     public bool isSmallPinkPotionActive = false; //Helps find better loot
+    public bool isSmallPurplePotionActive = false; //Hides Enemies
 
     void Start()
     {
@@ -135,4 +136,78 @@ public void SetActiveEnemy(Enemy enemy)
         viewSwitcher.SwitchToMapAndArmorView();
         mapBackButton.gameObject.SetActive(false);
     }
+
+
+    public void HideAllEnemies(bool isEffectAccrossFloors) { // Small Purple Potion effect 
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        List<GameObject> nonMinotaurEnemies = new List<GameObject>();
+        
+        //Filter out the Minotaur if exists on current floor
+        for (int i = 0; i < allEnemies.Length; i++) {
+            Debug.Log("Enemy #"+i+ " is " + allEnemies[i].name);
+            if (allEnemies[i].name != "Minotaur.vox(Clone)") {
+                nonMinotaurEnemies.Add(allEnemies[i]);
+            }
+        }
+
+        for (int i = 0; i < nonMinotaurEnemies.Count; i++) {
+            GameObject enemy = nonMinotaurEnemies[i];
+            BoxCollider boxCollider = enemy.GetComponent<BoxCollider>();
+
+            if (boxCollider != null) {
+                boxCollider.enabled = false;
+            }
+
+            //Get default named child gameobject where the mesh renderer is
+            Transform defaultChild = enemy.transform.Find("default");
+            if (defaultChild != null) {
+                MeshRenderer mesh = defaultChild.GetComponent<MeshRenderer>();
+                mesh.enabled = false;
+            }
+        }
+
+        //Start a coroutine to disable the potion effect.  If the player has the potion active and changes floor, do not trigger a new timer
+        if (isEffectAccrossFloors == true) {
+            StartCoroutine(PurplePotionTimer());
+        }
+    }
+
+
+    IEnumerator PurplePotionTimer() { //After Small Purple Potion wears off
+        yield return new WaitForSeconds(15f); 
+        isSmallPurplePotionActive = false;
+        ShowAllEnemies();
+    }
+
+    private void ShowAllEnemies() {
+        GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+        List<GameObject> nonMinotaurEnemies = new List<GameObject>();
+        
+        //Filter out the Minotaur if exists on current floor
+        for (int i = 0; i < allEnemies.Length; i++) {
+            Debug.Log("Enemy #"+i+ " is " + allEnemies[i].name);
+            if (allEnemies[i].name != "Minotaur.vox(Clone)") {
+                nonMinotaurEnemies.Add(allEnemies[i]);
+            }
+        }
+
+        for (int i = 0; i < nonMinotaurEnemies.Count; i++) {
+            GameObject enemy = nonMinotaurEnemies[i];
+            BoxCollider boxCollider = enemy.GetComponent<BoxCollider>();
+
+            if (boxCollider != null) {
+                boxCollider.enabled = true;
+            }
+
+            //Get default named child gameobject where the mesh renderer is
+            Transform defaultChild = enemy.transform.Find("default");
+            if (defaultChild != null) {
+                MeshRenderer mesh = defaultChild.GetComponent<MeshRenderer>();
+                mesh.enabled = true;
+            }
+        }
+    }
 }
+
+
+
