@@ -263,6 +263,8 @@ public class FloorManager : MonoBehaviour
         Debug.Log("CurrentNeighbourRight is " + currentNeighbourRight + " At " + (currentNeighbourRight?.gridCoordinate.ToString() ?? "null"));
         Debug.Log("CurrentNeighbourBelowLeft is " + currentNeighbourBelowLeft + " At " + (currentNeighbourBelowLeft?.gridCoordinate.ToString() ?? "null"));
         Debug.Log("CurrentNeighbourBelowRight is " + currentNeighbourBelowRight + " At " + (currentNeighbourBelowRight?.gridCoordinate.ToString() ?? "null"));
+    
+        gameManager.UpdateCurrentMazeBlockType(mazeGenerator.currentPlayerBlock);
     }
 
 
@@ -584,6 +586,7 @@ public class FloorManager : MonoBehaviour
         
         ReserveFixedLadderPositions();
 
+        gameManager.UpdateCurrentMazeBlockType(currentBlock);
 
         // (2) Determine how many items/enemies to spawn and which prefab arrays to use based on blockColor.
         int itemCount, enemyCount, quiverCount, flourCount, defensiveItemsCount, weaponsCount;

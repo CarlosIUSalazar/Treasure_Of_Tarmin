@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Bomb : MonoBehaviour
 {
+    [SerializeField] private EnemyMapping enemyMapping;  // assign via inspector
     [SerializeField] private GameObject smokePrefab;
     [HideInInspector] public int explosivePower = 50;  //So other classes can modify but not the editor
     PlayerGridMovement playerGridMovement;

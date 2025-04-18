@@ -174,6 +174,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ec14790ff624dd49ef31bddd3f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMapping: {fileID: 11400000, guid: 1c2dc0090c4624d9199566bd7fa57bac, type: 2}
   enemyBaseHP: 25
   treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}

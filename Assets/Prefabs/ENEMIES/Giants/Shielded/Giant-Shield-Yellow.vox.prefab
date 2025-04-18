@@ -173,8 +173,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ec14790ff624dd49ef31bddd3f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMapping: {fileID: 11400000, guid: c34d27e568fd64d67b388cd5dd62db85, type: 2}
   enemyBaseHP: 20
+  treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
+  currentEnemyHP: 0
+  gridSize: 10
+  detectionTimeRequired: 2
 --- !u!114 &3436267241129603845
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +193,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   projectilePrefab: {fileID: 1365905338622451374, guid: ad203856730074cffb7574183a7557da, type: 3}
+  secondatyProjectilePrefab: {fileID: 0}
   spawnPoint: {fileID: 7559549502556728439}
 --- !u!4 &7559549502556728439 stripped
 Transform:

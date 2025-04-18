@@ -17,10 +17,18 @@ MonoBehaviour:
   item2DSprite: {fileID: 2800000, guid: d4dbe0c8dff774f01a637ddb1da24aae, type: 3}
   ammo: {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 1
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +36,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 17
   warDefense: 0
