@@ -64,7 +64,6 @@ public class Projectile : MonoBehaviour
                         enemy.TakeDamage(usingMultiUseWeaponDamage);
                     }
                 }
-                Destroy(gameObject);
             }
             else if (other.CompareTag("Player"))
             {
@@ -73,8 +72,8 @@ public class Projectile : MonoBehaviour
                 {
                     player.ModifyPhysicalStrength(-attackDamage);
                 }
-                Destroy(gameObject);
             }
+        Destroy(gameObject);
         }
     }
 }
