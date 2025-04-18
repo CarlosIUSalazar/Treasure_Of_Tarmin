@@ -94,6 +94,7 @@ public class PlayerShootingSpawner : MonoBehaviour
             ItemPositioning itemPositioning = projectile.GetComponent<ItemPositioning>();
             if (itemPositioning != null) Destroy(itemPositioning);
 
+            
             Projectile proj = projectile.GetComponent<Projectile>();
             if (proj != null)
             {
@@ -102,7 +103,7 @@ public class PlayerShootingSpawner : MonoBehaviour
             Debug.Log("Shot " + currentItemMapping.ammo);
 
             StartCoroutine(ResetPlayerAttackFlag());
-            ConsumeItem();
+            //ConsumeItem();
 
 
             //BRIBE MECHANIC
@@ -123,6 +124,24 @@ public class PlayerShootingSpawner : MonoBehaviour
         }
     }
 
+    public int MultiUseWeaponFired() {
+        ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
+        if (currentItemMapping.isMultiUseWeapon) {
+            Debug.Log("Using MULTIUSE WEAPON");
+            float damageWar = currentItemMapping.warAttackPower;
+            float damageSpiritual = currentItemMapping.spiritualAttackPower;
+            float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
+            float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
+            damage = damage + bonusDamage;
+            int multiUseAttackDamage = Mathf.RoundToInt(damage);
+            Debug.Log("Damage to Enemy with Multiuse is " + multiUseAttackDamage);
+            //gameManager.activeEnemy.TakeDamage(attackDamage);
+            //enemy.TakeDamage(attackDamage);
+            return multiUseAttackDamage;
+        } else {
+            return 0; //No Multiuse weapon in hand
+        }
+    }
 
     IEnumerator ResetPlayerAttackFlag()
     {
@@ -137,7 +156,7 @@ public class PlayerShootingSpawner : MonoBehaviour
         gameManager.SetPlayerMessage("Successfully Bribed!");
     }
 
-    private void ConsumeItem() {
+    public void ConsumeItem() {
         if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
             inventoryManager.rightHandSlot.texture.name.Contains("Crossbow") ||
             inventoryManager.rightHandSlot.texture.name.Contains("Spell") || 

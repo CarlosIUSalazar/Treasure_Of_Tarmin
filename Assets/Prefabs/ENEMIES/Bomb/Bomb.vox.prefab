@@ -172,5 +172,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce9b81bcb02a4c189a6628c7fe1ab0e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMapping: {fileID: 11400000, guid: 8c38f04c8f78f436c915346d25378341, type: 2}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
   explosivePower: 50

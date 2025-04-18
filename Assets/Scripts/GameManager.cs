@@ -14,6 +14,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isFighting = false;
     [SerializeField] public bool isPlayersTurn = true;
     [SerializeField] public bool isEnemysTurn = false;
+    public MazeBlock currentMazeBlock;
+    public string currentMazeBlockColor;
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
     public bool ambushInProgress = false;
@@ -70,6 +72,11 @@ public class GameManager : MonoBehaviour
         viewSwitcher.SwitchToGameView();
     }
 
+
+    public void UpdateCurrentMazeBlockType(MazeBlock currentPlayerMazeBlock) {
+        currentMazeBlock = currentPlayerMazeBlock;
+        Debug.Log("GameManager, Current MazeBlock is" + currentMazeBlock);
+    }
 
     void Update()
     {}

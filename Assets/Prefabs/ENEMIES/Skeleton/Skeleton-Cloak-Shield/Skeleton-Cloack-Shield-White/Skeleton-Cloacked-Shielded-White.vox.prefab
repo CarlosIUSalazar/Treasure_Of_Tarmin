@@ -169,12 +169,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c3ec14790ff624dd49ef31bddd3f8160, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyMapping: {fileID: 11400000, guid: bafe392f01fe54ee1aa3817c4bce7740, type: 2}
   enemyBaseHP: 28
   treasureOfTarminPrefab: {fileID: 0}
   smokePrefab: {fileID: 2719968490211820838, guid: a329a0e665abc466fabe9beb48167f78, type: 3}
   currentEnemyHP: 0
   gridSize: 10
-  detectionDistance: 5
   detectionTimeRequired: 2
 --- !u!114 &2288841056035684757
 MonoBehaviour:
