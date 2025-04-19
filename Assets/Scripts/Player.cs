@@ -7,7 +7,7 @@ public class Player : MonoBehaviour
     private int totalMaxPhysicalArmor = 199;
     private int totalMaxSpiritualArmor = 99;
     
-    public int currentMaxPhysicalStrength = 90;
+    public int currentMaxPhysicalStrength = 199;
     public int currentMaxSpiritualStrength = 50;
     public int physicalStrength;
     public int physicalArmor;
@@ -39,7 +39,7 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 90;
+        physicalStrength = 900;
         physicalArmor = 0;
         physicalWeapon = 10;
         spiritualStrength = 50;

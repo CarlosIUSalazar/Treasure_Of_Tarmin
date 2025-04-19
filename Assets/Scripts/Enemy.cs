@@ -12,13 +12,13 @@ public class Enemy : MonoBehaviour
     PlayerAmbushDetection playerAmbushDetection;
     FloorManager floorManager;
     MazeBlock mazeBlock;
+    InventoryManager inventoryManager;
     private string currentFloorColor;
     private int enemyBaseHP;
     public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     public int currentEnemyHP;
     private float maxInteractionDistance = 5f;
     public float gridSize = 10.0f; //Size of each grid step
-    
     // Detection / Ambush
     [Header("Ambush Settings")]
     //public float detectionDistance = 10f;     // How far the enemy can see forward
@@ -35,19 +35,18 @@ public class Enemy : MonoBehaviour
         player = GameObject.Find("Player").GetComponent<Player>();
         playerAmbushDetection = GameObject.Find("Player").GetComponent<PlayerAmbushDetection>();
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();        
         GetFloorType();
         gameManager.UpdateEnemyHP(currentEnemyHP);
         SetEnemyHP();
     }
 
-    // Update is called once per frame
-    void Update()
-    {}
 
     private void GetFloorType() {
         //Tan, Blue, or Green
         currentFloorColor = gameManager.currentMazeBlock.colorType.ToString();
     }
+
 
     private void SetEnemyHP() {
         //FLOOR BASED HP
@@ -71,8 +70,24 @@ public class Enemy : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damage) {
-        currentEnemyHP -= damage;
+
+    public void TakeDamage(ItemMapping currentPlayerWeapon) {
+        //Check which attack is stronger War or Spiritual, use higher, apply a bonus between 5 and 25% and convert back to int
+        float damageWar = currentPlayerWeapon.warAttackPower;
+        float damageSpiritual = currentPlayerWeapon.spiritualAttackPower;
+        float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
+        float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
+        damage = damage + bonusDamage;
+        int attackDamage = Mathf.RoundToInt(damage);
+        Debug.Log("Damage is " + attackDamage);
+        if (currentPlayerWeapon.isMultiUseWeapon) {
+            Debug.Log("Using MULTIUSE WEAPON dmg is" + attackDamage); 
+        }else{
+            Debug.Log("Using SINGLE-USE WEAPON dmg is" + attackDamage); 
+            //Consume single use weapons
+            inventoryManager.EmptyRightHand();
+        }       
+        currentEnemyHP -= attackDamage;
         Debug.Log("Enemy current HP is " + currentEnemyHP);
         gameManager.UpdateEnemyHP(currentEnemyHP);
         if (currentEnemyHP <= 0) {
@@ -80,13 +95,12 @@ public class Enemy : MonoBehaviour
         }
     }
 
+
     public void Die() {
         Debug.Log("Enemy Defeated: " + gameObject.name);
         if (gameObject.name == "Minotaur.vox(Clone)") {
             Instantiate(treasureOfTarminPrefab, transform.position, Quaternion.identity);
         }
-
-
         Destroy(gameObject);
         gameManager.isFighting = false;
         playerAmbushDetection.ambushTriggered = false; //Allows to be double ambushed once the first ambush ends when caught in between 2 enemiesgit
