@@ -7,13 +7,15 @@ public class Projectile : MonoBehaviour
     private float damage;
     private int amount = -10;
     private Vector3 direction;
-    ItemMapping currentItemMapping; 
+    ItemMapping currentPlayerWeapon; 
     PlayerShootingSpawner playerShootingSpawner;
-
+    InventoryManager inventoryManager;
 
     void Start()
     {
         playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+        currentPlayerWeapon = inventoryManager.FigureOutCurrentRightHandItemMapping();
     }
     // Called after instantiation to initialize the projectile
     public void Initialize(Vector3 shooterPosition, Vector3 targetPosition)
@@ -34,15 +36,6 @@ public class Projectile : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        //Check which attack is stronger War or Spiritual, use higher, apply a bonus between 5 and 25% and convert back to int
-        float damageWar = itemMapping.warAttackPower;
-        float damageSpiritual = itemMapping.spiritualAttackPower;
-        damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
-        float bonusDamage = Random.Range(damage * 0.05f, damage * 0.25f);
-        damage = damage + bonusDamage;
-        int attackDamage = Mathf.RoundToInt(damage);
-        Debug.Log("Damage is " + attackDamage);
-
         if (other.CompareTag("Enemy") || other.CompareTag("Player"))
         {
             Debug.Log($"HIT {other.tag}");
@@ -53,27 +46,27 @@ public class Projectile : MonoBehaviour
                 if (enemy != null)
                 {
                     //The MULTIUSE WEAPON DAMAGE IS NOW CALCULATED ON PLAYER SHOOTING SPAWNER, OTHER WEAPONS USE THE CALCULATION ABOVE WITHIN THIS SCRIPT
-                    int usingMultiUseWeaponDamage = playerShootingSpawner.MultiUseWeaponFired();
-                    Debug.Log("usingMultiUseWeaponDamage is " + usingMultiUseWeaponDamage);
-                    if (usingMultiUseWeaponDamage == 0) {
-                        Debug.Log("Using SingleUse Weapon");
-                        enemy.TakeDamage(attackDamage);
-                        playerShootingSpawner.ConsumeItem(); //MOVED THIS HERE TO AVOID NULL REFERENCE AFTER THE ITEM IS NO LONGER IN HAND
-                    } else {
-                        Debug.Log("Using MultiUse Weapon");
-                        enemy.TakeDamage(usingMultiUseWeaponDamage);
-                    }
+                    enemy.TakeDamage(currentPlayerWeapon);
                 }
             }
             else if (other.CompareTag("Player"))
             {
+                //Damage to player is calculated based on the stats of the assigned itemMapping to this Script on the editor to each weapon prefab
+                float damageWar = itemMapping.warAttackPower;
+                float damageSpiritual = itemMapping.spiritualAttackPower;
+                float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
+                float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
+                damage = damage + bonusDamage;
+                int attackDamage = Mathf.RoundToInt(damage);
+                Debug.Log("Damage is " + attackDamage);
+
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
                     player.ModifyPhysicalStrength(-attackDamage);
                 }
             }
-        Destroy(gameObject);
+            Destroy(gameObject);
         }
     }
 }

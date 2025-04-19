@@ -49,6 +49,18 @@ public class InventoryManager : MonoBehaviour
     }
 
 
+    public ItemMapping FigureOutCurrentRightHandItemMapping() {
+        //RETURNS CURRENT RIGHT HAND ITEM MAPPING
+        if (rightHandSlot.texture.name != "Transparent") {
+            String currentWeaponName = rightHandSlot.texture.name;
+            ItemMapping currentRightHandItemMapping = GetItemMapping(currentWeaponName);
+            return currentRightHandItemMapping;
+        } else {
+            return null;
+        }
+    }
+
+
     public void EmptyRightHand() {
         rightHandSlot.texture = transparentImg;
     }

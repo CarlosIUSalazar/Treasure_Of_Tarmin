@@ -21,15 +21,6 @@ public class PlayerShootingSpawner : MonoBehaviour
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
     }
 
-    private ItemMapping FigureOutCurrentItemMapping() {
-        if (inventoryManager.rightHandSlot.texture.name != "Transparent") {
-            String currentWeaponName = inventoryManager.rightHandSlot.texture.name;
-            ItemMapping currentAmmoPrefab = inventoryManager.GetItemMapping(currentWeaponName);
-            return currentAmmoPrefab;
-        } else {
-            return null;
-        }
-    }
 
     public void ShootAtEnemy(Transform enemy)
     {
@@ -38,7 +29,7 @@ public class PlayerShootingSpawner : MonoBehaviour
         {
             Debug.Log("Attack button pressed");
             isPlayerAttacking = true; // Prevent additional attack calls
-            ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
+            ItemMapping currentItemMapping = inventoryManager.FigureOutCurrentRightHandItemMapping();
             GameObject ammo;
 
             if (currentItemMapping == null)
@@ -124,24 +115,26 @@ public class PlayerShootingSpawner : MonoBehaviour
         }
     }
 
-    public int MultiUseWeaponFired() {
-        ItemMapping currentItemMapping = FigureOutCurrentItemMapping();
-        if (currentItemMapping.isMultiUseWeapon) {
-            Debug.Log("Using MULTIUSE WEAPON");
-            float damageWar = currentItemMapping.warAttackPower;
-            float damageSpiritual = currentItemMapping.spiritualAttackPower;
-            float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
-            float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
-            damage = damage + bonusDamage;
-            int multiUseAttackDamage = Mathf.RoundToInt(damage);
-            Debug.Log("Damage to Enemy with Multiuse is " + multiUseAttackDamage);
-            //gameManager.activeEnemy.TakeDamage(attackDamage);
-            //enemy.TakeDamage(attackDamage);
-            return multiUseAttackDamage;
-        } else {
-            return 0; //No Multiuse weapon in hand
-        }
-    }
+
+    // public int MultiUseWeaponFired() {
+    //     ItemMapping currentItemMapping = FigureOutCurrentRightHandItemMapping();
+    //     if (currentItemMapping.isMultiUseWeapon) {
+    //         Debug.Log("Using MULTIUSE WEAPON");
+    //         float damageWar = currentItemMapping.warAttackPower;
+    //         float damageSpiritual = currentItemMapping.spiritualAttackPower;
+    //         float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
+    //         float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
+    //         damage = damage + bonusDamage;
+    //         int multiUseAttackDamage = Mathf.RoundToInt(damage);
+    //         Debug.Log("Damage to Enemy with Multiuse is " + multiUseAttackDamage);
+    //         //gameManager.activeEnemy.TakeDamage(attackDamage);
+    //         //enemy.TakeDamage(attackDamage);
+    //         return multiUseAttackDamage;
+    //     } else {
+    //         return 0; //No Multiuse weapon in hand
+    //     }
+    // }
+
 
     IEnumerator ResetPlayerAttackFlag()
     {
@@ -156,14 +149,14 @@ public class PlayerShootingSpawner : MonoBehaviour
         gameManager.SetPlayerMessage("Successfully Bribed!");
     }
 
-    public void ConsumeItem() {
-        if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
-            inventoryManager.rightHandSlot.texture.name.Contains("Crossbow") ||
-            inventoryManager.rightHandSlot.texture.name.Contains("Spell") || 
-            inventoryManager.rightHandSlot.texture.name.Contains("Scroll")) {
-                return;
-            } else {
-            inventoryManager.EmptyRightHand();
-        }
-    }
+    // public void ConsumeItem() {
+    //     if (inventoryManager.rightHandSlot.texture.name.Contains("Bow") || 
+    //         inventoryManager.rightHandSlot.texture.name.Contains("Crossbow") ||
+    //         inventoryManager.rightHandSlot.texture.name.Contains("Spell") || 
+    //         inventoryManager.rightHandSlot.texture.name.Contains("Scroll")) {
+    //             return;
+    //         } else {
+    //         inventoryManager.EmptyRightHand();
+    //     }
+    // }
 }
