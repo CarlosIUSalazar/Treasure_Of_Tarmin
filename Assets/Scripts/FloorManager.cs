@@ -317,7 +317,7 @@ public class FloorManager : MonoBehaviour
         }
 
         //IF PLAYER IS ON EVEN FLOOR NEED TO LOWER THE CURSOR VERTICALLY NOT ONLY MOVE HORIZONTALLY WHEN CROSSING CORRIDOR DOORS
-        if (player.floor % 2 == 0){ 
+        if (gameManager.currentFloor % 2 == 0){ 
             Transform cursorTransform = mazeGenerator.currentPlayerBlock.playerCursor.transform;
             Vector3 pos = cursorTransform.position; // get the current position
             pos.y -= 12f; // subtract 12 from y
@@ -341,8 +341,8 @@ public class FloorManager : MonoBehaviour
         Vector3 newPosition = player.transform.position;
         Quaternion newRotation = player.transform.rotation;
         float floorCursorPositionOffset; // Position 1 is origin West (x +0) z=5.  Posiiton 2 is ladder west (x +0.3) z=35, 3 = Ladder East (x + 0.8) z=85, 4 = End of Maze east (x + 1.1) z=115
-        if (player.floor % 2 == 0) { // Changing to a different block
-            Debug.Log("Used Ladder from Even Floor " + player.floor);
+        if (gameManager.currentFloor % 2 == 0) { // Changing to a different block
+            Debug.Log("Used Ladder from Even Floor " + gameManager.currentFloor);
             if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
                 
                 if (currentNeighbourBelowLeft == currentNeighbourBelowRight) { // If its a double stacked floor stay on East side
@@ -388,7 +388,7 @@ public class FloorManager : MonoBehaviour
                 return;
             }
         } else { //Descending within the same block
-            Debug.Log("Used Ladder from Odd Floor " + player.floor);
+            Debug.Log("Used Ladder from Odd Floor " + gameManager.currentFloor);
             GameObject ladder = hit.collider.gameObject;
             Debug.Log("The Ladder hit nme is " + ladder.name);
             //This will be called whenever the user descend from an ODD floor, so the top floor within a block.
@@ -660,7 +660,7 @@ public class FloorManager : MonoBehaviour
         //////
         ///SPAWNER OF LADDERS
         /////
-    if (player.floor % 2 == 0) {
+    if (gameManager.currentFloor % 2 == 0) {
         // Even floor: spawn one ladder based on neighboring blocks.
         if (currentBlock.neighborBelowLeft != null)
             SpawnLadder("West");
@@ -684,7 +684,7 @@ public class FloorManager : MonoBehaviour
         //Generate 5 containers and store in containerPrefabArray
         GameObject[] containerPrefabArray = new GameObject[5];
         for (int i = 0; i < containerPrefabArray.Length; i++) {
-            containerPrefabArray[i] = containerLootGenerator.GenerateAContainer(player.floor);
+            containerPrefabArray[i] = containerLootGenerator.GenerateAContainer(gameManager.currentFloor);
             Debug.Log("Container is: " + containerPrefabArray[i]);
         }
 
@@ -696,47 +696,47 @@ public class FloorManager : MonoBehaviour
 
         //////
         // GREEN FLOOR
-        if (blockColor == BlockColorType.Green && player.floor <= 4) {
+        if (blockColor == BlockColorType.Green && gameManager.currentFloor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
             warWeaponsPrefabs = warWeapons1to4;  
             enemyPrefabs = warMonsters1to4;
-        } else if (blockColor == BlockColorType.Green && player.floor >= 5 && player.floor <= 8) {
+        } else if (blockColor == BlockColorType.Green && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
             enemyPrefabs = warMonsters5to8;
-        } else if (blockColor == BlockColorType.Green && player.floor >= 9) {
+        } else if (blockColor == BlockColorType.Green && gameManager.currentFloor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             warWeaponsPrefabs = warWeapons9to12;
             enemyPrefabs = warMonsters9to12;
         }
         //////
         // BLUE FLOOR
-        if (blockColor == BlockColorType.Blue && player.floor <= 4) {
+        if (blockColor == BlockColorType.Blue && gameManager.currentFloor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = spiritualMonsters1to4;
-        } else if (blockColor == BlockColorType.Blue && player.floor >= 5 && player.floor <= 8) {
+        } else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
             enemyPrefabs = spiritualMonsters5to8;
-        } else if (blockColor == BlockColorType.Blue && player.floor >= 9) {
+        } else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             spiritualWeaponsPrefabs = spiritualWeapons9to12;
             enemyPrefabs = spiritualMonsters9to12;
         }
         //////
         // TAN FLOOR
-        if (blockColor == BlockColorType.Tan && player.floor <= 4) {
+        if (blockColor == BlockColorType.Tan && gameManager.currentFloor <= 4) {
             defensiveItemsPrefabs = defensiveItems1to4;
             warWeaponsPrefabs = warWeapons1to4;  
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = warMonsters1to4.Concat(spiritualMonsters1to4).ToArray();
-        } else if (blockColor == BlockColorType.Tan && player.floor >= 5 && player.floor <= 8) {
+        } else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
             enemyPrefabs = warMonsters5to8.Concat(spiritualMonsters5to8).ToArray();
-        } else if (blockColor == BlockColorType.Tan && player.floor >= 9) {
+        } else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 9) {
             defensiveItemsPrefabs = defensiveItems9to12;
             warWeaponsPrefabs = warWeapons9to12;
             spiritualWeaponsPrefabs = spiritualWeapons9to12;
@@ -753,22 +753,22 @@ public class FloorManager : MonoBehaviour
         switch (selectedDifficulty)
         {
             case DifficultyLevel.VeryHard:
-                if (player.floor == 12 || player.floor == 16) {
+                if (gameManager.currentFloor == 12 || gameManager.currentFloor == 16) {
                     SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
                 }
                 break;
             case DifficultyLevel.Hard:
-                if (player.floor == 8) {
+                if (gameManager.currentFloor == 8) {
                     SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
                 }
                 break;
             case DifficultyLevel.Normal:
-                if (player.floor == 4) {
+                if (gameManager.currentFloor == 4) {
                     SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
                 }
                 break;
             case DifficultyLevel.Easy:
-                if (player.floor == 2) {
+                if (gameManager.currentFloor == 2) {
                     SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
                 }
                 break;
