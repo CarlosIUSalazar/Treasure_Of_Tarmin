@@ -30,10 +30,12 @@ public class Player : MonoBehaviour
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
+
     void Start()
     {
         InitializeValues();
     }
+
 
     void Update()
     {
@@ -101,6 +103,7 @@ public class Player : MonoBehaviour
         Debug.Log("currentMaxSpiritualStrength is " + currentMaxSpiritualStrength);
     }
 
+
     public void ModifyPhysicalStrength(int amount)
     {
         Debug.Log("Amount" + amount);
@@ -116,6 +119,7 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
     public void ModifyFloorNumber() {
         gameManager.currentFloor++;
         OnPlayerStatsUpdated?.Invoke();
@@ -130,21 +134,25 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
     public void ModifyFood(int amount) {
         food += amount;
         OnPlayerStatsUpdated?.Invoke();
     }
+
 
     public void ModifyScore(int amount) {
         score += amount;
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
     public void ModifyWeaponAttackPower(ItemMapping itemMapping) {
         physicalWeapon = itemMapping.warAttackPower;
         spiritualWeapon = itemMapping.spiritualAttackPower;
         OnPlayerStatsUpdated?.Invoke();
     }
+
 
     private void Die()
     {
@@ -154,6 +162,7 @@ public class Player : MonoBehaviour
         gameManager.GameOverSequence();
     }
 
+
     public void CheckIfCanRest() {
         if (((!gameManager.isFighting && (physicalStrength < currentMaxPhysicalStrength)) || (!gameManager.isFighting && (spiritualStrength < currentMaxSpiritualStrength))) && food > 0) {
             canRest = true;
@@ -161,6 +170,7 @@ public class Player : MonoBehaviour
             canRest = false;
         }
     }
+
 
     public void Rest() {
         // Resting.  Resting brings the player current health up towards the current Max Health by using
@@ -176,7 +186,52 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
+
     public void UpdateUIStats() {
         OnPlayerStatsUpdated?.Invoke();
     }
+
+
+    public void playerTakeDamageCalculation(ItemMapping itemMapping)
+    {
+        float damageWar = itemMapping.warAttackPower;
+        float damageSpiritual = itemMapping.spiritualAttackPower;
+        bool isWar = itemMapping.isWarWeapon;
+        bool isSpiritual = itemMapping.isSpiritualWeapon;
+
+        float baseDamage = Mathf.Max(damageWar, damageSpiritual);
+        float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.25f);
+        float rawAttack = baseDamage + bonusDamage;
+
+        // Choose defense based on attack type
+        float defense = isWar ? physicalArmor : spiritualArmor;
+
+        float finalDamage = rawAttack * (1 - (defense / 100f));
+        finalDamage = Mathf.Max(finalDamage, 1); // prevent zero damage
+
+        int finalDamageInt = Mathf.RoundToInt(finalDamage);
+
+        // Apply damage to correct health pool
+        if (isWar)
+        {
+            physicalStrength -= finalDamageInt;
+            Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | Remaining Physical HP: {physicalStrength}");
+            if (physicalStrength <= 0) Die();
+        }
+        else if (isSpiritual)
+        {
+            spiritualStrength -= finalDamageInt;
+            Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | Remaining Spiritual HP: {spiritualStrength}");
+            if (spiritualStrength <= 0) Die();
+        }
+        else
+        {
+            Debug.LogWarning("Unknown damage type: neither war nor spiritual marked!");
+        }
+
+        // Trigger UI Update
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+
 }

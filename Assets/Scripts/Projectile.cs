@@ -4,16 +4,16 @@ public class Projectile : MonoBehaviour
 {
     [SerializeField] ItemMapping itemMapping;
     private float projectileSpeed = 12f; // Speed of the projectile
-    private float damage;
-    private int amount = -10;
+    //private float damage;
+    //private int amount = -10;
     private Vector3 direction;
     ItemMapping currentPlayerWeapon; 
-    PlayerShootingSpawner playerShootingSpawner;
+    ///PlayerShootingSpawner playerShootingSpawner;
     InventoryManager inventoryManager;
 
     void Start()
     {
-        playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
+        //playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         currentPlayerWeapon = inventoryManager.FigureOutCurrentRightHandItemMapping();
     }
@@ -45,25 +45,17 @@ public class Projectile : MonoBehaviour
                 Enemy enemy = other.GetComponent<Enemy>();
                 if (enemy != null)
                 {
-                    //The MULTIUSE WEAPON DAMAGE IS NOW CALCULATED ON PLAYER SHOOTING SPAWNER, OTHER WEAPONS USE THE CALCULATION ABOVE WITHIN THIS SCRIPT
+                    //The MULTIUSE WEAPON DAMAGE IS NOW CALCULATED ON ENEMY.CS
                     enemy.TakeDamage(currentPlayerWeapon);
                 }
             }
             else if (other.CompareTag("Player"))
             {
                 //Damage to player is calculated based on the stats of the assigned itemMapping to this Script on the editor to each weapon prefab
-                float damageWar = itemMapping.warAttackPower;
-                float damageSpiritual = itemMapping.spiritualAttackPower;
-                float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
-                float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
-                damage = damage + bonusDamage;
-                int attackDamage = Mathf.RoundToInt(damage);
-                Debug.Log("Damage is " + attackDamage);
-
                 Player player = other.GetComponent<Player>();
                 if (player != null)
                 {
-                    player.ModifyPhysicalStrength(-attackDamage);
+                    player.playerTakeDamageCalculation(itemMapping);
                 }
             }
             Destroy(gameObject);
