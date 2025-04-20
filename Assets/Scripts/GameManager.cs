@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] public bool isPlayersTurn = true;
     [SerializeField] public bool isEnemysTurn = false;
     public MazeBlock currentMazeBlock;
+    public int currentFloor;
     public string currentMazeBlockColor;
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
@@ -94,7 +95,7 @@ public class GameManager : MonoBehaviour
         menuScoreText.text = $"{player.score}";
         arrowsText.text = $"{player.arrows}";
         foodText.text = $"{player.food}";
-        floorText.text = $"{player.floor}";
+        floorText.text = $"{currentFloor}";
 
         menuPhysicalArmorText.text = $"{player.physicalArmor}";
         menuSpiritualArmorText.text = $"{player.spiritualArmor}";

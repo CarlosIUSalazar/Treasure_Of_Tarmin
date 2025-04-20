@@ -18,7 +18,7 @@ public class Player : MonoBehaviour
     public int score;
     public int arrows;
     public int food;
-    public int floor;
+    //public int floor;
     public bool canRest = false;
     GameManager gameManager;
     //Events to notify UI changes
@@ -26,11 +26,13 @@ public class Player : MonoBehaviour
     public event OnStatChanged OnPlayerStatsUpdated;
 
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+    void Awake() {
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+    }
+
     void Start()
     {
         InitializeValues();
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void Update()
@@ -48,7 +50,7 @@ public class Player : MonoBehaviour
         score = 0;
         arrows = 10;
         food = 100;
-        floor = 1;
+        gameManager.currentFloor = 1;
 
         //Trigger UI update at start
         OnPlayerStatsUpdated?.Invoke();
@@ -115,7 +117,7 @@ public class Player : MonoBehaviour
     }
 
     public void ModifyFloorNumber() {
-        floor++;
+        gameManager.currentFloor++;
         OnPlayerStatsUpdated?.Invoke();
     }
     
