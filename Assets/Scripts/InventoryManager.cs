@@ -20,6 +20,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage hauberkImg;
     [SerializeField] private RawImage gauntletImg;
     [SerializeField] private RawImage ringImg;
+    [SerializeField] private RawImage shieldImg;
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     public bool isHoldingRightHandItem = false;
     private ItemMapping currentHelmet;
@@ -173,12 +174,22 @@ public class InventoryManager : MonoBehaviour
 
 
     // Assign an item directly to the left hand
-    public void AssignToLeftHand(Texture shieldTexture)
+    public void AssignToLeftHand(string itemName)
     {
-        if (shieldTexture != null)
-        {
-            leftHandSlot.texture = shieldTexture;
-            leftHandSlot.color = Color.white;
+        //SHIELD ASSIGNED TO HAND LOGIC AND TRIGGER
+        Debug.Log("LEFT HAND TEXTURE IS " + itemName);  // e.g Spell-Book-Purple
+        if (itemName != null) {
+            ItemMapping itemMapping = GetItemMapping(itemName);
+            if (itemMapping.isShield){
+                Debug.Log("Lefthand itemmapping is" + itemMapping.name);
+                currentShield = itemMapping;
+                shieldImg.texture = itemMapping.item2DSprite;
+                CalculateCurrentArmorTotal();
+            } else {
+                currentShield = null;
+                shieldImg.texture = transparentImg;
+                CalculateCurrentArmorTotal();
+            }
         }
     }
 
@@ -487,7 +498,8 @@ public class InventoryManager : MonoBehaviour
             (currentBreastPlate?.warDefense ?? 0) + 
             (currentHauberk?.warDefense ?? 0) + 
             (currentGauntlet?.warDefense ?? 0) + 
-            (currentRing?.warDefense ?? 0);
+            (currentRing?.warDefense ?? 0) +
+            (currentShield?.warDefense ?? 0);
 
         Debug.Log("Total Physical Armor: " + currentPhysicalArmorTotal);
 
@@ -498,6 +510,7 @@ public class InventoryManager : MonoBehaviour
         if (currentHauberk != null) currentSpiritualArmorTotal += currentHauberk.spiritualDefense;
         if (currentGauntlet != null) currentSpiritualArmorTotal += currentGauntlet.spiritualDefense;
         if (currentRing != null) currentSpiritualArmorTotal += currentRing.spiritualDefense;
+        if (currentShield != null) currentSpiritualArmorTotal += currentShield.spiritualDefense;
 
         Debug.Log("Total Physical Armor: " + currentSpiritualArmorTotal);
 

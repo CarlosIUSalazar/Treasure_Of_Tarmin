@@ -104,6 +104,10 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
                 inventoryManager.AssignToRightHand(originalTexture.name, false);
             }
 
+            if (droppedOn.name == "LeftHandSlot") { //Update Shield Armor Values
+                inventoryManager.AssignToLeftHand(originalTexture.name);
+            }
+
             // Reset positions of both slots to their hardcoded values
             ResetSlotPosition(originalSlot.name);
             ResetSlotPosition(targetSlot.name);
