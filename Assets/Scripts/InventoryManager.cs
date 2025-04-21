@@ -184,12 +184,34 @@ public class InventoryManager : MonoBehaviour
                 Debug.Log("Lefthand itemmapping is" + itemMapping.name);
                 currentShield = itemMapping;
                 shieldImg.texture = itemMapping.item2DSprite;
+                //leftHandSlot.texture = itemMapping.item2DSprite;
                 CalculateCurrentArmorTotal();
             } else {
                 currentShield = null;
                 shieldImg.texture = transparentImg;
                 CalculateCurrentArmorTotal();
             }
+        }
+    }
+
+
+    public void CheckIfLeftHandHasShield() {
+        // This covers the case where an non shield item on left hand is dragged and dropped on a Shield and the shield ends in left hand, the method above AssignToLeftHand() only don't wont
+        if (leftHandSlot.texture.name != "Transparent") {
+            Debug.Log("There is item in left hand");
+            String lefHandWeaponName = leftHandSlot.texture.name;
+            ItemMapping currentLeftHandItemMapping = GetItemMapping(lefHandWeaponName);
+            if (currentLeftHandItemMapping.isShield) {
+                Debug.Log("Lefthand itemmapping is" + currentLeftHandItemMapping.name);
+                currentShield = currentLeftHandItemMapping;
+                shieldImg.texture = currentLeftHandItemMapping.item2DSprite;
+                CalculateCurrentArmorTotal();
+            } 
+        } else {
+            Debug.Log("There is NO item in left hand");
+            currentShield = null;
+            shieldImg.texture = transparentImg;
+            CalculateCurrentArmorTotal();
         }
     }
 
@@ -373,6 +395,39 @@ public class InventoryManager : MonoBehaviour
                     Debug.Log("Better Item Already Equiped, Discarding");
                 }
                 EmptyRightHand();
+            }
+
+            // SHIELD
+            if (rightHandItem.isShield) {
+                String leftHandWeaponName = leftHandSlot.texture.name;
+                String rightHandWeaponName = rightHandSlot.texture.name;
+                ItemMapping leftHandWeapon = null;
+                ItemMapping rightHandWeapon = GetItemMapping(rightHandWeaponName);
+                Texture leftHandTexture = transparentImg;
+                Texture rightHandTexture = rightHandWeapon.item2DSprite;
+
+                
+                if (leftHandWeaponName != "Transparent") { //IF LEFT HAND NOT EMPTY
+                    Debug.Log("left hand is not EMPTY" + leftHandWeaponName);
+                    leftHandWeapon = GetItemMapping(leftHandWeaponName);
+                    leftHandTexture = leftHandWeapon.item2DSprite;
+                }
+
+                if (rightHandWeapon && leftHandWeapon != null) {
+                    Debug.Log("Both hands full, LEFT " + leftHandSlot.texture + "Right " +rightHandSlot.texture);
+                    //AssignToLeftHand(rightHandItem.name);
+                    //AssignToRightHand(leftHandWeapon.name, false);
+                    leftHandSlot.texture = rightHandTexture; // Assign the item to the right hand in 2D
+                    rightHandSlot.texture = leftHandTexture;
+                    //EmptyRightHand();
+                } else if (rightHandWeapon && leftHandWeapon == null) {
+                    Debug.Log("Only right hand full");
+                    leftHandSlot.texture = rightHandTexture; // Assign the item to the right hand in 2D
+                    rightHandSlot.texture = transparentImg; // Assign the item to the right hand in 2D
+                }
+                currentShield = rightHandWeapon;
+                shieldImg.texture = rightHandWeapon.item2DSprite;
+                CalculateCurrentArmorTotal();
             }
 
             ////////////////////

@@ -92,7 +92,6 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             Debug.Log("DroppedOn" + droppedOn);
             Debug.Log("DroppedOn name " + droppedOn.name);
 
-
             // Swap textures without moving slots
             Texture targetTexture = targetImage.texture;
             targetImage.texture = originalTexture;
@@ -111,13 +110,13 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
             // Reset positions of both slots to their hardcoded values
             ResetSlotPosition(originalSlot.name);
             ResetSlotPosition(targetSlot.name);
-        }
-        else
-        {
+        } else {
             // If not dropped on a valid slot, reset to the original slot
             draggedImage.transform.SetParent(originalSlot);
             ResetSlotPosition(originalSlot.name);
         }
+        // This covers the case where an non shield item on left hand is dragged and dropped on a Shield and the shield ends in left hand, the method above only don't wont
+        inventoryManager.CheckIfLeftHandHasShield();
     }
 
     private void ResetSlotPosition(string slotName)
