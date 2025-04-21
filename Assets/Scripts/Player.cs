@@ -46,7 +46,7 @@ public class Player : MonoBehaviour
         physicalStrength = 900;
         physicalArmor = 0;
         physicalWeapon = 10;
-        spiritualStrength = 50;
+        spiritualStrength = 500;
         spiritualArmor = 0;
         spiritualWeapon = 1;
         score = 0;
