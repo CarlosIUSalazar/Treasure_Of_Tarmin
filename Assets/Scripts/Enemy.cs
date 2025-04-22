@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] private EnemyMapping enemyMapping;  // assigned via inspector
+    [SerializeField] public EnemyMapping enemyMapping;  // assigned via inspector
     [SerializeField] private GameObject treasureOfTarminPrefab;
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
@@ -52,61 +52,23 @@ public class Enemy : MonoBehaviour
         //FLOOR BASED HP
         if (currentFloorColor == "Green") { //WAR FLOOR
             float baseHP = enemyMapping.baseWarHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.25f);
+            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
             currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
             Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
         } else if (currentFloorColor == "Blue") { //SPIRITUAL FLOOR
             float baseHP = enemyMapping.baseSpiritualHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.25f);
+            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
             currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
             Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
         }  else if (currentFloorColor == "Tan") { //MIXED FLOOR (USES HIGHER HP)
             float baseSpiritualHP = enemyMapping.baseSpiritualHP;
             float baseWarHP = enemyMapping.baseWarHP;
             float baseHP = (baseSpiritualHP > baseWarHP) ? baseSpiritualHP : baseWarHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.25f);
+            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
             currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
             Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
         }
     }
-
-
-    // public void TakeDamage(ItemMapping currentPlayerWeapon) {
-    //     //Check which attack is stronger War or Spiritual, use higher, apply a bonus between 5 and 25% and convert back to int
-    //     float damageWar = currentPlayerWeapon.warAttackPower;
-    //     float damageSpiritual = currentPlayerWeapon.spiritualAttackPower;
-    //     float damage = (damageWar > damageSpiritual) ? damageWar : damageSpiritual;
-    //     float bonusDamage = UnityEngine.Random.Range(damage * 0.05f, damage * 0.25f);
-    //     damage = damage + bonusDamage;
-    //     int attackDamage = Mathf.RoundToInt(damage);
-    //     Debug.Log("Damage is " + attackDamage);
-    //     if (currentPlayerWeapon.isMultiUseWeapon) {
-    //         Debug.Log("Using MULTIUSE WEAPON dmg is" + attackDamage); 
-    //     }else{
-    //         Debug.Log("Using SINGLE-USE WEAPON dmg is" + attackDamage); 
-    //         //Consume single use weapons
-    //         inventoryManager.EmptyRightHand();
-    //     }       
-        
-    //     // DEFENSE MITIGATION SECTION
-    //     float enemyDefense = enemyMapping.baseDefense;
-    //     float defenseBonus = enemyMapping.defensePerFloor;
-    //     float shieldBonus = enemyMapping.shieldBonus;
-    //     float colorMultiplier = enemyMapping.colorMultiplier; 
-    //     bool weaponIsWar = currentPlayerWeapon.isWarWeapon;
-
-    //     //Base Def
-        
-    //     // Attack Value - ((BaseDef * 0.1) x 
-        
-        
-    //     currentEnemyHP -= attackDamage;
-    //     Debug.Log("Enemy current HP is " + currentEnemyHP);
-    //     gameManager.UpdateEnemyHP(currentEnemyHP);
-    //     if (currentEnemyHP <= 0) {
-    //         Die();
-    //     }
-    // }
 
 
     public void TakeDamage(ItemMapping currentPlayerWeapon)
@@ -141,7 +103,7 @@ public class Enemy : MonoBehaviour
         float totalDefense = enemyMapping.baseDefense + floorDefense + enemyMapping.shieldBonus + colorDefense;
 
         // 5. Final damage formula
-        float finalDamage = rawAttack * (1 + typeBonus) * (1 - (totalDefense / 100f));
+        float finalDamage = rawAttack * (1 + typeBonus) * (1 - (totalDefense / 50f));
         finalDamage = Mathf.Max(finalDamage, 1); // prevent zero or negative damage
 
         // 6. Apply and log

@@ -43,7 +43,7 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 900;
+        physicalStrength = 1000;
         physicalArmor = 0;
         physicalWeapon = 10;
         spiritualStrength = 500;
@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
         spiritualWeapon = 1;
         score = 0;
         arrows = 10;
-        food = 100;
+        food = 10;
         gameManager.currentFloor = 1;
 
         //Trigger UI update at start
@@ -194,44 +194,164 @@ public class Player : MonoBehaviour
 
     public void playerTakeDamageCalculation(ItemMapping itemMapping)
     {
-        float damageWar = itemMapping.warAttackPower;
-        float damageSpiritual = itemMapping.spiritualAttackPower;
-        bool isWar = itemMapping.isWarWeapon;
-        bool isSpiritual = itemMapping.isSpiritualWeapon;
+        // Reference the enemy
+        Enemy activeEnemy = gameManager.activeEnemy;
+        EnemyMapping enemyMap = activeEnemy.enemyMapping;
 
-        float baseDamage = Mathf.Max(damageWar, damageSpiritual);
-        float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.25f);
-        float rawAttack = baseDamage + bonusDamage;
+        bool isWar = enemyMap.isWar;
+        bool isSpiritual = enemyMap.isSpiritual;
 
-        // Choose defense based on attack type
+        // Calculate full attack: base + scaling + color multiplier
+        float floorMultiplier = gameManager.currentFloor * enemyMap.attackPerFloor;
+        float baseAttack = enemyMap.baseAttack + floorMultiplier;
+        float rawAttack = baseAttack * enemyMap.colorMultiplier;
+
+        // Apply bonus randomness
+        float bonus = (gameManager.currentFloor > 3) ? UnityEngine.Random.Range(rawAttack * 0.05f, rawAttack * 0.12f) : 0f;
+        rawAttack += bonus;
+
+        // Pick correct defense and max defense cap
         float defense = isWar ? physicalArmor : spiritualArmor;
+        float maxDefense = isWar ? 119f : 52f;
 
-        float finalDamage = rawAttack * (1 - (defense / 100f));
-        finalDamage = Mathf.Max(finalDamage, 1); // prevent zero damage
+        if (gameManager.currentFloor <= 3)
+            defense += 5; // early game player bonus
 
+        // Normalize defense: 100% mitigation if maxDefense
+        float defenseRatio = Mathf.Clamp(defense / maxDefense, 0f, 1f);
+
+        // Final damage
+        float finalDamage = rawAttack * (1f - defenseRatio);
+        finalDamage = Mathf.Max(finalDamage, 1f); // always deal at least 1 damage
         int finalDamageInt = Mathf.RoundToInt(finalDamage);
 
         // Apply damage to correct health pool
         if (isWar)
         {
             physicalStrength -= finalDamageInt;
-            Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | Remaining Physical HP: {physicalStrength}");
+            Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | HP: {physicalStrength} | DefRatio: {defenseRatio:P0}");
             if (physicalStrength <= 0) Die();
         }
         else if (isSpiritual)
         {
             spiritualStrength -= finalDamageInt;
-            Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | Remaining Spiritual HP: {spiritualStrength}");
+            Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | HP: {spiritualStrength} | DefRatio: {defenseRatio:P0}");
             if (spiritualStrength <= 0) Die();
         }
         else
         {
-            Debug.LogWarning("Unknown damage type: neither war nor spiritual marked!");
+            Debug.LogWarning("Enemy attack type not set correctly (neither War nor Spiritual).");
         }
 
-        // Trigger UI Update
         OnPlayerStatsUpdated?.Invoke();
     }
+
+
+    // public void playerTakeDamageCalculation(ItemMapping itemMapping)
+    // {
+    //     //Max War Def = 119
+    //     //Max Spirit Def = 52
+    //     //This logic deals damage based on the ACTIVE ENEMY attack power hitting the player, not the weapon used attack power
+    //     Enemy activeEnemy = gameManager.activeEnemy;
+    //     EnemyMapping activeEnemyMapping = activeEnemy.enemyMapping;
+
+    //     bool isWar = activeEnemyMapping.isWar;
+    //     bool isSpiritual = activeEnemyMapping.isSpiritual;
+
+    //     float baseDamage = activeEnemyMapping.baseAttack;
+    //     //float damageSpiritual = itemMapping.spiritualAttackPower;
+
+    //     //float baseDamage = Mathf.Max(damageWar, damageSpiritual);
+    //     float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.12f);
+        
+    //     if (gameManager.currentFloor <=  3) {
+    //         bonusDamage = 0;
+    //     }
+        
+
+
+    //     float rawAttack = baseDamage + bonusDamage;
+
+    //     // Choose defense based on attack type
+    //     float defense = isWar ? physicalArmor : spiritualArmor;
+
+    //     if (gameManager.currentFloor <=  3) {
+    //         defense = defense + 5; //Early floors defense bonus
+    //     }
+
+    //     float finalDamage = rawAttack * (1 - (defense / 50f));
+    //     finalDamage = Mathf.Max(finalDamage, 1); // prevent zero damage
+
+    //     int finalDamageInt = Mathf.RoundToInt(finalDamage);
+
+    //     // Apply damage to correct health pool
+    //     if (itemMapping.isWarWeapon)
+    //     {
+    //         physicalStrength -= finalDamageInt;
+    //         Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | Remaining Physical HP: {physicalStrength}  Defense: {defense}");
+    //         if (physicalStrength <= 0) Die();
+    //     }
+    //     else if (itemMapping.isSpiritualWeapon)
+    //     {
+    //         spiritualStrength -= finalDamageInt;
+    //         Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | Remaining Spiritual HP: {spiritualStrength}");
+    //         if (spiritualStrength <= 0) Die();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("Unknown damage type: neither war nor spiritual marked!");
+    //     }
+
+    //     // Trigger UI Update
+    //     OnPlayerStatsUpdated?.Invoke();
+    // }
+
+
+
+
+
+    // public void playerTakeDamageCalculation(ItemMapping itemMapping)
+    // {
+    //     //This logic deals damage based on the Weapon attack power used to hit the player, not the enemy attack power
+    //     float damageWar = itemMapping.warAttackPower;
+    //     float damageSpiritual = itemMapping.spiritualAttackPower;
+    //     bool isWar = itemMapping.isWarWeapon;
+    //     bool isSpiritual = itemMapping.isSpiritualWeapon;
+
+    //     float baseDamage = Mathf.Max(damageWar, damageSpiritual);
+    //     float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.25f);
+    //     float rawAttack = baseDamage + bonusDamage;
+
+    //     // Choose defense based on attack type
+    //     float defense = isWar ? physicalArmor : spiritualArmor;
+
+    //     float finalDamage = rawAttack * (1 - (defense / 100f));
+    //     finalDamage = Mathf.Max(finalDamage, 1); // prevent zero damage
+
+    //     int finalDamageInt = Mathf.RoundToInt(finalDamage);
+
+    //     // Apply damage to correct health pool
+    //     if (isWar)
+    //     {
+    //         physicalStrength -= finalDamageInt;
+    //         Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | Remaining Physical HP: {physicalStrength}");
+    //         if (physicalStrength <= 0) Die();
+    //     }
+    //     else if (isSpiritual)
+    //     {
+    //         spiritualStrength -= finalDamageInt;
+    //         Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | Remaining Spiritual HP: {spiritualStrength}");
+    //         if (spiritualStrength <= 0) Die();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("Unknown damage type: neither war nor spiritual marked!");
+    //     }
+
+    //     // Trigger UI Update
+    //     OnPlayerStatsUpdated?.Invoke();
+    // }
+
 
 
 }
