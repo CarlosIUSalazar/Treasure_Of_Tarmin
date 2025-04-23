@@ -14,7 +14,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
     [SerializeField] public RawImage rightHandSlot; // RawImage for right-hand slot
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
-    [SerializeField] private Texture2D transparentImg;
+    [SerializeField] public Texture2D transparentImg;
     [SerializeField] private RawImage breastPlateImg;
     [SerializeField] private RawImage helmetImg;
     [SerializeField] private RawImage hauberkImg;
@@ -196,23 +196,44 @@ public class InventoryManager : MonoBehaviour
 
 
     public void CheckIfLeftHandHasShield() {
-        // This covers the case where an non shield item on left hand is dragged and dropped on a Shield and the shield ends in left hand, the method above AssignToLeftHand() only don't wont
-        if (leftHandSlot.texture.name != "Transparent") {
-            Debug.Log("There is item in left hand");
-            String lefHandWeaponName = leftHandSlot.texture.name;
-            ItemMapping currentLeftHandItemMapping = GetItemMapping(lefHandWeaponName);
-            if (currentLeftHandItemMapping.isShield) {
-                Debug.Log("Lefthand itemmapping is" + currentLeftHandItemMapping.name);
-                currentShield = currentLeftHandItemMapping;
-                shieldImg.texture = currentLeftHandItemMapping.item2DSprite;
-                CalculateCurrentArmorTotal();
-            } 
-        } else {
-            Debug.Log("There is NO item in left hand");
+        // 1) Empty?
+        if (leftHandSlot.texture == transparentImg) {
             currentShield = null;
             shieldImg.texture = transparentImg;
-            CalculateCurrentArmorTotal();
         }
+        else {
+            // 2) Something’s there — see if it’s a shield
+            var mapping = GetItemMapping(leftHandSlot.texture.name);
+            if (mapping != null && mapping.isShield) {
+                currentShield = mapping;
+                shieldImg.texture = mapping.item2DSprite;
+            }
+            else {
+                // Not a shield → clear it
+                currentShield = null;
+                shieldImg.texture = transparentImg;
+            }
+        }
+
+        // 3) Always recalc afterwards
+        CalculateCurrentArmorTotal();
+        // // This covers the case where an non shield item on left hand is dragged and dropped on a Shield and the shield ends in left hand, the method above AssignToLeftHand() only don't wont
+        // if (leftHandSlot.texture.name != "Transparent") {
+        //     Debug.Log("There is item in left hand");
+        //     String lefHandWeaponName = leftHandSlot.texture.name;
+        //     ItemMapping currentLeftHandItemMapping = GetItemMapping(lefHandWeaponName);
+        //     if (currentLeftHandItemMapping.isShield) {
+        //         Debug.Log("Lefthand itemmapping is" + currentLeftHandItemMapping.name);
+        //         currentShield = currentLeftHandItemMapping;
+        //         shieldImg.texture = currentLeftHandItemMapping.item2DSprite;
+        //         CalculateCurrentArmorTotal();
+        //     } 
+        // } else {
+        //     Debug.Log("There is NO item in left hand");
+        //     currentShield = null;
+        //     shieldImg.texture = transparentImg;
+        //     CalculateCurrentArmorTotal();
+        // }
     }
 
 

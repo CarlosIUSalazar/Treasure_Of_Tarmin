@@ -11,6 +11,7 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private Transform originalSlot; // The original slot the drag started from
     private Texture originalTexture; // The texture in the original slot
     private Canvas canvas; // Reference to the canvas
+    private bool isDragging = false;
 
     // Hardcoded positions for the slots
     private Dictionary<string, Vector3> slotPositions = new Dictionary<string, Vector3>
@@ -35,30 +36,25 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         draggedImage = GetComponent<RawImage>();
 
-        // Record the specific slot being clicked and dragged
-        originalSlot = transform; // Use `transform` to refer to the current object (the slot itself)
-        Debug.Log("originalSlot: " + originalSlot.name);
+        // If it’s empty, bail out and mark that we’re not dragging.
+        if (draggedImage.texture == null
+            || draggedImage.texture == inventoryManager.transparentImg)
+        {
+            isDragging = false;
+            return;
+        }
 
-        // Record the texture in the original slot
+        // Otherwise we really are dragging now:
+        isDragging      = true;
+        originalSlot    = transform;
         originalTexture = draggedImage.texture;
-        if (originalTexture != null)
-        {
-            Debug.Log("originalTexture: " + originalTexture.name);
-        }
-        else
-        {
-            Debug.Log("originalTexture: None");
-        }
-
-        // Disable raycast to avoid blocking during drag
-        if (draggedImage != null)
-        {
-            draggedImage.raycastTarget = false;
-        }
+        draggedImage.raycastTarget = false;
     }
 
     public void OnDrag(PointerEventData eventData)
     {
+        if (!isDragging) return;    // <-- guard against dragging nothing
+
         if (draggedImage != null)
         {
             RectTransformUtility.ScreenPointToLocalPointInRectangle(
@@ -75,11 +71,11 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        if (!isDragging) return;    // <-- guard against dragging nothing
+        isDragging = false;
+
         // Re-enable raycast
-        if (draggedImage != null)
-        {
-            draggedImage.raycastTarget = true;
-        }
+        draggedImage.raycastTarget = true;
 
         // Check if dropped on a valid slot
         GameObject droppedOn = eventData.pointerCurrentRaycast.gameObject;
