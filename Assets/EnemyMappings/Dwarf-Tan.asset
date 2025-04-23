@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Dwarf-Tan
   baseWarHP: 5
   baseSpiritualHP: 10
-  baseAttack: 9
+  baseAttack: 4
   baseDefense: 6
   colorMultiplier: 1.1
   shieldBonus: 0

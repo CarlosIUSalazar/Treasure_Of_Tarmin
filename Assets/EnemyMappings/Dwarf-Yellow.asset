@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Dwarf-Yellow
   baseWarHP: 3
   baseSpiritualHP: 6
-  baseAttack: 6
+  baseAttack: 3
   baseDefense: 3
   colorMultiplier: 1
   shieldBonus: 0

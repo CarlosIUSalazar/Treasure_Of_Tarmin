@@ -43,12 +43,12 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 1000;
+        physicalStrength = 12;
         physicalArmor = 0;
-        physicalWeapon = 10;
-        spiritualStrength = 500;
+        physicalWeapon = 0;
+        spiritualStrength = 6;
         spiritualArmor = 0;
-        spiritualWeapon = 1;
+        spiritualWeapon = 0;
         score = 0;
         arrows = 10;
         food = 10;
@@ -196,15 +196,15 @@ public class Player : MonoBehaviour
     {
         // Reference the enemy
         Enemy activeEnemy = gameManager.activeEnemy;
-        EnemyMapping enemyMap = activeEnemy.enemyMapping;
+        EnemyMapping enemyMapping = activeEnemy.enemyMapping;
 
-        bool isWar = enemyMap.isWar;
-        bool isSpiritual = enemyMap.isSpiritual;
+        bool isWar = enemyMapping.isWar;
+        bool isSpiritual = enemyMapping.isSpiritual;
 
         // Calculate full attack: base + scaling + color multiplier
-        float floorMultiplier = gameManager.currentFloor * enemyMap.attackPerFloor;
-        float baseAttack = enemyMap.baseAttack + floorMultiplier;
-        float rawAttack = baseAttack * enemyMap.colorMultiplier;
+        float floorMultiplier = gameManager.currentFloor * enemyMapping.attackPerFloor;
+        float baseAttack = enemyMapping.baseAttack + floorMultiplier;
+        float rawAttack = baseAttack * enemyMapping.colorMultiplier;
 
         // Apply bonus randomness
         float bonus = (gameManager.currentFloor > 3) ? UnityEngine.Random.Range(rawAttack * 0.05f, rawAttack * 0.12f) : 0f;
@@ -226,13 +226,13 @@ public class Player : MonoBehaviour
         int finalDamageInt = Mathf.RoundToInt(finalDamage);
 
         // Apply damage to correct health pool
-        if (isWar)
+        if (itemMapping.isWarWeapon)
         {
             physicalStrength -= finalDamageInt;
             Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | HP: {physicalStrength} | DefRatio: {defenseRatio:P0}");
             if (physicalStrength <= 0) Die();
         }
-        else if (isSpiritual)
+        else if (itemMapping.isSpiritualWeapon)
         {
             spiritualStrength -= finalDamageInt;
             Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | HP: {spiritualStrength} | DefRatio: {defenseRatio:P0}");

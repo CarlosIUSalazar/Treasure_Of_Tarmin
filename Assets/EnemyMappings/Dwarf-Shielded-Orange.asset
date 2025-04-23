@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Dwarf-Shielded-Orange
   baseWarHP: 10
   baseSpiritualHP: 20
-  baseAttack: 14
+  baseAttack: 12
   baseDefense: 12
   colorMultiplier: 1.2
   shieldBonus: 20
