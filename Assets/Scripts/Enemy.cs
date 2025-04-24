@@ -137,6 +137,7 @@ public class Enemy : MonoBehaviour
         }
         Destroy(gameObject);
         gameManager.isFighting = false;
+        //player.CheckIfCanRest();
         playerAmbushDetection.ambushTriggered = false; //Allows to be double ambushed once the first ambush ends when caught in between 2 enemiesgit
         playerGridMovement.HideActionButton();
         // Trigger exploration mode after combat ends

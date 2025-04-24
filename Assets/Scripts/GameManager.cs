@@ -20,6 +20,10 @@ public class GameManager : MonoBehaviour
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
     public bool ambushInProgress = false;
+
+    public int WarHPBookMultiplier = 1;
+    public int SpiritualHPBookMultiplier = 1;
+
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI physicalWeaponText;
@@ -47,6 +51,7 @@ public class GameManager : MonoBehaviour
     public bool isMazeTransparent = false; // Special book
     public bool isSmallPinkPotionActive = false; //Helps find better loot
     public bool isSmallPurplePotionActive = false; //Hides Enemies
+    
 
     void Start()
     {
@@ -235,6 +240,51 @@ public void SetActiveEnemy(Enemy enemy)
             }
         }
     }
+
+
+    public void UpdateHPBooksStatus() {
+        if (WarHPBookMultiplier == 2) {
+            player.currentSpiritualBookCurrentCapHP = 29;
+
+            physicalStrengthText.color = Color.blue;
+            spiritualStrengthText.color = Color.white;
+        }
+        
+        if (SpiritualHPBookMultiplier == 2) {
+            player.currentWarBookCurrentCapHP = 49;
+
+            spiritualStrengthText.color = Color.blue;
+            physicalStrengthText.color = Color.white;
+        }
+        
+        if (WarHPBookMultiplier == 3) {
+            player.currentSpiritualBookCurrentCapHP = 29;
+
+            physicalStrengthText.color = Color.yellow;
+            spiritualStrengthText.color = Color.white;
+        }
+
+        if (SpiritualHPBookMultiplier == 3) {
+            player.currentWarBookCurrentCapHP = 49;
+
+            spiritualStrengthText.color = Color.yellow;
+            physicalStrengthText.color = Color.white;
+        }
+
+        if (WarHPBookMultiplier == 4) {
+            player.currentSpiritualBookCurrentCapHP = 29;
+            physicalStrengthText.color = Color.cyan;
+            spiritualStrengthText.color = Color.white;
+        }
+
+        if (SpiritualHPBookMultiplier == 4) {
+            player.currentWarBookCurrentCapHP = 49;
+
+            spiritualStrengthText.color = Color.cyan;
+            physicalStrengthText.color = Color.white;
+        }
+    }
+
 }
 
 

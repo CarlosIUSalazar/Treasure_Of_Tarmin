@@ -555,6 +555,101 @@ public class InventoryManager : MonoBehaviour
 
             if (rightHandItem.name == "Potion-Large-Purple"){
             }
+            if (rightHandItem.name == "Potion-Large-Blue"){
+                player.IncreasePhysicalScoreBy10WithLargeBluePotion();
+                EmptyRightHand();
+            }
+
+            ///////////
+            ///WAR BOOKS
+            /////////
+            if (rightHandItem.name == "Book-War-Blue"){
+                if (gameManager.WarHPBookMultiplier > 2) {
+                    gameManager.SetPlayerMessage("Better Book Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-War-Blue");
+                gameManager.WarHPBookMultiplier = 2;
+                gameManager.SpiritualHPBookMultiplier = 1; //Turn off Spiritual Book
+                player.currentSpiritualBookCurrentCapHP = 29;
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
+
+            if (rightHandItem.name == "Book-War-Pink"){
+                if (gameManager.WarHPBookMultiplier > 3) {
+                    gameManager.SetPlayerMessage("Better Book Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-War-Pink");
+                gameManager.WarHPBookMultiplier = 3;
+                gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
+                player.currentSpiritualBookCurrentCapHP = 29;
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
+
+            if (rightHandItem.name == "Book-War-Purple"){
+                if (gameManager.WarHPBookMultiplier == 4) {
+                    gameManager.SetPlayerMessage("Spell Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-War-Purple");
+                gameManager.WarHPBookMultiplier = 4;
+                gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
+                player.currentSpiritualBookCurrentCapHP = 29;
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
+
+
+            ///////////
+            ///SPIRITUAL BOOKS
+            /////////
+            if (rightHandItem.name == "Book-Spiritual-Blue"){
+                if (gameManager.SpiritualHPBookMultiplier >2) {
+                    gameManager.SetPlayerMessage("Better Book Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-Spiritual-Blue");
+                gameManager.SpiritualHPBookMultiplier = 2;
+                gameManager.WarHPBookMultiplier = 1; //Reset War Book
+                player.currentWarBookCurrentCapHP = 49;     // back to default War cap
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
+
+            if (rightHandItem.name == "Book-Spiritual-Pink"){
+                if (gameManager.SpiritualHPBookMultiplier >3) {
+                    gameManager.SetPlayerMessage("Better Book Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-Spiritual-Pink");
+                gameManager.SpiritualHPBookMultiplier = 3;
+                gameManager.WarHPBookMultiplier = 1; //Reset War Book
+                player.currentWarBookCurrentCapHP = 49;     // back to default War cap
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
+
+            if (rightHandItem.name == "Book-Spiritual-Purple"){
+                if (gameManager.SpiritualHPBookMultiplier == 4) {
+                    gameManager.SetPlayerMessage("Spell Already Active");
+                    return;
+                }
+                player.CalculateCurrentMaxPotentialHP("Book-Spiritual-Purple");
+                gameManager.SpiritualHPBookMultiplier = 4;
+                gameManager.WarHPBookMultiplier = 1; //Reset War Book
+                player.currentWarBookCurrentCapHP = 49;     // back to default War cap
+
+                gameManager.UpdateHPBooksStatus();
+                EmptyRightHand();
+            }
         }
     }
 
