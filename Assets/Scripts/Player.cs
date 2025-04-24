@@ -63,8 +63,8 @@ public class Player : MonoBehaviour
         spiritualArmor = 0;
         spiritualWeapon = 0;
         score = 0;
-        arrows = 1;
-        food = 999;
+        arrows = 10;
+        food = 10;
         gameManager.currentFloor = 1;
 
         //Trigger UI update at start
@@ -309,7 +309,7 @@ public class Player : MonoBehaviour
         float maxDefense = isWar ? 119f : 52f;
 
         if (gameManager.currentFloor <= 3)
-            defense += 500; // early game player bonus
+            defense += 10; // early game player bonus
 
         // Normalize defense: 100% mitigation if maxDefense
         float defenseRatio = Mathf.Clamp(defense / maxDefense, 0f, 1f);

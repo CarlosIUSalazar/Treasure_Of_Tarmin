@@ -10,6 +10,7 @@ public class Enemy : MonoBehaviour
     PlayerGridMovement playerGridMovement;
     Player player;
     PlayerAmbushDetection playerAmbushDetection;
+    PlayerShootingSpawner playerShootingSpawner;
     FloorManager floorManager;
     MazeBlock mazeBlock;
     InventoryManager inventoryManager;
@@ -36,6 +37,7 @@ public class Enemy : MonoBehaviour
         playerAmbushDetection = GameObject.Find("Player").GetComponent<PlayerAmbushDetection>();
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();        
+        playerShootingSpawner = GameObject.Find("PlayerShootingSpawner").GetComponent<PlayerShootingSpawner>();
         GetFloorType();
         gameManager.UpdateEnemyHP(currentEnemyHP);
         SetEnemyHP();
@@ -120,6 +122,10 @@ public class Enemy : MonoBehaviour
             Debug.Log("Using SINGLE-USE WEAPON, consuming...");
             inventoryManager.EmptyRightHand();
         }
+
+        ////
+        //Check For Weapon Breaking 
+        playerShootingSpawner.CheckWeaponBreakingChance(currentPlayerWeapon);
 
         // Update UI and check for death
         gameManager.UpdateEnemyHP(currentEnemyHP);

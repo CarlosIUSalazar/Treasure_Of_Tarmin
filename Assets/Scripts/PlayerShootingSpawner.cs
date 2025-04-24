@@ -80,6 +80,7 @@ public class PlayerShootingSpawner : MonoBehaviour
                 Quaternion.identity // Use identity rotation; the offset will be handled in Initialize in Projectile.cs
             );
 
+
             // Disable the "Billboard" and "ItemPositioning" scripts on the projectile
             Billboard billboard = projectile.GetComponent<Billboard>();
             if (billboard != null) Destroy(billboard);
@@ -116,6 +117,42 @@ public class PlayerShootingSpawner : MonoBehaviour
             gameManager.isEnemysTurn = true; // Switch to the enemy's turn
         }
     }
+
+
+    public void CheckWeaponBreakingChance(ItemMapping currentItemMapping) {
+        // only multi‐use weapons can break
+        if (!currentItemMapping.isMultiUseWeapon) 
+            return;
+
+        // determine break % based on exact rarity, not string.Contains
+        int breakChancePercent = 0;
+        if (currentItemMapping.isWarWeapon)
+        {
+            if (currentItemMapping.name.Contains("Tan"))    breakChancePercent = 2;
+            else if (currentItemMapping.name.Contains("Orange")) breakChancePercent = 3;
+            else if (currentItemMapping.name.Contains("Blue"))   breakChancePercent = 5;
+            else if (currentItemMapping.name.Contains("Grey"))   breakChancePercent = 7;
+            else if (currentItemMapping.name.Contains("Yellow")) breakChancePercent = 9;
+            else if (currentItemMapping.name.Contains("White"))  breakChancePercent = 15;
+        }
+        else if (currentItemMapping.isSpiritualWeapon)
+        {
+            if (currentItemMapping.name.Contains("Blue"))   breakChancePercent = 2;
+            else if (currentItemMapping.name.Contains("Grey"))   breakChancePercent = 3;
+            else if (currentItemMapping.name.Contains("White"))  breakChancePercent = 5;
+            else if (currentItemMapping.name.Contains("Pink"))   breakChancePercent = 7;
+            else if (currentItemMapping.name.Contains("Red"))    breakChancePercent = 9;
+            else if (currentItemMapping.name.Contains("Purple")) breakChancePercent = 12;
+        }
+
+        // roll a number 0..99
+        int roll = UnityEngine.Random.Range(0, 100);
+        if (roll < breakChancePercent)
+        {
+            gameManager.SetPlayerMessage("Your Weapon Broke!");
+            inventoryManager.EmptyRightHand();
+        }
+    } 
 
 
     // public int MultiUseWeaponFired() {
