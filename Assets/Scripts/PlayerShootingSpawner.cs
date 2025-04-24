@@ -6,8 +6,8 @@ public class PlayerShootingSpawner : MonoBehaviour
 {
     [SerializeField] private GameObject projectilePrefab;
     [SerializeField] private Transform spawnPoint; // Assign this to the position where the arrow should appear
+    [SerializeField] private bool isPlayerAttacking = false;
     private float projectileOffset = 1.5f; // Offset in front of the player
-    private bool isPlayerAttacking = false;
     GameManager gameManager;
     PlayerGridMovement playerGridMovement;
     Player player;
@@ -65,6 +65,8 @@ public class PlayerShootingSpawner : MonoBehaviour
                         playerGridMovement.HideActionButton();
                         gameManager.isPlayersTurn = false; // Switch to the enemy's turn
                         gameManager.isEnemysTurn = true; // Switch to the enemy's turn
+                        // let them try again next turn
+                        isPlayerAttacking = false;
                         return;
                     } else {
                         player.ModifyArrows(-1);
