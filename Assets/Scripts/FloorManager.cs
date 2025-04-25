@@ -715,7 +715,26 @@ public class FloorManager : MonoBehaviour
             defensiveItemsPrefabs = defensiveItems1to4;
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = spiritualMonsters1to4;
-        } else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
+        } 
+        /////
+        /// THIS UPDATED IF BLOCK REMOVES THESE SPIRITUAL ENEMIES FROM FLOR 1 AND 2
+        // if (blockColor == BlockColorType.Blue && gameManager.currentFloor <= 4) {
+        //     defensiveItemsPrefabs = defensiveItems1to4;
+        //     spiritualWeaponsPrefabs = spiritualWeapons1to4;
+
+        //     // if we’re on floor 1 or 2, exclude those three
+        //     if (gameManager.currentFloor <= 2) {
+        //         enemyPrefabs = spiritualMonsters1to4
+        //             .Where(prefab => prefab.name != "Scorpion-Pink"
+        //                         && prefab.name != "Dwarf-Tan"
+        //                         && prefab.name != "Dwarf-Shielded-Tan")
+        //             .ToArray();
+        //     }
+        //     else {
+        //         enemyPrefabs = spiritualMonsters1to4;
+        //     }
+        // }
+            else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
             enemyPrefabs = spiritualMonsters5to8;
@@ -731,7 +750,29 @@ public class FloorManager : MonoBehaviour
             warWeaponsPrefabs = warWeapons1to4;  
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = warMonsters1to4.Concat(spiritualMonsters1to4).ToArray();
-        } else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
+        } 
+        /////
+        /// THIS UPDATED IF BLOCK REMOVES THESE SPIRITUAL ENEMIES FROM FLOR 1 AND 2
+        // else if (blockColor == BlockColorType.Tan && gameManager.currentFloor <= 4) {
+        //     defensiveItemsPrefabs   = defensiveItems1to4;
+        //     warWeaponsPrefabs       = warWeapons1to4;
+        //     spiritualWeaponsPrefabs = spiritualWeapons1to4;
+
+        //     // filter out on floor 1–2
+        //     var spirits = spiritualMonsters1to4;
+        //     if (gameManager.currentFloor <= 2) {
+        //     spirits = spirits
+        //         .Where(p => p.name != "Scorpion-Pink"
+        //                 && p.name != "Dwarf-Tan"
+        //                 && p.name != "Dwarf-Shielded-Tan")
+        //         .ToArray();
+        //     }
+
+        //     enemyPrefabs = warMonsters1to4
+        //                 .Concat(spirits)
+        //                 .ToArray();
+        // }
+        else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;

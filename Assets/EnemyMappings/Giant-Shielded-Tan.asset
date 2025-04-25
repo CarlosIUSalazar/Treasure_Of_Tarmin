@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Giant-Shielded-Tan
   baseWarHP: 10
   baseSpiritualHP: 5
-  baseAttack: 9
+  baseAttack: 5
   baseDefense: 6
   colorMultiplier: 1.1
   shieldBonus: 15

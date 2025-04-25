@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Dwarf-Shielded-Tan
   baseWarHP: 5
-  baseSpiritualHP: 10
+  baseSpiritualHP: 6
   baseAttack: 4
   baseDefense: 6
   colorMultiplier: 1.1

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Dwarf-Yellow
   baseWarHP: 3
-  baseSpiritualHP: 6
+  baseSpiritualHP: 5
   baseAttack: 3
   baseDefense: 3
   colorMultiplier: 1

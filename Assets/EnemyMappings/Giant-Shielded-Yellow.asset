@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Giant-Shielded-Yellow
   baseWarHP: 6
   baseSpiritualHP: 3
-  baseAttack: 6
+  baseAttack: 3
   baseDefense: 3
   colorMultiplier: 1
   shieldBonus: 10

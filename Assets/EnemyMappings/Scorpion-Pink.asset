@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Scorpion-Pink
   baseWarHP: 10
   baseSpiritualHP: 17
-  baseAttack: 14
+  baseAttack: 6
   baseDefense: 12
   colorMultiplier: 1.1
   shieldBonus: 0

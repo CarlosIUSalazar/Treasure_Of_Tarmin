@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Ant-Blue
   baseWarHP: 2
   baseSpiritualHP: 4
-  baseAttack: 3
+  baseAttack: 2
   baseDefense: 1
   colorMultiplier: 1
   shieldBonus: 0

@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Scorpion-Blue
   baseWarHP: 5
-  baseSpiritualHP: 7
-  baseAttack: 8
+  baseSpiritualHP: 6
+  baseAttack: 3
   baseDefense: 6
   colorMultiplier: 1
   shieldBonus: 0

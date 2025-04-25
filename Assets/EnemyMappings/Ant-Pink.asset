@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Ant-Pink
   baseWarHP: 4
   baseSpiritualHP: 8
-  baseAttack: 6
+  baseAttack: 4
   baseDefense: 2
   colorMultiplier: 1.1
   shieldBonus: 0
