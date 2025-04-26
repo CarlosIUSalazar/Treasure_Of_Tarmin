@@ -16,13 +16,13 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Hardcoded positions for the slots
     private Dictionary<string, Vector3> slotPositions = new Dictionary<string, Vector3>
     {
-        { "BackpackSlot1", new Vector3(-80, -198, 0) },
-        { "BackpackSlot2", new Vector3(-35, -198, 0) },
-        { "BackpackSlot3", new Vector3(10, -198, 0) },
-        { "BackpackSlot4", new Vector3(56, -198, 0) },
-        { "BackpackSlot5", new Vector3(102, -198, 0) },
-        { "BackpackSlot6", new Vector3(147, -198, 0) },
-        { "LeftHandSlot", new Vector3(-140, -198, 0) },
+        { "BackpackSlot1", new Vector3(-145.6f, -195, 0) },
+        { "BackpackSlot2", new Vector3(-87.3f, -195, 0) },
+        { "BackpackSlot3", new Vector3(-28.9f, -195, 0) },
+        { "BackpackSlot4", new Vector3(29.5f, -195, 0) },
+        { "BackpackSlot5", new Vector3(87.6f, -195, 0) },
+        { "BackpackSlot6", new Vector3(146.3f, -195, 0) },
+        { "LeftHandSlot", new Vector3(-127, -256.6f, 0) },
         { "RightHandSlot", new Vector3(135, -267, 0) }
     };
 
