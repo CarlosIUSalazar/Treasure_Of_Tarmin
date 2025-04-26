@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ant-Purple
   m_EditorClassIdentifier: 
   enemyName: Ant-Purple
-  baseWarHP: 10
+  baseWarHP: 20
   baseSpiritualHP: 20
   baseAttack: 10
   baseDefense: 8

@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wraith-Orange
   m_EditorClassIdentifier: 
   enemyName: Wraith-Orange
-  baseWarHP: 150
-  baseSpiritualHP: 150
-  baseAttack: 70
-  baseDefense: 60
+  baseWarHP: 80
+  baseSpiritualHP: 80
+  baseAttack: 40
+  baseDefense: 40
   colorMultiplier: 1.2
   shieldBonus: 0
   hpPerFloor: 2

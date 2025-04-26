@@ -537,6 +537,16 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
 
+    public void ResetPlayerCursorOnMiniMapOnResurrection()
+    {
+        MazeBlock currentMazeBlock = FindActiveMazeBlock();
+        PlayerCursor cursorComponent = currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
+        Vector3 cursorPosition = cursorComponent.transform.localPosition;
+        cursorPosition.x = -0.6f;
+        cursorComponent.transform.localPosition = cursorPosition;
+    }
+
+
     public MazeBlock FindActiveMazeBlock()
     {
         MazeBlock[] allBlocks = FindObjectsByType<MazeBlock>(FindObjectsSortMode.None);

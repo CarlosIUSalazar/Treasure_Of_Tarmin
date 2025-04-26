@@ -15,8 +15,8 @@ MonoBehaviour:
   enemyName: Ghoul-Shielded-Orange
   baseWarHP: 80
   baseSpiritualHP: 80
-  baseAttack: 40
-  baseDefense: 42
+  baseAttack: 25
+  baseDefense: 25
   colorMultiplier: 1.2
   shieldBonus: 20
   hpPerFloor: 2

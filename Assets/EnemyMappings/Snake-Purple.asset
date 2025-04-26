@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Snake-Purple
   baseWarHP: 32
-  baseSpiritualHP: 50
+  baseSpiritualHP: 35
   baseAttack: 26
   baseDefense: 23
   colorMultiplier: 1.2

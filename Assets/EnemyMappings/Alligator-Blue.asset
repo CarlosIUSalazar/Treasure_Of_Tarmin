@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Alligator-Blue
   m_EditorClassIdentifier: 
   enemyName: Alligator-Blue
-  baseWarHP: 16
-  baseSpiritualHP: 30
-  baseAttack: 18
-  baseDefense: 19
+  baseWarHP: 20
+  baseSpiritualHP: 20
+  baseAttack: 14
+  baseDefense: 10
   colorMultiplier: 1
   shieldBonus: 0
   hpPerFloor: 2

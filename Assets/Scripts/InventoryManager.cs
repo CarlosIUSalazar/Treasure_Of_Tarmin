@@ -728,6 +728,15 @@ public class InventoryManager : MonoBehaviour
         AssignToRightHand(itemName, false); // Equip new item
     }
 
+
+
+        public void EmptyBackpack()
+        {
+            for (int i = 0; i < backpackSlots.Length; i++)
+                backpackSlots[i].texture = transparentImg;
+        }
+
+
 }
 
 // 🔍 Explanation:

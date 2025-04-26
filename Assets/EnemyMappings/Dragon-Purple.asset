@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Dragon-Purple
   m_EditorClassIdentifier: 
   enemyName: Dragon-Purple
-  baseWarHP: 50
-  baseSpiritualHP: 105
-  baseAttack: 80
-  baseDefense: 60
+  baseWarHP: 75
+  baseSpiritualHP: 75
+  baseAttack: 35
+  baseDefense: 35
   colorMultiplier: 1.2
   shieldBonus: 0
   hpPerFloor: 2

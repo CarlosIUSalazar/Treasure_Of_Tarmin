@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Dragon-Blue
   baseWarHP: 30
-  baseSpiritualHP: 70
-  baseAttack: 50
-  baseDefense: 45
+  baseSpiritualHP: 30
+  baseAttack: 15
+  baseDefense: 15
   colorMultiplier: 1
   shieldBonus: 0
   hpPerFloor: 2

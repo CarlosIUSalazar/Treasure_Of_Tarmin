@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wraith-White
   m_EditorClassIdentifier: 
   enemyName: Wraith-White
-  baseWarHP: 80
-  baseSpiritualHP: 80
-  baseAttack: 50
-  baseDefense: 40
+  baseWarHP: 40
+  baseSpiritualHP: 40
+  baseAttack: 25
+  baseDefense: 25
   colorMultiplier: 1
   shieldBonus: 0
   hpPerFloor: 2

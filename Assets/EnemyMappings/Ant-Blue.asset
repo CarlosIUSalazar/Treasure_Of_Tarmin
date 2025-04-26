@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ant-Blue
   m_EditorClassIdentifier: 
   enemyName: Ant-Blue
-  baseWarHP: 2
+  baseWarHP: 4
   baseSpiritualHP: 4
   baseAttack: 2
   baseDefense: 1

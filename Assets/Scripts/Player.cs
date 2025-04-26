@@ -34,6 +34,11 @@ public class Player : MonoBehaviour
     public bool lastHitWasWar;
     
     GameManager gameManager;
+    InventoryManager inventoryManager;
+    MazeGenerator mazeGenerator;
+    PlayerGridMovement playerGridMovement;
+    PlayerAmbushDetection playerAmbushDetection;
+
     //Events to notify UI changes
     public delegate void OnStatChanged();
     public event OnStatChanged OnPlayerStatsUpdated;
@@ -41,6 +46,10 @@ public class Player : MonoBehaviour
 
     void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
+        mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
+        playerAmbushDetection = GameObject.Find("Player").GetComponent<PlayerAmbushDetection>();
     }
 
 
@@ -170,9 +179,55 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Defeated!");
-        // Add logic for player death, like restarting the level or showing a game-over screen
-        //gameObject.SetActive(false);
+
+        // Only attempt resurrection if both caps are high enough
+        if (currentMaxPotentialPhysicalStrength >= 16 
+            && currentMaxPotentialSpiritualStrength >= 9)
+        {
+            // 75% chance to resurrect
+            if (UnityEngine.Random.value <= 0.75f)
+            {
+                Resurrect();
+                return;
+            }
+        }
+        // Otherwise fall back to normal game over
+        Debug.Log("Couldn't resurrect");
         gameManager.GameOverSequence();
+    }
+
+
+
+    private void Resurrect()
+    {
+        Debug.Log("Resurrection successful!");
+
+        // 1) Clear out the backpack
+        inventoryManager.EmptyBackpack();
+
+        // 2) Reset position & rotation
+        transform.position = new Vector3(5f, 2.5f, 5f);
+        transform.rotation = Quaternion.Euler(0f, 0f, 0f);
+
+
+        // 3) Zero out score
+        score = 0;
+
+        // 4) Reset Minimap position
+        playerGridMovement.ResetPlayerCursorOnMiniMapOnResurrection();
+
+
+        // 5) Reset game values 
+        gameManager.isFighting = false;
+        playerAmbushDetection.ambushTriggered = false; //Allows to be double ambushed once the first ambush ends when caught in between 2 enemiesgit
+        gameManager.isExploring = true;
+        playerGridMovement.HideActionButton();
+        gameManager.SetActiveEnemy(null);  // Clear active enemy
+        gameManager.enemyHPText.gameObject.SetActive(false);
+
+        // 6) Notify UI
+        gameManager.SetPlayerMessage("Resurrected!");
+        OnPlayerStatsUpdated?.Invoke();
     }
 
 
@@ -212,36 +267,75 @@ public class Player : MonoBehaviour
 
         Debug.Log("Player Rested");
         
-        if (!canRest) return;
+        // if (!canRest) return;
 
+        // if (lastHitWasWar) {
+        //     Debug.Log("Resting War stats");
+        //     if (physicalStrength < currentMaxPotentialPhysicalStrength && food > 0) {
+        //         while (physicalStrength < currentMaxPotentialPhysicalStrength && food > 0) {
+        //             physicalStrength++;
+        //             food--;
+        //         }
+        //     }
+        //     canRest = false;
+        //     OnPlayerStatsUpdated?.Invoke();
+        // } else {
+        //     Debug.Log("Resting Spiritual stats");
+        //     if (spiritualStrength < currentMaxPotentialSpiritualStrength && food > 0) {
+        //         while (spiritualStrength < currentMaxPotentialSpiritualStrength && food > 0) {
+        //             spiritualStrength++;
+        //             food--;
+        //         }
+        //     }
+        //     canRest = false;
+        //     OnPlayerStatsUpdated?.Invoke();
+        // }
+
+        ////
+        /// UPDATED REST MECHANIC.  Fills up first the one you were hit, but if you have food to spare will also try and fill the other stat. Offers better survivability 
+        if (!canRest) return;
+        
+        Debug.Log("Player Rested");
+        
+        // first, restore the pool you were last hit in
         if (lastHitWasWar) {
-            Debug.Log("Resting War stats");
-            if (physicalStrength < currentMaxPotentialPhysicalStrength && food > 0) {
-                while (physicalStrength < currentMaxPotentialPhysicalStrength && food > 0) {
-                    physicalStrength++;
-                    food--;
-                }
-            }
-            canRest = false;
-            OnPlayerStatsUpdated?.Invoke();
+            // how much war HP we still need
+            int warNeeded = currentMaxPotentialPhysicalStrength - physicalStrength;
+            // eat as many food as will fill that gap (or as much as we have)
+            int warToRestore = Mathf.Min(warNeeded, food);
+            physicalStrength += warToRestore;
+            food             -= warToRestore;
+            
+            // now, if we still have food left, top up spiritual
+            int spiritNeeded  = currentMaxPotentialSpiritualStrength - spiritualStrength;
+            int spiritToRestore = Mathf.Min(spiritNeeded, food);
+            spiritualStrength += spiritToRestore;
+            food              -= spiritToRestore;
+            
         } else {
-            Debug.Log("Resting Spiritual stats");
-            if (spiritualStrength < currentMaxPotentialSpiritualStrength && food > 0) {
-                while (spiritualStrength < currentMaxPotentialSpiritualStrength && food > 0) {
-                    spiritualStrength++;
-                    food--;
-                }
-            }
-            canRest = false;
-            OnPlayerStatsUpdated?.Invoke();
+            // last hit was spiritual — do the mirror
+            int spiritNeeded   = currentMaxPotentialSpiritualStrength - spiritualStrength;
+            int spiritToRestore = Mathf.Min(spiritNeeded, food);
+            spiritualStrength  += spiritToRestore;
+            food               -= spiritToRestore;
+            
+            int warNeeded     = currentMaxPotentialPhysicalStrength - physicalStrength;
+            int warToRestore   = Mathf.Min(warNeeded, food);
+            physicalStrength  += warToRestore;
+            food              -= warToRestore;
         }
 
+        // clamp just in case
+        physicalStrength  = Mathf.Min(physicalStrength,  currentMaxPotentialPhysicalStrength);
+        spiritualStrength = Mathf.Min(spiritualStrength, currentMaxPotentialSpiritualStrength);
+
+        canRest = false;
+        OnPlayerStatsUpdated?.Invoke();
     }
 
 
     public void CalculateCurrentMaxPotentialHP(string bookName) {
     //Here Im gonna make all the calculations of the potential HPs based on what HP BOOK is active
-    
     /////
     /// WAR BOOKS
         //Book-War-Blue 99
@@ -275,9 +369,6 @@ public class Player : MonoBehaviour
         if (bookName == "Book-Spiritual-Purple") {
                 currentSpiritualBookCurrentCapHP = 99;
         }
-
-
-
     }
 
 

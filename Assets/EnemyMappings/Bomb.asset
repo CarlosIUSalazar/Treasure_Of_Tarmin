@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyName: Bomb
   baseWarHP: 20
-  baseSpiritualHP: 10
-  baseAttack: 20
+  baseSpiritualHP: 20
+  baseAttack: 25
   baseDefense: 0
   colorMultiplier: 1
   shieldBonus: 0

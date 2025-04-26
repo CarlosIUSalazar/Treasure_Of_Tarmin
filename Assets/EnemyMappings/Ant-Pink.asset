@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Ant-Pink
   m_EditorClassIdentifier: 
   enemyName: Ant-Pink
-  baseWarHP: 4
+  baseWarHP: 8
   baseSpiritualHP: 8
   baseAttack: 4
   baseDefense: 2

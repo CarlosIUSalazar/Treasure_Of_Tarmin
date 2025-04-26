@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ghoul-Grey
   m_EditorClassIdentifier: 
   enemyName: Ghoul-Grey
-  baseWarHP: 65
-  baseSpiritualHP: 65
-  baseAttack: 30
-  baseDefense: 30
+  baseWarHP: 50
+  baseSpiritualHP: 50
+  baseAttack: 20
+  baseDefense: 15
   colorMultiplier: 1.1
   shieldBonus: 0
   hpPerFloor: 2

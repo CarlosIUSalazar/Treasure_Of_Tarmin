@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Wraith-Shielded-Grey
   m_EditorClassIdentifier: 
   enemyName: Wraith-Shielded-Grey
-  baseWarHP: 120
-  baseSpiritualHP: 120
-  baseAttack: 60
-  baseDefense: 50
+  baseWarHP: 50
+  baseSpiritualHP: 50
+  baseAttack: 30
+  baseDefense: 30
   colorMultiplier: 1.1
   shieldBonus: 15
   hpPerFloor: 2

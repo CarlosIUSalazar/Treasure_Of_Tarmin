@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ghoul-Orange
   m_EditorClassIdentifier: 
   enemyName: Ghoul-Orange
-  baseWarHP: 80
-  baseSpiritualHP: 80
-  baseAttack: 40
-  baseDefense: 42
+  baseWarHP: 65
+  baseSpiritualHP: 65
+  baseAttack: 25
+  baseDefense: 25
   colorMultiplier: 1.2
   shieldBonus: 0
   hpPerFloor: 2
