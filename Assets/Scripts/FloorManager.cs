@@ -10,6 +10,23 @@ public class FloorManager : MonoBehaviour
     // [SerializeField] private Transform player; // Assign player's Transform in the Inspector
     // [SerializeField] private GameObject[] warMonsterPrefabs;       // Green: Warriors, beasts, etc.
     // [SerializeField] private GameObject[] spiritualMonsterPrefabs; // Blue: Ghosts, spirits, etc.
+    [SerializeField] private GameObject[] warEnemies1to2;
+    [SerializeField] private GameObject[] warEnemies3to4;
+    [SerializeField] private GameObject[] warEnemies5to6;
+    [SerializeField] private GameObject[] warEnemies7to8;
+    [SerializeField] private GameObject[] warEnemies9to12;
+
+    [SerializeField] private GameObject[] spiritualEnemies1to2;
+    [SerializeField] private GameObject[] spiritualEnemies3to4;
+    [SerializeField] private GameObject[] spiritualEnemies5to6;
+    [SerializeField] private GameObject[] spiritualEnemies7to8;
+    [SerializeField] private GameObject[] spiritualEnemies9to12;
+
+    [SerializeField] private GameObject [] horribleEnemies5to6;
+    [SerializeField] private GameObject [] horribleEnemies7to8;
+    [SerializeField] private GameObject [] horribleEnemies9to10;
+    [SerializeField] private GameObject [] horribleEnemies11to12;
+    
     [SerializeField] private GameObject[] defensiveItems1to4;
     [SerializeField] private GameObject[] warMonsters1to4;
     [SerializeField] private GameObject[] warMonsters5to8;
@@ -715,26 +732,7 @@ public class FloorManager : MonoBehaviour
             defensiveItemsPrefabs = defensiveItems1to4;
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = spiritualMonsters1to4;
-        } 
-        /////
-        /// THIS UPDATED IF BLOCK REMOVES THESE SPIRITUAL ENEMIES FROM FLOR 1 AND 2
-        // if (blockColor == BlockColorType.Blue && gameManager.currentFloor <= 4) {
-        //     defensiveItemsPrefabs = defensiveItems1to4;
-        //     spiritualWeaponsPrefabs = spiritualWeapons1to4;
-
-        //     // if we’re on floor 1 or 2, exclude those three
-        //     if (gameManager.currentFloor <= 2) {
-        //         enemyPrefabs = spiritualMonsters1to4
-        //             .Where(prefab => prefab.name != "Scorpion-Pink"
-        //                         && prefab.name != "Dwarf-Tan"
-        //                         && prefab.name != "Dwarf-Shielded-Tan")
-        //             .ToArray();
-        //     }
-        //     else {
-        //         enemyPrefabs = spiritualMonsters1to4;
-        //     }
-        // }
-            else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
+        } else if (blockColor == BlockColorType.Blue && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
             enemyPrefabs = spiritualMonsters5to8;
@@ -750,29 +748,7 @@ public class FloorManager : MonoBehaviour
             warWeaponsPrefabs = warWeapons1to4;  
             spiritualWeaponsPrefabs = spiritualWeapons1to4;
             enemyPrefabs = warMonsters1to4.Concat(spiritualMonsters1to4).ToArray();
-        } 
-        /////
-        /// THIS UPDATED IF BLOCK REMOVES THESE SPIRITUAL ENEMIES FROM FLOR 1 AND 2
-        // else if (blockColor == BlockColorType.Tan && gameManager.currentFloor <= 4) {
-        //     defensiveItemsPrefabs   = defensiveItems1to4;
-        //     warWeaponsPrefabs       = warWeapons1to4;
-        //     spiritualWeaponsPrefabs = spiritualWeapons1to4;
-
-        //     // filter out on floor 1–2
-        //     var spirits = spiritualMonsters1to4;
-        //     if (gameManager.currentFloor <= 2) {
-        //     spirits = spirits
-        //         .Where(p => p.name != "Scorpion-Pink"
-        //                 && p.name != "Dwarf-Tan"
-        //                 && p.name != "Dwarf-Shielded-Tan")
-        //         .ToArray();
-        //     }
-
-        //     enemyPrefabs = warMonsters1to4
-        //                 .Concat(spirits)
-        //                 .ToArray();
-        // }
-        else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
+        } else if (blockColor == BlockColorType.Tan && gameManager.currentFloor >= 5 && gameManager.currentFloor <= 8) {
             defensiveItemsPrefabs = defensiveItems5to8;
             warWeaponsPrefabs = warWeapons5to8;
             spiritualWeaponsPrefabs = spiritualWeapons5to8;
@@ -816,26 +792,87 @@ public class FloorManager : MonoBehaviour
         }
 
         //WEAPONS & ENEMIES SPAWN
-        if (blockColor == BlockColorType.Tan) {
-            //  4 Weapons War
-            SpawnObjects(warWeaponsPrefabs, 4,itemHeightOffset,"item",true);
-            //  4 Weapons Spiritual
-            SpawnObjects(spiritualWeaponsPrefabs, 4,itemHeightOffset,"item",true);
-            // 8 Mixed enemies
-            SpawnObjects(enemyPrefabs, 8, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-            // 4 Spiritual enemies
-            //SpawnObjects(spiritualMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-        } else if (blockColor == BlockColorType.Green) {
-            //  8 Weapons War
-            SpawnObjects(warWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
-            // 4 War enemies
-            SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
-        } else if (blockColor == BlockColorType.Blue) {
-            //  8 Spiritual War
-            SpawnObjects(spiritualWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
-            // 4 Spiritual enemies
-            SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        // OLD LOGIC WITH ARRAYS OF 4 FLOORS EACH:
+        // if (blockColor == BlockColorType.Tan) {
+        //     //  4 Weapons War
+        //     SpawnObjects(warWeaponsPrefabs, 4,itemHeightOffset,"item",true);
+        //     //  4 Weapons Spiritual
+        //     SpawnObjects(spiritualWeaponsPrefabs, 4,itemHeightOffset,"item",true);
+        //     // 8 Mixed enemies
+        //     SpawnObjects(enemyPrefabs, 8, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        //     // 4 Spiritual enemies
+        //     //SpawnObjects(spiritualMonsterPrefabs, 4, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        // } else if (blockColor == BlockColorType.Green) {
+        //     //  8 Weapons War
+        //     SpawnObjects(warWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
+        //     // 4 War enemies
+        //     SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        // } else if (blockColor == BlockColorType.Blue) {
+        //     //  8 Spiritual War
+        //     SpawnObjects(spiritualWeaponsPrefabs, weaponsCount,itemHeightOffset,"item",true);
+        //     // 4 Spiritual enemies
+        //     SpawnObjects(enemyPrefabs, enemyCount, enemyHeightOffset, "Enemy", false);//, currentBlock.transform);
+        // }
+        // ——— NEW WEAPONS & ENEMIES SPAWN ———
+        const int TOTAL_ENEMIES = 8;
+        int floor = gameManager.currentFloor;
+
+        // 1) Figure out how many Horrible monsters to spawn
+        int horribleCount = 0;
+        GameObject[] horriblePool = null;
+        if      (floor >= 5 && floor <= 6)  { horribleCount = 1; horriblePool = horribleEnemies5to6; }
+        else if (floor >= 7 && floor <= 8)  { horribleCount = 2; horriblePool = horribleEnemies7to8; }
+        else if (floor >= 9 && floor <= 10) { horribleCount = 3; horriblePool = horribleEnemies9to10; }
+        else if (floor >= 11 && floor <= 12){ horribleCount = 3; horriblePool = horribleEnemies11to12; }
+
+        // 2) Build the enemy base pool depending on floor and block color
+        GameObject[] basePool;
+        switch(blockColor)
+        {
+            case BlockColorType.Green:
+                if      (floor <= 2) basePool = warEnemies1to2;
+                else if (floor <= 4) basePool = warEnemies3to4;
+                else if (floor <= 6) basePool = warEnemies5to6;
+                else if (floor <= 8) basePool = warEnemies7to8;
+                else                 basePool = warEnemies9to12;
+                break;
+
+            case BlockColorType.Blue:
+                if      (floor <= 2) basePool = spiritualEnemies1to2;
+                else if (floor <= 4) basePool = spiritualEnemies3to4;
+                else if (floor <= 6) basePool = spiritualEnemies5to6;
+                else if (floor <= 8) basePool = spiritualEnemies7to8;
+                else                 basePool = spiritualEnemies9to12;
+                break;
+
+            case BlockColorType.Tan:
+                GameObject[] warPool, spiritPool;
+                if      (floor <= 2) { warPool = warEnemies1to2; spiritPool = spiritualEnemies1to2; }
+                else if (floor <= 4) { warPool = warEnemies3to4; spiritPool = spiritualEnemies3to4; }
+                else if (floor <= 6) { warPool = warEnemies5to6; spiritPool = spiritualEnemies5to6; }
+                else if (floor <= 8) { warPool = warEnemies7to8; spiritPool = spiritualEnemies7to8; }
+                else                 { warPool = warEnemies9to12; spiritPool = spiritualEnemies9to12; }
+                basePool = warPool.Concat(spiritPool).ToArray();
+                break;
+
+            default:
+                basePool = new GameObject[0];
+                break;
         }
+
+        // 3) Spawn Horrible monsters first
+        if (horribleCount > 0 && horriblePool != null)
+        {
+            SpawnObjects(horriblePool, horribleCount, enemyHeightOffset, "Enemy", false);
+        }
+
+        // 4) Spawn normal monsters
+        int normalCount = TOTAL_ENEMIES - horribleCount;
+        if (normalCount > 0)
+        {
+            SpawnObjects(basePool, normalCount, enemyHeightOffset, "Enemy", false);
+        }
+
         //  2 Defensive Items war and spirtual mixed OK
         SpawnObjects(defensiveItemsPrefabs, defensiveItemsCount,itemHeightOffset,"item",true);
         //  5 Containers
