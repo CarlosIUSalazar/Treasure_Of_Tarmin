@@ -689,6 +689,45 @@ public class InventoryManager : MonoBehaviour
         player.spiritualArmor = currentSpiritualArmorTotal;
         player.UpdateUIStats();
         }
+
+
+    public void HandleItemPickup(string itemName)
+    {
+        ItemMapping itemMapping = GetItemMapping(itemName);
+        if (itemMapping == null) return;
+
+        // Case 1: Right hand is empty
+        if (!CheckIfRightHandHasItem())
+        {
+            AssignToRightHand(itemName, false);
+            return;
+        }
+
+        // Case 2: Backpack has an empty slot (searching right to left)
+        for (int i = backpackSlots.Length - 1; i >= 0; i--)
+        {
+            if (backpackSlots[i].texture == transparentImg)
+            {
+                AssignItemToSlot(i, itemMapping.item2DSprite);
+                return;
+            }
+        }
+
+        // Case 3: Backpack full, check if left-hand slot is empty
+        if (leftHandSlot.texture == transparentImg)
+        {
+            leftHandSlot.texture = itemMapping.item2DSprite;
+            leftHandSlot.color = Color.white;
+            return;
+        }
+
+        // Case 4: No empty slot anywhere, do a right-hand swap
+        Debug.Log("No empty slot available. Swapping right-hand item to floor.");
+        string currentItem = rightHandSlot.texture.name;
+        Spawn3DItem(currentItem); // Drop current item
+        AssignToRightHand(itemName, false); // Equip new item
+    }
+
 }
 
 // 🔍 Explanation:

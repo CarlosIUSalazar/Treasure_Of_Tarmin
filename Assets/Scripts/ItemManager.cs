@@ -150,7 +150,8 @@ public class ItemManager : MonoBehaviour
                 break;
             
             default: 
-                inventoryManager.AssignToRightHand(itemName, true); // true tells the inventory manager is a new item from the floor not passed from drag and drop to right hand
+                inventoryManager.HandleItemPickup(itemName);
+                //inventoryManager.AssignToRightHand(itemName, true); // true tells the inventory manager is a new item from the floor not passed from drag and drop to right hand
                 break;
         }
 
