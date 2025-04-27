@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EvilDoorBlue
   m_EditorClassIdentifier: 
   enemyName: EvilDoorBlue
-  baseWarHP: 50
-  baseSpiritualHP: 50
-  baseAttack: 20
-  baseDefense: 20
+  baseWarHP: 45
+  baseSpiritualHP: 45
+  baseAttack: 15
+  baseDefense: 15
   colorMultiplier: 1
   shieldBonus: 0
   hpPerFloor: 2

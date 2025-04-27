@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Alligator-Purple
   m_EditorClassIdentifier: 
   enemyName: Alligator-Purple
-  baseWarHP: 35
-  baseSpiritualHP: 35
-  baseAttack: 30
+  baseWarHP: 30
+  baseSpiritualHP: 30
+  baseAttack: 25
   baseDefense: 20
   colorMultiplier: 1.2
   shieldBonus: 0

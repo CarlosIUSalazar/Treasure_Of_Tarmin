@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Snake-Pink
   m_EditorClassIdentifier: 
   enemyName: Snake-Pink
-  baseWarHP: 16
-  baseSpiritualHP: 25
+  baseWarHP: 20
+  baseSpiritualHP: 20
   baseAttack: 18
   baseDefense: 19
   colorMultiplier: 1.1

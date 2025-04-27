@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Skeleton-Cloacked-Shielded-White
   baseWarHP: 4
   baseSpiritualHP: 2
-  baseAttack: 4
+  baseAttack: 3
   baseDefense: 2
   colorMultiplier: 1
   shieldBonus: 10

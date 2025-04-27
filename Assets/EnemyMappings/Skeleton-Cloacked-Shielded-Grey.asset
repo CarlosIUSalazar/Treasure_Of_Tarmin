@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Skeleton-Cloacked-Shielded-Grey
   m_EditorClassIdentifier: 
   enemyName: Skeleton-Cloacked-Shielded-Grey
-  baseWarHP: 8
+  baseWarHP: 7
   baseSpiritualHP: 3
-  baseAttack: 6
+  baseAttack: 4
   baseDefense: 3
   colorMultiplier: 1.1
   shieldBonus: 15

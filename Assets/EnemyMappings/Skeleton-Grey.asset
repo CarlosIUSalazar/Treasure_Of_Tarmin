@@ -15,7 +15,7 @@ MonoBehaviour:
   enemyName: Skeleton-Grey
   baseWarHP: 7
   baseSpiritualHP: 2
-  baseAttack: 4
+  baseAttack: 3
   baseDefense: 2
   colorMultiplier: 1.1
   shieldBonus: 0

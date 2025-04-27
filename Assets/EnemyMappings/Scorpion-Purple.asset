@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Scorpion-Purple
   m_EditorClassIdentifier: 
   enemyName: Scorpion-Purple
-  baseWarHP: 24
+  baseWarHP: 35
   baseSpiritualHP: 35
   baseAttack: 20
   baseDefense: 15

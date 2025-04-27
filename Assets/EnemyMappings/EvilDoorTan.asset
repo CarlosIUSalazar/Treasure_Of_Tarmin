@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: EvilDoorTan
   m_EditorClassIdentifier: 
   enemyName: EvilDoorTan
-  baseWarHP: 70
-  baseSpiritualHP: 70
-  baseAttack: 30
-  baseDefense: 30
+  baseWarHP: 55
+  baseSpiritualHP: 55
+  baseAttack: 25
+  baseDefense: 25
   colorMultiplier: 1.1
   shieldBonus: 0
   hpPerFloor: 2

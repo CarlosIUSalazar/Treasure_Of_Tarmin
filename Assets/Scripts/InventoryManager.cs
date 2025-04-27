@@ -554,6 +554,8 @@ public class InventoryManager : MonoBehaviour
             }
 
             if (rightHandItem.name == "Potion-Large-Purple"){
+                player.ConsumeLargePurplePotion();
+                EmptyRightHand();
             }
             if (rightHandItem.name == "Potion-Large-Blue"){
                 player.IncreasePhysicalScoreBy10WithLargeBluePotion();
@@ -694,6 +696,8 @@ public class InventoryManager : MonoBehaviour
     public void HandleItemPickup(string itemName)
     {
         ItemMapping itemMapping = GetItemMapping(itemName);
+        string currentItem = rightHandSlot.texture.name;
+
         if (itemMapping == null) return;
 
         // Case 1: Right hand is empty
@@ -702,6 +706,16 @@ public class InventoryManager : MonoBehaviour
             AssignToRightHand(itemName, false);
             return;
         }
+
+        // Case 1.5: Right hand is full, there are empty slots but i pick up armor, put it right into right hand for immediate use
+        if (itemMapping.isArmor)
+        {
+            currentItem = rightHandSlot.texture.name;
+            Spawn3DItem(currentItem); // Drop current item
+            AssignToRightHand(itemName, false);
+            return;
+        }
+
 
         // Case 2: Backpack has an empty slot (searching right to left)
         for (int i = backpackSlots.Length - 1; i >= 0; i--)
@@ -723,7 +737,7 @@ public class InventoryManager : MonoBehaviour
 
         // Case 4: No empty slot anywhere, do a right-hand swap
         Debug.Log("No empty slot available. Swapping right-hand item to floor.");
-        string currentItem = rightHandSlot.texture.name;
+        currentItem = rightHandSlot.texture.name;
         Spawn3DItem(currentItem); // Drop current item
         AssignToRightHand(itemName, false); // Equip new item
     }

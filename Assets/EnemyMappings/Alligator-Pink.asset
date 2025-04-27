@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: Alligator-Pink
   m_EditorClassIdentifier: 
   enemyName: Alligator-Pink
-  baseWarHP: 25
-  baseSpiritualHP: 25
-  baseAttack: 25
+  baseWarHP: 20
+  baseSpiritualHP: 20
+  baseAttack: 20
   baseDefense: 15
   colorMultiplier: 1.1
   shieldBonus: 0

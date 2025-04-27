@@ -13,10 +13,10 @@ MonoBehaviour:
   m_Name: Ghoul-Shielded-White
   m_EditorClassIdentifier: 
   enemyName: Ghoul-Shielded-White
-  baseWarHP: 35
-  baseSpiritualHP: 35
-  baseAttack: 25
-  baseDefense: 20
+  baseWarHP: 20
+  baseSpiritualHP: 20
+  baseAttack: 15
+  baseDefense: 10
   colorMultiplier: 1
   shieldBonus: 10
   hpPerFloor: 2

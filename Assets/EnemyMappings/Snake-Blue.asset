@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Snake-Blue
   m_EditorClassIdentifier: 
   enemyName: Snake-Blue
-  baseWarHP: 10
+  baseWarHP: 15
   baseSpiritualHP: 15
   baseAttack: 12
   baseDefense: 15

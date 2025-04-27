@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Dragon-Pink
   m_EditorClassIdentifier: 
   enemyName: Dragon-Pink
-  baseWarHP: 45
-  baseSpiritualHP: 45
+  baseWarHP: 35
+  baseSpiritualHP: 35
   baseAttack: 20
   baseDefense: 20
   colorMultiplier: 1.1

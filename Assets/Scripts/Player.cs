@@ -225,6 +225,10 @@ public class Player : MonoBehaviour
         gameManager.SetActiveEnemy(null);  // Clear active enemy
         gameManager.enemyHPText.gameObject.SetActive(false);
 
+        // 6) Resurrect at 50% of each of your max HP
+        physicalStrength = currentMaxPotentialPhysicalStrength / 2;
+        spiritualStrength = currentMaxPotentialSpiritualStrength / 2;
+
         // 6) Notify UI
         gameManager.SetPlayerMessage("Resurrected!");
         OnPlayerStatsUpdated?.Invoke();
@@ -463,6 +467,87 @@ public class Player : MonoBehaviour
 
         OnPlayerStatsUpdated?.Invoke();
     }
+
+
+    public void CorridorDoorCrossingHP(string crossedDoor)
+    {
+        Debug.Log($"Crossed door: {crossedDoor} Will do logic later");
+
+        return;
+        
+        Debug.Log($"Crossed door: {crossedDoor}");
+
+        if (crossedDoor.Contains("Blue"))
+        {
+            // transfer all War HP into Spiritual HP
+            int transfer = physicalStrength;
+            physicalStrength = 0;
+            spiritualStrength = Mathf.Min(
+                currentMaxPotentialSpiritualStrength,
+                spiritualStrength + transfer
+            );
+            Debug.Log($"Blue door: war→spiritual transfer {transfer}");
+        }
+        else if (crossedDoor.Contains("Green"))
+        {
+            // transfer all Spiritual HP into War HP
+            int transfer = spiritualStrength;
+            spiritualStrength = 0;
+            physicalStrength = Mathf.Min(
+                currentMaxPotentialPhysicalStrength,
+                physicalStrength + transfer
+            );
+            Debug.Log($"Green door: spiritual→war transfer {transfer}");
+        }
+        else
+        {
+            // you could handle Tan (or other) doors here if you like, or leave them alone
+            Debug.Log("Other door — no HP swap");
+        }
+
+        // update the UI
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
+
+    public void ConsumeLargePurplePotion()
+    {
+        // If War > Spirit: halve War, add half of *that* loss to Spirit
+        if (physicalStrength > spiritualStrength)
+        {
+            int warLost    = physicalStrength / 2;      // integer division rounds down
+            physicalStrength -= warLost;
+            int spiritGain = warLost / 2;              // half of what was lost
+            spiritualStrength = Mathf.Min(
+                currentMaxPotentialSpiritualStrength,
+                spiritualStrength + spiritGain
+            );
+            Debug.Log($"Purple potion: War→Spirit: War lost {warLost}, Spirit gained {spiritGain}");
+        }
+        // Else if Spirit > War: halve Spirit, add double that loss to War
+        else if (spiritualStrength > physicalStrength)
+        {
+            int spiritLost = spiritualStrength / 2;
+            spiritualStrength -= spiritLost;
+            int warGain    = spiritLost * 2;           // double what was lost
+            physicalStrength = Mathf.Min(
+                currentMaxPotentialPhysicalStrength,
+                physicalStrength + warGain
+            );
+            Debug.Log($"Purple potion: Spirit→War: Spirit lost {spiritLost}, War gained {warGain}");
+        }
+        else
+        {
+            Debug.Log("Purple potion: pools equal, no change");
+        }
+
+        // Drinking takes your turn
+        gameManager.isPlayersTurn = false;
+        gameManager.isEnemysTurn  = true;
+
+        OnPlayerStatsUpdated?.Invoke();
+    }
+
 
 
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)

@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Ghoul-Shielded-Grey
   m_EditorClassIdentifier: 
   enemyName: Ghoul-Shielded-Grey
-  baseWarHP: 50
-  baseSpiritualHP: 50
+  baseWarHP: 25
+  baseSpiritualHP: 25
   baseAttack: 20
   baseDefense: 15
   colorMultiplier: 1.1
