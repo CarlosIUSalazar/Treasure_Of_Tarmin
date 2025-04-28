@@ -20,8 +20,8 @@ MonoBehaviour:
   colorMultiplier: 1.2
   shieldBonus: 0
   hpPerFloor: 2
-  attackPerFloor: 0.5
-  defensePerFloor: 0.5
+  attackPerFloor: 0.1
+  defensePerFloor: 0.1
   isWar: 0
   isSpiritual: 1
   isHorrible: 0

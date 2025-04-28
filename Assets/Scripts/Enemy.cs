@@ -75,65 +75,122 @@ public class Enemy : MonoBehaviour
 
     public void TakeDamage(ItemMapping currentPlayerWeapon)
     {
-        // 1. Determine base attack value
-        float damageWar = currentPlayerWeapon.warAttackPower;
-        float damageSpiritual = currentPlayerWeapon.spiritualAttackPower;
-        bool weaponIsWar = currentPlayerWeapon.isWarWeapon;
-        bool weaponIsSpiritual = currentPlayerWeapon.isSpiritualWeapon;
-        
-        //Check which attack is stronger War or Spiritual, use higher, apply a bonus between 5 and 25% and convert back to int
-        float baseDamage = Mathf.Max(damageWar, damageSpiritual);
+    // Tweak K up/down (15 → 35) to compress or stretch fight lengths.
 
-        // 2. Optional: Apply bonus variation (for randomness)
-        float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.25f);
-        float rawAttack = baseDamage + bonusDamage;
+    // Experiment with cutting your enemy defensePerFloor even further.
 
-        // 3. Type bonus
+    // Remove or shrink the random bonus (e.g. 5–10% instead of 5–25%) if you want rock-solid predictability.
+
+        // 1) Base weapon attack + small random
+        float baseDamage  = Mathf.Max(currentPlayerWeapon.warAttackPower,
+                                    currentPlayerWeapon.spiritualAttackPower);
+        float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f,
+                                                    baseDamage * 0.15f);
+        float rawAttack   = baseDamage + bonusDamage;
+
+        // 2) Type advantage bonus (unchanged)
         float typeBonus = 0f;
-        if (!enemyMapping.isHorrible) // Horrible monsters take no bonus damage, others take 5% if an opposite type weapon is used
+        if (!enemyMapping.isHorrible)
         {
-            if (weaponIsWar && enemyMapping.isSpiritual)
-                typeBonus = 0.05f; // War weapon vs Spiritual enemy
-
-            else if (weaponIsSpiritual && enemyMapping.isWar)
-                typeBonus = 0.05f; // Spiritual weapon vs War enemy
+            if (currentPlayerWeapon.isWarWeapon     && enemyMapping.isSpiritual)   typeBonus = 0.05f;
+            else if (currentPlayerWeapon.isSpiritualWeapon && enemyMapping.isWar) typeBonus = 0.05f;
         }
 
-        // 4. Calculate total defense
-        float floorDefense = gameManager.currentFloor * enemyMapping.defensePerFloor;
-        float colorDefense = enemyMapping.colorMultiplier * 10f;
-        float totalDefense = enemyMapping.baseDefense + floorDefense + enemyMapping.shieldBonus + colorDefense;
+        // 3) Calculate “soft” total defense
+        //    — cut defensePerFloor to 0.1 in your mappings
+        //    — halve the color-to-defense multiplier
+        float floorDef     = gameManager.currentFloor * enemyMapping.defensePerFloor;
+        float colorDef     = enemyMapping.colorMultiplier * 5f;
+        float totalDefense = enemyMapping.baseDefense
+                            + floorDef
+                            + enemyMapping.shieldBonus
+                            + colorDef;
 
-        // 5. Final damage formula
-        float finalDamage = rawAttack * (1 + typeBonus) * (1 - (totalDefense / 50f));
-        finalDamage = Mathf.Max(finalDamage, 1); // prevent zero or negative damage
+        // 4) Diminishing-returns mitigation
+        const float K = 25f; // tweak this to taste
+        float mitigation = totalDefense / (totalDefense + K);
+        mitigation = Mathf.Clamp(mitigation, 0f, 0.9f); // never more than 90% reduction
 
-        // 6. Apply and log
-        currentEnemyHP -= Mathf.RoundToInt(finalDamage);
+        // 5) Final damage
+        float finalDamageF = rawAttack * (1f + typeBonus) * (1f - mitigation);
+        int   finalDamage  = Mathf.Max(1, Mathf.RoundToInt(finalDamageF));
 
-        Debug.Log($"Final Damage Dealt: {Mathf.RoundToInt(finalDamage)} (Raw: {rawAttack}, Defense: {totalDefense}, Type Bonus: {typeBonus})");
+        // 6) Apply & log
+        currentEnemyHP -= finalDamage;
+        Debug.Log($"Hit for {finalDamage} (raw {rawAttack:F1}, def {totalDefense:F1}, mitig {mitigation:P0})");
 
-        if (currentPlayerWeapon.isMultiUseWeapon)
-        {
-            Debug.Log("Using MULTIUSE WEAPON");
-        }
-        else
-        {
-            Debug.Log("Using SINGLE-USE WEAPON, consuming...");
+        // 7) Consume single-use or not
+        if (!currentPlayerWeapon.isMultiUseWeapon)
             inventoryManager.EmptyRightHand();
-        }
 
-        ////
-        //Check For Weapon Breaking 
         playerShootingSpawner.CheckWeaponBreakingChance(currentPlayerWeapon);
 
-        // Update UI and check for death
+        // 8) Refresh UI / check death
         gameManager.UpdateEnemyHP(currentEnemyHP);
-        if (currentEnemyHP <= 0)
-        {
-            Die();
-        }
+        if (currentEnemyHP <= 0) Die();
     }
+
+    // public void TakeDamage(ItemMapping currentPlayerWeapon)
+    // {
+    //     // 1. Determine base attack value
+    //     float damageWar = currentPlayerWeapon.warAttackPower;
+    //     float damageSpiritual = currentPlayerWeapon.spiritualAttackPower;
+    //     bool weaponIsWar = currentPlayerWeapon.isWarWeapon;
+    //     bool weaponIsSpiritual = currentPlayerWeapon.isSpiritualWeapon;
+        
+    //     //Check which attack is stronger War or Spiritual, use higher, apply a bonus between 5 and 25% and convert back to int
+    //     float baseDamage = Mathf.Max(damageWar, damageSpiritual);
+
+    //     // 2. Optional: Apply bonus variation (for randomness)
+    //     float bonusDamage = UnityEngine.Random.Range(baseDamage * 0.05f, baseDamage * 0.25f);
+    //     float rawAttack = baseDamage + bonusDamage;
+
+    //     // 3. Type bonus
+    //     float typeBonus = 0f;
+    //     if (!enemyMapping.isHorrible) // Horrible monsters take no bonus damage, others take 5% if an opposite type weapon is used
+    //     {
+    //         if (weaponIsWar && enemyMapping.isSpiritual)
+    //             typeBonus = 0.05f; // War weapon vs Spiritual enemy
+
+    //         else if (weaponIsSpiritual && enemyMapping.isWar)
+    //             typeBonus = 0.05f; // Spiritual weapon vs War enemy
+    //     }
+
+    //     // 4. Calculate total defense
+    //     float floorDefense = gameManager.currentFloor * enemyMapping.defensePerFloor;
+    //     float colorDefense = enemyMapping.colorMultiplier * 10f;
+    //     float totalDefense = enemyMapping.baseDefense + floorDefense + enemyMapping.shieldBonus + colorDefense;
+
+    //     // 5. Final damage formula
+    //     float finalDamage = rawAttack * (1 + typeBonus) * (1 - (totalDefense / 50f));
+    //     finalDamage = Mathf.Max(finalDamage, 1); // prevent zero or negative damage
+
+    //     // 6. Apply and log
+    //     currentEnemyHP -= Mathf.RoundToInt(finalDamage);
+
+    //     Debug.Log($"Final Damage Dealt: {Mathf.RoundToInt(finalDamage)} (Raw: {rawAttack}, Defense: {totalDefense}, Type Bonus: {typeBonus})");
+
+    //     if (currentPlayerWeapon.isMultiUseWeapon)
+    //     {
+    //         Debug.Log("Using MULTIUSE WEAPON");
+    //     }
+    //     else
+    //     {
+    //         Debug.Log("Using SINGLE-USE WEAPON, consuming...");
+    //         inventoryManager.EmptyRightHand();
+    //     }
+
+    //     ////
+    //     //Check For Weapon Breaking 
+    //     playerShootingSpawner.CheckWeaponBreakingChance(currentPlayerWeapon);
+
+    //     // Update UI and check for death
+    //     gameManager.UpdateEnemyHP(currentEnemyHP);
+    //     if (currentEnemyHP <= 0)
+    //     {
+    //         Die();
+    //     }
+    // }
 
 
     public void Die() {

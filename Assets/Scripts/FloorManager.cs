@@ -900,10 +900,10 @@ public class FloorManager : MonoBehaviour
         // 1) Figure out how many Horrible monsters to spawn
         int horribleCount = 0;
         GameObject[] horriblePool = null;
-        if      (floor >= 5 && floor <= 6)  { horribleCount = 1; horriblePool = horribleEnemies5to6; }
-        else if (floor >= 7 && floor <= 8)  { horribleCount = 2; horriblePool = horribleEnemies7to8; }
-        else if (floor >= 9 && floor <= 10) { horribleCount = 3; horriblePool = horribleEnemies9to10; }
-        else if (floor >= 11 && floor <= 12){ horribleCount = 3; horriblePool = horribleEnemies11to12; }
+        if      (floor >= 6 && floor <= 7)  { horribleCount = 1; horriblePool = horribleEnemies5to6; }
+        else if (floor >= 8 && floor <= 9)  { horribleCount = 2; horriblePool = horribleEnemies7to8; }
+        else if (floor >= 10 && floor <= 11) { horribleCount = 3; horriblePool = horribleEnemies9to10; }
+        else if (floor >= 12){ horribleCount = 3; horriblePool = horribleEnemies11to12; }
 
         // 2) Build the enemy base pool depending on floor and block color
         GameObject[] basePool;

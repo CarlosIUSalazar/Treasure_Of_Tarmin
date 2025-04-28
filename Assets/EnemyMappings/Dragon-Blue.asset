@@ -13,15 +13,15 @@ MonoBehaviour:
   m_Name: Dragon-Blue
   m_EditorClassIdentifier: 
   enemyName: Dragon-Blue
-  baseWarHP: 30
-  baseSpiritualHP: 30
-  baseAttack: 15
-  baseDefense: 15
+  baseWarHP: 25
+  baseSpiritualHP: 25
+  baseAttack: 10
+  baseDefense: 10
   colorMultiplier: 1
   shieldBonus: 0
   hpPerFloor: 2
-  attackPerFloor: 0.5
-  defensePerFloor: 0.5
+  attackPerFloor: 0.2
+  defensePerFloor: 0.2
   isWar: 0
   isSpiritual: 1
   isHorrible: 0

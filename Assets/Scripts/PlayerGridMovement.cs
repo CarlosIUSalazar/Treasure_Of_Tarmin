@@ -588,24 +588,41 @@ public class PlayerGridMovement : MonoBehaviour
                 gameManager.enemyHPText.gameObject.SetActive(false);
             }
 
-            if (canEscape > 5) { // CAN ESCAPE
-                Debug.Log("SUCCESSFUL ESCAPE!!");
-                gameManager.SetPlayerMessage("Successful Escape!");
-                gameManager.isFighting = false;
+            gameManager.SetPlayerMessage("Escaping!");
+            gameManager.isPlayersTurn = false;
+            gameManager.isEnemysTurn = true;
+            StartCoroutine(EscapeDelayer());
+
+            // 50-50 Escape Logic
+            // if (canEscape > 5) { // CAN ESCAPE
+            //     Debug.Log("SUCCESSFUL ESCAPE!!");
+            //     gameManager.SetPlayerMessage("Successful Escape!");
+            //     gameManager.isFighting = false;
+            //     HideActionButton();
+            //     player.transform.position = playerPreviousPosition;
+            //     player.transform.rotation = playerPreviousRotation;
+            //     canBackStep = false;
+            //     gameManager.enemyHPText.gameObject.SetActive(false);
+            //     gameManager.ambushInProgress = false;
+            // } else {    // CAN'T ESCAPE
+            //     Debug.Log("COULDN'T ESCAPE!!");
+            //     gameManager.SetPlayerMessage("Couldn't Escape!");
+            //     gameManager.isPlayersTurn = false;
+            //     gameManager.isEnemysTurn = true;
+            //     canBackStep = true;
+            // }
+        }
+    }
+
+    IEnumerator EscapeDelayer() {
+        yield return new WaitForSeconds(1.9f);
+        gameManager.isFighting = false;
                 HideActionButton();
                 player.transform.position = playerPreviousPosition;
                 player.transform.rotation = playerPreviousRotation;
                 canBackStep = false;
                 gameManager.enemyHPText.gameObject.SetActive(false);
                 gameManager.ambushInProgress = false;
-            } else {    // CAN'T ESCAPE
-                Debug.Log("COULDN'T ESCAPE!!");
-                gameManager.SetPlayerMessage("Couldn't Escape!");
-                gameManager.isPlayersTurn = false;
-                gameManager.isEnemysTurn = true;
-                canBackStep = true;
-            }
-        }
     }
 
     public void TurnLeft()

@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private int totalMaxPhysicalArmor = 199;
     private int totalMaxSpiritualArmor = 52;
     
-    public int currentMaxPotentialPhysicalStrength = 12; //Initial no book cap
-    public int currentMaxPotentialSpiritualStrength = 6; //Initial no booko cap
+    public int currentMaxPotentialPhysicalStrength = 69; //12; //Initial no book cap
+    public int currentMaxPotentialSpiritualStrength = 59; //6; //Initial no booko cap
     
     public int currentWarBookCurrentCapHP = 49;
     public int currentSpiritualBookCurrentCapHP = 29;
@@ -65,10 +65,10 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 12;
+        physicalStrength = 59; // 12
         physicalArmor = 0;
         physicalWeapon = 0;
-        spiritualStrength = 6;
+        spiritualStrength = 40; // 6
         spiritualArmor = 0;
         spiritualWeapon = 0;
         score = 0;
@@ -383,97 +383,182 @@ public class Player : MonoBehaviour
 
     public void playerTakeDamageCalculation(ItemMapping itemMapping)
     {
-        // Reference the enemy
-        Enemy activeEnemy = gameManager.activeEnemy;
-        EnemyMapping enemyMapping = activeEnemy.enemyMapping;
+        //On enemy mappings:
+        //Floor-scaling & color multipliers unchanged: tune mapping.attackPerFloor (e.g. 0.1 for trash, 0.3 elites)
 
-        bool isWar = enemyMapping.isWar;
-        bool isSpiritual = enemyMapping.isSpiritual;
 
-        // Calculate full attack: base + scaling + color multiplier
-        float floorMultiplier = gameManager.currentFloor * enemyMapping.attackPerFloor;
-        float baseAttack = enemyMapping.baseAttack + floorMultiplier;
-        float rawAttack = baseAttack * enemyMapping.colorMultiplier;
+        // 1) Get the active enemy and its mapping
+        Enemy activeEnemy    = gameManager.activeEnemy;
+        EnemyMapping mapping = activeEnemy.enemyMapping;
+        bool isWarAttack     = mapping.isWar;
 
-        // Apply bonus randomness
-        float bonus = (gameManager.currentFloor > 3) ? UnityEngine.Random.Range(rawAttack * 0.05f, rawAttack * 0.12f) : 0f;
-        rawAttack += bonus;
+        // 2) Compute raw attack = (base + floor scaling) × color multiplier
+        float floorBonus = gameManager.currentFloor * mapping.attackPerFloor;
+        float baseAttack = mapping.baseAttack + floorBonus;
+        float rawAttack  = baseAttack * mapping.colorMultiplier;
 
-        // Pick correct defense and max defense cap
-        float defense = isWar ? physicalArmor : spiritualArmor;
-        float maxDefense = isWar ? 119f : 52f;
+        // 3) (Optional) tiny random variation—disabled for predictability
+        float rnd = Random.Range(rawAttack * 0.00f, rawAttack * 0.03f);
+        rawAttack += rnd;
 
-        if (gameManager.currentFloor <= 3)
-            defense += 10; // early game player bonus
+        // 4) Pick the correct defense stat
+        float defense = isWarAttack 
+                        ? physicalArmor 
+                        : spiritualArmor;
 
-        // Normalize defense: 100% mitigation if maxDefense
-        float defenseRatio = Mathf.Clamp(defense / maxDefense, 0f, 1f);
+        // 5) Apply your lowered max-def caps
+        float maxDefCap = isWarAttack 
+                        ? 80f 
+                        : 40f;
+                //    ? 119f      // your absolute max war-defense 
+                //    :  52f;     // your absolute max spirit-defense
 
-        // Final damage
-        float finalDamage = rawAttack * (1f - defenseRatio);
-        finalDamage = Mathf.Max(finalDamage, 1f); // always deal at least 1 damage
-        int finalDamageInt = Mathf.RoundToInt(finalDamage);
+        // 6) Compute mitigation ratio, capped at 100%
+        float mitigation = Mathf.Clamp(defense / maxDefCap, 0f, 1f);
 
-        // Apply damage to correct health pool
+        // 7) Final damage after mitigation (can be zero!)
+        float dmg = rawAttack * (1f - mitigation);
+
+        // 8) Convert to integer.  Use Floor so 0.9→0; you still “hit” but take no HP loss.
+        int finalDamage = Mathf.FloorToInt(dmg);
+
+        // 9) Apply to the correct health pool and still do your HP‐book increment
         if (itemMapping.isWarWeapon)
         {
-            physicalStrength -= finalDamageInt;
-            lastHitWasWar = true;
-            
-            // if ((currentMaxPotentialPhysicalStrength + gameManager.WarHPBookMultiplier) <= currentWarBookCurrentCapHP) {
-            //     currentMaxPotentialPhysicalStrength = currentMaxPotentialPhysicalStrength + (1 * gameManager.WarHPBookMultiplier);
-            // } else {currentMaxPotentialPhysicalStrength = currentWarBookCurrentCapHP; }
-            int warIncrement = gameManager.WarHPBookMultiplier;
+            physicalStrength -= finalDamage;
+            lastHitWasWar     = true;
+
+            // HP‐book leveling
+            int inc = gameManager.WarHPBookMultiplier;
             if (currentMaxPotentialPhysicalStrength < currentWarBookCurrentCapHP)
             {
-                currentMaxPotentialPhysicalStrength 
-                = Mathf.Min(
-                    currentMaxPotentialPhysicalStrength + warIncrement,
+                currentMaxPotentialPhysicalStrength = Mathf.Min(
+                    currentMaxPotentialPhysicalStrength + inc,
                     currentWarBookCurrentCapHP
-                    );
-            }  // if you’re already above the cap, do nothing—preserve your hard-earned base.
+                );
+            }
 
-
-            Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | HP: {physicalStrength} | DefRatio: {defenseRatio:P0}");
+            Debug.Log($"[PLAYER HIT-WAR] -{finalDamage} HP | Mitigation: {mitigation:P0}");
             if (physicalStrength <= 0) Die();
         }
         else if (itemMapping.isSpiritualWeapon)
         {
-            spiritualStrength -= finalDamageInt;
-            lastHitWasWar = false;
+            spiritualStrength -= finalDamage;
+            lastHitWasWar       = false;
 
-            //USE THE LEVELING UP MECHANICS THAT CAN INVOLVE THE HP BOOKS
-            // if ((currentMaxPotentialSpiritualStrength + gameManager.SpiritualHPBookMultiplier) <= currentSpiritualBookCurrentCapHP) {
-            //     currentMaxPotentialSpiritualStrength = currentMaxPotentialSpiritualStrength + (1 * gameManager.SpiritualHPBookMultiplier);
-            // } else {currentMaxPotentialSpiritualStrength = currentSpiritualBookCurrentCapHP; }
-            int spiritIncrement = gameManager.SpiritualHPBookMultiplier;
+            int inc = gameManager.SpiritualHPBookMultiplier;
             if (currentMaxPotentialSpiritualStrength < currentSpiritualBookCurrentCapHP)
             {
-                currentMaxPotentialSpiritualStrength 
-                = Mathf.Min(
-                    currentMaxPotentialSpiritualStrength + spiritIncrement,
+                currentMaxPotentialSpiritualStrength = Mathf.Min(
+                    currentMaxPotentialSpiritualStrength + inc,
                     currentSpiritualBookCurrentCapHP
-                    );
+                );
             }
-            // if you’re already above the cap, do nothing—preserve your hard-earned base.
 
-            Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | HP: {spiritualStrength} | DefRatio: {defenseRatio:P0}");
+            Debug.Log($"[PLAYER HIT-SPIRIT] -{finalDamage} HP | Mitigation: {mitigation:P0}");
             if (spiritualStrength <= 0) Die();
         }
         else
         {
-            Debug.LogWarning("Enemy attack type not set correctly (neither War nor Spiritual).");
+            Debug.LogWarning("Enemy attack type not set correctly.");
         }
 
+        // 10) Update UI
         OnPlayerStatsUpdated?.Invoke();
     }
+
+
+
+    // public void playerTakeDamageCalculation(ItemMapping itemMapping)
+    // {
+    //     // Reference the enemy
+    //     Enemy activeEnemy = gameManager.activeEnemy;
+    //     EnemyMapping enemyMapping = activeEnemy.enemyMapping;
+
+    //     bool isWar = enemyMapping.isWar;
+    //     bool isSpiritual = enemyMapping.isSpiritual;
+
+    //     // Calculate full attack: base + scaling + color multiplier
+    //     float floorMultiplier = gameManager.currentFloor * enemyMapping.attackPerFloor;
+    //     float baseAttack = enemyMapping.baseAttack + floorMultiplier;
+    //     float rawAttack = baseAttack * enemyMapping.colorMultiplier;
+
+    //     // Apply bonus randomness
+    //     float bonus = (gameManager.currentFloor > 3) ? UnityEngine.Random.Range(rawAttack * 0.05f, rawAttack * 0.12f) : 0f;
+    //     rawAttack += bonus;
+
+    //     // Pick correct defense and max defense cap
+    //     float defense = isWar ? physicalArmor : spiritualArmor;
+    //     float maxDefense = isWar ? 119f : 52f;
+
+    //     if (gameManager.currentFloor <= 3)
+    //         defense += 10; // early game player bonus
+
+    //     // Normalize defense: 100% mitigation if maxDefense
+    //     float defenseRatio = Mathf.Clamp(defense / maxDefense, 0f, 1f);
+
+    //     // Final damage
+    //     float finalDamage = rawAttack * (1f - defenseRatio);
+    //     finalDamage = Mathf.Max(finalDamage, 1f); // always deal at least 1 damage
+    //     int finalDamageInt = Mathf.RoundToInt(finalDamage);
+
+    //     // Apply damage to correct health pool
+    //     if (itemMapping.isWarWeapon)
+    //     {
+    //         physicalStrength -= finalDamageInt;
+    //         lastHitWasWar = true;
+            
+    //         int warIncrement = gameManager.WarHPBookMultiplier;
+    //         if (currentMaxPotentialPhysicalStrength < currentWarBookCurrentCapHP)
+    //         {
+    //             currentMaxPotentialPhysicalStrength 
+    //             = Mathf.Min(
+    //                 currentMaxPotentialPhysicalStrength + warIncrement,
+    //                 currentWarBookCurrentCapHP
+    //                 );
+    //         }  // if you’re already above the cap, do nothing—preserve your hard-earned base.
+
+
+    //         Debug.Log($"[PLAYER HIT - WAR] -{finalDamageInt} | HP: {physicalStrength} | DefRatio: {defenseRatio:P0}");
+    //         if (physicalStrength <= 0) Die();
+    //     }
+    //     else if (itemMapping.isSpiritualWeapon)
+    //     {
+    //         spiritualStrength -= finalDamageInt;
+    //         lastHitWasWar = false;
+
+    //         //USE THE LEVELING UP MECHANICS THAT CAN INVOLVE THE HP BOOKS
+    //         int spiritIncrement = gameManager.SpiritualHPBookMultiplier;
+    //         if (currentMaxPotentialSpiritualStrength < currentSpiritualBookCurrentCapHP)
+    //         {
+    //             currentMaxPotentialSpiritualStrength 
+    //             = Mathf.Min(
+    //                 currentMaxPotentialSpiritualStrength + spiritIncrement,
+    //                 currentSpiritualBookCurrentCapHP
+    //                 );
+    //         }
+    //         // if you’re already above the cap, do nothing—preserve your hard-earned base.
+    //         Debug.Log($"[PLAYER HIT - SPIRITUAL] -{finalDamageInt} | HP: {spiritualStrength} | DefRatio: {defenseRatio:P0}");
+    //         if (spiritualStrength <= 0) Die();
+    //     }
+    //     else
+    //     {
+    //         Debug.LogWarning("Enemy attack type not set correctly (neither War nor Spiritual).");
+    //     }
+
+    //     OnPlayerStatsUpdated?.Invoke();
+    // }
+
+
+
+
 
 
     public void CorridorDoorCrossingHP(string crossedDoor)
     {
         Debug.Log($"Crossed door: {crossedDoor} Will do logic later");
 
-        return;
+        return; //NOT USING THIS LOGIC FOR NOW
         
         Debug.Log($"Crossed door: {crossedDoor}");
 
