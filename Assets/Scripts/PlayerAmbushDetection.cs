@@ -141,6 +141,9 @@ public class PlayerAmbushDetection : MonoBehaviour
     {
         Quaternion startRotation = transform.rotation;
         Quaternion endRotation = Quaternion.LookRotation(targetDirection.normalized);
+        
+        playerGridMovement.HideDirectionalButtons();
+        
         float elapsed = 0f;
         while (elapsed < duration)
         {
