@@ -6,12 +6,14 @@ public class ItemManager : MonoBehaviour
     Player player;
     InventoryManager inventoryManager;
     GameManager gameManager;
+    ViewSwitcher viewSwitcher;
 
     void Start()
     {
         player = GameObject.Find("Player").GetComponent<Player>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
     }
 
     public void PickUpItem(RaycastHit hit) {
@@ -148,7 +150,13 @@ public class ItemManager : MonoBehaviour
                 Debug.Log("Picked up White Crown");
                 gameManager.SetPlayerMessage("Picked up White Crown");
                 break;
-            
+
+            case "Treasure-Tarmin":
+                // WIN GAME SEQUENCE!!
+                Debug.Log("Picked up TREASURE OF TARMIN!");
+                viewSwitcher.GameWinningSequence();
+                break;
+
             default: 
                 inventoryManager.HandleItemPickup(itemName);
                 //inventoryManager.AssignToRightHand(itemName, true); // true tells the inventory manager is a new item from the floor not passed from drag and drop to right hand

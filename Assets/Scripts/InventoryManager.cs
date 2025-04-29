@@ -255,10 +255,13 @@ public class InventoryManager : MonoBehaviour
             rightHandSlot.color = Color.white;
             player.ModifyWeaponAttackPower(itemMapping);
             Debug.Log("Assinged " + itemMapping.itemName + " to right hand");
-        } else if (itemName == "Treasure-Tarmin") {
-            // WIN GAME SEQUENCE!!
-            viewSwitcher.GameWinningSequence();
-        } else {
+        } 
+        // Game Winning sequence trigger was moved to Item Manager
+        // else if (itemName == "Treasure-Tarmin") {
+        //     // WIN GAME SEQUENCE!!
+        //     viewSwitcher.GameWinningSequence();
+        // } 
+        else {
             Debug.Log("Item mapping not found for " + itemName);
         }
     }

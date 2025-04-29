@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections.Generic;
 using System.Collections;
 using Unity.VisualScripting;
+using UnityEngine.Analytics;
 
 public class PlayerGridMovement : MonoBehaviour
 {
@@ -575,9 +576,17 @@ public class PlayerGridMovement : MonoBehaviour
         if (isMoving || isRotating) return; // Prevent movement if already moving or rotating
         
         if (canBackStep && !gameManager.isFighting) { //StepBack when not fighting
+            //Update minimap if user steps back on Z axis
+            if (playerPreviousPosition.z > player.transform.position.z) {
+                UpdateMinimapCursor(0.1f);
+            } else if (playerPreviousPosition.z < player.transform.position.z) {
+                UpdateMinimapCursor(-0.1f);
+            } 
+
             player.transform.position = playerPreviousPosition;
             player.transform.rotation = playerPreviousRotation;
             canBackStep = false;
+
         } else if (canBackStep && gameManager.isFighting && gameManager.isPlayersTurn) { //BATTLE ESCAPE CASE:
             int canEscape = Random.Range(0,10); //50 - 50 Chance for escaping the battle
             Debug.Log("CanEscape" + canEscape);
@@ -586,6 +595,9 @@ public class PlayerGridMovement : MonoBehaviour
                 canEscape += 10;
                 Debug.Log("BRIBED!");
                 gameManager.enemyHPText.gameObject.SetActive(false);
+                gameManager.SetPlayerMessage("Enemy Bribed!");
+                StartCoroutine(EscapeDelayer());
+                return;
             }
 
             gameManager.SetPlayerMessage("Escaping!");
@@ -617,12 +629,19 @@ public class PlayerGridMovement : MonoBehaviour
     IEnumerator EscapeDelayer() {
         yield return new WaitForSeconds(1.9f);
         gameManager.isFighting = false;
-                HideActionButton();
-                player.transform.position = playerPreviousPosition;
-                player.transform.rotation = playerPreviousRotation;
-                canBackStep = false;
-                gameManager.enemyHPText.gameObject.SetActive(false);
-                gameManager.ambushInProgress = false;
+            HideActionButton();
+            //Update minimap if user steps back on Z axis
+            if (playerPreviousPosition.z > player.transform.position.z) {
+                UpdateMinimapCursor(0.1f);
+            } else if (playerPreviousPosition.z < player.transform.position.z) {
+                UpdateMinimapCursor(-0.1f);
+            } 
+            
+            player.transform.position = playerPreviousPosition;
+            player.transform.rotation = playerPreviousRotation;
+            canBackStep = false;
+            gameManager.enemyHPText.gameObject.SetActive(false);
+            gameManager.ambushInProgress = false;
     }
 
     public void TurnLeft()
