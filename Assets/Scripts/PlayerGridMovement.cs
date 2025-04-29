@@ -225,6 +225,8 @@ public class PlayerGridMovement : MonoBehaviour
                 // If the ray hits a ladder, trigger descend.
                 else if (hit.collider.CompareTag("Ladder"))
                 {
+                    if (isMoving || isRotating) return; // Prevent using ladder if already moving or rotating
+                    
                     if (gameManager.isFighting) {
                         Debug.Log("Can't Use Ladder while fighting");
                     } else {
@@ -825,6 +827,8 @@ public class PlayerGridMovement : MonoBehaviour
         {
             if (hit.collider.CompareTag("Door"))
             {
+                if (isMoving || isRotating) return; // Prevent action if already moving or rotating
+
                 DoorController door = hit.collider.GetComponent<DoorController>();
                 if (door != null)
                 {

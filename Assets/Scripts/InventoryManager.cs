@@ -268,6 +268,8 @@ public class InventoryManager : MonoBehaviour
 
 
     public void DropAnItem() {
+        if (playerGridMovement.isMoving || playerGridMovement.isRotating) return; // Prevent movement if already moving or rotating
+
         Debug.Log("Pressed Drop Button");
         if (!isHoldingRightHandItem) {
             Debug.Log("I don't have anything to drop");

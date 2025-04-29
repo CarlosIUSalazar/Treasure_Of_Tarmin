@@ -7,6 +7,7 @@ public class ItemManager : MonoBehaviour
     InventoryManager inventoryManager;
     GameManager gameManager;
     ViewSwitcher viewSwitcher;
+    PlayerGridMovement playerGridMovement;
 
     void Start()
     {
@@ -14,9 +15,12 @@ public class ItemManager : MonoBehaviour
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
+        playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
     }
 
     public void PickUpItem(RaycastHit hit) {
+        if (playerGridMovement.isMoving || playerGridMovement.isRotating) return; // Prevent movement if already moving or rotating
+
         GameObject item = hit.collider.gameObject;
 
         string itemName = item.name.Replace(".vox(Clone)", "").Trim();
