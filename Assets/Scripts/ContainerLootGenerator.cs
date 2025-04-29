@@ -59,9 +59,11 @@ public class ContainerLootGenerator : MonoBehaviour
         if (floor >= 1 && floor <= 4)
         {
             // Floors 1–4 (weaker containers)
-            containerProbabilities.Add("Money-Belt-Tan", 0.50f);
+            containerProbabilities.Add("Money-Belt-Tan", 0.40f);
             containerProbabilities.Add("Bag-Small-Tan", 0.30f);
             containerProbabilities.Add("Bag-Large-Tan", 0.20f);
+            containerProbabilities.Add("Box-Tan", 0.20f);
+
         }
         else if (floor >= 5 && floor <= 8)
         {
@@ -307,7 +309,7 @@ public class ContainerLootGenerator : MonoBehaviour
                 "Coins-Yellow", "Necklace-Yellow", "Ingot-Yellow", "Lamp-Yellow", "Chalice-Yellow", "Book-War-Blue", "Book-Spiritual-Blue"
             }),
             new WeightedGroup(0.30f, new string[] {
-                "Crown-Grey", "Potion-Small-Blue", "Potion-Large-Blue", "Key-Orange", "Book-War-Pink", "Book-Spiritual-Pink"
+                "Crown-Grey", "Potion-Small-Blue", "Potion-Large-Blue", "Key-Orange", "Book-War-Pink", "Book-Spiritual-Pink", "Potion-Large-Pink"
             }),
             new WeightedGroup(0.10f, new string[] {
                 "Book-War-Purple", "Book-Spiritual-Purple", "Bomb", "Key-Blue"

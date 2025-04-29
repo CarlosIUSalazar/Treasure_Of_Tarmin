@@ -269,7 +269,7 @@ public class Player : MonoBehaviour
         // using War weapons in battle, this book will help you accumulate HP points 
         // quicker; up to the game limit of 199 in War, by pressing "rest".
 
-        Debug.Log("Player Rested");
+        //Debug.Log("Player Rested");
         
         // if (!canRest) return;
 

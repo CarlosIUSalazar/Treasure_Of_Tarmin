@@ -307,6 +307,9 @@ public class FloorManager : MonoBehaviour
 
     public void MovePlayerToNewMazeViaCorridorDoor(string corridorDoorSide) { // Crossing Corridor Door
         MazeBlock targetBlock = null;
+        
+        gameManager.enemyHPText.gameObject.SetActive(false); // DID THIS TO PREVENT SHOWING A RANDOM 0 WHEN CHANGING FLOOR GLITCH
+
         if (corridorDoorSide == "CorridorDoorWest") {
             targetBlock = currentNeighbourLeft;
         } else if (corridorDoorSide == "CorridorDoorEast") {
@@ -378,6 +381,9 @@ public class FloorManager : MonoBehaviour
         Vector3 newPosition = player.transform.position;
         Quaternion newRotation = player.transform.rotation;
         float floorCursorPositionOffset; // Position 1 is origin West (x +0) z=5.  Posiiton 2 is ladder west (x +0.3) z=35, 3 = Ladder East (x + 0.8) z=85, 4 = End of Maze east (x + 1.1) z=115
+        
+        gameManager.enemyHPText.gameObject.SetActive(false); // DID THIS TO PREVENT SHOWING A RANDOM 0 WHEN CHANGING FLOOR GLITCH
+
         if (gameManager.currentFloor % 2 == 0) { // Changing to a different block
             Debug.Log("Used Ladder from Even Floor " + gameManager.currentFloor);
             if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
