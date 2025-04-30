@@ -123,6 +123,18 @@ public class FloorManager : MonoBehaviour
     MazeGenerator mazeGenerator;
     ContainerLootGenerator containerLootGenerator;
     DifficultyLevel selectedDifficulty = GameSettings.SelectedDifficulty;
+    private int BossFloor {
+        get {
+            return selectedDifficulty switch {
+                DifficultyLevel.VeryHard => 12,
+                DifficultyLevel.Hard     => 8,
+                DifficultyLevel.Normal   => 4,
+                DifficultyLevel.Easy     => 2,
+                _                        => 12
+            };
+        }
+    }
+
 
     MazeBlock currentNeighbourLeft;
     MazeBlock currentNeighbourRight;
@@ -388,6 +400,34 @@ public class FloorManager : MonoBehaviour
             gameManager.enemyHPText.gameObject.SetActive(false); // DID THIS TO PREVENT SHOWING A RANDOM 0 WHEN CHANGING FLOOR GLITCH
         }
 
+        if (gameManager.currentFloor >= BossFloor)
+        {
+            Debug.Log("Descending past boss floor " + gameManager.currentFloor);
+
+            // 1) Move the floor counter
+            player.ModifyFloorNumber();
+
+            // 2) Pick a random color
+            var allColors = (BlockColorType[]) System.Enum.GetValues(typeof(BlockColorType));
+            gameManager.currentMazeBlock.colorType = allColors[Random.Range(0, allColors.Length)];
+
+            // 3) Recompute neighbours
+            PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
+
+            // 4) Regenerate floor contents (two ladders, no corridor-doors)
+            GenerateFloorContents(
+                gameManager.currentMazeBlock.colorType,
+                mazeGenerator.currentPlayerBlock.gridCoordinate,
+                mazeGenerator.currentPlayerBlock,
+                "NoCorridorDoorUsed"
+            );
+
+            // 5) Skip all further positioning/minimap updates
+            return;
+        }
+
+
+
         if (gameManager.currentFloor % 2 == 0) { // Changing to a different block
             Debug.Log("Used Ladder from Even Floor " + gameManager.currentFloor);
             if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
@@ -403,6 +443,14 @@ public class FloorManager : MonoBehaviour
                 mazeGenerator.UpdatePlayerCursor(currentNeighbourBelowRight); //This updates the mazeGenerator.currentPlayerBlock
                 Debug.Log("Player Descended to " + currentNeighbourBelowRight);
                 player.ModifyFloorNumber();
+
+                // LOGIC FOR AFTER FLOOR 12
+                if (gameManager.currentFloor >= BossFloor){
+                    // pick a random BlockColorType
+                    var all = (BlockColorType[]) System.Enum.GetValues(typeof(BlockColorType));
+                    gameManager.currentMazeBlock.colorType = all[Random.Range(0, all.Length)];
+                }
+
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
                 GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");                
                 playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset);
@@ -425,6 +473,13 @@ public class FloorManager : MonoBehaviour
                 Debug.Log("Player Descended to " + currentNeighbourBelowLeft);
                 player.ModifyFloorNumber();
 
+                // LOGIC FOR AFTER FLOOR 12
+                if (gameManager.currentFloor >= BossFloor){
+                    // pick a random BlockColorType
+                    var all = (BlockColorType[]) System.Enum.GetValues(typeof(BlockColorType));
+                    gameManager.currentMazeBlock.colorType = all[Random.Range(0, all.Length)];
+                }
+
                 PopulateCurrentNeighbours(mazeGenerator.currentPlayerBlock);
                 GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
                 playerGridMovement.UpdateMinimapCursor(floorCursorPositionOffset); //Shift X position on minimap to match the Ladder used
@@ -445,6 +500,13 @@ public class FloorManager : MonoBehaviour
             pos.y -= 12f; // subtract 12 from y
             cursorTransform.position = pos; // assign the modified vector back
             player.ModifyFloorNumber();
+
+            // LOGIC FOR AFTER FLOOR 12
+            if (gameManager.currentFloor >= BossFloor){
+                // pick a random BlockColorType
+                var all = (BlockColorType[]) System.Enum.GetValues(typeof(BlockColorType));
+                gameManager.currentMazeBlock.colorType = all[Random.Range(0, all.Length)];
+            }
 
             //PopulateCurrentNeighbours(currentPlayerBlock);
             GenerateFloorContents(mazeGenerator.currentPlayerBlock.colorType,mazeGenerator.currentPlayerBlock.gridCoordinate,mazeGenerator.currentPlayerBlock, "NoCorridorDoorUsed");
@@ -685,6 +747,15 @@ public class FloorManager : MonoBehaviour
         /////
         /// SPAWNER OF CORRIDOR DOORS
         /////
+        if (gameManager.currentFloor >= BossFloor) {  //DONT SPAWN CORRIDOR DOORS FROM LEVEL 12
+            westDoorTan.SetActive(false);
+            westDoorGreen.SetActive(false);
+            westDoorBlue.SetActive(false);
+            eastDoorTan.SetActive(false);
+            eastDoorGreen.SetActive(false);
+            eastDoorBlue.SetActive(false);
+        }
+
         if (currentBlock.neighborLeft != null && corridorDoorSide != "CorridorDoorEast") {
             if (currentBlock.neighborLeft.colorType == BlockColorType.Blue) {
                 westDoorBlue.SetActive(true);
@@ -707,7 +778,12 @@ public class FloorManager : MonoBehaviour
         //////
         ///SPAWNER OF LADDERS
         /////
-        if (gameManager.currentFloor % 2 == 0) {
+        if (gameManager.currentFloor >= BossFloor) {
+            // From floor 13 on, always two ladders and no corridor doors
+            SpawnLadder("West");
+            SpawnLadder("East");
+        }
+        else if (gameManager.currentFloor % 2 == 0) {
             // Even floor: spawn one ladder based on neighboring blocks.
             if (currentBlock.neighborBelowLeft != null)
                 SpawnLadder("West");
@@ -796,29 +872,31 @@ public class FloorManager : MonoBehaviour
         //  2 Sacks of Flour
         SpawnObjects(flourPrefab, flourCount,itemHeightOffset,"Item",true);
 
-        // Spawn Minotaur at floor 12, 16 and then randomly after
+        // Spawn Minotaur at floor 12, 16 and then randomly after. On lower diffiuclties is similar, boss floor + 4 then anytime
         switch (selectedDifficulty)
         {
             case DifficultyLevel.VeryHard:
-                if (gameManager.currentFloor == 12 || gameManager.currentFloor == 16) {
-                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
-                }
-                break;
             case DifficultyLevel.Hard:
-                if (gameManager.currentFloor == 8) {
-                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
-                }
-                break;
             case DifficultyLevel.Normal:
-                if (gameManager.currentFloor == 4) {
-                    SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
-                }
-                break;
             case DifficultyLevel.Easy:
-                if (gameManager.currentFloor == 2) {
+            {
+                // first boss at BossFloor, second guaranteed at BossFloor+4
+                int firstBoss  = BossFloor;
+                int secondBoss = firstBoss + 4;
+
+                if (gameManager.currentFloor == firstBoss ||
+                    gameManager.currentFloor == secondBoss)
+                {
+                    // guaranteed 1 minotaur
                     SpawnObjects(minotaurPrefab, 1, enemyHeightOffset, "enemy", false);
                 }
+                else if (gameManager.currentFloor > secondBoss)
+                {
+                    // from then on, roll 0–2 each floor
+                    SpawnObjects(minotaurPrefab, Random.Range(0, 3), enemyHeightOffset, "enemy", false);
+                }
                 break;
+            }
         }
 
         //WEAPONS & ENEMIES SPAWN

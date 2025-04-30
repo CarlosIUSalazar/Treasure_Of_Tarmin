@@ -21,6 +21,7 @@ public class MazeGenerator : MonoBehaviour
 {
     public MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
     FloorManager floorManager;
+    GameManager gameManager;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
     private DifficultyLevel difficulty;
@@ -583,6 +584,7 @@ public class MazeGenerator : MonoBehaviour
     void Start()
     {
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
         // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         int patternIndex = Random.Range(0, allPatterns.Count);
@@ -1005,6 +1007,8 @@ public class MazeGenerator : MonoBehaviour
 
     public void UpdatePlayerCursor(MazeBlock newBlock)
     {
+        if (gameManager.currentFloor > 12) return;  //Stop moving cursor after floor 12
+
         // Hide cursor from old block
         if (currentPlayerBlock != null)
             currentPlayerBlock.SetPlayerCursorActive(false);
