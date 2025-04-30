@@ -51,25 +51,30 @@ public class Enemy : MonoBehaviour
 
 
     private void SetEnemyHP() {
-        //FLOOR BASED HP
-        if (currentFloorColor == "Green") { //WAR FLOOR
-            float baseHP = enemyMapping.baseWarHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
-            currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
-            Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
-        } else if (currentFloorColor == "Blue") { //SPIRITUAL FLOOR
-            float baseHP = enemyMapping.baseSpiritualHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
-            currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
-            Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
-        }  else if (currentFloorColor == "Tan") { //MIXED FLOOR (USES HIGHER HP)
-            float baseSpiritualHP = enemyMapping.baseSpiritualHP;
-            float baseWarHP = enemyMapping.baseWarHP;
-            float baseHP = (baseSpiritualHP > baseWarHP) ? baseSpiritualHP : baseWarHP;
-            float bonus = UnityEngine.Random.Range(baseHP * 0.05f, baseHP * 0.12f);
-            currentEnemyHP = Mathf.RoundToInt(baseHP + bonus);
-            Debug.Log("Set Enemy " + gameObject.name + " HP of " + currentEnemyHP);
+        // 1) Grab the current floor
+        int floor = gameManager.currentFloor;
+
+        // 2) Pick the base HP by color
+        float baseHP;
+        if (currentFloorColor == "Green") {
+            baseHP = enemyMapping.baseWarHP;
         }
+        else if (currentFloorColor == "Blue") {
+            baseHP = enemyMapping.baseSpiritualHP;
+        }
+        else { // Tan
+            baseHP = Mathf.Max(enemyMapping.baseWarHP, enemyMapping.baseSpiritualHP);
+        }
+        // 3) Add a flat bump per floor
+        const float HP_PER_FLOOR = 0.4f;
+        float bumpedHP = baseHP + floor * HP_PER_FLOOR;
+
+        // 4) Apply your random 5–12% bonus
+        float bonus = UnityEngine.Random.Range(bumpedHP * 0.05f, bumpedHP * 0.12f);
+        currentEnemyHP = Mathf.RoundToInt(bumpedHP + bonus);
+
+        // 5) Debug log
+        Debug.Log($"Set Enemy {gameObject.name} HP to {currentEnemyHP} at floor {floor}");
     }
 
 
@@ -107,7 +112,16 @@ public class Enemy : MonoBehaviour
                             + colorDef;
 
         // 4) Diminishing-returns mitigation
-        const float K = 25f; // tweak this to taste
+        // K controls how “hard” defense hits you; lower K => less mitigation
+        // The mitigation = def/(def+K) curve tapers off as def grows—you never hit the “linear 100% at def=50” cliff.
+        // With K=25, an enemy at totalDefense≈40 only blocks ≈62% of your damage, so your 64-point weapon punches for ~24 points.
+        // A 5 → 8 HP “trash” mob drop in 2–3 hits, a 60–80 HP elite in 3–5 hits, and the occasional mini-boss in 6–8 hits, which feels snappy even all the way to floor 255.
+        
+        // Tweak K up/down (15 → 35) to compress or stretch fight lengths.
+        // Experiment with cutting your enemy defensePerFloor even further.
+        // Remove or shrink the random bonus (e.g. 5–10% instead of 5–25%) if you want rock-solid predictability.
+        
+        const float K = 25f; // tweak this to taste from 15 to 35
         float mitigation = totalDefense / (totalDefense + K);
         mitigation = Mathf.Clamp(mitigation, 0f, 0.9f); // never more than 90% reduction
 
