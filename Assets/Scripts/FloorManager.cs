@@ -1077,7 +1077,7 @@ public class FloorManager : MonoBehaviour
 
 
     private void ClearFloorContents() {
-        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet", "MazeEntranceDoorWall", "Container" };
+        string[] itemEnemyTags = new string[] { "Item", "Enemy", "MazeSet", "MazeEntranceDoorWall", "Container", "Smoke" };
 
         foreach (string tag in itemEnemyTags)
         {
