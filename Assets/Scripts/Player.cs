@@ -408,10 +408,13 @@ public class Player : MonoBehaviour
 
         // 5) Apply your lowered max-def caps
         float maxDefCap = isWarAttack 
-                        ? 80f 
-                        : 40f;
+                        ? 119f 
+                        : 52f;
+                        //? 80f 
+                        //: 40f;
                 //    ? 119f      // your absolute max war-defense 
                 //    :  52f;     // your absolute max spirit-defense
+                
 
         // 6) Compute mitigation ratio, capped at 100%
         float mitigation = Mathf.Clamp(defense / maxDefCap, 0f, 1f);
