@@ -531,9 +531,15 @@ public class PlayerGridMovement : MonoBehaviour
             Debug.LogWarning($"PlayerCursor script not found on {currentMazeBlock.playerCursor.name}!");
             return;
         }
-        // Move the PlayerCursor object (not just playerCursor transform)
+
         Vector3 cursorPosition = cursorComponent.transform.localPosition;
-        cursorPosition.x += modifier;
+
+        if (modifier == 0.0f) { // Arbitrary value of 0.0 when the player Resurrects to move the cursor to the start of the maze
+            cursorPosition.x = -0.6f;
+        } else { // Otherwise just use the normal modifier when moving around the maze
+            // Move the PlayerCursor object (not just playerCursor transform)
+            cursorPosition.x += modifier;
+        }
         cursorComponent.transform.localPosition = cursorPosition;
 
         Debug.Log($"Updated Minimap Cursor in {currentMazeBlock.name} to X: {cursorPosition.x}");

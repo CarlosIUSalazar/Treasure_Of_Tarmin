@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private int totalMaxPhysicalArmor = 199;
     private int totalMaxSpiritualArmor = 52;
     
-    public int currentMaxPotentialPhysicalStrength = 69; //12; //Initial no book cap
-    public int currentMaxPotentialSpiritualStrength = 59; //6; //Initial no booko cap
+    private int currentMaxPotentialPhysicalStrength = 12; //12; //Initial no book cap
+    private int currentMaxPotentialSpiritualStrength = 6; //6; //Initial no booko cap
     
     public int currentWarBookCurrentCapHP = 49;
     public int currentSpiritualBookCurrentCapHP = 29;
@@ -65,10 +65,10 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 59; // 12
+        physicalStrength = 12; // 12
         physicalArmor = 0;
         physicalWeapon = 0;
-        spiritualStrength = 40; // 6
+        spiritualStrength = 6; // 6
         spiritualArmor = 0;
         spiritualWeapon = 0;
         score = 0;
@@ -185,7 +185,7 @@ public class Player : MonoBehaviour
             && currentMaxPotentialSpiritualStrength >= 9)
         {
             // 75% chance to resurrect
-            if (UnityEngine.Random.value <= 0.75f)
+            if (UnityEngine.Random.value <= 0.85f)
             {
                 Resurrect();
                 return;
@@ -209,13 +209,11 @@ public class Player : MonoBehaviour
         transform.position = new Vector3(5f, 2.5f, 5f);
         transform.rotation = Quaternion.Euler(0f, 0f, 0f);
 
-
         // 3) Zero out score
         score = 0;
 
         // 4) Reset Minimap position
         playerGridMovement.ResetPlayerCursorOnMiniMapOnResurrection();
-
 
         // 5) Reset game values 
         gameManager.isFighting = false;
@@ -232,6 +230,9 @@ public class Player : MonoBehaviour
         // 6) Notify UI
         gameManager.SetPlayerMessage("Resurrected!");
         OnPlayerStatsUpdated?.Invoke();
+
+        //7 Update the cursor on Minimap
+        playerGridMovement.UpdateMinimapCursor(0.0f); //0.0 is an arbitrary value to reset the player to the start of the maze on miinimap
     }
 
 
@@ -424,6 +425,8 @@ public class Player : MonoBehaviour
 
         // 8) Convert to integer.  Use Floor so 0.9→0; you still “hit” but take no HP loss.
         int finalDamage = Mathf.FloorToInt(dmg);
+
+        if (finalDamage == 0) gameManager.SetPlayerMessage("Blocked!");
 
         // 9) Apply to the correct health pool and still do your HP‐book increment
         if (itemMapping.isWarWeapon)
