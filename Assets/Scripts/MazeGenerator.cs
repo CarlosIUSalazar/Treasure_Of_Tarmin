@@ -22,6 +22,9 @@ public class MazeGenerator : MonoBehaviour
     public MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
     FloorManager floorManager;
     GameManager gameManager;
+    Player player;
+    public IReadOnlyList<MazeBlock> TopFloorBlocks => topFloorBlocks;
+    public MazeBlock startBlock;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
     private DifficultyLevel difficulty;
@@ -585,6 +588,7 @@ public class MazeGenerator : MonoBehaviour
     {
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
+        player = GameObject.Find("Player").GetComponent<Player>();
         // chosenPatternIndex = 2; // Test "The Hive" (index 2 in Hard mode)
         // bool[][] chosenPattern = allPatterns[chosenPatternIndex];
         int patternIndex = Random.Range(0, allPatterns.Count);
@@ -974,7 +978,7 @@ public class MazeGenerator : MonoBehaviour
 
 
     // New method to place player
-    private void PlacePlayerOnTopFloor()
+    public void PlacePlayerOnTopFloor()
     {
         if (topFloorBlocks.Count == 0)
         {
@@ -982,10 +986,23 @@ public class MazeGenerator : MonoBehaviour
             return;
         }
 
+        //This part is when the user goes to level 255 and goes back ot the top
+        //needs to deactivate the cursor in the bottom
+        // if (isGamePlus) {
+        //     if (currentPlayerBlock != null && currentPlayerBlock.playerCursor != null) {
+        //         currentPlayerBlock.playerCursor.SetActive(false);
+        //         //playerGridMovement.UpdateMinimapCursor(0.0f); //0.0 is an arbitrary value to reset the player to the start of the maze on miinimap
+        //         //  Put player object in Start position and rotation, dont think i have a method for that.
+        //         player.PlacePlayerAtStartOnGamePlus();
+        //         gameManager.currentFloor = 0; //reset floor preparing for the +1f
+        //     }
+        // }
+
+
         // Randomly select a top-floor block
         // Randomly select a top-floor block
         int randomIndex = Random.Range(0, topFloorBlocks.Count);
-        MazeBlock startBlock = topFloorBlocks[randomIndex];
+        startBlock = topFloorBlocks[randomIndex];
         currentPlayerBlock = startBlock;
 
         // Position the player cursor only on this block
@@ -1012,6 +1029,10 @@ public class MazeGenerator : MonoBehaviour
         // Hide cursor from old block
         if (currentPlayerBlock != null)
             currentPlayerBlock.SetPlayerCursorActive(false);
+
+        // reset its dot back to the saved default
+        var oldDot = currentPlayerBlock.playerCursor.transform;
+        oldDot.localPosition = currentPlayerBlock.cursorDefaultLocalPos;
 
         // Show cursor on new block
         newBlock.SetPlayerCursorActive(true);

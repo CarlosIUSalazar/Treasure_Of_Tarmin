@@ -400,10 +400,20 @@ public class FloorManager : MonoBehaviour
             gameManager.enemyHPText.gameObject.SetActive(false); // DID THIS TO PREVENT SHOWING A RANDOM 0 WHEN CHANGING FLOOR GLITCH
         }
 
+        //If player reaches floor 255 he should loop back up.
+        //if (gameManager.currentFloor == 255) {
+            // mazeGenerator.PlacePlayerOnTopFloor(true);
+            // return;
+        //}
+
+        if (gameManager.currentFloor == 5) { //Testing GamePlus (should be 255)
+            LoopPlayerToTopOfCurrentMaze();
+            return;
+        }
+
         if (gameManager.currentFloor >= BossFloor)
         {
             Debug.Log("Descending past boss floor " + gameManager.currentFloor);
-
             // 1) Move the floor counter
             player.ModifyFloorNumber();
 
@@ -427,8 +437,7 @@ public class FloorManager : MonoBehaviour
         }
 
 
-
-        if (gameManager.currentFloor % 2 == 0) { // Changing to a different block
+        if (gameManager.currentFloor % 2 == 0) { // Changing to a different block.  If floor is even
             Debug.Log("Used Ladder from Even Floor " + gameManager.currentFloor);
             if (item.name.Contains("East")) { //Checking that the ladder prefab name contains East
                 
@@ -1100,6 +1109,123 @@ public class FloorManager : MonoBehaviour
             }
         }
         Debug.Log("Deactivated Foor Ladders and Corridor Doors");
+    }
+
+
+    // public void LoopPlayerToTopOfCurrentMaze()
+    // {
+    //     // 1) Reset your floor counter
+    //     player.ModifyFloorNumber();
+    //     //OnPlayerFloorChanged?.Invoke();  // if you use an event to update UI
+
+    //     // 2) Hide the old cursor
+    //     if (mazeGenerator.currentPlayerBlock?.playerCursor != null)
+    //         mazeGenerator.currentPlayerBlock.playerCursor.SetActive(false);
+
+    //     // 3) Choose one of the already-built top-floor blocks
+    //     var tops = mazeGenerator.TopFloorBlocks;
+    //     //var newBlock = tops[Random.Range(0, tops.Count)];
+    //     mazeGenerator.currentPlayerBlock = mazeGenerator.startBlock;
+
+    //     // 4) Show the cursor on that block
+    //     //mazeGenerator.startBlock.playerCursor.SetActive(true);
+
+    //     // 5) Move the actual Player GameObject to that spot
+    //     //Vector3 tp = newBlock.playerCursor.transform.position;
+    //     //Quaternion rot = player.transform.rotation;  
+    //     //playerGridMovement.SetPlayerImmediatePosition(tp, rot);
+    //     player.PlacePlayerAtStartOnGamePlus(); //Posiiton of Player Game object at start of maze
+
+    //     // 6) Recompute neighbours & minimap
+    //     gameManager.currentMazeBlock = mazeGenerator.startBlock;
+    //     gameManager.currentMazeBlockColor = mazeGenerator.startBlock.colorType.ToString();
+    //     playerGridMovement.currentMazeBlock = mazeGenerator.startBlock;
+    //     GenerateFloorContents(gameManager.currentMazeBlock.colorType, gameManager.currentMazeBlock.gridCoordinate, gameManager.currentMazeBlock,  "NoCorridorDoorUsed");
+    //     PopulateCurrentNeighbours(gameManager.currentMazeBlock);
+    //     //playerGridMovement.UpdateMinimapCursor(0.0f);
+
+
+    //     gameManager.currentMazeBlock.playerCursor.SetActive(true);
+    //     gameManager.currentMazeBlock.isActiveBlock = true;
+    //     gameManager.currentMazeBlock.SetPlayerCursorActive(true);
+    //     mazeGenerator.UpdatePlayerCursor(gameManager.currentMazeBlock);
+
+        
+    //     //playerGridMovement.UpdateMinimapCursor(0.0f);
+
+    //     //mazeGenerator.MovePlayerCursor(gameManager.currentMazeBlock);
+
+    //     // PlayerCursor cursorComponent = playerGridMovement.currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
+    //     // Vector3 cursorPosition = cursorComponent.transform.localPosition;
+    //     // cursorPosition.x = -0.6f;
+    //     // cursorPosition.y = 0.5f;
+    //     // cursorComponent.transform.localPosition = cursorPosition;
+    //     // playerGridMovement.UpdateMinimapCursor(0.0f);
+
+
+    //     // 7) Show the cursor on that block
+    //     var startBlock = mazeGenerator.startBlock;
+    //     startBlock.playerCursor.SetActive(true);
+    //     startBlock.SetPlayerCursorActive(true);
+    //     mazeGenerator.currentPlayerBlock = startBlock;
+        
+    //     // 8) Re‐center that cursor inside the block:
+    //     var cursorTransform = startBlock.playerCursor.transform;
+    //     cursorTransform.localPosition = new Vector3(
+    //         /* defaultX: */ -0.6f,
+    //         /* defaultY: */  0.5f,
+    //         cursorTransform.localPosition.z
+    //     );
+        
+    //     // 9) Finally, push that into your movement logic:
+    //     mazeGenerator.UpdatePlayerCursor(startBlock);
+    //     playerGridMovement.UpdateMinimapCursor(0f);  // pass zero so it uses the reset-X path
+
+
+
+    // }
+
+    public void LoopPlayerToTopOfCurrentMaze()
+    {
+        // 1) Reset floor counter
+        player.ModifyFloorNumber();
+
+        // 2) Clear the old cursor AND its active‐flag
+        var oldBlock = mazeGenerator.currentPlayerBlock;
+        if (oldBlock != null)
+            oldBlock.SetPlayerCursorActive(false);
+
+        // 3) Jump back to the designated start block
+        MazeBlock start = mazeGenerator.startBlock;
+        mazeGenerator.currentPlayerBlock = start;
+
+        // 4) Teleport the player GameObject to that top‐floor location
+        player.PlacePlayerAtStartOnGamePlus();
+
+        // 5) Regenerate floor contents & recompute neighbours
+        gameManager.currentMazeBlock      = start;
+        gameManager.currentMazeBlockColor = start.colorType.ToString();
+        playerGridMovement.currentMazeBlock = start;
+        GenerateFloorContents(
+            start.colorType,
+            start.gridCoordinate,
+            start,
+            "NoCorridorDoorUsed"
+        );
+        PopulateCurrentNeighbours(start);
+
+        // 6) Activate the new cursor and mark it “active”
+        start.SetPlayerCursorActive(true);
+
+    // ─── NEW: restore *both* X and Y to the prefab’s default ───
+    var dot = start.playerCursor;          // grab the dot GameObject
+    dot.SetActive(true);                   // make sure it’s on
+    dot.transform.localPosition = start.cursorDefaultLocalPos;
+    // ────────────────────────────────────────────────────────
+
+    // 7) hook back into your cursor-move routines
+    mazeGenerator.UpdatePlayerCursor(start);
+    playerGridMovement.UpdateMinimapCursor(0f);
     }
 
 }

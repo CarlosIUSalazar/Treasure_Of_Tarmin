@@ -28,6 +28,7 @@ public class MazeBlock : MonoBehaviour
     public GameObject playerCursor;
 
     public bool isActiveBlock = false; // NEW FLAG
+    public Vector3 cursorDefaultLocalPos;
 
 
     private void Awake()
@@ -36,7 +37,8 @@ public class MazeBlock : MonoBehaviour
         Transform dotChild = transform.Find("MapPlayerDot.vox");
         if (dotChild != null)
         {
-            playerCursor = dotChild.gameObject;
+            playerCursor = transform.Find("MapPlayerDot.vox").gameObject;
+            cursorDefaultLocalPos = playerCursor.transform.localPosition;
             playerCursor.SetActive(false); // Start all dots as hidden
         }
         else

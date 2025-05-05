@@ -25,6 +25,7 @@ public class PlayerGridMovement : MonoBehaviour
     ItemManager itemManager;
     InventoryManager inventoryManager;
     FloorManager floorManager;
+    MazeGenerator mazeGenerator;
 
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
@@ -43,6 +44,8 @@ public class PlayerGridMovement : MonoBehaviour
     public RectTransform minimapCursor; // Assign the UI cursor from Unity Editor
     public RectTransform minimapGrid; // Parent object of the minimap grid
 
+    public MazeBlock currentMazeBlock;
+
     private float maxInteractionDistance = 5f;
     private float doubleClickThreshold = 0.3f;
     private bool waitingForSecondClick = false;
@@ -57,6 +60,7 @@ public class PlayerGridMovement : MonoBehaviour
         itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+        mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
@@ -503,48 +507,73 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
 
-    public void UpdateMinimapCursor(float modifier)
-    {
-        //if (minimapCursor == null || minimapGrid == null) return;
-        MazeBlock currentMazeBlock = FindActiveMazeBlock();
+    // public void UpdateMinimapCursor(float modifier)
+    // {
+    //     //if (minimapCursor == null || minimapGrid == null) return;
+    //     currentMazeBlock = FindActiveMazeBlock();
         
-        if (currentMazeBlock == null)
-        {
-            Debug.LogWarning("No active MazeBlock found!");
-            return;
-        } else {
-            Debug.Log("In Updateminimap CurrentMazeBlock is: " + currentMazeBlock);
-        }
+    //     // grab the block and its dot
+    //     var mb  = mazeGenerator.currentPlayerBlock;
+    //     var dot = mb.playerCursor.transform;
 
-        if (currentMazeBlock.playerCursor == null)
-        {
-            Debug.LogWarning($"Player cursor missing in block {currentMazeBlock.name}!");
-            return;
-        } else {
-            Debug.Log("In Updateminimap playerCursor is: " + currentMazeBlock.playerCursor);
-        }
+    //     if (currentMazeBlock == null)
+    //     {
+    //         Debug.LogWarning("No active MazeBlock found!");
+    //         return;
+    //     } else {
+    //         Debug.Log("In Updateminimap CurrentMazeBlock is: " + currentMazeBlock);
+    //     }
 
-        // Find the actual PlayerCursor component inside the playerCursor GameObject
-        PlayerCursor cursorComponent = currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
-        if (cursorComponent == null)
-        {
-            Debug.LogWarning($"PlayerCursor script not found on {currentMazeBlock.playerCursor.name}!");
-            return;
-        }
+    //     if (currentMazeBlock.playerCursor == null)
+    //     {
+    //         Debug.LogWarning($"Player cursor missing in block {currentMazeBlock.name}!");
+    //         return;
+    //     } else {
+    //         Debug.Log("In Updateminimap playerCursor is: " + currentMazeBlock.playerCursor);
+    //     }
 
-        Vector3 cursorPosition = cursorComponent.transform.localPosition;
+    //     // Find the actual PlayerCursor component inside the playerCursor GameObject
+    //     PlayerCursor cursorComponent = currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
+    //     if (cursorComponent == null)
+    //     {
+    //         Debug.LogWarning($"PlayerCursor script not found on {currentMazeBlock.playerCursor.name}!");
+    //         return;
+    //     }
 
-        if (modifier == 0.0f) { // Arbitrary value of 0.0 when the player Resurrects to move the cursor to the start of the maze
-            cursorPosition.x = -0.6f;
-        } else { // Otherwise just use the normal modifier when moving around the maze
-            // Move the PlayerCursor object (not just playerCursor transform)
-            cursorPosition.x += modifier;
-        }
-        cursorComponent.transform.localPosition = cursorPosition;
+    //     Vector3 cursorPosition = cursorComponent.transform.localPosition;
 
-        Debug.Log($"Updated Minimap Cursor in {currentMazeBlock.name} to X: {cursorPosition.x}");
+    //     if (modifier == 0.0f) { // Arbitrary value of 0.0 when the player Resurrects to move the cursor to the start of the maze
+    //         cursorPosition.x = -0.6f;
+    //     } else { // Otherwise just use the normal modifier when moving around the maze
+    //         // Move the PlayerCursor object (not just playerCursor transform)
+    //         cursorPosition.x += modifier;
+    //     }
+    //     cursorComponent.transform.localPosition = cursorPosition;
+
+    //     Debug.Log($"Updated Minimap Cursor in {currentMazeBlock.name} to X: {cursorPosition.x}");
+    // }
+
+
+public void UpdateMinimapCursor(float xOffset)
+{
+    // 1) Grab the current block (the one whose cursor you just activated)
+    var mb = mazeGenerator.currentPlayerBlock;
+    if (mb == null || mb.playerCursor == null)
+    {
+        Debug.LogWarning("Can't update minimap cursor – no current block or cursor!");
+        return;
     }
 
+    // 2) Compute new local‐pos from the block’s own default
+    //    (you must have captured this in MazeBlock.Awake())
+    Vector3 p = mb.cursorDefaultLocalPos;
+
+    // 3) Nudge it left/right
+    p.x += xOffset;
+
+    // 4) Write it back
+    mb.playerCursor.transform.localPosition = p;
+}
 
     public void ResetPlayerCursorOnMiniMapOnResurrection()
     {
