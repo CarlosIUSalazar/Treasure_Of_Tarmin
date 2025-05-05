@@ -68,15 +68,53 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-        physicalStrength = 12; // 12
+
+
+    // INITIAL HEALTH (War/spiritual), FOOD/ARROWS, VULNERABILITY
+
+    // "3", EASY, 2, 18/9, 9/9, 1/4
+    // "2", NORMAL, 4, 16/8, 8/8, 1/2
+    // "1", HARD, 8, 14/7, 7/7, 3/4
+    // disc/other, VERY-HARD, 12, 12/6, 6/6, FULL
+
+        //Initial STATS based on difficulty
+        switch (gameManager.CurrentDifficulty)
+        {
+            case DifficultyLevel.VeryHard:
+                physicalStrength = 12;
+                spiritualStrength = 6;
+                food = 6;
+                arrows = 6;
+                break;
+            case DifficultyLevel.Hard:
+                physicalStrength = 14;
+                spiritualStrength = 7;
+                food = 7;
+                arrows = 7;
+                break;
+            case DifficultyLevel.Normal:
+                physicalStrength = 16;
+                spiritualStrength = 8;
+                food = 8;
+                arrows = 8;
+                break;
+            case DifficultyLevel.Easy:
+                physicalStrength = 18;
+                spiritualStrength = 9;
+                food = 9;
+                arrows = 9;
+                break;
+        }
+
+        //physicalStrength = 12; // 12
         physicalArmor = 0;
         physicalWeapon = 0;
-        spiritualStrength = 6; // 6
+        //spiritualStrength = 6; // 6
         spiritualArmor = 0;
         spiritualWeapon = 0;
         score = 0;
-        arrows = 10;
-        food = 10;
+        //arrows = 10;
+        //food = 10;
         gameManager.currentFloor = 1;
 
         //Trigger UI update at start
@@ -434,6 +472,23 @@ public class Player : MonoBehaviour
         int finalDamage = Mathf.FloorToInt(dmg);
 
         if (finalDamage == 0) gameManager.SetPlayerMessage("Blocked!");
+
+        // 8.5 Build patterns based on difficulty
+        switch (gameManager.CurrentDifficulty)
+        {
+            case DifficultyLevel.VeryHard:
+                finalDamage = finalDamage * 1; //No change
+                break;
+            case DifficultyLevel.Hard:
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.80f);
+                break;
+            case DifficultyLevel.Normal:
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.70f);
+                break;
+            case DifficultyLevel.Easy:
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.60f);
+                break;
+        }
 
         // 9) Apply to the correct health pool and still do your HP‐book increment
         if (itemMapping.isWarWeapon)
