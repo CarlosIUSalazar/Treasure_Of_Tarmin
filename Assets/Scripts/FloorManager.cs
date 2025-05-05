@@ -400,9 +400,17 @@ public class FloorManager : MonoBehaviour
             gameManager.enemyHPText.gameObject.SetActive(false); // DID THIS TO PREVENT SHOWING A RANDOM 0 WHEN CHANGING FLOOR GLITCH
         }
 
+        if (gameManager.currentFloor == 255) {
+            LoopPlayerToTopGamePlus();
+            return;
+        }
+
         if (gameManager.currentFloor >= BossFloor)
         {
             Debug.Log("Descending past boss floor " + gameManager.currentFloor);
+
+            //Reest the cursor of the Minotaur treasure floor
+            mazeGenerator.currentPlayerBlock.SetPlayerCursorActive(false);
 
             // 1) Move the floor counter
             player.ModifyFloorNumber();
@@ -1100,6 +1108,53 @@ public class FloorManager : MonoBehaviour
             }
         }
         Debug.Log("Deactivated Foor Ladders and Corridor Doors");
+    }
+
+
+    public void LoopPlayerToTopGamePlus() {
+        Debug.Log("GamePLUS!");
+
+        // 0) Update Completed Maze Counter
+        gameManager.CompletedMazesCounterIncrease();
+
+        // 1) Reset floor counter 
+        player.ModifyFloorNumber();
+
+        // 2) Clear the old cursor AND its active‐flag
+        var oldBlock = mazeGenerator.currentPlayerBlock;
+
+        oldBlock.ResetPlayerCursorOnBlock(); //Returns Cursor Dot back to initial position on block that is no longer active
+
+
+        if (oldBlock != null)
+            oldBlock.SetPlayerCursorActive(false); 
+            oldBlock.ResetPlayerCursorOnBlock();
+
+
+        // 3) Jump back to the designated start block
+        MazeBlock start = mazeGenerator.startBlock;
+
+        mazeGenerator.currentPlayerBlock = start;
+        
+         // 4) Teleport the player GameObject to that top‐floor location
+        player.PlacePlayerAtStartOnGamePlus();
+
+
+       // 5) Regenerate floor contents & recompute neighbours
+        gameManager.currentMazeBlock = start;
+        gameManager.UpdateCurrentMazeBlockType(start);
+        
+        GenerateFloorContents(
+            mazeGenerator.startBlock.colorType,
+            mazeGenerator.startBlock.gridCoordinate,
+            mazeGenerator.startBlock,
+            "NoCorridorDoorUsed"
+        );
+        PopulateCurrentNeighbours(mazeGenerator.startBlock);
+
+        // 7) hook back into your cursor-move routines
+        mazeGenerator.UpdatePlayerCursor(start);
+
     }
 
 }

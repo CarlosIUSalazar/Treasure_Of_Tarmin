@@ -25,6 +25,7 @@ public class PlayerGridMovement : MonoBehaviour
     ItemManager itemManager;
     InventoryManager inventoryManager;
     FloorManager floorManager;
+    MazeGenerator mazeGenerator;
 
     public float gridSize = 10.0f; //Size of each grid step
     public float movementSpeed = 5.0f;
@@ -57,6 +58,7 @@ public class PlayerGridMovement : MonoBehaviour
         itemManager = GameObject.Find("ItemManager").GetComponent<ItemManager>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
         floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
+        mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         // Snap player to grid center at the start
         transform.position = GetSnappedPosition(transform.position);
         targetPosition = transform.position; // Align targetPosition to snapped position
@@ -549,6 +551,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void ResetPlayerCursorOnMiniMapOnResurrection()
     {
         MazeBlock currentMazeBlock = FindActiveMazeBlock();
+
         PlayerCursor cursorComponent = currentMazeBlock.playerCursor.GetComponent<PlayerCursor>();
         Vector3 cursorPosition = cursorComponent.transform.localPosition;
         cursorPosition.x = -0.6f;
@@ -558,16 +561,17 @@ public class PlayerGridMovement : MonoBehaviour
 
     public MazeBlock FindActiveMazeBlock()
     {
-        MazeBlock[] allBlocks = FindObjectsByType<MazeBlock>(FindObjectsSortMode.None);
+        return mazeGenerator.currentPlayerBlock;        
+        // MazeBlock[] allBlocks = FindObjectsByType<MazeBlock>(FindObjectsSortMode.None);
 
-        foreach (MazeBlock block in allBlocks)
-        {
-            if (block.isActiveBlock)
-            {
-                return block; // Return the currently active block
-            }
-        }
-        return null; // No active block found
+        // foreach (MazeBlock block in allBlocks)
+        // {
+        //     if (block.isActiveBlock)
+        //     {
+        //         return block; // Return the currently active block
+        //     }
+        // }
+        // return null; // No active block found
     }
     
     private void EnableBackwardsStep(Vector3 previousPosition, Quaternion previousRotation) {
