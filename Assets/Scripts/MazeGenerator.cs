@@ -22,9 +22,11 @@ public class MazeGenerator : MonoBehaviour
     public MazeBlock currentPlayerBlock; // Track the current block where playerCursor is
     FloorManager floorManager;
     GameManager gameManager;
+    public MazeBlock startBlock;
     // [Header("Difficulty")]
     // public DifficultyLevel difficulty = DifficultyLevel.VeryHard;
     private DifficultyLevel difficulty;
+
 
     // Store top-floor blocks for player placement
     private List<MazeBlock> topFloorBlocks = new List<MazeBlock>();
@@ -985,7 +987,7 @@ public class MazeGenerator : MonoBehaviour
         // Randomly select a top-floor block
         // Randomly select a top-floor block
         int randomIndex = Random.Range(0, topFloorBlocks.Count);
-        MazeBlock startBlock = topFloorBlocks[randomIndex];
+        startBlock = topFloorBlocks[randomIndex];
         currentPlayerBlock = startBlock;
 
         // Position the player cursor only on this block
@@ -1007,7 +1009,7 @@ public class MazeGenerator : MonoBehaviour
 
     public void UpdatePlayerCursor(MazeBlock newBlock)
     {
-        if (gameManager.currentFloor > 12) return;  //Stop moving cursor after floor 12
+        //if (gameManager.currentFloor > 12) return;  //Stop moving cursor after floor 12
 
         // Hide cursor from old block
         if (currentPlayerBlock != null)

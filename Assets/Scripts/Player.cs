@@ -33,6 +33,9 @@ public class Player : MonoBehaviour
     public int timesHitLastBattle = 0;
     public bool lastHitWasWar;
     
+    public Vector3 initialPlayerPosition = new Vector3(5,2.5f,5);
+    public Vector3 initialPlayerRotation = new Vector3(0,0,0);
+
     GameManager gameManager;
     InventoryManager inventoryManager;
     MazeGenerator mazeGenerator;
@@ -143,7 +146,11 @@ public class Player : MonoBehaviour
 
 
     public void ModifyFloorNumber() {
-        gameManager.currentFloor++;
+        if (gameManager.currentFloor == 255) {  //Testing GamePLUS should be 255
+            gameManager.currentFloor = 1;
+        } else {
+            gameManager.currentFloor++;
+        }        
         OnPlayerStatsUpdated?.Invoke();
     }
     
@@ -640,6 +647,12 @@ public class Player : MonoBehaviour
     }
 
 
+    public void PlacePlayerAtStartOnGamePlus() {
+        transform.position =  initialPlayerPosition;
+        transform.eulerAngles = initialPlayerRotation;
+    }
+
+}
 
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)
     // {
@@ -748,4 +761,3 @@ public class Player : MonoBehaviour
 
 
 
-}

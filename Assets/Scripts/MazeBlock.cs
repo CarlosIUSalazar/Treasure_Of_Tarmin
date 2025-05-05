@@ -28,7 +28,7 @@ public class MazeBlock : MonoBehaviour
     public GameObject playerCursor;
 
     public bool isActiveBlock = false; // NEW FLAG
-
+    public Vector3 cursorDefaultInitialLocalPos; //Saves x=-0.6, y=0.5, z=0.2
 
     private void Awake()
     {
@@ -43,14 +43,23 @@ public class MazeBlock : MonoBehaviour
         {
             Debug.LogWarning($"MapPlayerDot.vox child not found on {name}.");
         }
+
+        cursorDefaultInitialLocalPos = playerCursor.transform.localPosition;
     }
 
     public void SetPlayerCursorActive(bool isActive)
     {
+        if (isActive == false) {
+            ResetPlayerCursorOnBlock();
+        }
         isActiveBlock = isActive;  // Track which block is active
         if (playerCursor != null)
         {
             playerCursor.SetActive(isActive);
         }
+    }
+
+    public void ResetPlayerCursorOnBlock() {
+        playerCursor.transform.localPosition = cursorDefaultInitialLocalPos;
     }
 }

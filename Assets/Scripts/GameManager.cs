@@ -20,9 +20,9 @@ public class GameManager : MonoBehaviour
     public bool isFreeAttackPhase = false;
     public bool isPassiveFight = false;
     public bool ambushInProgress = false;
-
     public int WarHPBookMultiplier = 1;
     public int SpiritualHPBookMultiplier = 1;
+    private int completedFull255MazeFloorLoops = 0;
 
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
@@ -105,6 +105,11 @@ public class GameManager : MonoBehaviour
 
         menuPhysicalArmorText.text = $"{player.physicalArmor}";
         menuSpiritualArmorText.text = $"{player.spiritualArmor}";
+    }
+
+
+    public void CompletedMazesCounterIncrease() {
+        completedFull255MazeFloorLoops++;
     }
 
 
