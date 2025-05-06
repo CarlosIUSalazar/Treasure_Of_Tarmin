@@ -10,8 +10,8 @@ public class Player : MonoBehaviour
     private int totalMaxPhysicalArmor = 199;
     private int totalMaxSpiritualArmor = 52;
     
-    private int currentMaxPotentialPhysicalStrength = 12; //12; //Initial no book cap
-    private int currentMaxPotentialSpiritualStrength = 6; //6; //Initial no booko cap
+    private int currentMaxPotentialPhysicalStrength; //12; //Initial no book cap
+    private int currentMaxPotentialSpiritualStrength; //6; //Initial no booko cap
     
     public int currentWarBookCurrentCapHP = 49;
     public int currentSpiritualBookCurrentCapHP = 29;
@@ -68,8 +68,6 @@ public class Player : MonoBehaviour
     }
 
     private void InitializeValues() {
-
-
     // INITIAL HEALTH (War/spiritual), FOOD/ARROWS, VULNERABILITY
 
     // "3", EASY, 2, 18/9, 9/9, 1/4
@@ -85,24 +83,32 @@ public class Player : MonoBehaviour
                 spiritualStrength = 6;
                 food = 6;
                 arrows = 6;
+                currentMaxPotentialPhysicalStrength = 12;
+                currentMaxPotentialSpiritualStrength = 6;
                 break;
             case DifficultyLevel.Hard:
                 physicalStrength = 14;
                 spiritualStrength = 7;
                 food = 7;
                 arrows = 7;
+                currentMaxPotentialPhysicalStrength = 14;
+                currentMaxPotentialSpiritualStrength = 7;
                 break;
             case DifficultyLevel.Normal:
                 physicalStrength = 16;
                 spiritualStrength = 8;
                 food = 8;
                 arrows = 8;
+                currentMaxPotentialPhysicalStrength = 16;
+                currentMaxPotentialSpiritualStrength = 8;
                 break;
             case DifficultyLevel.Easy:
                 physicalStrength = 18;
                 spiritualStrength = 9;
                 food = 9;
                 arrows = 9;
+                currentMaxPotentialPhysicalStrength = 18;
+                currentMaxPotentialSpiritualStrength = 9;
                 break;
         }
 
