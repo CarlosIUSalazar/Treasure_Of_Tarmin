@@ -50,6 +50,9 @@ public class PlayerGridMovement : MonoBehaviour
     public bool isWaitingForBombToExplode = false;
     private Collider lastClickedCollider = null;
     private Coroutine singleClickCoroutine = null;
+    private Coroutine escapeCoroutine = null;
+    private bool escapeCoroutineCancelled = false;
+
 
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -615,7 +618,11 @@ public class PlayerGridMovement : MonoBehaviour
             gameManager.SetPlayerMessage("Escaping!");
             gameManager.isPlayersTurn = false;
             gameManager.isEnemysTurn = true;
-            StartCoroutine(EscapeDelayer());
+
+            escapeCoroutineCancelled = false;
+            escapeCoroutine = StartCoroutine(EscapeDelayer());
+
+            
 
             // 50-50 Escape Logic
             // if (canEscape > 5) { // CAN ESCAPE
@@ -639,6 +646,11 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     IEnumerator EscapeDelayer() {
+        
+        if (escapeCoroutineCancelled) {
+            yield break;
+        }
+
         yield return new WaitForSeconds(1.9f);
         gameManager.isFighting = false;
             HideActionButton();
@@ -655,6 +667,12 @@ public class PlayerGridMovement : MonoBehaviour
             gameManager.enemyHPText.gameObject.SetActive(false);
             gameManager.ambushInProgress = false;
     }
+
+    public void CancelEscape() {
+        escapeCoroutineCancelled = true;
+        StopCoroutine(escapeCoroutine);
+    }
+
 
     public void TurnLeft()
     {

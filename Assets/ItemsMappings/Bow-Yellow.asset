@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Bow-Yellow
   m_EditorClassIdentifier: 
   itemName: Bow-Yellow
-  item3DPrefab: {fileID: 8966979738910240259, guid: fc06837729c2845eab23250bfd69ec26, type: 3}
+  item3DPrefab: {fileID: 6810381060677864862, guid: d9e5db625aa37407493f7f9fc5d0d971, type: 3}
   item2DSprite: {fileID: 2800000, guid: c25bccdbb111f46aa928df9b9e09b54d, type: 3}
   ammo: {fileID: 6756616008823049172, guid: e4801310767034094a03772ac1203cb7, type: 3}
   isContainer: 0

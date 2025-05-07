@@ -230,13 +230,14 @@ public class Player : MonoBehaviour
     private void Die()
     {
         Debug.Log("Player Defeated!");
+        playerGridMovement.CancelEscape(); //Stops the Escape coroutine to prevent Die and Escape to happen at the same time.  If the player dies on the last escaping hit the player still dies and may or may not resurrect.
 
         // Only attempt resurrection if both caps are high enough
         if (currentMaxPotentialPhysicalStrength >= 16 
             && currentMaxPotentialSpiritualStrength >= 9)
         {
             // 75% chance to resurrect
-            if (UnityEngine.Random.value <= 0.85f)
+            if (UnityEngine.Random.value <= 0.75f)
             {
                 Resurrect();
                 return;
