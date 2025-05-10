@@ -75,6 +75,12 @@ public class EnemyShootingSpawner : MonoBehaviour
             }
         }
 
+        Debug.Log("Enemy shot " + projectileShot);
+        if (projectileShot.name.Contains("Fireball"))
+            gameManager.PlayFireballSoundEffect();
+        if (projectileShot.name.Contains("Lightning")) 
+            gameManager.PlayThunderSoundEffect();
+
         // Spawn and initialize the projectile
         GameObject projectile = Instantiate(
             projectileShot,

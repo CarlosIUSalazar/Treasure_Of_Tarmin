@@ -46,6 +46,7 @@ using System.Collections;
 
 public class DoorController : MonoBehaviour
 {
+    GameManager gameManager;
     private float liftHeight = 7.0f;
     private float liftSpeed = 5.0f;
     private Vector3 initialPosition;
@@ -61,6 +62,7 @@ public class DoorController : MonoBehaviour
     {
         initialPosition = transform.position;
         targetPosition = initialPosition + new Vector3(0, liftHeight, 0);
+        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
     }
 
     void OnMouseDown()
@@ -100,6 +102,7 @@ public class DoorController : MonoBehaviour
 
     private IEnumerator LiftDoor()
     {
+        gameManager.PlayClickSoundEffect();
         while (Vector3.Distance(transform.position, targetPosition) > 0.1f)
         {
             transform.position = Vector3.MoveTowards(transform.position, targetPosition, liftSpeed * Time.deltaTime);

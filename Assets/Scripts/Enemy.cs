@@ -86,6 +86,8 @@ public class Enemy : MonoBehaviour
 
     // Remove or shrink the random bonus (e.g. 5–10% instead of 5–25%) if you want rock-solid predictability.
 
+        gameManager.PlayPunkSoundEffect();
+
         // 1) Base weapon attack + small random
         float baseDamage  = Mathf.Max(currentPlayerWeapon.warAttackPower,
                                     currentPlayerWeapon.spiritualAttackPower);

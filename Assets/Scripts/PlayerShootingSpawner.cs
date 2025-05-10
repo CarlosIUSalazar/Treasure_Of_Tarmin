@@ -73,6 +73,13 @@ public class PlayerShootingSpawner : MonoBehaviour
                     }
             }
     
+            Debug.Log("Shot prefab is " + currentItemMapping.ammo.name);
+            if (currentItemMapping.ammo.name.Contains("Fireball"))
+                gameManager.PlayFireballSoundEffect();
+            if (currentItemMapping.ammo.name.Contains("Lightning")) 
+                gameManager.PlayThunderSoundEffect();
+
+
             // Instantiate the dart (projectile) with an additional rotation of 220 degrees in Y
             GameObject projectile = Instantiate(
                 currentItemMapping.ammo,

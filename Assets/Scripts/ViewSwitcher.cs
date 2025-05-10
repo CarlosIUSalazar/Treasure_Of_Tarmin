@@ -71,6 +71,6 @@ public class ViewSwitcher : MonoBehaviour
         playerGridMovement.HideActionButton();
         gameManager.SetActiveEnemy(null);  // Clear active enemy
         gameManager.enemyHPText.gameObject.SetActive(false);
-
+        gameManager.PlayGameWinSoundEffect();
     }
 }

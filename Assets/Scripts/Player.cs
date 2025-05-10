@@ -46,7 +46,6 @@ public class Player : MonoBehaviour
     public delegate void OnStatChanged();
     public event OnStatChanged OnPlayerStatsUpdated;
 
-
     void Awake() {
         gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
         inventoryManager = GameObject.Find("GameManager").GetComponent<InventoryManager>();
@@ -132,6 +131,7 @@ public class Player : MonoBehaviour
         physicalStrength = currentMaxPotentialPhysicalStrength;
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
+        gameManager.PlayWhooshSoundEffect();
         OnPlayerStatsUpdated?.Invoke();
     }
 
@@ -194,6 +194,7 @@ public class Player : MonoBehaviour
             gameManager.currentFloor = 1;
         } else {
             gameManager.currentFloor++;
+            gameManager.PlayLadderSoundEffect();
         }        
         OnPlayerStatsUpdated?.Invoke();
     }
@@ -253,7 +254,7 @@ public class Player : MonoBehaviour
     private void Resurrect()
     {
         Debug.Log("Resurrection successful!");
-
+        gameManager.PlayResurrectSoundEffect();
         // 1) Clear out the backpack
         inventoryManager.EmptyBackpack();
 
@@ -352,6 +353,7 @@ public class Player : MonoBehaviour
         /// UPDATED REST MECHANIC.  Fills up first the one you were hit, but if you have food to spare will also try and fill the other stat. Offers better survivability 
         if (!canRest) return;
         
+        gameManager.PlayClickSoundEffect();
         Debug.Log("Player Rested");
         
         // first, restore the pool you were last hit in
@@ -438,7 +440,6 @@ public class Player : MonoBehaviour
     {
         //On enemy mappings:
         //Floor-scaling & color multipliers unchanged: tune mapping.attackPerFloor (e.g. 0.1 for trash, 0.3 elites)
-
 
         // 1) Get the active enemy and its mapping
         Enemy activeEnemy    = gameManager.activeEnemy;

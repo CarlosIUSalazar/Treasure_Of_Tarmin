@@ -104,6 +104,7 @@ public class PlayerAmbushDetection : MonoBehaviour
         if (enemy == null)
             return;
         
+        gameManager.PlayRoarAmbushSoundEffect();
         // Set the global ambush flag so no other ambush triggers.
         gameManager.ambushInProgress = true;
         viewSwitcher.SwitchToGameView();

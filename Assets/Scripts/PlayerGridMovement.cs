@@ -51,8 +51,8 @@ public class PlayerGridMovement : MonoBehaviour
     private Collider lastClickedCollider = null;
     private Coroutine singleClickCoroutine = null;
     private Coroutine escapeCoroutine = null;
+    public Coroutine freeAttackPhaseTimer = null;
     private bool escapeCoroutineCancelled = false;
-
 
     void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
@@ -388,6 +388,9 @@ public class PlayerGridMovement : MonoBehaviour
     public void MoveForward()
     {
         if (isMoving || isRotating)  return; // Prevent movement if already moving or rotating
+        
+        gameManager.PlayClickSoundEffect();
+        
         if (CanMoveForward()) {
             isMoving = true;
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
@@ -481,6 +484,7 @@ public class PlayerGridMovement : MonoBehaviour
             targetPosition = GetSnappedPosition(transform.position + transform.forward * gridSize);
 
             Debug.Log($"Moving forward from {transform.position}");
+            gameManager.PlaySwooshSoundEffect();
 
             // Track movement direction
             Vector3 forwardDir = transform.forward.normalized;
@@ -621,7 +625,7 @@ public class PlayerGridMovement : MonoBehaviour
 
             escapeCoroutineCancelled = false;
             escapeCoroutine = StartCoroutine(EscapeDelayer());
-
+            gameManager.PlayClickSoundEffect();
             
 
             // 50-50 Escape Logic
@@ -679,6 +683,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void TurnLeft()
     {
         if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
+        gameManager.PlayClickSoundEffect();
         isRotating = true;
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
     }
@@ -686,6 +691,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void TurnRight()
     {
         if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
+        gameManager.PlayClickSoundEffect();
         isRotating = true;
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
     }
@@ -936,7 +942,7 @@ public class PlayerGridMovement : MonoBehaviour
 
             // For non-passive enemies, start the free attack phase coroutine
             if (!isPassiveDoor) {
-                StartCoroutine(FreeAttackPhase());
+                freeAttackPhaseTimer = StartCoroutine(FreeAttackPhase());
             }
             
             ShowBackwardButton();
@@ -961,10 +967,11 @@ public class PlayerGridMovement : MonoBehaviour
         }
         
         // Free attack phase expired: enemy wins the initiative
-        if (!gameManager.isPlayersTurn) {
+        if (gameManager.isFighting) {
             gameManager.isFreeAttackPhase = false;
             gameManager.isEnemysTurn = true;
             HideActionButton();
+            gameManager.PlayRoarSoundEffect();
         }
     }
     
@@ -989,6 +996,8 @@ public class PlayerGridMovement : MonoBehaviour
 
     public void MakeMazeSetsTransparent()
     {
+        gameManager.PlayWhooshSoundEffect();
+
         List<GameObject> objectsToModify = new List<GameObject>();
 
         // Find all MazeSet objects

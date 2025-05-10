@@ -4,6 +4,7 @@ using TMPro;
 using System.Collections;
 using System;
 using System.Collections.Generic;
+using UnityEngine.TextCore.LowLevel;
 
 public class GameManager : MonoBehaviour
 {
@@ -43,6 +44,24 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI menuScoreText;
     [SerializeField] private Button mapBackButton;
 
+    [SerializeField] private AudioClip beepClip;  
+    [SerializeField] private AudioClip bombClip;   
+    [SerializeField] private AudioClip clickClip;  
+    [SerializeField] private AudioClip deathClip;   
+    [SerializeField] private AudioClip fireballClip;   
+    [SerializeField] private AudioClip gameWinClip;   
+    [SerializeField] private AudioClip ladderClip;   
+    [SerializeField] private AudioClip punkClip;
+    [SerializeField] private AudioClip resurrectClip;   
+    [SerializeField] private AudioClip roarAmbushClip;   
+    [SerializeField] private AudioClip[] roarClips;   
+    [SerializeField] private AudioClip swooshClip;   
+    [SerializeField] private AudioClip thunderClip;   
+    [SerializeField] private AudioClip whooshClip;      
+    [SerializeField] private AudioClip whooshEndClip;   
+
+    private AudioSource audioSource;
+
     public Enemy activeEnemy;
     private Player player;  
     PlayerGridMovement playerGridMovement;  
@@ -60,6 +79,7 @@ public class GameManager : MonoBehaviour
         //floorManager = GameObject.Find("FloorManager").GetComponent<FloorManager>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
+        audioSource = GetComponent<AudioSource>();
         enemyHPText.gameObject.SetActive(false);
 
         //Subscribe to Player's stat update event
@@ -68,14 +88,18 @@ public class GameManager : MonoBehaviour
         //Update UI Initially
         UpdateUI();
         Debug.Log($"Game started with difficulty: {CurrentDifficulty}");
+        mapBackButton.gameObject.SetActive(false); //Hide this button during the intro sequence
+
         StartCoroutine(ViewMapUponGameStart());
     }
 
 
     IEnumerator ViewMapUponGameStart(){
         viewSwitcher.SwitchToMapAndArmorView();
-        yield return new WaitForSeconds(4f);
+        yield return new WaitForSeconds(3f);
         viewSwitcher.SwitchToGameView();
+        PlayLadderSoundEffect();
+        mapBackButton.gameObject.SetActive(true); //Reenable this back button after initial sequence
     }
 
 
@@ -151,6 +175,7 @@ public void SetActiveEnemy(Enemy enemy)
 
 
     public void GameOverSequence() {
+        PlayDeathSoundEffect();
         mazeGenerator.currentPlayerBlock.playerCursor.transform.localScale = new Vector3 (2,2,2);
         viewSwitcher.SwitchToMapAndArmorView();
         mapBackButton.gameObject.SetActive(false);
@@ -164,6 +189,8 @@ public void SetActiveEnemy(Enemy enemy)
             isSmallPurplePotionActive = true;
         }
         
+        PlayWhooshSoundEffect();
+
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         List<GameObject> nonMinotaurEnemies = new List<GameObject>();
         
@@ -209,7 +236,8 @@ public void SetActiveEnemy(Enemy enemy)
         isSmallPurplePotionActive = false;
         GameObject[] allEnemies = GameObject.FindGameObjectsWithTag("Enemy");
         List<GameObject> nonMinotaurEnemies = new List<GameObject>();
-        
+
+        PlayWhooshEndSoundEffect();    
         //Filter out the Minotaur and EvilDoors if exists on current floor
         for (int i = 0; i < allEnemies.Length; i++) {
             Debug.Log("Enemy #"+i+ " is " + allEnemies[i].name);
@@ -290,6 +318,67 @@ public void SetActiveEnemy(Enemy enemy)
         }
     }
 
+    public void PlayBeepSoundEffect() {  //Error sound
+        audioSource.PlayOneShot(beepClip);
+    }
+
+    public void PlayBombSoundEffect() {  
+        audioSource.PlayOneShot(bombClip);
+    }
+
+    public void PlayClickSoundEffect() { //Door open
+        audioSource.PlayOneShot(clickClip);
+    }
+
+    public void PlayDeathSoundEffect() {
+        audioSource.PlayOneShot(deathClip);
+    }
+
+    public void PlayFireballSoundEffect() {
+        audioSource.PlayOneShot(fireballClip);
+    }
+
+    public void PlayGameWinSoundEffect() {
+        audioSource.PlayOneShot(gameWinClip);
+    }
+
+    public void PlayLadderSoundEffect() {
+        audioSource.PlayOneShot(ladderClip);
+    }
+
+    public void PlayPunkSoundEffect() {
+        audioSource.PlayOneShot(punkClip);
+    }
+
+    public void PlayResurrectSoundEffect() {
+        audioSource.PlayOneShot(resurrectClip);
+    }
+
+    public void PlayRoarAmbushSoundEffect() {
+        audioSource.PlayOneShot(roarAmbushClip);
+    }
+
+    public void PlayRoarSoundEffect() {
+        int randomIndex;
+        randomIndex = UnityEngine.Random.Range(0,roarClips.Length);
+        audioSource.PlayOneShot(roarClips[randomIndex]);
+    }
+
+    public void PlaySwooshSoundEffect() {
+        audioSource.PlayOneShot(swooshClip);
+    }
+
+    public void PlayThunderSoundEffect() {
+        audioSource.PlayOneShot(thunderClip);
+    }
+
+    public void PlayWhooshSoundEffect() {
+        audioSource.PlayOneShot(whooshClip);
+    }
+
+    public void PlayWhooshEndSoundEffect() {
+        audioSource.PlayOneShot(whooshEndClip);
+    }
 }
 
 

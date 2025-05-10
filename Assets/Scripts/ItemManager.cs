@@ -23,6 +23,8 @@ public class ItemManager : MonoBehaviour
 
         GameObject item = hit.collider.gameObject;
 
+        gameManager.PlayClickSoundEffect();
+
         string itemName = item.name.Replace(".vox(Clone)", "").Trim();
         Debug.Log("item is " + item.gameObject.name);
         Debug.Log("Trimmed name is " + itemName);

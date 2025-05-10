@@ -349,6 +349,7 @@ public class InventoryManager : MonoBehaviour
         if (!CheckIfRightHandHasItem()) {
             Debug.Log("Nothing to use");
         } else {
+            gameManager.PlayClickSoundEffect();
             ItemMapping rightHandItem = GetItemMapping(rightHandSlot.texture.name);
             ////////////////////
             // IF ITEM IS ARMOR
@@ -496,6 +497,7 @@ public class InventoryManager : MonoBehaviour
                                 Debug.Log($"Converted {itemName} to {newItemName}");
                                 Destroy(item.gameObject);
                                 Spawn3DItem(newItemName);
+                                gameManager.PlayWhooshSoundEffect();
                             }
                         }
                     }
@@ -516,6 +518,7 @@ public class InventoryManager : MonoBehaviour
                 //Help find better things in containers; magic ends with a little "whoosh" noise
                 Debug.Log("Potion Better Loot enabled");
                 gameManager.isSmallPinkPotionActive = true;
+                gameManager.PlayWhooshSoundEffect();
                 StartCoroutine(DisableSmallPinkPotionEffect());
                 // SWOOSH Sunds effct 
                 EmptyRightHand();
@@ -540,6 +543,7 @@ public class InventoryManager : MonoBehaviour
             IEnumerator DisableSmallPinkPotionEffect() {
                 yield return new WaitForSeconds(300f); //5Minutes
                 gameManager.isSmallPinkPotionActive = false;
+                gameManager.PlayWhooshEndSoundEffect();
                 // SWOOSH Sunds effct 
                 Debug.Log("Potion Better Loot disabled");
             }
@@ -549,22 +553,22 @@ public class InventoryManager : MonoBehaviour
             /////////
             if (rightHandItem.name == "Potion-Large-Blue"){
                 player.IncreasePhysicalScoreBy10WithLargeBluePotion();
+                gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
 
             if (rightHandItem.name == "Potion-Large-Pink"){
                 player.IncreaseSpiritualScoreBy10WithLargePinkPotion();
+                gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
 
             if (rightHandItem.name == "Potion-Large-Purple"){
                 player.ConsumeLargePurplePotion();
+                gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
-            if (rightHandItem.name == "Potion-Large-Blue"){
-                player.IncreasePhysicalScoreBy10WithLargeBluePotion();
-                EmptyRightHand();
-            }
+
 
             ///////////
             ///WAR BOOKS
@@ -664,6 +668,7 @@ public class InventoryManager : MonoBehaviour
         yield return new WaitForSeconds(90f);
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
+        gameManager.PlayWhooshEndSoundEffect();
     }
 
 
