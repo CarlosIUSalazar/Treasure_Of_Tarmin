@@ -669,8 +669,10 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     public void CancelEscape() {
-        escapeCoroutineCancelled = true;
-        StopCoroutine(escapeCoroutine);
+        if (escapeCoroutine != null) {
+            escapeCoroutineCancelled = true;
+            StopCoroutine(escapeCoroutine);
+        }
     }
 
 

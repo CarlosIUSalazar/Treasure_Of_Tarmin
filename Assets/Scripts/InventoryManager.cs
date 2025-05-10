@@ -35,7 +35,6 @@ public class InventoryManager : MonoBehaviour
     GameManager gameManager;
     ItemManager itemManager;
 
-
     public void Start() {
         player = GameObject.Find("Player").GetComponent<Player>();
         viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
@@ -709,6 +708,8 @@ public class InventoryManager : MonoBehaviour
         if (!CheckIfRightHandHasItem())
         {
             AssignToRightHand(itemName, false);
+            ItemMapping pickedUpItem = GetItemMapping(itemName);
+            gameManager.SetPlayerMessage("Picked up " + itemName);
             return;
         }
 
