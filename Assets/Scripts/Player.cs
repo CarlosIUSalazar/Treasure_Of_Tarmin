@@ -144,7 +144,7 @@ public class Player : MonoBehaviour
         } else {
             totalMaxSpiritualStrength += 10;
             currentMaxPotentialPhysicalStrength += 10;
-            physicalStrength += 10;
+            physicalStrength = currentMaxPotentialPhysicalStrength; //Refill all the way up
         }
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
@@ -163,7 +163,7 @@ public class Player : MonoBehaviour
         } else {
             totalMaxSpiritualStrength += 10;
             currentMaxPotentialSpiritualStrength =+ 10;
-            spiritualStrength += 10;
+            spiritualStrength = currentMaxPotentialSpiritualStrength;
         }
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
