@@ -24,7 +24,6 @@ public class GameManager : MonoBehaviour
     public int WarHPBookMultiplier = 1;
     public int SpiritualHPBookMultiplier = 1;
     private int completedFull255MazeFloorLoops = 0;
-
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
     [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI physicalWeaponText;
@@ -71,7 +70,6 @@ public class GameManager : MonoBehaviour
     public bool isSmallPinkPotionActive = false; //Helps find better loot
     public bool isSmallPurplePotionActive = false; //Hides Enemies
     
-
     void Start()
     {
         viewSwitcher = GameObject.Find("ViewSwitcher").GetComponent<ViewSwitcher>();
@@ -109,8 +107,6 @@ public class GameManager : MonoBehaviour
         Debug.Log("GameManager, Current MazeBlock is" + currentMazeBlock);
     }
 
-    void Update()
-    {}
 
     private void UpdateUI() {
         physicalStrengthText.text = $"{player.physicalStrength}";
@@ -147,19 +143,18 @@ public class GameManager : MonoBehaviour
     }
 
 
-public void SetActiveEnemy(Enemy enemy)
-{
-    activeEnemy = enemy;
-    if (enemy == null)
+    public void SetActiveEnemy(Enemy enemy)
     {
-        isFighting = false;
-        ambushInProgress = false; // Reset global ambush flag.
-        playerGridMovement.HideActionButton();
-        isExploring = true;
-        playerGridMovement.ShowDirectionalButtons();
+        activeEnemy = enemy;
+        if (enemy == null)
+        {
+            isFighting = false;
+            ambushInProgress = false; // Reset global ambush flag.
+            playerGridMovement.HideActionButton();
+            isExploring = true;
+            playerGridMovement.ShowDirectionalButtons();
+        }
     }
-}
-
 
 
     public void SetPlayerMessage(String text) {
@@ -231,6 +226,7 @@ public void SetActiveEnemy(Enemy enemy)
         ShowAllEnemies();
         Debug.Log("Purple Small Potion Wears Off!");
     }
+
 
     private void ShowAllEnemies() {
         isSmallPurplePotionActive = false;
