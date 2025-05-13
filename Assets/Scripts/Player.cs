@@ -305,7 +305,6 @@ public class Player : MonoBehaviour
         // Resting.  Resting brings the player current health up towards the current Max Health by using
         // the available food (flour) units
 
-
         //Leveling up
         // This works depending on your last battle.  If your last battle you were hit spiritual and you were hit 3 times, when using flour you can increase your max hp to yur current max + 3
         // There are 2 caps which get increased with the books
@@ -558,8 +557,6 @@ public class Player : MonoBehaviour
         OnPlayerStatsUpdated?.Invoke();
     }
 
-
-
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)
     // {
     //     // Reference the enemy
@@ -598,7 +595,7 @@ public class Player : MonoBehaviour
     //     {
     //         physicalStrength -= finalDamageInt;
     //         lastHitWasWar = true;
-            
+    
     //         int warIncrement = gameManager.WarHPBookMultiplier;
     //         if (currentMaxPotentialPhysicalStrength < currentWarBookCurrentCapHP)
     //         {
@@ -793,7 +790,6 @@ public class Player : MonoBehaviour
     //     }
         
 
-
     //     float rawAttack = baseDamage + bonusDamage;
 
     //     // Choose defense based on attack type
@@ -829,10 +825,6 @@ public class Player : MonoBehaviour
     //     // Trigger UI Update
     //     OnPlayerStatsUpdated?.Invoke();
     // }
-
-
-
-
 
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)
     // {
