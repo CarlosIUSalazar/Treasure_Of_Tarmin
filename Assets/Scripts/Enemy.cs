@@ -65,6 +65,18 @@ public class Enemy : MonoBehaviour
         else { // Tan
             baseHP = Mathf.Max(enemyMapping.baseWarHP, enemyMapping.baseSpiritualHP);
         }
+
+        //REDUCES MINOTAUR HP ON EASIER DIFFICULTIES
+        if (enemyMapping.name.Contains("Minotaur")) {
+            if (floor == 2) { //Very Easy
+                baseHP = baseHP / 4;
+            } else if (floor == 4) { //Normal
+                baseHP = baseHP / 3;
+            } else if (floor == 8) { //Normal
+                baseHP = baseHP / 2;
+            }
+        }
+
         // 3) Add a flat bump per floor
         const float HP_PER_FLOOR = 0.4f;
         float bumpedHP = baseHP + floor * HP_PER_FLOOR;

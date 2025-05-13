@@ -488,17 +488,29 @@ public class Player : MonoBehaviour
         switch (gameManager.CurrentDifficulty)
         {
             case DifficultyLevel.VeryHard:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.75f); //No change
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.90f); //No change
                 break;
             case DifficultyLevel.Hard:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.60f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.80f);
                 break;
             case DifficultyLevel.Normal:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.50f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.70f);
                 break;
             case DifficultyLevel.Easy:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.40f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.60f);
                 break;
+        }
+
+
+        //REDUCES MINOTAUR DAMAGE ON EASIER DIFFICULTIES
+        if (gameManager.activeEnemy.enemyMapping.name.Contains("Minotaur")) {
+            if (gameManager.currentFloor == 2) { //Very Easy
+                finalDamage = finalDamage / 4;
+            } else if (gameManager.currentFloor == 4) { //Normal
+                finalDamage = finalDamage / 3;
+            } else if (gameManager.currentFloor == 8) { //Normal
+                finalDamage = finalDamage / 2;
+            }
         }
 
         // 9) Apply to the correct health pool and still do your HP‐book increment
