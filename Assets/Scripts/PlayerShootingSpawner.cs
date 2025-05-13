@@ -61,6 +61,7 @@ public class PlayerShootingSpawner : MonoBehaviour
                 inventoryManager.rightHandSlot.texture.name.Contains("Crossbow")) {
                     if  (player.arrows <= 0) {// Only shoot if the player has arrows
                         Debug.Log("No Arrows Left!");
+                        gameManager.PlayBeepSoundEffect();
                         gameManager.SetPlayerMessage("No Arrows Left!");
                         playerGridMovement.HideActionButton();
                         gameManager.isPlayersTurn = false; // Switch to the enemy's turn

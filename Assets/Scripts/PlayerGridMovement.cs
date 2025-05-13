@@ -389,7 +389,7 @@ public class PlayerGridMovement : MonoBehaviour
     {
         if (isMoving || isRotating)  return; // Prevent movement if already moving or rotating
         
-        gameManager.PlayClickSoundEffect();
+        //gameManager.PlayClickSoundEffect();
         
         if (CanMoveForward()) {
             isMoving = true;
@@ -670,6 +670,7 @@ public class PlayerGridMovement : MonoBehaviour
             canBackStep = false;
             gameManager.enemyHPText.gameObject.SetActive(false);
             gameManager.ambushInProgress = false;
+            gameManager.SetActiveEnemy(null);  // Clear active enemy
     }
 
     public void CancelEscape() {
@@ -683,7 +684,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void TurnLeft()
     {
         if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
-        gameManager.PlayClickSoundEffect();
+        //gameManager.PlayClickSoundEffect();
         isRotating = true;
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y - 90, 0);
     }
@@ -691,7 +692,7 @@ public class PlayerGridMovement : MonoBehaviour
     public void TurnRight()
     {
         if (isMoving || isRotating) return; // Prevent rotation if already moving or rotating
-        gameManager.PlayClickSoundEffect();
+        //gameManager.PlayClickSoundEffect();
         isRotating = true;
         targetRotation = Quaternion.Euler(0, transform.eulerAngles.y + 90, 0);
     }

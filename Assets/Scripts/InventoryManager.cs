@@ -541,7 +541,7 @@ public class InventoryManager : MonoBehaviour
             }
 
             IEnumerator DisableSmallPinkPotionEffect() {
-                yield return new WaitForSeconds(300f); //5Minutes
+                yield return new WaitForSeconds(600f); //10Minutes
                 gameManager.isSmallPinkPotionActive = false;
                 gameManager.PlayWhooshEndSoundEffect();
                 // SWOOSH Sunds effct 
@@ -563,6 +563,15 @@ public class InventoryManager : MonoBehaviour
                 EmptyRightHand();
             }
 
+            /////
+            /// Large Puruple Potions: This one will swap some HP from War to Spiritual or 
+            // vise versa to reduce a gap between the 2 HP scores if there is one. Note that 
+            // sometimes they hinder your HP instead of helping. Make sure that your HP 
+            // scores are both realitively high before using this.
+//Large Purple: Swap war/spiritual health ratios (uses one turn in battle):
+//  - values are found from war/199 and spiritual/99
+//  - ie: if your health is 100/40, this is 100/199 war and 40/99 spiritual... about 50% and 40% respectively.  
+//   This potion swaps these percentages, changing your health to 40% and 50%... about 80/50.
             if (rightHandItem.name == "Potion-Large-Purple"){
                 player.ConsumeLargePurplePotion();
                 gameManager.PlayWhooshSoundEffect();
@@ -665,7 +674,7 @@ public class InventoryManager : MonoBehaviour
 
 
     private IEnumerator TimerToEndTransparentMaze() {
-        yield return new WaitForSeconds(90f);
+        yield return new WaitForSeconds(300f); //5 mins
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
         gameManager.PlayWhooshEndSoundEffect();

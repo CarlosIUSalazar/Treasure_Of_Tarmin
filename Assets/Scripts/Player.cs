@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -128,7 +129,9 @@ public class Player : MonoBehaviour
 
 
     public void RestoreMaxPhysicalStrengthWithSmallBluePotion() {
+        //Restores both Physical and Spiritual
         physicalStrength = currentMaxPotentialPhysicalStrength;
+        spiritualStrength = currentMaxPotentialSpiritualStrength;
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
         gameManager.PlayWhooshSoundEffect();
@@ -142,13 +145,13 @@ public class Player : MonoBehaviour
             currentMaxPotentialPhysicalStrength = 199;
             physicalStrength = 199;
         } else {
-            totalMaxSpiritualStrength += 10;
+            //totalMaxSpiritualStrength += 10;
             currentMaxPotentialPhysicalStrength += 10;
             physicalStrength = currentMaxPotentialPhysicalStrength; //Refill all the way up
         }
         gameManager.isPlayersTurn = false;
         gameManager.isEnemysTurn = true;
-        Debug.Log("totalMaxPhysicalStrength is " + totalMaxSpiritualStrength);
+        Debug.Log("totalMaxPhysicalStrength is " + totalMaxPhysicalStrength);
         Debug.Log("CurrentMaxPhysicalStrength is " + currentMaxPotentialPhysicalStrength);
 
         OnPlayerStatsUpdated?.Invoke();
@@ -161,8 +164,8 @@ public class Player : MonoBehaviour
             currentMaxPotentialSpiritualStrength = 99;
             spiritualStrength = 99;
         } else {
-            totalMaxSpiritualStrength += 10;
-            currentMaxPotentialSpiritualStrength =+ 10;
+            //totalMaxSpiritualStrength += 10;
+            currentMaxPotentialSpiritualStrength += 10;
             spiritualStrength = currentMaxPotentialSpiritualStrength;
         }
         gameManager.isPlayersTurn = false;
@@ -452,7 +455,7 @@ public class Player : MonoBehaviour
         float rawAttack  = baseAttack * mapping.colorMultiplier;
 
         // 3) (Optional) tiny random variation—disabled for predictability
-        float rnd = Random.Range(rawAttack * 0.00f, rawAttack * 0.03f);
+        float rnd = UnityEngine.Random.Range(rawAttack * 0.00f, rawAttack * 0.03f);
         rawAttack += rnd;
 
         // 4) Pick the correct defense stat
@@ -485,16 +488,16 @@ public class Player : MonoBehaviour
         switch (gameManager.CurrentDifficulty)
         {
             case DifficultyLevel.VeryHard:
-                finalDamage = finalDamage * 1; //No change
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.75f); //No change
                 break;
             case DifficultyLevel.Hard:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.80f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.60f);
                 break;
             case DifficultyLevel.Normal:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.70f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.50f);
                 break;
             case DifficultyLevel.Easy:
-                finalDamage = Mathf.FloorToInt(finalDamage * 0.60f);
+                finalDamage = Mathf.FloorToInt(finalDamage * 0.40f);
                 break;
         }
 
@@ -673,34 +676,73 @@ public class Player : MonoBehaviour
 
     public void ConsumeLargePurplePotion()
     {
+    //Large Purple: Swap war/spiritual health ratios (uses one turn in battle):
+    //  - values are found from war/199 and spiritual/99
+    //  - ie: if your health is 100/40, this is 100/199 war and 40/99 spiritual... about 50% and 40% respectively.  
+    //   This potion swaps these percentages, changing your health to 40% and 50%... about 80/50.
+
+        float currentPhysicalPercentageFromMax;
+        float currentSpiritualPercentageFromMax;
+
+        int atCalculationCurrentMaxPotentialPhysicalStrength = currentMaxPotentialPhysicalStrength;
+        int atCalculationCurrentMaxPotentialSpiritualStrength = currentMaxPotentialSpiritualStrength;
+        // What percentage is 100 of 199
+        // 199  100%
+        // 100   X    (100 X 100 / 199) = 50.25
+        // Then calculate 50.25% of 99 (Spiritual) and assign to SpiritualCurrentMax
+        // 50.25% of 99 = 49.74 Ronund to 50
+        Debug.Log("currentMaxPotentialSpiritualStrength" + currentMaxPotentialSpiritualStrength);
+        currentPhysicalPercentageFromMax = (atCalculationCurrentMaxPotentialPhysicalStrength * 100) / 199; //199
+        currentMaxPotentialSpiritualStrength = (int)Math.Round(99 * (currentPhysicalPercentageFromMax/100));
+        Debug.Log("currentMaxPotentialSpiritualStrength" + currentMaxPotentialSpiritualStrength);
+        Debug.Log("currentPhysicalPercentageFromMax" + currentPhysicalPercentageFromMax);
+        Debug.Log("currentMaxPotentialPhysicalStrength" + currentMaxPotentialPhysicalStrength);
+        //Max HPs to current new max:
+        spiritualStrength = currentMaxPotentialSpiritualStrength;
+
+        // What percentage is 40 of 99
+        //  99  100%
+        //  40  x    (40 x 100 / 99) = 40.40%
+        //  Then calculate 40.0% of 199 (Physical) and assign to PhysicalCurrentMax
+        // 40.4% of 199 = 80.40 rounds to 80   
+        Debug.Log("currentMaxPotentialPhysicalStrength" + currentMaxPotentialPhysicalStrength);
+        currentSpiritualPercentageFromMax = (atCalculationCurrentMaxPotentialSpiritualStrength * 100) / 99; //99
+        currentMaxPotentialPhysicalStrength = (int)Math.Round(199 * (currentSpiritualPercentageFromMax/100));
+        Debug.Log("currentMaxPotentialPhysicalStrength" + currentMaxPotentialPhysicalStrength);
+        Debug.Log("currentSpiritualPercentageFromMax" + currentSpiritualPercentageFromMax);
+        Debug.Log("currentMaxPotentialSpiritualStrength" + currentMaxPotentialSpiritualStrength);
+        //Max HPs to current new max:
+        physicalStrength = currentMaxPotentialPhysicalStrength;
+        
+        // OLD WRONG WAY
         // If War > Spirit: halve War, add half of *that* loss to Spirit
-        if (physicalStrength > spiritualStrength)
-        {
-            int warLost    = physicalStrength / 2;      // integer division rounds down
-            physicalStrength -= warLost;
-            int spiritGain = warLost / 2;              // half of what was lost
-            spiritualStrength = Mathf.Min(
-                currentMaxPotentialSpiritualStrength,
-                spiritualStrength + spiritGain
-            );
-            Debug.Log($"Purple potion: War→Spirit: War lost {warLost}, Spirit gained {spiritGain}");
-        }
-        // Else if Spirit > War: halve Spirit, add double that loss to War
-        else if (spiritualStrength > physicalStrength)
-        {
-            int spiritLost = spiritualStrength / 2;
-            spiritualStrength -= spiritLost;
-            int warGain    = spiritLost * 2;           // double what was lost
-            physicalStrength = Mathf.Min(
-                currentMaxPotentialPhysicalStrength,
-                physicalStrength + warGain
-            );
-            Debug.Log($"Purple potion: Spirit→War: Spirit lost {spiritLost}, War gained {warGain}");
-        }
-        else
-        {
-            Debug.Log("Purple potion: pools equal, no change");
-        }
+        // if (physicalStrength > spiritualStrength)
+        // {
+        //     int warLost    = physicalStrength / 2;      // integer division rounds down
+        //     physicalStrength -= warLost;
+        //     int spiritGain = warLost / 2;              // half of what was lost
+        //     spiritualStrength = Mathf.Min(
+        //         currentMaxPotentialSpiritualStrength,
+        //         spiritualStrength + spiritGain
+        //     );
+        //     Debug.Log($"Purple potion: War→Spirit: War lost {warLost}, Spirit gained {spiritGain}");
+        // }
+        // // Else if Spirit > War: halve Spirit, add double that loss to War
+        // else if (spiritualStrength > physicalStrength)
+        // {
+        //     int spiritLost = spiritualStrength / 2;
+        //     spiritualStrength -= spiritLost;
+        //     int warGain    = spiritLost * 2;           // double what was lost
+        //     physicalStrength = Mathf.Min(
+        //         currentMaxPotentialPhysicalStrength,
+        //         physicalStrength + warGain
+        //     );
+        //     Debug.Log($"Purple potion: Spirit→War: Spirit lost {spiritLost}, War gained {warGain}");
+        // }
+        // else
+        // {
+        //     Debug.Log("Purple potion: pools equal, no change");
+        // }
 
         // Drinking takes your turn
         gameManager.isPlayersTurn = false;

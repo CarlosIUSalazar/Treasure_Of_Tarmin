@@ -227,9 +227,9 @@ public void SetActiveEnemy(Enemy enemy)
 
 
     IEnumerator PurplePotionTimer() { //After Small Purple Potion wears off
-        yield return new WaitForSeconds(8f); 
+        yield return new WaitForSeconds(300f); 
         ShowAllEnemies();
-        Debug.Log("Purple Small Potion WearsOff!");
+        Debug.Log("Purple Small Potion Wears Off!");
     }
 
     private void ShowAllEnemies() {
