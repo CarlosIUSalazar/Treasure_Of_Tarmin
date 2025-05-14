@@ -198,7 +198,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3588486699552315495, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 50
+      value: 50.06
       objectReference: {fileID: 0}
     - target: {fileID: 3588486699552315495, guid: 9439f73675387464aa4bcb2b59c76eae, type: 3}
       propertyPath: m_LocalRotation.w
@@ -864,7 +864,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48.428772
+      value: 48.35
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1122,6 +1122,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029138899974954747}
     m_Modifications:
+    - target: {fileID: 105579481457217854, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 4.954
+      objectReference: {fileID: 0}
     - target: {fileID: 6310961315995585655, guid: c25526316abad42e8990e9e59926780e, type: 3}
       propertyPath: m_Name
       value: NormalWallLight (1)
@@ -1748,6 +1752,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029138899974954747}
     m_Modifications:
+    - target: {fileID: 105579481457217854, guid: c25526316abad42e8990e9e59926780e, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 2.6
+      objectReference: {fileID: 0}
     - target: {fileID: 6310961315995585655, guid: c25526316abad42e8990e9e59926780e, type: 3}
       propertyPath: m_Name
       value: NormalWallLight (8)
@@ -2456,6 +2464,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1029138899974954747}
     m_Modifications:
+    - target: {fileID: 88012026260867916, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.0006
+      objectReference: {fileID: 0}
     - target: {fileID: 8849802475566977004, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_Name
       value: DoorWallDark (2)
@@ -2478,7 +2490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48.428772
+      value: 48.31
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2614,7 +2626,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.06
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalPosition.z
@@ -3108,7 +3120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 48.428772
+      value: 48.23
       objectReference: {fileID: 0}
     - target: {fileID: 9146451320418603050, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_LocalRotation.w
@@ -3384,7 +3396,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7470948409766756534, guid: 59d127d82702c451594fb06fd98ea207, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -0.039
       objectReference: {fileID: 0}
     - target: {fileID: 7470948409766756534, guid: 59d127d82702c451594fb06fd98ea207, type: 3}
       propertyPath: m_LocalPosition.z
