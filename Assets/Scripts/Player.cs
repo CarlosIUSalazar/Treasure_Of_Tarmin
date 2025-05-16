@@ -207,19 +207,30 @@ public class Player : MonoBehaviour
         if (arrows < 0) {
             arrows = 0;
         }
+        if (arrows + amount >= 99) {
+            arrows = 99;
+        }
         Debug.Log($"Arrows Left = {arrows}");
         OnPlayerStatsUpdated?.Invoke();
     }
 
 
     public void ModifyFood(int amount) {
-        food += amount;
+        if (food + amount >= 99) {
+            food = 99;
+        } else {
+            food += amount;
+        }
         OnPlayerStatsUpdated?.Invoke();
     }
 
 
     public void ModifyScore(int amount) {
-        score += amount;
+        if (score + amount >= 327670) {
+            score = 327670;
+        } else {
+            score += amount;
+        }
         OnPlayerStatsUpdated?.Invoke();
     }
 
@@ -235,7 +246,6 @@ public class Player : MonoBehaviour
     {
         Debug.Log("Player Defeated!");
         playerGridMovement.CancelEscape(); //Stops the Escape coroutine to prevent Die and Escape to happen at the same time.  If the player dies on the last escaping hit the player still dies and may or may not resurrect.
-
         // Only attempt resurrection if both caps are high enough
         if (currentMaxPotentialPhysicalStrength >= 16 
             && currentMaxPotentialSpiritualStrength >= 9)
