@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Flour
   m_EditorClassIdentifier: 
   itemName: Flour
+  userItemName: Food
   item3DPrefab: {fileID: 4581801312023354261, guid: 090670b2b47f94f82934145d3e71add8, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
   isTreasure: 0
@@ -24,6 +29,7 @@ MonoBehaviour:
   isFlour: 1
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -31,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

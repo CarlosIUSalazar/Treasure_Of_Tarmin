@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spell-Book-Pink
   m_EditorClassIdentifier: 
   itemName: Spell-Book-Pink
+  userItemName: Rare Spell Book
   item3DPrefab: {fileID: 1750110910666076061, guid: 74397cdfe93f0415a8db76870d5eab02, type: 3}
   item2DSprite: {fileID: 2800000, guid: 80b19d585ac9e434ca3d104ddebe5577, type: 3}
   ammo: {fileID: 6233843619771494365, guid: b4c3eca7d545a4c70b39eb0e659cbea2, type: 3}

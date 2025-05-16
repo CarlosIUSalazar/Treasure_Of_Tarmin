@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Crossbow-Blue
   m_EditorClassIdentifier: 
   itemName: Crossbow-Blue
+  userItemName: Steel Crossbow
   item3DPrefab: {fileID: 5445452803626528428, guid: da41617f070654b7abe2ef60846045c2, type: 3}
   item2DSprite: {fileID: 2800000, guid: a49d0a5d2287a422799b535e1b347908, type: 3}
   ammo: {fileID: 7597464235342884792, guid: 7aabb6e00b7e84371bbaf5c73f33df78, type: 3}

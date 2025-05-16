@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Lightning-Small-Red
   m_EditorClassIdentifier: 
   itemName: Lightning-Small-Red
+  userItemName: Epic Lightning Small
   item3DPrefab: {fileID: 3669482998200911138, guid: 0a4109d7fc9e24d459f4c06a2c8c1ef8, type: 3}
   item2DSprite: {fileID: 2800000, guid: 5035dc77fe15346a89cf9da7c5c8872a, type: 3}
   ammo: {fileID: 3669482998200911138, guid: 0a4109d7fc9e24d459f4c06a2c8c1ef8, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 33
   warDefense: 0

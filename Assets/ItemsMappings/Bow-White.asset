@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bow-White
   m_EditorClassIdentifier: 
   itemName: Bow-White
+  userItemName: Platinum Bow
   item3DPrefab: {fileID: 7146856295605041229, guid: 80fc115bd9eb34769904b5248e5e67ec, type: 3}
   item2DSprite: {fileID: 2800000, guid: aab4ee3cd10d74042911e8aa539edaf5, type: 3}
   ammo: {fileID: 6074387981640591998, guid: 5167b2aff4f95480d81c558dc1bab03b, type: 3}

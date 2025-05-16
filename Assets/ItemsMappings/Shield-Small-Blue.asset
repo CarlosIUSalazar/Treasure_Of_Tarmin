@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shield-Small-Blue
   m_EditorClassIdentifier: 
   itemName: Shield-Small-Blue
+  userItemName: Steel Small Shield
   item3DPrefab: {fileID: 7378199126980655816, guid: 0d88788944da14ebeb32a707f932b236, type: 3}
   item2DSprite: {fileID: 2800000, guid: 5b4aed3e13bab407fb5a41c2542071b6, type: 3}
   ammo: {fileID: 0}

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spell-Book-Purple
   m_EditorClassIdentifier: 
   itemName: Spell-Book-Purple
+  userItemName: Legendary Spell Book
   item3DPrefab: {fileID: 1096498210097460157, guid: a89d8d2b1639841d880f4158c2a0f954, type: 3}
   item2DSprite: {fileID: 2800000, guid: c45bb87d58bb24ae68ffa7c514fb7144, type: 3}
   ammo: {fileID: 3977643026662185120, guid: 73ead4fc7dbb0467d8c719786d6da76b, type: 3}

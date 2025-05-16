@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Helmet-Blue
   m_EditorClassIdentifier: 
   itemName: Helmet-Blue
+  userItemName: Steel Helmet
   item3DPrefab: {fileID: 3548306916890351129, guid: f4e7a6e100f68414aaa3043d261b36a8, type: 3}
   item2DSprite: {fileID: 2800000, guid: 5ddf2afb947a144eb934d4d580302f6c, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 1
   isBreastPlate: 0
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 6

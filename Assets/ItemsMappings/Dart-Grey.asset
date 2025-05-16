@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Dart-Grey
   m_EditorClassIdentifier: 
   itemName: Dart-Grey
+  userItemName: Silver Dart
   item3DPrefab: {fileID: 7746456183533234253, guid: 1778bedaba4e744808acec99e07b0c43, type: 3}
   item2DSprite: {fileID: 2800000, guid: 8aafda44cc73c462ab135ec2e4eab423, type: 3}
   ammo: {fileID: 7746456183533234253, guid: 1778bedaba4e744808acec99e07b0c43, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 1
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 42
   spiritualAttackPower: 0
   warDefense: 0

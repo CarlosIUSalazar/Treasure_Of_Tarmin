@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Lightning-Large-Red
   m_EditorClassIdentifier: 
   itemName: Lightning-Large-Red
+  userItemName: Epic Lightning Large
   item3DPrefab: {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}
   item2DSprite: {fileID: 2800000, guid: e9bc73529de2040598b9b62c0691be20, type: 3}
   ammo: {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 55
   warDefense: 0

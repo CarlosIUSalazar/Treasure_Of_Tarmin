@@ -13,11 +13,31 @@ MonoBehaviour:
   m_Name: Shield-Large-Grey
   m_EditorClassIdentifier: 
   itemName: Shield-Large-Grey
+  userItemName: Silver Large Shield
   item3DPrefab: {fileID: 3309542191108171357, guid: 22b6fd48abb2c4691bae41a49b717b39, type: 3}
   item2DSprite: {fileID: 2800000, guid: b46ef4997d36e48ffa70845edfc07822, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 1
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 22

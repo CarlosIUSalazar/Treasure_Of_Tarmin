@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Helmet-Yellow
   m_EditorClassIdentifier: 
   itemName: Helmet-Yellow
+  userItemName: Gold Helmet
   item3DPrefab: {fileID: 7403697300056952613, guid: b2d52d2c5e37f4f5cb0c2adc9efbe9bb, type: 3}
   item2DSprite: {fileID: 2800000, guid: 71eb3d3e5ae0047caabd95e843aeeab6, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 1
   isBreastPlate: 0
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 12

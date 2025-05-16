@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Chest-Blue
   m_EditorClassIdentifier: 
   itemName: Chest-Blue
+  userItemName: Epic Chest
   item3DPrefab: {fileID: 8320289708415619571, guid: 08298c2f4a20646e8a1c2c0d774b6ab5, type: 3}
   item2DSprite: {fileID: 2800000, guid: 7ae5cfd14a93a459f80f6b75095e8c85, type: 3}
   ammo: {fileID: 8320289708415619571, guid: 08298c2f4a20646e8a1c2c0d774b6ab5, type: 3}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bag-Large-Orange
   m_EditorClassIdentifier: 
   itemName: Bag-Large-Orange
+  userItemName: Rare Large Bag
   item3DPrefab: {fileID: 5127303680511844583, guid: 83451ffd8bd604a93abe7e981cee9162, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1f3815f83dc564304bd1b8c5604fe13f, type: 3}
   ammo: {fileID: 5127303680511844583, guid: 83451ffd8bd604a93abe7e981cee9162, type: 3}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Spear-Tan
   m_EditorClassIdentifier: 
   itemName: Spear-Tan
+  userItemName: Wooden Spear
   item3DPrefab: {fileID: 7021716755095671247, guid: fe466d4cfab0b4ede84b0926280cddd3, type: 3}
   item2DSprite: {fileID: 2800000, guid: 734c3489e272646e7ac37deea598ae52, type: 3}
   ammo: {fileID: 7021716755095671247, guid: fe466d4cfab0b4ede84b0926280cddd3, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 1
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 27
   spiritualAttackPower: 0
   warDefense: 0

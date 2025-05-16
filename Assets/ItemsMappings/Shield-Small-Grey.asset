@@ -13,11 +13,31 @@ MonoBehaviour:
   m_Name: Shield-Small-Grey
   m_EditorClassIdentifier: 
   itemName: Shield-Small-Grey
+  userItemName: Silver Small Shield
   item3DPrefab: {fileID: 1918011263954045359, guid: 8b442d11f3b0a4918a3cd1ae681d7871, type: 3}
   item2DSprite: {fileID: 2800000, guid: 46225c4dec64e4880bdf7ee918b74ceb, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 1
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 14

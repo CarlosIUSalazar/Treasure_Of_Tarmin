@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Scroll-Blue
   m_EditorClassIdentifier: 
   itemName: Scroll-Blue
+  userItemName: Lesser Scroll
   item3DPrefab: {fileID: 4596947908360675766, guid: 668a02eb8151a4eddba494b801b1fc6c, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1e4fc5ed7b7ae4c29acbb8e75fe156d9, type: 3}
   ammo: {fileID: 786704032597579913, guid: e6c43b1340941430584f9ba0b1742671, type: 3}

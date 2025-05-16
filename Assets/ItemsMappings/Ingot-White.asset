@@ -13,15 +13,23 @@ MonoBehaviour:
   m_Name: Ingot-White
   m_EditorClassIdentifier: 
   itemName: Ingot-White
+  userItemName: Platinum Ingot
   item3DPrefab: {fileID: 4901111702337165543, guid: 33da4c4d46b0f4a7d85d516a2d3928aa, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
   isTreasure: 1
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -29,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

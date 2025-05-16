@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Key-Orange
   m_EditorClassIdentifier: 
   itemName: Key-Orange
+  userItemName: Rare Key
   item3DPrefab: {fileID: 6169472635388932932, guid: d9d7104f9932b4bb9854963fe9952b15, type: 3}
   item2DSprite: {fileID: 2800000, guid: 219a9bd75f2b142bfbce5ebe9e605f45, type: 3}
   ammo: {fileID: 0}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 1
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

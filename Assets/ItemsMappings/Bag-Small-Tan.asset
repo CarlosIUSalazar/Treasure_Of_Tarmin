@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bag-Small-Tan
   m_EditorClassIdentifier: 
   itemName: Bag-Small-Tan
+  userItemName: Lesser Small Bag
   item3DPrefab: {fileID: 7478974127869072872, guid: 5d541bc578eaf41528180055350ff5b8, type: 3}
   item2DSprite: {fileID: 2800000, guid: 85de041c9b8f34d15a2020cdff37e9b2, type: 3}
   ammo: {fileID: 7478974127869072872, guid: 5d541bc578eaf41528180055350ff5b8, type: 3}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

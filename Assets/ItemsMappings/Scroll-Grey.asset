@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Scroll-Grey
   m_EditorClassIdentifier: 
   itemName: Scroll-Grey
+  userItemName: Common Scroll
   item3DPrefab: {fileID: 4460994460046684715, guid: da8c090b88b6c48ae8b783e8d8e925ef, type: 3}
   item2DSprite: {fileID: 2800000, guid: 76e970cf4b5044c2ebcb492e7c74423a, type: 3}
   ammo: {fileID: 7765118638121681247, guid: d95db25e8315d458e971d610f6190af7, type: 3}

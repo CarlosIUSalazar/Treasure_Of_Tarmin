@@ -13,5 +13,32 @@ MonoBehaviour:
   m_Name: Book-War-Purple
   m_EditorClassIdentifier: 
   itemName: Book-War-Purple
+  userItemName: Epic War Book
   item3DPrefab: {fileID: 7622471560296253822, guid: 095a0e32102644040be827dc8845feec, type: 3}
   item2DSprite: {fileID: 2800000, guid: 2e221c30194e84bc08a497d65f0ae5ac, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
+  isShield: 0
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

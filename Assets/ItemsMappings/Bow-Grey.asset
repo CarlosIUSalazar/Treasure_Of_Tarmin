@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Bow-Grey
   m_EditorClassIdentifier: 
   itemName: Bow-Grey
+  userItemName: Wooden Bow
   item3DPrefab: {fileID: 4279139332737140206, guid: 4f36c8eec301846f7b477292c70c5e91, type: 3}
   item2DSprite: {fileID: 2800000, guid: 4cb8f65a7ebbb4b379b6543a89523c43, type: 3}
   ammo: {fileID: 7746456183533234253, guid: 1778bedaba4e744808acec99e07b0c43, type: 3}

@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Ring-Small-White
   m_EditorClassIdentifier: 
   itemName: Ring-Small-White
+  userItemName: Uncommon Small Ring
   item3DPrefab: {fileID: 7641978978966029711, guid: eaf9370eae023494e9db47b24d36a986, type: 3}
   item2DSprite: {fileID: 2800000, guid: f8bbc698126fa4d0aba82f82018667b1, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 1
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 7

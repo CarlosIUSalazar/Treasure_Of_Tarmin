@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Pack-Tan
   m_EditorClassIdentifier: 
   itemName: Pack-Tan
+  userItemName: Lesser Pack
   item3DPrefab: {fileID: 4597443083171209021, guid: 6d298bdfce3dd42feb97b6d95fe022b4, type: 3}
   item2DSprite: {fileID: 2800000, guid: 58fa284e83b9b4d0a9233c4d40bc9d87, type: 3}
   ammo: {fileID: 4597443083171209021, guid: 6d298bdfce3dd42feb97b6d95fe022b4, type: 3}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

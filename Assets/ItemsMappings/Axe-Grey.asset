@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Axe-Grey
   m_EditorClassIdentifier: 
   itemName: Axe-Grey
+  userItemName: Silver Axe
   item3DPrefab: {fileID: 36085372610182715, guid: 434c2da748b2848bd827190a9ca4d25d, type: 3}
   item2DSprite: {fileID: 2800000, guid: 5420dc332abe9461ba256a30dc779f75, type: 3}
   ammo: {fileID: 36085372610182715, guid: 434c2da748b2848bd827190a9ca4d25d, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 1
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 36
   spiritualAttackPower: 0
   warDefense: 0

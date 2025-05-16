@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Lightning-Small-Blue
   m_EditorClassIdentifier: 
   itemName: Lightning-Small-Blue
+  userItemName: Lesser Lightning Small
   item3DPrefab: {fileID: 5919541258860438190, guid: b4231559ca0ab460ab871342ae9ac349, type: 3}
   item2DSprite: {fileID: 2800000, guid: 1fa2e80b4cb3f4359b787a9aeafedd81, type: 3}
   ammo: {fileID: 5919541258860438190, guid: b4231559ca0ab460ab871342ae9ac349, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 9
   warDefense: 0

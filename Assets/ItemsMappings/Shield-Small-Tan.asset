@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shield-Small-Tan
   m_EditorClassIdentifier: 
   itemName: Shield-Small-Tan
+  userItemName: Wooden Small Shield
   item3DPrefab: {fileID: 8780700839347342197, guid: fd8e8efe13a1549e09a9d0b02fc825fc, type: 3}
   item2DSprite: {fileID: 2800000, guid: a9f7966bec3ed4734b224d01c4578135, type: 3}
   ammo: {fileID: 0}

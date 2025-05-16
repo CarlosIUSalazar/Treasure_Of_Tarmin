@@ -13,15 +13,23 @@ MonoBehaviour:
   m_Name: Lamp-Grey
   m_EditorClassIdentifier: 
   itemName: Lamp-Grey
+  userItemName: Silver Lamp
   item3DPrefab: {fileID: 2418823952320784115, guid: 1f982ee0e36ce4c0ca3cccfbe37a25fa, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
   isTreasure: 1
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -29,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

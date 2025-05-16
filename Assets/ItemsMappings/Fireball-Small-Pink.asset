@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Fireball-Small-Pink
   m_EditorClassIdentifier: 
   itemName: Fireball-Small-Pink
+  userItemName: Rare Small Fireball
   item3DPrefab: {fileID: 6001020120728717830, guid: 0b1aa02807c1f42808be75b5d30ad81d, type: 3}
   item2DSprite: {fileID: 2800000, guid: bf85d4dbc59524292862dfdef256c4f4, type: 3}
   ammo: {fileID: 6001020120728717830, guid: 0b1aa02807c1f42808be75b5d30ad81d, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 23
   warDefense: 0

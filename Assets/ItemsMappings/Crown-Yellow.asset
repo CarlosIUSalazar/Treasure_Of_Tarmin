@@ -13,15 +13,23 @@ MonoBehaviour:
   m_Name: Crown-Yellow
   m_EditorClassIdentifier: 
   itemName: Crown-Yellow
+  userItemName: Gold Crown
   item3DPrefab: {fileID: 6483019307632198852, guid: 6ee33cc2f8d944baabe7f5d7ae038fec, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
   isTreasure: 1
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -29,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

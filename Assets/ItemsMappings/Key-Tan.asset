@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Key-Tan
   m_EditorClassIdentifier: 
   itemName: Key-Tan
+  userItemName: Lesser Key
   item3DPrefab: {fileID: 1938851546418810597, guid: c14f0403c0efd46028327ea1ea111479, type: 3}
   item2DSprite: {fileID: 2800000, guid: 7c0287932ed6649c5a98e6ba47dd6dde, type: 3}
   ammo: {fileID: 0}
@@ -28,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -35,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 1
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

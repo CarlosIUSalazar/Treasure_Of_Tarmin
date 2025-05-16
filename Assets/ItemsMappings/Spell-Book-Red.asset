@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Spell-Book-Red
   m_EditorClassIdentifier: 
   itemName: Spell-Book-Red
+  userItemName: Epic Spell Book
   item3DPrefab: {fileID: 1284919927926129152, guid: 1011c8dc0bf03490cbdec567b1030bdf, type: 3}
   item2DSprite: {fileID: 2800000, guid: 53b9738b0e8e74508b8d902a56b6f203, type: 3}
   ammo: {fileID: 2540364331377957749, guid: 86380ea49bae1473a8349d95c452c312, type: 3}

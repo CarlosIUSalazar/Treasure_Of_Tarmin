@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Potion-Small-Purple
   m_EditorClassIdentifier: 
   itemName: Potion-Small-Purple
+  userItemName: Small Purple Potion
   item3DPrefab: {fileID: 743985162397943594, guid: 9d23cee0841a9498cbb4c4e205ec253f, type: 3}
   item2DSprite: {fileID: 2800000, guid: dbac4290203c9421099052968caff1b8, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 1
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0

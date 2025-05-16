@@ -13,5 +13,32 @@ MonoBehaviour:
   m_Name: Book-Spiritual-Blue
   m_EditorClassIdentifier: 
   itemName: Book-Spiritual-Blue
+  userItemName: Lesser Spiritual Book
   item3DPrefab: {fileID: 2482294192839035330, guid: 9882b71e94b904a579349d32a695534b, type: 3}
   item2DSprite: {fileID: 2800000, guid: ac9a9baf7414b4b89945a80b6fbd5432, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
+  isShield: 0
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

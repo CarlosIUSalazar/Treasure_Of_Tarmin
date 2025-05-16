@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Lightning-Small-Pink
   m_EditorClassIdentifier: 
   itemName: Lightning-Small-Pink
+  userItemName: Rare Lightning Small
   item3DPrefab: {fileID: 2013073610343398100, guid: ed90de8ad1cc3478c90b519856a9184c, type: 3}
   item2DSprite: {fileID: 2800000, guid: 2359a5f4378bc4044af0f6516cbad16e, type: 3}
   ammo: {fileID: 2013073610343398100, guid: ed90de8ad1cc3478c90b519856a9184c, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 23
   warDefense: 0

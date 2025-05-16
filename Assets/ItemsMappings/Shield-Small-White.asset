@@ -13,11 +13,31 @@ MonoBehaviour:
   m_Name: Shield-Small-White
   m_EditorClassIdentifier: 
   itemName: Shield-Small-White
+  userItemName: Platinum Small Shield
   item3DPrefab: {fileID: 8748351364895998418, guid: 4c1d948cbd44e471692795b33bb423b1, type: 3}
   item2DSprite: {fileID: 2800000, guid: 2ff65da1eca9e4fd79eceeb84c98b30f, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 1
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 20

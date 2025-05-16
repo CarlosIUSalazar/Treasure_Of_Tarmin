@@ -13,14 +13,23 @@ MonoBehaviour:
   m_Name: Fireball-Large-Purple
   m_EditorClassIdentifier: 
   itemName: Fireball-Large-Purple
+  userItemName: Legendary Large Fireball
   item3DPrefab: {fileID: 4794279277654557254, guid: deae6b7c09dc84e1487e634e2f2beb8f, type: 3}
   item2DSprite: {fileID: 2800000, guid: edd7df6bb071a4a5fa3ef5b83e0446e1, type: 3}
   ammo: {fileID: 4794279277654557254, guid: deae6b7c09dc84e1487e634e2f2beb8f, type: 3}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 1
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -28,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 48
   warDefense: 0

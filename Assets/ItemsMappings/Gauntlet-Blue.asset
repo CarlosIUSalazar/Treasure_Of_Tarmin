@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Gauntlet-Blue
   m_EditorClassIdentifier: 
   itemName: Gauntlet-Blue
+  userItemName: Steel Gauntlet
   item3DPrefab: {fileID: 8469975492641937108, guid: a66891c03c9d74cee86410fa6c08a9af, type: 3}
   item2DSprite: {fileID: 2800000, guid: 48e13dbf48b0b41758c30fad00cbba1e, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 1
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 3

@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Helmet-White
   m_EditorClassIdentifier: 
   itemName: Helmet-White
+  userItemName: Platinum Helmet
   item3DPrefab: {fileID: 5059874503287853471, guid: 1c056c8ca080b4b36b2a131cd5c28bb3, type: 3}
   item2DSprite: {fileID: 2800000, guid: aa9555666261e4b30b5c94ae8db2bca6, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 1
   isBreastPlate: 0
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 15

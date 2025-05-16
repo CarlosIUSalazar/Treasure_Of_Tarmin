@@ -13,12 +13,23 @@ MonoBehaviour:
   m_Name: Breastplate-Grey
   m_EditorClassIdentifier: 
   itemName: Breastplate-Grey
+  userItemName: Silver Breastplate
   item3DPrefab: {fileID: 6415777352259406361, guid: 67f17ae31900a4fdda0e6ef2c39cbbbb, type: 3}
   item2DSprite: {fileID: 2800000, guid: 4393fbbdbb704466c877c76d91be97c9, type: 3}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 1
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 1
   isGauntlet: 0
@@ -26,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 22

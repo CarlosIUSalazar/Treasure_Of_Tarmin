@@ -13,5 +13,32 @@ MonoBehaviour:
   m_Name: Book-War-Blue
   m_EditorClassIdentifier: 
   itemName: Book-War-Blue
+  userItemName: Lesser War Book
   item3DPrefab: {fileID: 3613200539272836643, guid: 5c9e6580cc16d45d9b34d18ade97169a, type: 3}
   item2DSprite: {fileID: 2800000, guid: 66caf36957a9e4d71956b237a7da369e, type: 3}
+  ammo: {fileID: 0}
+  isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
+  isShield: 0
+  isArmor: 0
+  isTreasure: 0
+  isQuiver: 0
+  isFlour: 0
+  isWarWeapon: 0
+  isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
+  isHelmet: 0
+  isBreastPlate: 0
+  isGauntlet: 0
+  isHauberk: 0
+  isRing: 0
+  isPotion: 0
+  isKey: 0
+  isBomb: 0
+  warAttackPower: 0
+  spiritualAttackPower: 0
+  warDefense: 0
+  spiritualDefense: 0

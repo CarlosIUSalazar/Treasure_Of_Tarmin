@@ -13,6 +13,7 @@ MonoBehaviour:
   m_Name: Shield-Large-White
   m_EditorClassIdentifier: 
   itemName: Shield-Large-White
+  userItemName: Platinum Large Shield
   item3DPrefab: {fileID: 5855202037159699460, guid: 1f0ea407d14b54abdbedeb37862eb504, type: 3}
   item2DSprite: {fileID: 2800000, guid: c35143a42dfa14d4186592e79dd0c579, type: 3}
   ammo: {fileID: 0}

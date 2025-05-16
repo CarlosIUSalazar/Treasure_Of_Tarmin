@@ -13,10 +13,15 @@ MonoBehaviour:
   m_Name: Quiver
   m_EditorClassIdentifier: 
   itemName: Quiver
+  userItemName: Quiver
   item3DPrefab: {fileID: 6539461072555655898, guid: ea4c5b8b05cd041f6b7b143ad38cb162, type: 3}
   item2DSprite: {fileID: 0}
   ammo: {fileID: 0}
   isContainer: 0
+  isLocked: 0
+  isTan: 0
+  isOrange: 0
+  isBlue: 0
   isShield: 0
   isArmor: 0
   isTreasure: 0
@@ -24,6 +29,7 @@ MonoBehaviour:
   isFlour: 0
   isWarWeapon: 0
   isSpiritualWeapon: 0
+  isMultiUseWeapon: 0
   isHelmet: 0
   isBreastPlate: 0
   isGauntlet: 0
@@ -31,6 +37,7 @@ MonoBehaviour:
   isRing: 0
   isPotion: 0
   isKey: 0
+  isBomb: 0
   warAttackPower: 0
   spiritualAttackPower: 0
   warDefense: 0
