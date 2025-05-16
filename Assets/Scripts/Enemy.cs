@@ -50,7 +50,7 @@ public class Enemy : MonoBehaviour
     }
 
 
-    private void SetEnemyHP() {
+    public void SetEnemyHP() {
         // 1) Grab the current floor
         int floor = gameManager.currentFloor;
 

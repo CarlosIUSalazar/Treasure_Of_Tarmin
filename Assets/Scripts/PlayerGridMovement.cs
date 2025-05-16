@@ -670,6 +670,7 @@ public class PlayerGridMovement : MonoBehaviour
             canBackStep = false;
             gameManager.enemyHPText.gameObject.SetActive(false);
             gameManager.ambushInProgress = false;
+            gameManager.activeEnemy.SetEnemyHP(); // Restore the Enemy HP to avoid exploits
             gameManager.SetActiveEnemy(null);  // Clear active enemy
     }
 
