@@ -648,43 +648,77 @@ public class Player : MonoBehaviour
     // }
 
 
-
-
-
-
     public void CorridorDoorCrossingHP(string crossedDoor)
     {
-        Debug.Log($"Crossed door: {crossedDoor} Will do logic later");
+    // !----Gate Example----! 
+    // If your War HP is 20 and your Spiritual HP is 10, by walking through a green 
+    // gate, your Spiritual HP will fall to 5, but when you hit "rest", your War HP 
+    // will increase to 30.
 
-        return; //NOT USING THIS LOGIC FOR NOW
+    // Or...
+
+    // If your War HP is 20, and your Spiritual HP is 10, walking through a blue gate 
+    // will decrease your War HP to 10, and your Spiritual HP to 15.
+
+    // How does this work? Well... green gates reduce your Spiritual HP by half, and 
+    // then transfers those points, multiplied by 2, to your War HP.  Blue gates 
+    // reduce your War HP by half, and then add half the losses to your Spiritual HP.
+
+        //Debug.Log($"Crossed door: {crossedDoor} Will do logic later");
+        //return; //NOT USING THIS LOGIC FOR NOW
         
         Debug.Log($"Crossed door: {crossedDoor}");
 
         if (crossedDoor.Contains("Blue"))
         {
-            // transfer all War HP into Spiritual HP
-            int transfer = physicalStrength;
-            physicalStrength = 0;
-            spiritualStrength = Mathf.Min(
-                currentMaxPotentialSpiritualStrength,
-                spiritualStrength + transfer
-            );
-            Debug.Log($"Blue door: war→spiritual transfer {transfer}");
+            //War 12
+            //Spi 6
+            //Transfer = 6 / 2 = 3 to Spi;
+            //Result: War 6 / Spi 9
+            
+            // transfer half War HP by 2 to Spiritual
+            int transferHP = (int)Math.Round(currentMaxPotentialPhysicalStrength / 2m);
+            //Pass half War HP -> Spiritual
+            currentMaxPotentialSpiritualStrength = (int)Math.Round(currentMaxPotentialSpiritualStrength + (transferHP/2m));
+            //Halve War HP
+            currentMaxPotentialPhysicalStrength = (int)Math.Round(currentMaxPotentialPhysicalStrength / 2m);
+            //Max War HP to current Max
+            physicalStrength = currentMaxPotentialPhysicalStrength;
+            //OPTIONAL ALSO MAX SPIRITUAL TO HELP THE PLAYER
+            //spiritualStrength = currentMaxPotentialSpiritualStrength;
+
+            gameManager.SetPlayerMessage("Shifter War to Spirit HP");
+
+            Debug.Log($"Blue door: war→spiritual transfer {transferHP}");
         }
         else if (crossedDoor.Contains("Green"))
         {
-            // transfer all Spiritual HP into War HP
-            int transfer = spiritualStrength;
-            spiritualStrength = 0;
-            physicalStrength = Mathf.Min(
-                currentMaxPotentialPhysicalStrength,
-                physicalStrength + transfer
-            );
-            Debug.Log($"Green door: spiritual→war transfer {transfer}");
+            //War 12
+            //Spi 6
+            //Transfer = 3 * 2 = 6 to Spi;
+            //Result: War 18 / Spi 3
+
+            // transfer half War HP by 2 to Spiritual
+            int transferHP = (int)Math.Round(currentMaxPotentialSpiritualStrength / 2m);
+            //Pass half times 2 War HP -> Spiritual
+            currentMaxPotentialPhysicalStrength = (int)Math.Round(currentMaxPotentialPhysicalStrength + (transferHP*2m));
+            //Halve Spiritual HP
+            currentMaxPotentialSpiritualStrength = (int)Math.Round(currentMaxPotentialSpiritualStrength / 2m);
+            
+            //Max Spiritual HP to current Max
+            spiritualStrength = currentMaxPotentialSpiritualStrength;
+            
+            //OPTIONAL ALSO MAX PHYSICAL TO HELP THE PLAYER
+            //physicalStrength = currentMaxPotentialPhysicalStrength;
+            
+            gameManager.SetPlayerMessage("Shifted Spirit to War HP");
+            Debug.Log($"Green door: spiritual→war transfer {transferHP}");
         }
-        else
+        else if (crossedDoor.Contains("Tan"))
         {
             // you could handle Tan (or other) doors here if you like, or leave them alone
+            gameManager.SetPlayerMessage("No HP Shifted");
+        } else {
             Debug.Log("Other door — no HP swap");
         }
 
