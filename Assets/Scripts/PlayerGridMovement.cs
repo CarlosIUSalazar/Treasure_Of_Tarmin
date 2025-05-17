@@ -796,6 +796,7 @@ public class PlayerGridMovement : MonoBehaviour
             if (hit.collider.CompareTag("Enemy"))
             {
                 InitiateFight(hit);
+                gameManager.UpdateEnemyHPTextColor(false);
             }
         }
         else

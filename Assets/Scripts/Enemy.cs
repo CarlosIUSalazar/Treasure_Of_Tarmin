@@ -85,6 +85,8 @@ public class Enemy : MonoBehaviour
         float bonus = UnityEngine.Random.Range(bumpedHP * 0.05f, bumpedHP * 0.12f);
         currentEnemyHP = Mathf.RoundToInt(bumpedHP + bonus);
 
+        enemyBaseHP = currentEnemyHP;
+
         // 5) Debug log
         Debug.Log($"Set Enemy {gameObject.name} HP to {currentEnemyHP} at floor {floor}");
     }
@@ -145,6 +147,7 @@ public class Enemy : MonoBehaviour
 
         // 6) Apply & log
         currentEnemyHP -= finalDamage;
+        
         Debug.Log($"Hit for {finalDamage} (raw {rawAttack:F1}, def {totalDefense:F1}, mitig {mitigation:P0})");
 
         // 7) Consume single-use or not
@@ -155,6 +158,15 @@ public class Enemy : MonoBehaviour
 
         // 8) Refresh UI / check death
         gameManager.UpdateEnemyHP(currentEnemyHP);
+
+        Debug.Log("currentEnemyHP" + currentEnemyHP);
+        Debug.Log("enemyBaseHP" + enemyBaseHP);
+        if (currentEnemyHP <= (enemyBaseHP * 0.35)) {
+            gameManager.UpdateEnemyHPTextColor(true);
+        } else {
+            gameManager.UpdateEnemyHPTextColor(false);
+        }
+
         if (currentEnemyHP <= 0) Die();
     }
 

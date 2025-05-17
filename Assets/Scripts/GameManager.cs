@@ -134,13 +134,20 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public void UpdateEnemyHPTextColor(bool isHpUnder30Percent) {
+        if (isHpUnder30Percent) 
+            enemyHPText.color = Color.red;
+        else
+            enemyHPText.color = Color.green;
+    }
+
     public void UpdateEnemyHP(int currentEnemyHP) {
         enemyHPText.text = $"{currentEnemyHP}";
-        if (currentEnemyHP <= 15) {
-            enemyHPText.color = Color.blue;
-        } else {
-            enemyHPText.color = Color.green;
-        }
+        // if (currentEnemyHP <= 15) {
+        //     enemyHPText.color = Color.red;
+        // } else {
+        //     enemyHPText.color = Color.green;
+        // }
     }
 
 
@@ -279,14 +286,14 @@ public class GameManager : MonoBehaviour
         if (WarHPBookMultiplier == 2) {
             player.currentSpiritualBookCurrentCapHP = 29;
 
-            physicalStrengthText.color = Color.blue;
+            physicalStrengthText.color = Color.cyan;
             spiritualStrengthText.color = Color.white;
         }
         
         if (SpiritualHPBookMultiplier == 2) {
             player.currentWarBookCurrentCapHP = 49;
 
-            spiritualStrengthText.color = Color.blue;
+            spiritualStrengthText.color = Color.cyan;
             physicalStrengthText.color = Color.white;
         }
         
@@ -306,14 +313,14 @@ public class GameManager : MonoBehaviour
 
         if (WarHPBookMultiplier == 4) {
             player.currentSpiritualBookCurrentCapHP = 29;
-            physicalStrengthText.color = Color.cyan;
+            physicalStrengthText.color = Color.magenta;
             spiritualStrengthText.color = Color.white;
         }
 
         if (SpiritualHPBookMultiplier == 4) {
             player.currentWarBookCurrentCapHP = 49;
 
-            spiritualStrengthText.color = Color.cyan;
+            spiritualStrengthText.color = Color.magenta;
             physicalStrengthText.color = Color.white;
         }
     }
@@ -380,6 +387,3 @@ public class GameManager : MonoBehaviour
         audioSource.PlayOneShot(whooshEndClip);
     }
 }
-
-
-
