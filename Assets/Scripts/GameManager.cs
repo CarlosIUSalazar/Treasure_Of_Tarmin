@@ -66,6 +66,7 @@ public class GameManager : MonoBehaviour
     PlayerGridMovement playerGridMovement;  
     ViewSwitcher viewSwitcher;
     MazeGenerator mazeGenerator;
+    Coroutine playerMessageCoroutine;
     public bool isMazeTransparent = false; // Special book
     public bool isSmallPinkPotionActive = false; //Helps find better loot
     public bool isSmallPurplePotionActive = false; //Hides Enemies
@@ -159,7 +160,10 @@ public class GameManager : MonoBehaviour
 
     public void SetPlayerMessage(String text) {
         playerMessages.text = text;
-        StartCoroutine(ClearPlayerMessage());
+        if (playerMessageCoroutine != null) {
+            StopCoroutine(playerMessageCoroutine);
+        }
+        playerMessageCoroutine = StartCoroutine(ClearPlayerMessage());
     }
 
 

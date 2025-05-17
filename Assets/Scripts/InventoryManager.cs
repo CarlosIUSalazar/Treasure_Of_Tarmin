@@ -480,7 +480,7 @@ public class InventoryManager : MonoBehaviour
             if (rightHandItem.name == "Book-Special-Pink" && !gameManager.isMazeTransparent){
                 playerGridMovement.MakeMazeSetsTransparent();
                 gameManager.isMazeTransparent = true;
-                gameManager.SetPlayerMessage("X-Ray Spell!");
+                gameManager.SetPlayerMessage("X-Ray Spell Activated");
                 StartCoroutine(TimerToEndTransparentMaze());
             }
 
@@ -523,7 +523,7 @@ public class InventoryManager : MonoBehaviour
             ///BLUE SMALL POTION
             if (rightHandItem.name == "Potion-Small-Blue"){
                 player.RestoreMaxPhysicalStrengthWithSmallBluePotion();
-                gameManager.SetPlayerMessage("Full HP Restored!");
+                gameManager.SetPlayerMessage("Full HP Restored");
                 EmptyRightHand();
             }
             ///PINK SMALL POTION
@@ -569,14 +569,14 @@ public class InventoryManager : MonoBehaviour
             /////////
             if (rightHandItem.name == "Potion-Large-Blue"){
                 player.IncreasePhysicalScoreBy10WithLargeBluePotion();
-                gameManager.SetPlayerMessage("Max War HP + 10!");
+                gameManager.SetPlayerMessage("Max War HP + 10");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
 
             if (rightHandItem.name == "Potion-Large-Pink"){
                 player.IncreaseSpiritualScoreBy10WithLargePinkPotion();
-                gameManager.SetPlayerMessage("Max Spiritual HP + 10!");
+                gameManager.SetPlayerMessage("Max Spiritual HP + 10");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
@@ -592,7 +592,7 @@ public class InventoryManager : MonoBehaviour
 //   This potion swaps these percentages, changing your health to 40% and 50%... about 80/50.
             if (rightHandItem.name == "Potion-Large-Purple"){
                 player.ConsumeLargePurplePotion();
-                gameManager.SetPlayerMessage("Swaps War/Spirit HP Stats!");
+                gameManager.SetPlayerMessage("Swapped War/Spirit HP Stats");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
@@ -612,7 +612,7 @@ public class InventoryManager : MonoBehaviour
                 player.currentSpiritualBookCurrentCapHP = 29;
 
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase War HP Cap!");
+                gameManager.SetPlayerMessage("Increase War HP Cap");
                 EmptyRightHand();
             }
 
@@ -626,7 +626,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
                 player.currentSpiritualBookCurrentCapHP = 29;
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase War HP Cap!");
+                gameManager.SetPlayerMessage("Increase War HP Cap");
                 EmptyRightHand();
             }
 
@@ -640,7 +640,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
                 player.currentSpiritualBookCurrentCapHP = 29;
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase War HP Cap!");
+                gameManager.SetPlayerMessage("Increase War HP Cap");
                 EmptyRightHand();
             }
 
@@ -658,7 +658,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap");
                 EmptyRightHand();
             }
 
@@ -672,7 +672,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap");
                 EmptyRightHand();
             }
 
@@ -686,7 +686,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
                 gameManager.UpdateHPBooksStatus();
-                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap");
                 EmptyRightHand();
             }
         }
@@ -697,7 +697,7 @@ public class InventoryManager : MonoBehaviour
         yield return new WaitForSeconds(300f); //5 mins
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
-        gameManager.SetPlayerMessage("X-ray Effect Wears Off!");
+        gameManager.SetPlayerMessage("X-ray Effect Wears Off");
         gameManager.PlayWhooshEndSoundEffect();
     }
 
