@@ -672,6 +672,8 @@ public class PlayerGridMovement : MonoBehaviour
             gameManager.ambushInProgress = false;
             gameManager.activeEnemy.SetEnemyHP(); // Restore the Enemy HP to avoid exploits
             gameManager.SetActiveEnemy(null);  // Clear active enemy
+
+            player.resetExperienceGainedInLastBattle();
     }
 
     public void CancelEscape() {
@@ -797,6 +799,7 @@ public class PlayerGridMovement : MonoBehaviour
             {
                 InitiateFight(hit);
                 gameManager.UpdateEnemyHPTextColor(false);
+                player.HandleCurrentMaxHPsAtBeginningOfFight();
             }
         }
         else

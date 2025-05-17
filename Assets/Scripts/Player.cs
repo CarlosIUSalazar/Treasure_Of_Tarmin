@@ -17,6 +17,9 @@ public class Player : MonoBehaviour
     public int currentWarBookCurrentCapHP = 49;
     public int currentSpiritualBookCurrentCapHP = 29;
 
+    public int currentMaxPotentialPhysicalStrengthAtBeginningOfFight;
+    public int currentMaxPotentialSpiritualStrengthAtBeginningOfFight;
+
     public int physicalStrength;
     public int physicalArmor;
     public int physicalWeapon;
@@ -125,6 +128,17 @@ public class Player : MonoBehaviour
 
         //Trigger UI update at start
         OnPlayerStatsUpdated?.Invoke();
+    }
+
+
+    public void HandleCurrentMaxHPsAtBeginningOfFight() {
+        ////
+        /// THIS STORES THE CURRENT POTENTIAL MAXES OF HP AT THE START OF A BATTLE
+        /// IF THE PLAYER WINS THE FIGHT, HE KEEPS THE UPDATED NEW MAX HPS
+        /// IF THE PLAYER DIES OR ESCAPES, HE GOES BACK TO THE ORIGINAL POTENTIAL MAX HPS
+        /// 
+        currentMaxPotentialPhysicalStrengthAtBeginningOfFight = currentMaxPotentialPhysicalStrength;
+        currentMaxPotentialSpiritualStrengthAtBeginningOfFight = currentMaxPotentialSpiritualStrength;
     }
 
 
@@ -259,7 +273,18 @@ public class Player : MonoBehaviour
         }
         // Otherwise fall back to normal game over
         Debug.Log("Couldn't resurrect");
+        
+        //Player loses all the max experience points gained in this fight;
+        resetExperienceGainedInLastBattle();
+
         gameManager.GameOverSequence();
+    }
+
+
+    public void resetExperienceGainedInLastBattle() {
+        //Player loses all the max experience points gained in this fight;
+        currentMaxPotentialPhysicalStrength = currentMaxPotentialPhysicalStrengthAtBeginningOfFight;
+        currentMaxPotentialSpiritualStrength = currentMaxPotentialSpiritualStrengthAtBeginningOfFight;
     }
 
 
@@ -457,6 +482,10 @@ public class Player : MonoBehaviour
         Enemy activeEnemy    = gameManager.activeEnemy;
         EnemyMapping mapping = activeEnemy.enemyMapping;
         bool isWarAttack     = mapping.isWar;
+
+        int currentMaxPotentialPhysicalStrengthAtBeginningOfFight = currentMaxPotentialPhysicalStrength;
+        int currentMaxPotentialSpiritualStrengthAtBeginningOfFight = currentMaxPotentialSpiritualStrength;
+
 
         // 2) Compute raw attack = (base + floor scaling) × color multiplier
         float floorBonus = gameManager.currentFloor * mapping.attackPerFloor;
