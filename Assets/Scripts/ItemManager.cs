@@ -37,7 +37,7 @@ public class ItemManager : MonoBehaviour
             case "Flour":
                 player.ModifyFood(10);
                 Debug.Log("Picked up flour");
-                gameManager.SetPlayerMessage("Picked up Food");
+                gameManager.SetPlayerMessage("Picked up 10 Food");
                 break;
             case "Quiver":
                 player.ModifyArrows(10);
@@ -52,114 +52,115 @@ public class ItemManager : MonoBehaviour
             case "Coins-Grey":
                 player.ModifyScore(10);
                 Debug.Log("Picked up Grey Coins");
-                gameManager.SetPlayerMessage("Picked up Grey Coins");
+                gameManager.SetPlayerMessage("Picked up Silver Coins");
                 break;
 
             case "Coins-Yellow":
                 player.ModifyScore(30);
                 Debug.Log("Picked up Yellow Coins");
-                gameManager.SetPlayerMessage("Picked up Yellow Coins");
+                gameManager.SetPlayerMessage("Picked up Gold Coins");
                 break;
 
             case "Coins-White":
                 player.ModifyScore(70);
                 Debug.Log("Picked up White Coins");
-                gameManager.SetPlayerMessage("Picked up White Coins");
+                gameManager.SetPlayerMessage("Picked up Platinum Coins");
                 break;
     //  NECKLACES
             case "Necklace-Grey":
                 player.ModifyScore(20);
                 Debug.Log("Picked up Grey Necklace");
-                gameManager.SetPlayerMessage("Picked up Grey Necklace");
+                gameManager.SetPlayerMessage("Picked up Silver Necklace");
                 break;
 
             case "Necklace-Yellow":
                 player.ModifyScore(70);
                 Debug.Log("Picked up Yellow Necklace");
-                gameManager.SetPlayerMessage("Picked up Yellow Neckalce");
+                gameManager.SetPlayerMessage("Picked up Gold Neckalce");
                 break;
 
             case "Necklace-White":
                 player.ModifyScore(200);
                 Debug.Log("Picked up White Necklace");
-                gameManager.SetPlayerMessage("Picked up White Necklace");
+                gameManager.SetPlayerMessage("Picked up Platinum Necklace");
                 break;
     // INGOTS
             case "Ingot-Grey":
                 player.ModifyScore(50);
                 Debug.Log("Picked up Grey Ingot");
-                gameManager.SetPlayerMessage("Picked up Grey Ingot");
+                gameManager.SetPlayerMessage("Picked up Silver Ingot");
                 break;
 
             case "Ingot-Yellow":
                 player.ModifyScore(350);
                 Debug.Log("Picked up Yellow Ingot");
-                gameManager.SetPlayerMessage("Picked up Yellow Ingot");
+                gameManager.SetPlayerMessage("Picked up Gold Ingot");
                 break;
 
             case "Ingot-White":
                 player.ModifyScore(450);
                 Debug.Log("Picked up White Ingot");
-                gameManager.SetPlayerMessage("Picked up White Ingot");
+                gameManager.SetPlayerMessage("Picked up Platinum Ingot");
                 break;
     // LAMPS
             case "Lamp-Grey":
                 player.ModifyScore(100);
                 Debug.Log("Picked up Grey Lamp");
-                gameManager.SetPlayerMessage("Picked up Grey Lamp");
+                gameManager.SetPlayerMessage("Picked up Silver Lamp");
                 break;
 
             case "Lamp-Yellow":
                 player.ModifyScore(150);
                 Debug.Log("Picked up Yellow Lamp");
-                gameManager.SetPlayerMessage("Picked up Yellow Lamp");
+                gameManager.SetPlayerMessage("Picked up Gold Lamp");
                 break;
 
             case "Lamp-White":
                 player.ModifyScore(220);
                 Debug.Log("Picked up White Lamp");
-                gameManager.SetPlayerMessage("Picked up White Lamp");
+                gameManager.SetPlayerMessage("Picked up Platinum Lamp");
                 break;
     // CHALICES
             case "Chalice-Grey":
                 player.ModifyScore(120);
                 Debug.Log("Picked up Grey Chalice");
-                gameManager.SetPlayerMessage("Picked up Grey Chalice");
+                gameManager.SetPlayerMessage("Picked up Silver Chalice");
                 break;
 
             case "Chalice-Yellow":
                 player.ModifyScore(250);
                 Debug.Log("Picked up Yellow Chalice");
-                gameManager.SetPlayerMessage("Picked up Yellow Chalice");
+                gameManager.SetPlayerMessage("Picked up Gold Chalice");
                 break;
 
             case "Chalice-White":
                 player.ModifyScore(400);
                 Debug.Log("Picked up White Chalice");
-                gameManager.SetPlayerMessage("Picked up White Chalice");
+                gameManager.SetPlayerMessage("Picked up Platinum Chalice");
                 break;
     // CROWNS
             case "Crown-Grey":
                 player.ModifyScore(300);
                 Debug.Log("Picked up Grey Crown");
-                gameManager.SetPlayerMessage("Picked up Grey Crown");
+                gameManager.SetPlayerMessage("Picked up Silver Crown");
                 break;
 
             case "Crown-Yellow":
                 player.ModifyScore(500);
                 Debug.Log("Picked up Yellow Crown");
-                gameManager.SetPlayerMessage("Picked up Yellow Crown");
+                gameManager.SetPlayerMessage("Picked up Gold Crown");
                 break;
 
             case "Crown-White":
                 player.ModifyScore(600);
                 Debug.Log("Picked up White Crown");
-                gameManager.SetPlayerMessage("Picked up White Crown");
+                gameManager.SetPlayerMessage("Picked up Platinum Crown");
                 break;
 
             case "Treasure-Tarmin":
                 // WIN GAME SEQUENCE!!
-                Debug.Log("Picked up TREASURE OF TARMIN!");
+                Debug.Log("Picked up TREASURE OF TARMIN!");                
+                gameManager.SetPlayerMessage("Picked up TREASURE OF TARMIN!");
                 viewSwitcher.GameWinningSequence();
                 break;
 

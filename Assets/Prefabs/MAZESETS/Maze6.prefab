@@ -2164,6 +2164,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.x
       value: 0.0009
       objectReference: {fileID: 0}
+    - target: {fileID: 1119978404378494365, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 3.3
+      objectReference: {fileID: 0}
     - target: {fileID: 8849802475566977004, guid: d2cdd78b4bd63478d93ac6b1aae16019, type: 3}
       propertyPath: m_Name
       value: DoorWallDark (9)

@@ -361,8 +361,10 @@ public class InventoryManager : MonoBehaviour
                     breastPlateImg.texture = rightHandItem.item2DSprite;
                     currentBreastPlate = rightHandItem; // Update the equipped Breastplate
                     Debug.Log("Equiped " + rightHandItem.name);
+                    gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                     CalculateCurrentArmorTotal();
                 } else {
+                    gameManager.SetPlayerMessage("Better Breastplate Already Equiped");
                     Debug.Log("Better Item Already Equiped, Discarding");
                 }
                 EmptyRightHand();
@@ -374,8 +376,10 @@ public class InventoryManager : MonoBehaviour
                     helmetImg.texture = rightHandItem.item2DSprite;
                     currentHelmet = rightHandItem; // Update the equipped helmet
                     Debug.Log("Equiped " + rightHandItem.name);
+                    gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                     CalculateCurrentArmorTotal();
                 } else {
+                    gameManager.SetPlayerMessage("Better Helmet Already Equiped");
                     Debug.Log("Better Item Already Equiped, Discarding");
                 }
                 EmptyRightHand();
@@ -388,9 +392,11 @@ public class InventoryManager : MonoBehaviour
                     hauberkImg.texture = rightHandItem.item2DSprite;
                     currentHauberk = rightHandItem; // Update the equipped Hauberk
                     Debug.Log("Equiped " + rightHandItem.name);
+                    gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                     CalculateCurrentArmorTotal();
                 } else {
-                    Debug.Log("Better Item Already Equiped, Discarding");
+                    gameManager.SetPlayerMessage("Better Hauberk Already Equiped");
+                    Debug.Log("Better Hauberk Already Equiped, Discarding");
                 }
                 EmptyRightHand();
             }
@@ -402,8 +408,10 @@ public class InventoryManager : MonoBehaviour
                     gauntletImg.texture = rightHandItem.item2DSprite;
                     currentGauntlet = rightHandItem; // Update the equipped Gauntlet
                     Debug.Log("Equiped " + rightHandItem.name);
+                    gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                     CalculateCurrentArmorTotal();
                 } else {
+                    gameManager.SetPlayerMessage("Better Gauntlet Already Equiped");
                     Debug.Log("Better Item Already Equiped, Discarding");
                 }
                 EmptyRightHand();
@@ -416,8 +424,10 @@ public class InventoryManager : MonoBehaviour
                     ringImg.texture = rightHandItem.item2DSprite;
                     currentRing = rightHandItem; // Update the equipped Ring
                     Debug.Log("Equiped " + rightHandItem.name);
+                    gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                     CalculateCurrentArmorTotal();
                 } else {
+                    gameManager.SetPlayerMessage("Better Ring Already Equiped");
                     Debug.Log("Better Item Already Equiped, Discarding");
                 }
                 EmptyRightHand();
@@ -453,6 +463,7 @@ public class InventoryManager : MonoBehaviour
                 }
                 currentShield = rightHandWeapon;
                 shieldImg.texture = rightHandWeapon.item2DSprite;
+                gameManager.SetPlayerMessage("Equiped " + rightHandItem.userItemName);
                 CalculateCurrentArmorTotal();
             }
 
@@ -469,6 +480,7 @@ public class InventoryManager : MonoBehaviour
             if (rightHandItem.name == "Book-Special-Pink" && !gameManager.isMazeTransparent){
                 playerGridMovement.MakeMazeSetsTransparent();
                 gameManager.isMazeTransparent = true;
+                gameManager.SetPlayerMessage("X-Ray Spell!");
                 StartCoroutine(TimerToEndTransparentMaze());
             }
 
@@ -511,12 +523,14 @@ public class InventoryManager : MonoBehaviour
             ///BLUE SMALL POTION
             if (rightHandItem.name == "Potion-Small-Blue"){
                 player.RestoreMaxPhysicalStrengthWithSmallBluePotion();
+                gameManager.SetPlayerMessage("Full HP Restored!");
                 EmptyRightHand();
             }
             ///PINK SMALL POTION
             if (rightHandItem.name == "Potion-Small-Pink"){
                 //Help find better things in containers; magic ends with a little "whoosh" noise
                 Debug.Log("Potion Better Loot enabled");
+                gameManager.SetPlayerMessage("Temporary Finds Better Loot");
                 gameManager.isSmallPinkPotionActive = true;
                 gameManager.PlayWhooshSoundEffect();
                 StartCoroutine(DisableSmallPinkPotionEffect());
@@ -537,6 +551,7 @@ public class InventoryManager : MonoBehaviour
                     return;
                 }
                 gameManager.HideAllEnemies(false);
+                gameManager.SetPlayerMessage("Temporary Vanish Enemies");
                 EmptyRightHand();
             }
 
@@ -546,6 +561,7 @@ public class InventoryManager : MonoBehaviour
                 gameManager.PlayWhooshEndSoundEffect();
                 // SWOOSH Sunds effct 
                 Debug.Log("Potion Better Loot disabled");
+                gameManager.SetPlayerMessage("Better Loot Wears Off");
             }
 
             ///////////
@@ -553,12 +569,14 @@ public class InventoryManager : MonoBehaviour
             /////////
             if (rightHandItem.name == "Potion-Large-Blue"){
                 player.IncreasePhysicalScoreBy10WithLargeBluePotion();
+                gameManager.SetPlayerMessage("Max War HP + 10!");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
 
             if (rightHandItem.name == "Potion-Large-Pink"){
                 player.IncreaseSpiritualScoreBy10WithLargePinkPotion();
+                gameManager.SetPlayerMessage("Max Spiritual HP + 10!");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
@@ -574,6 +592,7 @@ public class InventoryManager : MonoBehaviour
 //   This potion swaps these percentages, changing your health to 40% and 50%... about 80/50.
             if (rightHandItem.name == "Potion-Large-Purple"){
                 player.ConsumeLargePurplePotion();
+                gameManager.SetPlayerMessage("Swaps War/Spirit HP Stats!");
                 gameManager.PlayWhooshSoundEffect();
                 EmptyRightHand();
             }
@@ -593,6 +612,7 @@ public class InventoryManager : MonoBehaviour
                 player.currentSpiritualBookCurrentCapHP = 29;
 
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase War HP Cap!");
                 EmptyRightHand();
             }
 
@@ -605,8 +625,8 @@ public class InventoryManager : MonoBehaviour
                 gameManager.WarHPBookMultiplier = 3;
                 gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
                 player.currentSpiritualBookCurrentCapHP = 29;
-
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase War HP Cap!");
                 EmptyRightHand();
             }
 
@@ -619,8 +639,8 @@ public class InventoryManager : MonoBehaviour
                 gameManager.WarHPBookMultiplier = 4;
                 gameManager.SpiritualHPBookMultiplier = 1; //Reset Spiritual Book
                 player.currentSpiritualBookCurrentCapHP = 29;
-
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase War HP Cap!");
                 EmptyRightHand();
             }
 
@@ -637,8 +657,8 @@ public class InventoryManager : MonoBehaviour
                 gameManager.SpiritualHPBookMultiplier = 2;
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
-
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
                 EmptyRightHand();
             }
 
@@ -651,8 +671,8 @@ public class InventoryManager : MonoBehaviour
                 gameManager.SpiritualHPBookMultiplier = 3;
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
-
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
                 EmptyRightHand();
             }
 
@@ -665,8 +685,8 @@ public class InventoryManager : MonoBehaviour
                 gameManager.SpiritualHPBookMultiplier = 4;
                 gameManager.WarHPBookMultiplier = 1; //Reset War Book
                 player.currentWarBookCurrentCapHP = 49;     // back to default War cap
-
                 gameManager.UpdateHPBooksStatus();
+                gameManager.SetPlayerMessage("Increase Spiritual HP Cap!");
                 EmptyRightHand();
             }
         }
@@ -677,6 +697,7 @@ public class InventoryManager : MonoBehaviour
         yield return new WaitForSeconds(300f); //5 mins
         playerGridMovement.RestoreMazeOpacity();
         gameManager.isMazeTransparent = false;
+        gameManager.SetPlayerMessage("X-ray Effect Wears Off!");
         gameManager.PlayWhooshEndSoundEffect();
     }
 
@@ -718,12 +739,13 @@ public class InventoryManager : MonoBehaviour
 
         if (itemMapping == null) return;
 
+        gameManager.SetPlayerMessage("Got " + itemMapping.userItemName);
+
         // Case 1: Right hand is empty
         if (!CheckIfRightHandHasItem())
         {
             AssignToRightHand(itemName, false);
-            ItemMapping pickedUpItem = GetItemMapping(itemName);
-            gameManager.SetPlayerMessage("Picked up " + itemName);
+            //ItemMapping pickedUpItem = GetItemMapping(itemName);
             return;
         }
 
@@ -735,7 +757,6 @@ public class InventoryManager : MonoBehaviour
             AssignToRightHand(itemName, false);
             return;
         }
-
 
         // Case 2: Backpack has an empty slot (searching right to left)
         for (int i = backpackSlots.Length - 1; i >= 0; i--)
@@ -769,8 +790,6 @@ public class InventoryManager : MonoBehaviour
             for (int i = 0; i < backpackSlots.Length; i++)
                 backpackSlots[i].texture = transparentImg;
         }
-
-
 }
 
 // 🔍 Explanation:
