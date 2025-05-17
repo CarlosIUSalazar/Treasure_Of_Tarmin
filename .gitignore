@@ -7,6 +7,8 @@
 #[Bb]uilds/
 [Ll]ibrary/
 /Assets/AssetStoreTools*
+/Assets/ButtonsAssets/
+/Assets/ButtonsAssets.meta
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt
