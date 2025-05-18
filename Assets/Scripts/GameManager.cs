@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI floorText;
     [SerializeField] public TextMeshProUGUI enemyHPText;
     [SerializeField] public TextMeshProUGUI playerMessages;
+    [SerializeField] public GameObject playerMessagesBackground;
 
     [SerializeField] private TextMeshProUGUI menuPhysicalArmorText;
     [SerializeField] private TextMeshProUGUI menuSpiritualArmorText;
@@ -90,6 +91,7 @@ public class GameManager : MonoBehaviour
         mapBackButton.gameObject.SetActive(false); //Hide this button during the intro sequence
 
         StartCoroutine(ViewMapUponGameStart());
+        playerMessagesBackground.SetActive(false);
     }
 
 
@@ -166,6 +168,7 @@ public class GameManager : MonoBehaviour
 
 
     public void SetPlayerMessage(String text) {
+        playerMessagesBackground.SetActive(true);
         playerMessages.text = text;
         if (playerMessageCoroutine != null) {
             StopCoroutine(playerMessageCoroutine);
@@ -177,6 +180,7 @@ public class GameManager : MonoBehaviour
     IEnumerator ClearPlayerMessage() {
         yield return new WaitForSeconds(1.5f);    
         playerMessages.text = "";
+        playerMessagesBackground.SetActive(false);
     }
 
 
