@@ -9,6 +9,8 @@
 /Assets/AssetStoreTools*
 /Assets/ButtonsAssets/
 /Assets/ButtonsAssets.meta
+/Assets/Asset-HealthBar.meta
+/Assets/Asset-HealthBar/
 
 # Unity3D Generated File On Crash Reports
 sysinfo.txt

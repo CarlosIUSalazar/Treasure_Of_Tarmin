@@ -25,10 +25,19 @@ public class GameManager : MonoBehaviour
     public int SpiritualHPBookMultiplier = 1;
     private int completedFull255MazeFloorLoops = 0;
     [SerializeField] private TextMeshProUGUI physicalStrengthText;
-    [SerializeField] private TextMeshProUGUI physicalArmorText;
-    [SerializeField] private TextMeshProUGUI physicalWeaponText;
     [SerializeField] private TextMeshProUGUI spiritualStrengthText;
+    [SerializeField] private TextMeshProUGUI currentMaxPhysicalStrengthText;
+    [SerializeField] private TextMeshProUGUI currentMaxSpiritualStrengthText;
+    [SerializeField] private TextMeshProUGUI currentMaxPhysicalStrengthBookCapText;
+    [SerializeField] private TextMeshProUGUI currentMaxSpiritualStrengthBookCapText;
+
+    [SerializeField] private RawImage warHPHealthBar;
+    [SerializeField] private RawImage spiritualHPHealthBar;
+    
+    [SerializeField] private TextMeshProUGUI physicalArmorText;
     [SerializeField] private TextMeshProUGUI spiritualArmorText;
+    
+    [SerializeField] private TextMeshProUGUI physicalWeaponText;
     [SerializeField] private TextMeshProUGUI spiritualWeaponText;
     
     [SerializeField] private TextMeshProUGUI scoreText;
@@ -128,6 +137,35 @@ public class GameManager : MonoBehaviour
 
         menuPhysicalArmorText.text = $"{player.physicalArmor}";
         menuSpiritualArmorText.text = $"{player.spiritualArmor}";
+
+        currentMaxPhysicalStrengthText.text = $"{player.currentMaxPotentialPhysicalStrength}";
+        currentMaxSpiritualStrengthText.text = $"{player.currentMaxPotentialSpiritualStrength}";
+        currentMaxPhysicalStrengthBookCapText.text = $"{player.currentWarBookCurrentCapHP}";
+        currentMaxSpiritualStrengthBookCapText.text = $"{player.currentSpiritualBookCurrentCapHP}";
+    }
+
+
+    public void UpdateWarHPBar(int currentWarHP, int currentMaxWarHP)
+    {
+        // Full bar width in inspector is 225, height is 30
+        
+        float pct = Mathf.Clamp01((float)currentWarHP / currentMaxWarHP);
+        RectTransform rt = warHPHealthBar.rectTransform;
+
+        // directly use your known constants
+        rt.sizeDelta = new Vector2(225 * pct, 30f);
+    }
+
+
+    public void UpdateSpiritualHPBar(int currentSpiritualHP, int currentMaxSpiritualHP)
+    {
+        // Full bar width in inspector is 225, height is 30
+        
+        float pct = Mathf.Clamp01((float)currentSpiritualHP / currentMaxSpiritualHP);
+        RectTransform rt = spiritualHPHealthBar.rectTransform;
+
+        // directly use your known constants
+        rt.sizeDelta = new Vector2(225 * pct, 30f);
     }
 
 
@@ -290,43 +328,87 @@ public class GameManager : MonoBehaviour
         if (WarHPBookMultiplier == 2) {
             player.currentSpiritualBookCurrentCapHP = 29;
 
-            physicalStrengthText.color = Color.cyan;
-            spiritualStrengthText.color = Color.white;
+            currentMaxPhysicalStrengthBookCapText.color = Color.cyan;
+            currentMaxSpiritualStrengthBookCapText.color = Color.white;
         }
         
         if (SpiritualHPBookMultiplier == 2) {
             player.currentWarBookCurrentCapHP = 49;
 
-            spiritualStrengthText.color = Color.cyan;
-            physicalStrengthText.color = Color.white;
+            currentMaxSpiritualStrengthBookCapText.color = Color.cyan;
+            currentMaxPhysicalStrengthBookCapText.color = Color.white;
         }
         
         if (WarHPBookMultiplier == 3) {
             player.currentSpiritualBookCurrentCapHP = 29;
 
-            physicalStrengthText.color = Color.yellow;
-            spiritualStrengthText.color = Color.white;
+            currentMaxPhysicalStrengthBookCapText.color = Color.yellow;
+            currentMaxSpiritualStrengthBookCapText.color = Color.white;
         }
 
         if (SpiritualHPBookMultiplier == 3) {
             player.currentWarBookCurrentCapHP = 49;
 
-            spiritualStrengthText.color = Color.yellow;
-            physicalStrengthText.color = Color.white;
+            currentMaxSpiritualStrengthBookCapText.color = Color.yellow;
+            currentMaxPhysicalStrengthBookCapText.color = Color.white;
         }
 
         if (WarHPBookMultiplier == 4) {
             player.currentSpiritualBookCurrentCapHP = 29;
-            physicalStrengthText.color = Color.magenta;
-            spiritualStrengthText.color = Color.white;
+            
+            currentMaxPhysicalStrengthBookCapText.color = Color.magenta;
+            currentMaxSpiritualStrengthBookCapText.color = Color.white;
         }
 
         if (SpiritualHPBookMultiplier == 4) {
             player.currentWarBookCurrentCapHP = 49;
 
-            spiritualStrengthText.color = Color.magenta;
-            physicalStrengthText.color = Color.white;
+            currentMaxSpiritualStrengthBookCapText.color = Color.magenta;
+            currentMaxPhysicalStrengthBookCapText.color = Color.white;
         }
+
+        UpdateUI();
+
+        // if (WarHPBookMultiplier == 2) {
+        //     player.currentSpiritualBookCurrentCapHP = 29;
+
+        //     physicalStrengthText.color = Color.cyan;
+        //     spiritualStrengthText.color = Color.white;
+        // }
+        
+        // if (SpiritualHPBookMultiplier == 2) {
+        //     player.currentWarBookCurrentCapHP = 49;
+
+        //     spiritualStrengthText.color = Color.cyan;
+        //     physicalStrengthText.color = Color.white;
+        // }
+        
+        // if (WarHPBookMultiplier == 3) {
+        //     player.currentSpiritualBookCurrentCapHP = 29;
+
+        //     physicalStrengthText.color = Color.yellow;
+        //     spiritualStrengthText.color = Color.white;
+        // }
+
+        // if (SpiritualHPBookMultiplier == 3) {
+        //     player.currentWarBookCurrentCapHP = 49;
+
+        //     spiritualStrengthText.color = Color.yellow;
+        //     physicalStrengthText.color = Color.white;
+        // }
+
+        // if (WarHPBookMultiplier == 4) {
+        //     player.currentSpiritualBookCurrentCapHP = 29;
+        //     physicalStrengthText.color = Color.magenta;
+        //     spiritualStrengthText.color = Color.white;
+        // }
+
+        // if (SpiritualHPBookMultiplier == 4) {
+        //     player.currentWarBookCurrentCapHP = 49;
+
+        //     spiritualStrengthText.color = Color.magenta;
+        //     physicalStrengthText.color = Color.white;
+        // }
     }
 
     public void PlayBeepSoundEffect() {  //Error sound

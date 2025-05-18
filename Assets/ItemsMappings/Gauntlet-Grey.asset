@@ -21,9 +21,9 @@ MonoBehaviour:
   isLocked: 0
   isTan: 0
   isOrange: 0
-  isBlue: 1
+  isBlue: 0
   isShield: 0
-  isArmor: 0
+  isArmor: 1
   isTreasure: 0
   isQuiver: 0
   isFlour: 0

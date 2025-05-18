@@ -11,8 +11,8 @@ public class Player : MonoBehaviour
     private int totalMaxPhysicalArmor = 199;
     private int totalMaxSpiritualArmor = 52;
     
-    private int currentMaxPotentialPhysicalStrength; //12; //Initial no book cap
-    private int currentMaxPotentialSpiritualStrength; //6; //Initial no booko cap
+    public int currentMaxPotentialPhysicalStrength; //12; //Initial no book cap
+    public int currentMaxPotentialSpiritualStrength; //6; //Initial no booko cap
     
     public int currentWarBookCurrentCapHP = 49;
     public int currentSpiritualBookCurrentCapHP = 29;
@@ -68,6 +68,9 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckIfCanRest();
+
+        gameManager.UpdateWarHPBar(physicalStrength, currentMaxPotentialPhysicalStrength);
+        gameManager.UpdateSpiritualHPBar(spiritualStrength, currentMaxPotentialSpiritualStrength);
     }
 
     private void InitializeValues() {
@@ -117,7 +120,7 @@ public class Player : MonoBehaviour
 
         //physicalStrength = 12; // 12
         physicalArmor = 0;
-        physicalWeapon = 0;
+        physicalWeapon = 6; //Default the Wood Bow at start
         //spiritualStrength = 6; // 6
         spiritualArmor = 0;
         spiritualWeapon = 0;
@@ -285,6 +288,8 @@ public class Player : MonoBehaviour
         //Player loses all the max experience points gained in this fight;
         currentMaxPotentialPhysicalStrength = currentMaxPotentialPhysicalStrengthAtBeginningOfFight;
         currentMaxPotentialSpiritualStrength = currentMaxPotentialSpiritualStrengthAtBeginningOfFight;
+
+        OnPlayerStatsUpdated?.Invoke();
     }
 
 
