@@ -1,8 +1,12 @@
 using System;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
+    [SerializeField] private Image damageOverlayImage;
+
     // Full total:
     // 199/99 HP
     // 119/52 Def
@@ -56,6 +60,7 @@ public class Player : MonoBehaviour
         mazeGenerator = GameObject.Find("MazeGenerator").GetComponent<MazeGenerator>();
         playerGridMovement = GameObject.Find("Player").GetComponent<PlayerGridMovement>();
         playerAmbushDetection = GameObject.Find("Player").GetComponent<PlayerAmbushDetection>();
+        damageOverlayImage.gameObject.SetActive(false);
     }
 
 
@@ -291,7 +296,6 @@ public class Player : MonoBehaviour
 
         OnPlayerStatsUpdated?.Invoke();
     }
-
 
 
     private void Resurrect()
@@ -599,6 +603,16 @@ public class Player : MonoBehaviour
 
         // 10) Update UI
         OnPlayerStatsUpdated?.Invoke();
+
+        // 11) Flash UI red
+        StartCoroutine(FlashRedDamageScreen());
+    }
+
+
+    IEnumerator FlashRedDamageScreen() {
+        damageOverlayImage.gameObject.SetActive(true);
+        yield return new WaitForSeconds(0.05f);
+        damageOverlayImage.gameObject.SetActive(false);
     }
 
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)
