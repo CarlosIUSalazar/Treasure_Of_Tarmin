@@ -1,6 +1,7 @@
 using Unity.Mathematics;
 using System;
 using UnityEngine;
+using System.Collections;
 
 public class Enemy : MonoBehaviour
 {
@@ -26,7 +27,22 @@ public class Enemy : MonoBehaviour
     public float detectionTimeRequired = 2f; // How many seconds the player must stay in sight
     private float timePlayerInSight = 0f;
     private bool hasAmbushed = false;
+    private float flashDuration = 0.05f;
+    private Color flashColor = Color.red;
+    private Renderer meshRenderer; 
+    private Color originalColor;
 
+
+    private void Awake() {
+        meshRenderer = GetComponentInChildren<Renderer>();
+        if (meshRenderer == null)
+        {
+            Debug.LogError($"[{name}] No Renderer found in children!");
+            enabled = false;
+            return;
+        }
+        originalColor = meshRenderer.material.color;
+    }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -167,8 +183,45 @@ public class Enemy : MonoBehaviour
             gameManager.UpdateEnemyHPTextColor(false);
         }
 
+        // Flash when taking damage;
+        StopAllCoroutines();
+        StartCoroutine(FlashCoroutine());
+
         if (currentEnemyHP <= 0) Die();
     }
+
+
+    private IEnumerator FlashCoroutine()
+    {
+        meshRenderer.material.color = flashColor;
+        // for 2D: spriteRenderer.color = flashColor;
+
+        yield return new WaitForSeconds(flashDuration);
+
+        meshRenderer.material.color = originalColor;
+        // for 2D: spriteRenderer.color = originalColor;
+    }
+
+
+    public void Die() {
+        Debug.Log("Enemy Defeated: " + gameObject.name);
+        if (gameObject.name == "Minotaur.vox(Clone)") {
+            Instantiate(treasureOfTarminPrefab, transform.position, Quaternion.identity);
+        }
+        Destroy(gameObject);
+        gameManager.isFighting = false;
+        //player.CheckIfCanRest();
+        playerAmbushDetection.ambushTriggered = false; //Allows to be double ambushed once the first ambush ends when caught in between 2 enemiesgit
+        playerGridMovement.HideActionButton();
+        // Trigger exploration mode after combat ends
+        gameManager.isExploring = true;
+        // Refresh UI immediately after combat
+        gameManager.SetActiveEnemy(null);  // Clear active enemy
+        Instantiate(smokePrefab, transform.position, Quaternion.identity);
+        gameManager.enemyHPText.gameObject.SetActive(false);
+    }
+}
+
 
     // public void TakeDamage(ItemMapping currentPlayerWeapon)
     // {
@@ -231,23 +284,3 @@ public class Enemy : MonoBehaviour
     //         Die();
     //     }
     // }
-
-
-    public void Die() {
-        Debug.Log("Enemy Defeated: " + gameObject.name);
-        if (gameObject.name == "Minotaur.vox(Clone)") {
-            Instantiate(treasureOfTarminPrefab, transform.position, Quaternion.identity);
-        }
-        Destroy(gameObject);
-        gameManager.isFighting = false;
-        //player.CheckIfCanRest();
-        playerAmbushDetection.ambushTriggered = false; //Allows to be double ambushed once the first ambush ends when caught in between 2 enemiesgit
-        playerGridMovement.HideActionButton();
-        // Trigger exploration mode after combat ends
-        gameManager.isExploring = true;
-        // Refresh UI immediately after combat
-        gameManager.SetActiveEnemy(null);  // Clear active enemy
-        Instantiate(smokePrefab, transform.position, Quaternion.identity);
-        gameManager.enemyHPText.gameObject.SetActive(false);
-    }
-}
