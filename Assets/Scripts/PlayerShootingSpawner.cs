@@ -100,7 +100,13 @@ public class PlayerShootingSpawner : MonoBehaviour
             Projectile proj = projectile.GetComponent<Projectile>();
             if (proj != null)
             {
-                proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at the enemy
+                if (enemy.name.Contains("Giant") || enemy.name.Contains("Wraith") || enemy.name.Contains("Minotaur"))  {
+                    //Debug.Log("TALL ENEMY");
+                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 5f, 0)); //4f vertical to shoot higher at TALL enemies
+                } else {
+                    //Debug.Log("SHORT ENEMY");
+                    proj.Initialize(spawnPoint.position, enemy.position + new Vector3(0, 2f, 0)); //2f vertical to shoot higher at normal the enemies
+                }          
             }
             Debug.Log("Shot " + currentItemMapping.ammo);
 
