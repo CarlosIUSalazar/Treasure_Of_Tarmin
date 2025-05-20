@@ -2,85 +2,93 @@ using UnityEngine;
 
 public class ItemPositioning : MonoBehaviour
 {
-    public Transform player; // The player's transform
-    public float offsetDistance = 4.5f; // Distance from the center of the grid square to the edge
-    public float gridSize = 10.0f; // Size of a grid square
+    [Header("Grid Settings")]
+    public float gridSize        = 10f;
+    public float offsetDistance = 4.5f;
+    private Vector3 gridCenter;
 
-    private Vector3 gridCenter; // The center of the item's grid square
+    [Header("Smoothing")]
+    [Tooltip("Radial speed at the grid-edge (when t=0)")]
+    public float radialSpeedMin =  2f;
+    [Tooltip("Radial speed at the grid-center (when t=1)")]
+    public float radialSpeedMax = 20f;
+    [Tooltip("If player is this close to center on spawn, snap immediately")]
+    public float snapDistanceThreshold = 0.05f;
+
+    private float currentDistance = 0f;
+
+    Transform player;
 
     void Start()
     {
-        // Dynamically find the player in the scene
-        if (player == null)
-        {
-            GameObject playerObject = GameObject.FindWithTag("Player");
-            if (playerObject != null)
-            {
-                player = playerObject.transform;
-            }
-            else
-            {
-                Debug.LogError("Player not found! Ensure the player has the 'Player' tag.");
-            }
-        }
-
-        // Store the initial position as the grid center
         gridCenter = transform.position;
+        player     = GameObject.FindWithTag("Player")?.transform;
+        if (player == null) Debug.LogError("No Player tagged!");
     }
 
     void Update()
     {
-        if (player != null && IsPlayerInSameGridSquare())
+        if (player == null) return;
+
+        //––– 0) are we still in the same square? –––
+        int px = Mathf.FloorToInt(player.position.x / gridSize);
+        int pz = Mathf.FloorToInt(player.position.z / gridSize);
+        int ix = Mathf.FloorToInt(gridCenter.x    / gridSize);
+        int iz = Mathf.FloorToInt(gridCenter.z    / gridSize);
+        bool sameSquare = (px == ix && pz == iz);
+
+        if (!sameSquare)
         {
-            UpdateItemPosition();
-        }
-        else
-        {
-            // Reset to grid center when player leaves the square
+            // snap back immediately
+            currentDistance   = 0f;
             transform.position = gridCenter;
+            return;
         }
-    }
 
-    bool IsPlayerInSameGridSquare()
-    {
-        // Determine the player's grid square
-        int playerGridX = Mathf.FloorToInt(player.position.x / gridSize);
-        int playerGridZ = Mathf.FloorToInt(player.position.z / gridSize);
+        //––– 1) compute flat distance to center (optional now, for your smoothing factor) –––
+        Vector2 pp = new Vector2(player.position.x, player.position.z);
+        Vector2 gc = new Vector2(gridCenter.x,       gridCenter.z);
+        float distToCenter  = Vector2.Distance(pp, gc);
 
-        // Determine the item's grid square
-        int itemGridX = Mathf.FloorToInt(gridCenter.x / gridSize);
-        int itemGridZ = Mathf.FloorToInt(gridCenter.z / gridSize);
+        //––– 2) normalize 0 at edge → 1 at center (you already tweaked this factor) –––
+        float halfGrid = gridSize * 2f; //MODIFY THIS VALUE TO CHANGE THE SMOOTHENING EFFECT AS THE PLAYER APPROACHES THE ITEM
+        float t        = Mathf.Clamp01((halfGrid - distToCenter) / halfGrid);
 
-        // Check if they are in the same grid square
-        return playerGridX == itemGridX && playerGridZ == itemGridZ;
-    }
+        //––– 3) dynamic target distance –––
+        float targetDist = t * offsetDistance;
 
-    void UpdateItemPosition()
-    {
-        Vector3 playerForward = player.forward;
-
-        Vector3 offset;
-        if (Mathf.Abs(playerForward.x) > Mathf.Abs(playerForward.z))
+        //––– 4) instant snap on spawn collision –––
+        if (Mathf.Approximately(currentDistance, 0f)
+            && distToCenter < snapDistanceThreshold)
         {
-            // Facing east or west
-            offset = new Vector3(Mathf.Sign(playerForward.x) * offsetDistance, 0, 0);
+            currentDistance = targetDist;
         }
         else
         {
-            // Facing north or south
-            offset = new Vector3(0, 0, Mathf.Sign(playerForward.z) * offsetDistance);
+            //––– 5) speed ramps up as t→1 –––
+            float speed = Mathf.Lerp(radialSpeedMin, radialSpeedMax, t);
+            currentDistance = Mathf.MoveTowards(
+                currentDistance,
+                targetDist,
+                speed * Time.deltaTime
+            );
         }
-        //Debug.Log($"GridCenter: {gridCenter}, Offset: {offset}, NewPosition: {gridCenter + offset}");
-        transform.position = gridCenter + offset;
-    }
 
-    private void OnTriggerEnter(Collider other)
-    {
-        // Prevents a non Special book item to spawn in the same location as the inside of an Evil Door
-        if (other.gameObject.name.Contains("Book-Special")) {
-            Debug.Log("DESTROYED Non Special Book" + gameObject.name);
-            Destroy(gameObject);
-        }
-    }
+    //––– 6) rotate instantly in front of player –––
+    Vector3 dir = player.forward;
+    dir.y = 0f;
+    if (dir.sqrMagnitude < 0.01f) dir = Vector3.forward;
+    dir.Normalize();
 
+    transform.position = gridCenter + dir * currentDistance;
+    }
 }
+    // bool IsPlayerInSameGridSquare()
+    // {
+    //     int px = Mathf.FloorToInt(player.position.x / gridSize);
+    //     int pz = Mathf.FloorToInt(player.position.z / gridSize);
+    //     int ix = Mathf.FloorToInt(gridCenter.x       / gridSize);
+    //     int iz = Mathf.FloorToInt(gridCenter.z       / gridSize);
+    //     return px == ix && pz == iz;
+    // }
+
