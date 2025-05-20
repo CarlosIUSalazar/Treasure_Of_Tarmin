@@ -13,6 +13,8 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private List<ItemMapping> itemMappings; // Drag all ItemMapping assets here
     [SerializeField] private RawImage leftHandSlot; // RawImage for left-hand slot
     [SerializeField] public RawImage rightHandSlot; // RawImage for right-hand slot
+    [SerializeField] public RawImage leftHandIcon;
+    [SerializeField] public RawImage rightHandIcon;
     [SerializeField] private RawImage[] backpackSlots; // Drag BackpackSlot1 to BackpackSlot6 here
     [SerializeField] public Texture2D transparentImg;
     [SerializeField] private RawImage breastPlateImg;
@@ -23,6 +25,7 @@ public class InventoryManager : MonoBehaviour
     [SerializeField] private RawImage shieldImg;
     private Texture emptyTexture; // Assign an empty/default texture in the Inspector
     public bool isHoldingRightHandItem = false;
+    public bool isHoldingLeftHandItem = false;
     private ItemMapping currentHelmet;
     private ItemMapping currentBreastPlate;
     private ItemMapping currentHauberk;
@@ -46,6 +49,7 @@ public class InventoryManager : MonoBehaviour
     public void Update()
     {
         CheckIfRightHandHasItem();
+        CheckIfLeftHandHasItem();
     }
 
 
@@ -71,10 +75,26 @@ public class InventoryManager : MonoBehaviour
         if (rightHandSlot.texture == transparentImg)
         {
             isHoldingRightHandItem = false;
+            rightHandIcon.gameObject.SetActive(true);
         } else {
             isHoldingRightHandItem = true;
+            rightHandIcon.gameObject.SetActive(false);
         }
         return isHoldingRightHandItem;
+    }
+
+
+    public bool CheckIfLeftHandHasItem()
+    {
+        if (leftHandSlot.texture == transparentImg)
+        {
+            isHoldingLeftHandItem = false;
+            leftHandIcon.gameObject.SetActive(true);
+        } else {
+            isHoldingLeftHandItem = true;
+            leftHandIcon.gameObject.SetActive(false);
+        }
+        return isHoldingLeftHandItem;
     }
 
 

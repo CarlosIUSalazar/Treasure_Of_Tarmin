@@ -22,8 +22,8 @@ public class SlotDragHandler : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         { "BackpackSlot4", new Vector3(29.5f, -195, 0) },
         { "BackpackSlot5", new Vector3(87.6f, -195, 0) },
         { "BackpackSlot6", new Vector3(146.3f, -195, 0) },
-        { "LeftHandSlot", new Vector3(-127, -256.6f, 0) },
-        { "RightHandSlot", new Vector3(135, -267, 0) }
+        { "LeftHandSlot", new Vector3(-133.5f, -254.2f, 0) },
+        { "RightHandSlot", new Vector3(140, -267, 0) }
     };
 
     private void Start()
