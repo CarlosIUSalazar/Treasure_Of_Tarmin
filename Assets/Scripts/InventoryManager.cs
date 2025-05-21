@@ -759,14 +759,16 @@ public class InventoryManager : MonoBehaviour
 
         if (itemMapping == null) return;
 
-        gameManager.SetPlayerMessage("Got " + itemMapping.userItemName);
 
         //Case 0: If item is Shiend and there is nothing on Left Hand put it there
         if(!CheckIfLeftHandHasItem() && itemMapping.isShield) {
+            gameManager.SetPlayerMessage("Equipped " + itemMapping.userItemName);
             AssignToLeftHand(itemName);
             return;
         }
 
+        gameManager.SetPlayerMessage("Got " + itemMapping.userItemName);
+        
         // Case 1: Right hand is empty
         if (!CheckIfRightHandHasItem())
         {
