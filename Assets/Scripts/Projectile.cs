@@ -26,6 +26,10 @@ public class Projectile : MonoBehaviour
         // Set the visual rotation of the projectile with a 220-degree offset in Y for enemy projectiles
         Quaternion visualRotation = Quaternion.LookRotation(direction) * Quaternion.Euler(0, 235, 0); ;
         transform.rotation = visualRotation;
+
+        ///This Line Prevents Flying Projectile Intercepion!
+        /// No Intercept :(
+        gameObject.tag = ("FlyingProjectile");
     }
 
     void Update()
