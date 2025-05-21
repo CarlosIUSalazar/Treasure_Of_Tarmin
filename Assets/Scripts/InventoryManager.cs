@@ -196,14 +196,14 @@ public class InventoryManager : MonoBehaviour
     public void AssignToLeftHand(string itemName)
     {
         //SHIELD ASSIGNED TO HAND LOGIC AND TRIGGER
-        Debug.Log("LEFT HAND TEXTURE IS " + itemName);  // e.g Spell-Book-Purple
         if (itemName != null) {
+            Debug.Log("LEFT HAND TEXTURE IS " + itemName);  // e.g Spell-Book-Purple
             ItemMapping itemMapping = GetItemMapping(itemName);
             if (itemMapping.isShield){
                 Debug.Log("Lefthand itemmapping is" + itemMapping.name);
                 currentShield = itemMapping;
                 shieldImg.texture = itemMapping.item2DSprite;
-                //leftHandSlot.texture = itemMapping.item2DSprite;
+                leftHandSlot.texture = itemMapping.item2DSprite;
                 CalculateCurrentArmorTotal();
             } else {
                 currentShield = null;
@@ -760,6 +760,12 @@ public class InventoryManager : MonoBehaviour
         if (itemMapping == null) return;
 
         gameManager.SetPlayerMessage("Got " + itemMapping.userItemName);
+
+        //Case 0: If item is Shiend and there is nothing on Left Hand put it there
+        if(!CheckIfLeftHandHasItem() && itemMapping.isShield) {
+            AssignToLeftHand(itemName);
+            return;
+        }
 
         // Case 1: Right hand is empty
         if (!CheckIfRightHandHasItem())
