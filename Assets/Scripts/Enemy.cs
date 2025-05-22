@@ -19,13 +19,13 @@ public class Enemy : MonoBehaviour
     private int enemyBaseHP;
     public GameObject smokePrefab; // Assign SmokePrefab in the Inspector
     public int currentEnemyHP;
-    private float maxInteractionDistance = 5f;
+    //private float maxInteractionDistance = 5f;
     public float gridSize = 10.0f; //Size of each grid step
     // Detection / Ambush
     [Header("Ambush Settings")]
     //public float detectionDistance = 10f;     // How far the enemy can see forward
     public float detectionTimeRequired = 2f; // How many seconds the player must stay in sight
-    private float timePlayerInSight = 0f;
+    //private float timePlayerInSight = 0f;
     private bool hasAmbushed = false;
     private float flashDuration = 0.05f;
     private Color flashColor = Color.red;

@@ -20,6 +20,7 @@ TagManager:
   - EvilDoorWall
   - EvilDoor
   - Smoke
+  - FlyingProjectile
   layers:
   - Default
   - TransparentFX
