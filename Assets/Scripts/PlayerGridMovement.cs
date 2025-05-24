@@ -327,6 +327,8 @@ public class PlayerGridMovement : MonoBehaviour
     }
 
     void HandleInput() {
+        if (gameManager.isFighting) return; // Disable Keyboard controls during a fight.
+
         if (Input.GetKeyDown(KeyCode.W))
         {
             MoveForward();
@@ -762,7 +764,7 @@ public class PlayerGridMovement : MonoBehaviour
         float interactionDistance = gridSize;           // Detect doors/enemies one grid away
 
         //Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
-        Vector3 rayOrigin = transform.position + new Vector3(0, 1, 0); // Slight downward offset
+        Vector3 rayOrigin = transform.position + new Vector3(0, -2f, 0); // Slight downward offset
         Vector3 rayDirection = transform.forward;
 
         // Short raycast for items
@@ -801,6 +803,12 @@ public class PlayerGridMovement : MonoBehaviour
                 gameManager.UpdateEnemyHPTextColor(false);
                 player.HandleCurrentMaxHPsAtBeginningOfFight();
             }
+            // if (hit.collider.CompareTag("Door")) {
+            //     gameManager.SetPlayerMessage("Tap to open Door");
+            // }
+            // if (hit.collider.CompareTag("Container")) {
+            //     gameManager.SetPlayerMessage("Double Click to Open Container");
+            // }
         }
         else
         {

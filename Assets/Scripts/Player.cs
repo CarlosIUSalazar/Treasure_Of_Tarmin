@@ -857,7 +857,6 @@ public class Player : MonoBehaviour
         transform.position =  initialPlayerPosition;
         transform.eulerAngles = initialPlayerRotation;
     }
-
 }
 
     // public void playerTakeDamageCalculation(ItemMapping itemMapping)
